@@ -30,6 +30,11 @@ config :adoptoposs, AdoptopossWeb.Endpoint,
     ]
   ]
 
+# Authentication
+config :ueberauth, Ueberauth.Strategy.Github.OAuth,
+  client_id: "MY_GITHUB_CLIENT_ID",
+  client_secret: "MY_GITHUB_CLIENT_SECRET"
+
 # ## SSL Support
 #
 # In order to use HTTPS in development, a self-signed
