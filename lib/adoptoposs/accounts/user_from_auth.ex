@@ -1,13 +1,15 @@
 defmodule Adoptoposs.Accounts.UserFromAuth do
   alias Ueberauth.Auth
 
-  def create(%Auth{info: info} = auth) do
+  def build(%Auth{} = auth) do
     %{
+      uid: "#{auth.uid}",
+      provider: "#{auth.provider}",
       name: name_from_auth(auth),
-      username: info.nickname,
-      avatar: avatar_from_auth(auth),
+      username: username_from_auth(auth),
       email: email_from_auth(auth),
-      url: url_from_auth(auth)
+      avatar_url: avatar_url_from_auth(auth),
+      profile_url: profile_url_from_auth(auth)
     }
   end
 
@@ -22,12 +24,12 @@ defmodule Adoptoposs.Accounts.UserFromAuth do
   defp username_from_auth(%Auth{info: %{nickname: nickname}}), do: nickname
   defp username_from_auth(%Auth{}), do: ""
 
-  defp avatar_from_auth(%Auth{info: %{urls: %{avatar_url: url}}}), do: url
-  defp avatar_from_auth(%Auth{}), do: ""
+  defp avatar_url_from_auth(%Auth{info: %{urls: %{avatar_url: url}}}), do: url
+  defp avatar_url_from_auth(%Auth{}), do: ""
 
   defp email_from_auth(%Auth{info: %{email: email}}), do: email
   defp email_from_auth(%Auth{}), do: ""
 
-  defp url_from_auth(%Auth{info: %{urls: %{html_url: url}}}), do: url
-  defp url_from_auth(%Auth{}), do: ""
+  defp profile_url_from_auth(%Auth{info: %{urls: %{html_url: url}}}), do: url
+  defp profile_url_from_auth(%Auth{}), do: ""
 end

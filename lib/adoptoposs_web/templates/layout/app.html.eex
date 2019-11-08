@@ -15,8 +15,8 @@
             <li class="row">
               <%= if @current_user do %>
                 <a class="column" href="/auth/github/logout">Logout</a>
-                <a class="column" href="<%= @current_user.url %>" title="<%=@current_user.name %>">
-                  <img width="45" src="<%= @current_user.avatar %>" alt="<%=@current_user.name %>">
+                <a class="column" href="<%= @current_user.profile_url %>" title="<%=@current_user.name %>">
+                  <img width="45" src="<%= @current_user.avatar_url %>" alt="<%=@current_user.name %>">
                 </a>
               <% else %>
                 <a href="/auth/github">Login with Github</a>
