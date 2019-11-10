@@ -18,7 +18,7 @@ defmodule AdoptopossWeb.AuthController do
         |> put_flash(:info, "Successfully authenticated!")
         |> put_session(:current_user, current_user)
         |> configure_session(renew: true)
-        |> redirect(to: "/", current_user: current_user)
+        |> redirect(to: "/")
 
       {:error, _} ->
         conn
