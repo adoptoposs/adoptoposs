@@ -1,0 +1,62 @@
+<div class="card project">
+  <div class="header">
+    <div class="top">
+      <a href="<%= @project.url %>" alt="<%= @project.name %>">
+        <h2><%= @project.name %></h2>
+      </a>
+      <span class="lang" style="background-color: <%= @project.language.color %>;"><%= @project.language.name %></span>
+    </div>
+    <div class="bottom">
+      <%= {:safe, Earmark.as_html!(@project.description)} %>
+    </div>
+  </div>
+
+  <div class="body">
+    <div class="stats">
+      <p class="stars">
+        Stars: <%= readable_number(@project.star_count) %>
+      </p>
+      <p class="watchers">
+        Watchers: <%= readable_number(@project.watcher_count) %>
+      </p>
+      <p class="prs">
+        Open Pull requests: <%= readable_number(@project.pull_request_count) %>
+      </p>
+      <p class="issues">
+        Open issues: <%= readable_number(@project.issue_count) %>
+      </p>
+    </div>
+  </div>
+
+  <div class="footer">
+    <div>
+      <span>
+        last updated
+        <%= updated_ago(@project.last_commit.authored_at) %>
+        <%= if @project.last_commit.author.login do %>
+          by
+          <a href="<%= @project.last_commit.author.profile_url %>" class="owner-name">
+            <%= @project.last_commit.author.login %>
+          </a>
+        <% end %>
+      </span>
+
+      <%= if @project.last_commit.author.name do %>
+        <a href="<%= @project.last_commit.author.profile_url %>" class="owner-avatar">
+          <img src="<%= @project.last_commit.author.avatar_url %>" alt="<%= @project.last_commit.author.name %>">
+        </a>
+      <% end %>
+    </div>
+
+    <div>
+      <span>owned by
+        <a href="<%= @project.owner.profile_url %>" class="owner-name">
+          <%= @project.owner.login%>
+        </a>
+      </span>
+      <a href="<%= @project.owner.profile_url %>" class="owner-avatar">
+        <img src="<%= @project.owner.avatar_url %>" alt="<%= @project.owner.login %>">
+      </a>
+    </div>
+  </div>
+</div>

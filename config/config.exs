@@ -25,10 +25,12 @@ config :logger, :console,
 # Use Jason for JSON parsing in Phoenix
 config :phoenix, :json_library, Jason
 
+github_api_scopes = Enum.join(~w(user public_repo), ",")
+
 # Authentication
 config :ueberauth, Ueberauth,
   providers: [
-    github: {Ueberauth.Strategy.Github, []}
+    github: {Ueberauth.Strategy.Github, [default_scope: github_api_scopes]}
   ]
 
 # Import environment specific config. This must remain at the bottom

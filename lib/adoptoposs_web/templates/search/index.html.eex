@@ -1,0 +1,30 @@
+<section class="column search">
+  <p>Search for repositories:</p>
+
+  <% id = "search-input-#{Base.encode16(@conn.request_path)}" %>
+
+  <form action="<%= Routes.search_path(@conn, :index) %>" method="get">
+    <input class="search-input"
+           id="<%= id %>"
+           type="text"
+           name="q"
+           placeholder="Search"
+           autocomplete="off"
+           <%= if assigns[:autofocus] != false, do: "autofocus" %>
+           value="<%= Map.get(@conn.params, "q") %>">
+
+    <label for="<%= id %>">
+      <button type="submit">
+        Search
+      </button>
+    </label>
+  </form>
+</section>
+
+<section class="row">
+  <div class=card-container>
+    <%= for result <- @results do %>
+      <%= render "project.html", project: result %>
+    <% end %>
+  </ul>
+</section>
