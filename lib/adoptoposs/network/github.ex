@@ -113,7 +113,7 @@ defmodule Adoptoposs.Network.Github do
 
   defp build_repository(_data), do: nil
 
-  defp build_owner(%{owner: owner}) do
+  defp build_owner(%{owner: owner}) when not is_nil(owner) do
     %User{
       login: owner.login,
       avatar_url: owner.avatarUrl,
@@ -135,7 +135,9 @@ defmodule Adoptoposs.Network.Github do
         nil ->
           {nil, %{}}
 
-        %{authoredDate: authored_date, author: %{user: author}} ->
+        %{authoredDate: authored_date, author: %{user: user}} ->
+          author = user || %{}
+
           case DateTime.from_iso8601(authored_date) do
             {:ok, date, _} -> {date, author}
             {:error, _} -> {nil, author}
@@ -145,11 +147,11 @@ defmodule Adoptoposs.Network.Github do
     %Commit{
       authored_at: authored_at,
       author: %User{
-        login: author.login,
-        name: author.name,
-        avatar_url: author.avatarUrl,
-        profile_url: author.url,
-        email: author.email
+        login: author[:login],
+        name: author[:name],
+        avatar_url: author[:avatarUrl],
+        profile_url: author[:url],
+        email: author[:email]
       }
     }
   end
