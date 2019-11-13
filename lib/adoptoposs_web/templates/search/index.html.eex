@@ -1,24 +1,6 @@
 <section class="column search">
   <p>Search for repositories:</p>
-
-  <% id = "search-input-#{Base.encode16(@conn.request_path)}" %>
-
-  <form action="<%= Routes.search_path(@conn, :index) %>" method="get">
-    <input class="search-input"
-           id="<%= id %>"
-           type="text"
-           name="q"
-           placeholder="Search"
-           autocomplete="off"
-           <%= if assigns[:autofocus] != false, do: "autofocus" %>
-           value="<%= Map.get(@conn.params, "q") %>">
-
-    <label for="<%= id %>">
-      <button type="submit">
-        Search
-      </button>
-    </label>
-  </form>
+  <%= AdoptopossWeb.SharedView.render "search_input.html", conn: @conn %>
 </section>
 
 <section class="row">

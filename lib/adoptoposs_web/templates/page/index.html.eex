@@ -3,5 +3,6 @@
   <p>A platform to ensure that<br/>low-activity open source software</br> projects are still maintained.</p>
 </section>
 
-<section class="row">
+<section class="column search">
+  <%= AdoptopossWeb.SharedView.render "search_input.html", conn: @conn %>
 </section>
