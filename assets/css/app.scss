@@ -1,0 +1,80 @@
+/* This file is for your main application css. */
+
+@import "./phoenix.scss";
+
+.card-container {
+  display: grid;
+  grid-template-columns: 1;
+  width: 100%;
+}
+
+.card {
+  margin: 16px 0;
+  border-radius: 3px;
+  border-bottom: 1px #ddd solid;
+
+  .header, .body, .footer {
+    padding: 16px;
+  }
+
+  .header {
+    min-height: 100px;
+
+    .top {
+      display: flex;
+      flex-flow: row;
+      justify-content: space-between;
+      align-items: flex-start;
+
+      h2 {
+        font-size: 1.5em;
+        font-weight: bold;
+      }
+
+      span.lang {
+        color: #fff;
+        padding: 2px 8px;
+        border-radius: 3px;
+      }
+    }
+
+    .bottom {
+      color: #444;
+    }
+  }
+
+  .body {
+    background-color: #eee;
+  }
+
+  .footer {
+    display: flex;
+    flex-flow: row;
+    align-items: flex-start;
+    justify-content: space-between;
+
+    div {
+      display: flex;
+      flex-flow: row;
+      justify-content: flex-end;
+    }
+  }
+
+  img {
+    padding: 2px;
+    margin-left: 4px;
+    width: 28px;
+  }
+}
+
+form {
+  display: flex;
+  flex-flow: row;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 100%;
+
+  button, button[type="submit"] {
+    margin-left: 6px;
+  }
+}
