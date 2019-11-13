@@ -13,7 +13,7 @@
   border-radius: 3px;
   border-bottom: 1px #ddd solid;
 
-  .header, .body, .footer {
+  .header, .footer {
     padding: 16px;
   }
 
@@ -31,10 +31,14 @@
         font-weight: bold;
       }
 
-      span.lang {
-        color: #fff;
-        padding: 2px 8px;
-        border-radius: 3px;
+      div.lang {
+        margin-top: 2px;
+        span {
+          color: #fff;
+          padding: 4px 10px;
+          border-radius: 4px;
+          margin-top: 2px;
+        }
       }
     }
 
@@ -44,7 +48,29 @@
   }
 
   .body {
+    padding: 0 16px;
     background-color: #eee;
+    display: flex;
+    justify-content: space-between;
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+
+    span.lang {
+      width: 8px;
+      position: relative;
+
+      &:first-child {
+        left: -16px;
+        border-top-left-radius: 4px;
+        border-bottom-left-radius: 4px;
+      }
+    }
+
+    .stats {
+      padding: 16px 0;
+      color: #333;
+      width: 100%;
+    }
   }
 
   .footer {

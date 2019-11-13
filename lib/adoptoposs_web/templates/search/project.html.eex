@@ -4,7 +4,11 @@
       <a href="<%= @project.url %>" alt="<%= @project.name %>">
         <h2><%= @project.name %></h2>
       </a>
-      <span class="lang" style="background-color: <%= @project.language.color %>;"><%= @project.language.name %></span>
+      <div class="lang">
+        <span style="background-color: <%= @project.language.color %>;">
+          <%= @project.language.name %>
+        </span>
+      </div>
     </div>
     <div class="bottom">
       <%= {:safe, Earmark.as_html!(@project.description)} %>
@@ -12,6 +16,7 @@
   </div>
 
   <div class="body">
+    <span class="lang" style="background-color: <%= @project.language.color %>;"></span>
     <div class="stats">
       <p class="stars">
         Stars: <%= readable_number(@project.star_count) %>
@@ -20,7 +25,7 @@
         Watchers: <%= readable_number(@project.watcher_count) %>
       </p>
       <p class="prs">
-        Open Pull requests: <%= readable_number(@project.pull_request_count) %>
+        Open pull requests: <%= readable_number(@project.pull_request_count) %>
       </p>
       <p class="issues">
         Open issues: <%= readable_number(@project.issue_count) %>
