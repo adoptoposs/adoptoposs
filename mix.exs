@@ -47,7 +47,9 @@ defmodule Adoptoposs.MixProject do
       {:ueberauth_github, "~> 0.8"},
       {:httpoison, "~> 1.6"},
       {:timex, "~> 3.5"},
-      {:earmark, "~> 1.4"}
+      {:earmark, "~> 1.4"},
+      {:mix_test_watch, "~> 1.0", only: :dev, runtime: false},
+      {:ex_machina, "~> 2.3", only: :test}
     ]
   end
 
