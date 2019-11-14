@@ -16,12 +16,21 @@ h4{font-size: 1.8rem; letter-spacing: -.05rem; line-height: 1.5}
 h5{font-size: 1.6rem; letter-spacing: 0; line-height: 1.4}
 h6{font-size: 1.4rem; letter-spacing: 0; line-height: 1.2}
 
-.container{
+body {
+  margin: 0;
+  padding: 0;
+}
+
+.container {
   margin: 0 auto;
   max-width: 80.0rem;
   padding: 0 2.0rem;
   position: relative;
-  width: 100%
+  width: 100%;
+
+  @media (max-width: 40.0rem) {
+    padding: 0 1.0rem;
+  }
 }
 select {
   width: auto;

@@ -16,6 +16,10 @@
 
   .header, .footer {
     padding: 16px;
+
+    @media (max-width: 40.0rem) {
+      padding: 16px 8px;
+    }
   }
 
   .header {
@@ -90,12 +94,6 @@
           margin-bottom: 3px;
           background-color: #ccc;
 
-          /*transform: rotate(90deg);
-          -moz-transform: rotate(90deg);
-          -ms-transform: rotate(90deg);
-          -o-transform: rotate(90deg);
-          -webkit-transform: rotate(90deg);*/
-
           i {
             position: absolute;
             font-size: 2em;
@@ -159,18 +157,31 @@
     align-items: flex-start;
     justify-content: space-between;
 
+    @media (max-width: 40.0rem) {
+      flex-flow: column;
+    }
+
     div {
       display: flex;
       flex-flow: row;
       justify-content: flex-end;
     }
-  }
 
-  img {
-    padding: 2px;
-    margin-left: 4px;
-    width: 28px;
-    border-radius: 4px;
+    a {
+      display: inline-flex;
+
+      &.user-link {
+        span {
+          margin-right: 4px;
+        }
+
+        img {
+          padding: 2px;
+          width: 28px;
+          border-radius: 4px;
+        }
+      }
+    }
   }
 }
 

@@ -47,28 +47,21 @@
         <%= updated_ago(@project.last_commit.authored_at) %>
         <%= if @project.last_commit.author.login do %>
           by
-          <a href="<%= @project.last_commit.author.profile_url %>" class="owner-name">
-            <%= @project.last_commit.author.login %>
+          <a href="<%= @project.last_commit.author.profile_url %>" class="user-link">
+            <span><%= @project.last_commit.author.login %></span>
+            <img src="<%= @project.last_commit.author.avatar_url %>" alt="<%= @project.last_commit.author.name %>">
           </a>
         <% end %>
       </span>
-
-      <%= if @project.last_commit.author.name do %>
-        <a href="<%= @project.last_commit.author.profile_url %>" class="owner-avatar">
-          <img src="<%= @project.last_commit.author.avatar_url %>" alt="<%= @project.last_commit.author.name %>">
-        </a>
-      <% end %>
     </div>
 
     <div>
       <span>owned by
-        <a href="<%= @project.owner.profile_url %>" class="owner-name">
-          <%= @project.owner.login%>
+        <a href="<%= @project.owner.profile_url %>" class="user-link">
+          <span><%= @project.owner.login%></span>
+          <img src="<%= @project.owner.avatar_url %>" alt="<%= @project.owner.login %>">
         </a>
       </span>
-      <a href="<%= @project.owner.profile_url %>" class="owner-avatar">
-        <img src="<%= @project.owner.avatar_url %>" alt="<%= @project.owner.login %>">
-      </a>
     </div>
   </div>
 </div>
