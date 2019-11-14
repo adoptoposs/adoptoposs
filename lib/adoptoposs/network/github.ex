@@ -64,6 +64,15 @@ defmodule Adoptoposs.Network.Github do
                               login
                             }
                           }
+                          committer {
+                            user {
+                              url
+                              name
+                              avatarUrl
+                              email
+                              login
+                            }
+                          }
                         }
                       }
                     }
@@ -132,16 +141,16 @@ defmodule Adoptoposs.Network.Github do
 
     {authored_at, author} =
       case last_commit do
-        nil ->
-          {nil, %{}}
-
-        %{authoredDate: authored_date, author: %{user: user}} ->
-          author = user || %{}
+        %{authoredDate: authored_date, author: %{user: author}, committer: %{user: committer}} ->
+          user = committer || author || %{}
 
           case DateTime.from_iso8601(authored_date) do
-            {:ok, date, _} -> {date, author}
-            {:error, _} -> {nil, author}
+            {:ok, date, _} -> {date, user}
+            {:error, _} -> {nil, user}
           end
+
+        _ ->
+          {nil, %{}}
       end
 
     %Commit{
