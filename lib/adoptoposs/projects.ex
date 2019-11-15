@@ -25,8 +25,6 @@ defmodule Adoptoposs.Projects do
     community_activity_score = community_activity(repo)
     maintainer_activity_score = maintainer_activity(repo)
 
-    max_score = max(community_activity_score, maintainer_activity_score)
-
     community_activity_score * @community_activity_weight +
       maintainer_activity_score * @maintainer_activity_weight
   end

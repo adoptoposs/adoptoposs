@@ -100,7 +100,7 @@ defmodule Adoptoposs.Network.Github do
   end
 
   defp compile_repos(%{data: %{search: %{edges: edges}}}) do
-    Enum.map(edges, &(build_repository(&1.node) |> IO.inspect()))
+    Enum.map(edges, &build_repository(&1.node))
   end
 
   defp compile_repos(_data), do: []
