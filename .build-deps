@@ -1,0 +1,6 @@
+build-base
+postgresql-dev
+nodejs
+yarn
+inotify-tools
+bash

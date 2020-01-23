@@ -1,0 +1,29 @@
+version: "3.7"
+
+services:
+  web:
+    build:
+      context: .
+      target: ci
+    stdin_open: true
+    tty: true
+    command: ./bin/start_dev_server
+    volumes:
+      - .:/app
+      - /app/assets/node_modules/
+      - /app/deps/
+    ports:
+      - "8000:4000"
+    depends_on:
+      - db
+
+  db:
+    image: "postgres:12.1-alpine"
+    ports:
+      - '54321:5432'
+    volumes:
+      - 'db_data:/var/lib/postgresql/data'
+
+volumes:
+  db_data:
+
