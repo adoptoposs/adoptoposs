@@ -1,20 +1,38 @@
 # Adoptoposs
 
-To start your Phoenix server:
+## Development setup
 
-  * Install dependencies with `mix deps.get`
-  * Create and migrate your database with `mix ecto.setup`
-  * Install Node.js dependencies with `cd assets && npm install`
-  * Start Phoenix endpoint with `mix phx.server`
+The app comes with a docker image for development. 
+In order to setup the development environment you need to have some dependencies installed on your machine:
 
-Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
+- [docker engine](https://docs.docker.com/install/)
+- [docker-compose](https://docs.docker.com/compose/install/)
+- [git](https://git-scm.com/downloads)
+- make (if running on Windows you can use [Cygwin](https://cygwin.com) to install make).
 
-Ready to run in production? Please [check our deployment guides](https://hexdocs.pm/phoenix/deployment.html).
+Checkout the Adoptoposs repository with
 
-## Learn more
+```
+$ git clone git@github.com:paulgoetze/adoptoposs.git
+```
 
-  * Official website: http://www.phoenixframework.org/
-  * Guides: https://hexdocs.pm/phoenix/overview.html
-  * Docs: https://hexdocs.pm/phoenix
-  * Mailing list: http://groups.google.com/group/phoenix-talk
-  * Source: https://github.com/phoenixframework/phoenix
+Then step into the project and run the setup make task. This will build the docker container, install all dependencies and setup development & test databases:
+
+```
+$ cd adoptoposs && make setup
+```
+
+Next, start the development server with:
+
+```
+$ make up
+```
+
+Now you can visit [`localhost:8000`](http://localhost:8000) from your browser.
+
+
+For further detail on available make tasks please have a look into the task list:
+
+```
+$ make usage
+```
