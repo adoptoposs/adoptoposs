@@ -10,8 +10,6 @@ services:
     command: ./bin/start_dev_server
     volumes:
       - .:/app
-      - /app/assets/node_modules/
-      - /app/deps/
     ports:
       - "8000:4000"
     depends_on:
