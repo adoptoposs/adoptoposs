@@ -8,7 +8,6 @@ In order to setup the development environment you need to have some dependencies
 - [docker engine](https://docs.docker.com/install/)
 - [docker-compose](https://docs.docker.com/compose/install/)
 - [git](https://git-scm.com/downloads)
-- make (if running on Windows you can use [Cygwin](https://cygwin.com) to install make).
 
 Checkout the Adoptoposs repository with
 
@@ -16,7 +15,7 @@ Checkout the Adoptoposs repository with
 $ git clone git@github.com:paulgoetze/adoptoposs.git
 ```
 
-Then step into the project and run the setup make task. This will build the docker container, install all dependencies and setup development & test databases:
+Then step into the project and run the setup make task. This will build the docker container, create a development config, install all dependencies and setup development & test databases:
 
 ```
 $ cd adoptoposs && make setup
