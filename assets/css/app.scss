@@ -2,10 +2,68 @@
 
 @import "./phoenix.scss";
 
+$alert: #B36A66;
+$less-alert: #FED99E;
+
+.switch {
+  display: flex;
+  flex-flow: column;
+  align-items: stretch;
+
+  .switch-toggles {
+    display: flex;
+    flex-flow: row;
+
+    a.switch-toggle {
+      text-decoration: none;
+      height: 100%;
+      flex-grow: 1;
+      text-align: center;
+      padding: 10px;
+      line-height: 2.5em;
+      margin: 0;
+
+      .icon {
+        font-size: 2em;
+        mix-blend-mode: luminosity;
+      }
+
+      &.red {
+        background-color: $alert;
+        color: #fff;
+        border-top-left-radius: 4px;
+      }
+
+      &.yellow {
+        background-color: $less-alert;
+        color: #333;
+        border-top-right-radius: 4px;
+      }
+    }
+  }
+
+  .switch-indicator {
+    width: 100%;
+    height: 0.5em;
+
+    &.red {
+      background-color: $alert;
+    }
+
+    &.yellow {
+      background-color: $less-alert;
+    }
+  }
+}
+
 .card-container {
   display: grid;
   grid-template-columns: 1;
   width: 100%;
+
+  &.hidden {
+    display: none;
+  }
 }
 
 .card {
@@ -109,37 +167,19 @@
         }
 
         &.red {
-          span:nth-of-type(3) {
-            background-color: #B36A66;
-          }
-
-          span:nth-of-type(1), span:nth-of-type(2) {
-            i {
-              display: none;
+          span {
+            background-color: $alert;
+            i:before {
+              content: "🙀";
             }
           }
         }
 
         &.yellow {
-          span:nth-of-type(2) {
-            background-color: #FED99E;
-          }
-
-          span:nth-of-type(1), span:nth-of-type(3) {
-            i {
-              display: none;
-            }
-          }
-        }
-
-        &.green {
-          span:nth-of-type(1) {
-            background-color: #A1CAAA;
-          }
-
-          span:nth-of-type(2), span:nth-of-type(3) {
-            i {
-              display: none;
+          span {
+            background-color: $less-alert;
+            i:before {
+              content: "😻";
             }
           }
         }

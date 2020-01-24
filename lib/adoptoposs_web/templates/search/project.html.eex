@@ -33,9 +33,7 @@
     </div>
     <div class="score">
       <div class="traffic-light <%= maintainance_need(@project) %>">
-        <span><i>😻</i></span>
-        <span><i>😸</i></span>
-        <span><i>🙀</i></span>
+        <span><i></i></span>
       </div>
     </div>
   </div>

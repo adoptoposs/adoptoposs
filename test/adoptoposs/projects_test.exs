@@ -17,7 +17,7 @@ defmodule Adoptoposs.ProjectsTest do
           pull_request_count: 100
         )
 
-      assert Projects.score(repo) > 0.5
+      assert Projects.score(repo) > 0.66
     end
 
     test "returns a high value if the the repo is not popular and was rencently updated" do
@@ -32,7 +32,7 @@ defmodule Adoptoposs.ProjectsTest do
           pull_request_count: 1_000
         )
 
-      assert Projects.score(repo) > 0.5
+      assert Projects.score(repo) > 0.66
     end
 
     test "returns a low value if the repo is popular, has high pr/issues and was not updated recently" do
@@ -47,7 +47,7 @@ defmodule Adoptoposs.ProjectsTest do
           pull_request_count: 100
         )
 
-      assert Projects.score(repo) < 0.5
+      assert Projects.score(repo) < 0.33
     end
 
     test "returns a value between 0.0 and 1.0 else" do

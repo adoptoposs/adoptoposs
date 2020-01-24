@@ -26,7 +26,10 @@ defmodule AdoptopossWeb.SearchView do
     |> maintainance_type()
   end
 
-  defp maintainance_type(percent) when percent > 0.66, do: "green"
-  defp maintainance_type(percent) when percent > 0.33, do: "yellow"
+  defp maintainance_type(percent) when percent >= 0.66, do: "green"
+  defp maintainance_type(percent) when percent >= 0.33, do: "yellow"
   defp maintainance_type(percent) when percent < 0.33, do: "red"
+
+  def switch_type(%Plug.Conn{params: %{"type" => "help"}}), do: "yellow"
+  def switch_type(conn), do: "red"
 end

@@ -34,20 +34,41 @@ defmodule Adoptoposs.Projects do
     watchers = max(watchers, 1)
     prs = max(prs, 1)
 
-    interest = sigmoid(:math.log10(stars / 100))
-    pr_need = sigmoid(:math.log10(prs / 10))
-    issue_need = sigmoid(:math.log10(issues / 10))
-    pressure = sigmoid(:math.log10(watchers / 10))
+    interest = 1 - sigmoid(:math.log10(stars / 100))
+    pr_need = 1 - sigmoid(:math.log10(prs / 10))
+    issue_need = 1 - sigmoid(:math.log10(issues / 10))
+    pressure = 1 - sigmoid(:math.log10(watchers / 10))
 
     meassures = [interest, pr_need, issue_need, pressure]
     Enum.sum(meassures) / Enum.count(meassures)
   end
 
-  def maintainer_activity(%Repository{} = %{last_commit: %{authored_at: date}}) do
+  defp maintainer_activity(%Repository{} = %{last_commit: %{authored_at: date}}) do
     now = DateTime.utc_now()
     days = max(Timex.diff(now, date || now, :days), 1)
     sigmoid(:math.log10(days / 30))
   end
 
   defp sigmoid(x), do: 1 / (1 + :math.exp(-x))
+
+  def filter(repos, type = "maintainer"), do: filter_unmaintained(repos)
+  def filter(repos, type = "help"), do: filter_help_needed(repos)
+  def filter(repos, type), do: []
+
+  def filter_unmaintained(repos) do
+    repos |> Enum.filter(&need_maintainer?/1)
+  end
+
+  def filter_help_needed(repos) do
+    repos |> Enum.filter(&need_help?/1)
+  end
+
+  defp need_maintainer?(%Repository{} = repo) do
+    score(repo) < 0.33
+  end
+
+  defp need_help?(%Repository{} = repo) do
+    value = score(repo)
+    value >= 0.33 && value < 0.66
+  end
 end
