@@ -1,17 +1,15 @@
 defmodule Adoptoposs.Projects do
   alias Adoptoposs.Network.Repository
 
-  @stars_weight 0.7
-  @watchers_weight 0.3
   @community_activity_weight 0.1
   @maintainer_activity_weight 0.9
 
   @doc """
   The score describes a meassure for how well a repository is maintained.
 
-  It takes the community_activity and the community's activity, as well as the
-  maintainers activity (when was the repo last updated) into account and
-  calculates a weighted score from these parts.
+  It takes the community's activity, as well as the maintainers activity
+  (when was the repo last updated) into account and calculates a weighted
+  score from these parts.
 
   - maintainer activity ~ score
   - 1 / community_activity ~ score
@@ -22,11 +20,9 @@ defmodule Adoptoposs.Projects do
       do: 1.0
 
   def score(%Repository{} = repo) do
-    community_activity_score = community_activity(repo)
-    maintainer_activity_score = maintainer_activity(repo)
-
-    community_activity_score * @community_activity_weight +
-      maintainer_activity_score * @maintainer_activity_weight
+    community = community_activity(repo) * @community_activity_weight
+    maintainer = maintainer_activity(repo) * @maintainer_activity_weight
+    1 - (community + maintainer)
   end
 
   defp community_activity(%Repository{} = repo) do
@@ -38,11 +34,20 @@ defmodule Adoptoposs.Projects do
     watchers = max(watchers, 1)
     prs = max(prs, 1)
 
-    1 / (stars / issues) * @stars_weight + 1 / (watchers / prs) * @watchers_weight
+    interest = sigmoid(:math.log10(stars / 100))
+    pr_need = sigmoid(:math.log10(prs / 10))
+    issue_need = sigmoid(:math.log10(issues / 10))
+    pressure = sigmoid(:math.log10(watchers / 10))
+
+    meassures = [interest, pr_need, issue_need, pressure]
+    Enum.sum(meassures) / Enum.count(meassures)
   end
 
   def maintainer_activity(%Repository{} = %{last_commit: %{authored_at: date}}) do
     now = DateTime.utc_now()
-    1 / max(Timex.diff(now, date || now, :weeks), 1)
+    days = max(Timex.diff(now, date || now, :days), 1)
+    sigmoid(:math.log10(days / 30))
   end
+
+  defp sigmoid(x), do: 1 / (1 + :math.exp(-x))
 end

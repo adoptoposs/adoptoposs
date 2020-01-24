@@ -26,7 +26,7 @@ defmodule AdoptopossWeb.SearchView do
     |> maintainance_type()
   end
 
-  defp maintainance_type(percent) when percent > 0.9, do: "green"
-  defp maintainance_type(percent) when percent > 0.3, do: "yellow"
-  defp maintainance_type(percent) when percent < 0.3, do: "red"
+  defp maintainance_type(percent) when percent > 0.66, do: "green"
+  defp maintainance_type(percent) when percent > 0.33, do: "yellow"
+  defp maintainance_type(percent) when percent < 0.33, do: "red"
 end
