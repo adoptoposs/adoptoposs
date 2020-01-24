@@ -19,7 +19,7 @@ defmodule Adoptoposs.Network.Github do
   defp repo_search_query(query, limit) do
     ~s"""
     {
-      search(query: \\\"is:public #{query}\\\", type: REPOSITORY, first: #{limit}) {
+      search(query: \\\"is:public archived:false #{query}\\\", type: REPOSITORY, first: #{limit}) {
         edges {
           node {
             ... on Repository {
