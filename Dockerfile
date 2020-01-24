@@ -14,6 +14,9 @@ RUN mix do \
     deps.compile
 
 COPY assets/package.json assets/yarn.lock /app/assets/
-RUN cd assets && yarn install
+RUN apk update \
+    && apk add -u yarn \
+    && cd assets \
+    && yarn install
 
 COPY . ./
