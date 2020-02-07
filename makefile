@@ -36,11 +36,11 @@ hex-deps:
 yarn:
 	$(call dc, run --rm -w /app/assets/ web yarn)
 db-setup:
-	$(call mix-dev, ecto.create$(comma) ecto.migrate)
+	$(call mix-dev, ecto.setup)
 db-migrate:
 	$(call mix-dev, ecto.migrate)
 db-setup-test:
-	$(call mix-test, ecto.create$(comma) ecto.migrate)
+	$(call mix-test, ecto.setup)
 shell:
 	$(call dc-run, ash)
 iex:
