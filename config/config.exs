@@ -30,7 +30,7 @@ config :logger, :console,
 # Use Jason for JSON parsing in Phoenix
 config :phoenix, :json_library, Jason
 
-github_api_scopes = Enum.join(~w(user public_repo), ",")
+github_api_scopes = Enum.join(~w(user public_repo read:org), ",")
 
 # Authentication
 config :ueberauth, Ueberauth,
