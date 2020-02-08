@@ -3,6 +3,6 @@
   <p>A platform to ensure that<br/>low-activity open source software</br> projects are still maintained.</p>
 </section>
 
-<section class="column search">
-  <%= AdoptopossWeb.SharedView.render "search_input.html", conn: @conn %>
-</section>
+<a href="<%= AdoptopossWeb.Router.Helpers.project_path(AdoptopossWeb.Endpoint, :index) %>" title="Find maintainers">
+  Find maintainers for your repos
+</a>

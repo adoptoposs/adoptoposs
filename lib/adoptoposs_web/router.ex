@@ -29,10 +29,10 @@ defmodule AdoptopossWeb.Router do
     get "/:provider/logout", AuthController, :delete
   end
 
-  scope "/search", AdoptopossWeb do
+  scope "/", AdoptopossWeb do
     pipe_through :browser
 
-    get "/", SearchController, :index
+    get "/projects", ProjectController, :index
   end
 
   # Other scopes may use custom stacks.

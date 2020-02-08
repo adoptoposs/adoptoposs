@@ -1,5 +1,5 @@
 defmodule Adoptoposs.Network.Github do
-  alias Adoptoposs.Network.{Api, Repository}
+  alias Adoptoposs.Network.{Api, Repository, PageInfo, Organization}
   alias Adoptoposs.Network.Repository.{Commit, User, Language}
 
   @behaviour Api
@@ -7,76 +7,66 @@ defmodule Adoptoposs.Network.Github do
   @api_uri "https://api.github.com/graphql"
 
   @impl Api
-  def search_repos(token, query, limit) do
-    query
-    |> repo_search_query(limit)
-    |> String.replace(~r/\s+/, " ")
+  def organizations(token, limit, start_cursor) do
+    organizations_query(limit, start_cursor)
     |> send_request(token)
-    |> compile_repos()
-    |> Enum.reject(&is_nil/1)
+    |> compile_organizations()
   end
 
-  defp repo_search_query(query, limit) do
+  @impl Api
+  def repos(token, organization, limit, start_cursor) do
+    repos_query(organization, limit, start_cursor)
+    |> send_request(token)
+    |> compile_repos()
+  end
+
+  defp organizations_query(limit, start_cursor) do
+    params = pagination_params(limit, start_cursor)
+
     ~s"""
     {
-      search(query: \\\"is:public archived:false #{query}\\\", type: REPOSITORY, first: #{limit}) {
-        edges {
-          node {
-            ... on Repository {
+      viewer {
+        organizations(#{params}) {
+          pageInfo {
+            hasNextPage
+            startCursor
+          }
+          edges {
+            node {
+              login
               name
-              descriptionHTML
-              url
-              primaryLanguage {
+              description
+              avatarUrl
+              viewerCanAdminister
+            }
+          }
+        }
+      }
+    }
+    """
+  end
+
+  defp repos_query(organization, limit, start_cursor) do
+    params = pagination_params(limit, start_cursor)
+
+    ~s"""
+    {
+      viewer {
+        organization(login: \\\"#{organization}\\\") {
+          repositories(#{params} isFork: false privacy: PUBLIC) {
+            pageInfo {
+              hasNextPage
+              startCursor
+            }
+            edges {
+              node {
                 name
-                color
-              }
-              owner {
-                avatarUrl
-                login
+                viewerCanAdminister
+                descriptionHTML
                 url
-              }
-              issues(filterBy: {states: [OPEN]}) {
-                totalCount
-              }
-              pullRequests(states: [OPEN]) {
-                totalCount
-              }
-              stargazers {
-                totalCount
-              }
-              watchers {
-                totalCount
-              }
-              defaultBranchRef {
-                target {
-                  ... on Commit {
-                    history(first: 1) {
-                      edges {
-                        node {
-                          messageHeadline
-                          authoredDate
-                          author {
-                            user {
-                              url
-                              name
-                              avatarUrl
-                              email
-                              login
-                            }
-                          }
-                          committer {
-                            user {
-                              url
-                              name
-                              avatarUrl
-                              email
-                              login
-                            }
-                          }
-                        }
-                      }
-                    }
-                  }
+                primaryLanguage {
+                  name
+                  color
                 }
               }
             }
@@ -87,40 +77,82 @@ defmodule Adoptoposs.Network.Github do
     """
   end
 
+  defp pagination_params(limit, "") do
+    "first: #{limit}"
+  end
+
+  defp pagination_params(limit, start_cursor) do
+    "first: #{limit}, after: \\\"#{start_cursor}\\\""
+  end
+
   defp send_request(graphql_query, auth_token) do
     headers = [Authorization: "bearer #{auth_token}"]
+    query = cleanup_query(graphql_query)
 
-    case HTTPoison.post(@api_uri, ~s({"query": "#{graphql_query}"}), headers) do
+    case HTTPoison.post(@api_uri, ~s({"query": "#{query}"}), headers) do
       {:ok, %HTTPoison.Response{status_code: 200, body: body}} ->
         Jason.decode!(body, keys: :atoms)
 
-      _ ->
+      data ->
         %{}
     end
   end
 
-  defp compile_repos(%{data: %{search: %{edges: edges}}}) do
-    Enum.map(edges, &build_repository(&1.node))
+  defp cleanup_query(query) do
+    query |> String.replace(~r/\s+/, " ")
+  end
+
+  defp compile_organizations(%{data: %{viewer: %{organizations: orgas}}}) do
+    %{edges: edges, pageInfo: info} = orgas
+    %{hasNextPage: has_next_page, startCursor: start_cursor} = info
+    page_info = %PageInfo{has_next_page: has_next_page, start_cursor: start_cursor}
+
+    organizations =
+      edges
+      |> Enum.map(&build_organization(&1.node))
+      |> Enum.reject(&is_nil/1)
+
+    {page_info, organizations}
+  end
+
+  defp compile_organizations(_data), do: {%PageInfo{}, []}
+
+  defp compile_repos(%{data: %{viewer: %{organization: %{repositories: repos}}}}) do
+    %{edges: edges, pageInfo: page_info} = repos
+    %{hasNextPage: has_next_page, startCursor: start_cursor} = page_info
+    page_info = %PageInfo{has_next_page: has_next_page, start_cursor: start_cursor}
+
+    repositories =
+      edges
+      |> Enum.map(&build_repository(&1.node))
+      |> Enum.reject(&is_nil/1)
+
+    {page_info, repositories}
   end
 
   defp compile_repos(_data), do: []
 
-  defp build_repository(%{defaultBranchRef: branch} = data) do
-    %Repository{
+  defp build_organization(%{viewerCanAdminister: true} = data) do
+    %Organization{
+      id: data.login,
       name: data.name,
-      description: data.descriptionHTML,
-      url: data.url,
-      star_count: data.stargazers.totalCount,
-      watcher_count: data.watchers.totalCount,
-      issue_count: data.issues.totalCount,
-      pull_request_count: data.pullRequests.totalCount,
-      owner: build_owner(data),
-      last_commit: build_last_commit(branch),
+      description: data.description,
+      avatar_url: data.avatarUrl
+    }
+  end
+
+  defp build_organization(_data), do: nil
+
+  defp build_repository(%{name: name, descriptionHTML: description, url: url} = data) do
+    %Repository{
+      name: name,
+      description: description,
+      url: url,
       language: build_language(data)
     }
   end
 
-  defp build_repository(_data), do: nil
+  defp build_repository(_data), do: []
 
   defp build_owner(%{owner: owner}) when not is_nil(owner) do
     %User{

@@ -1,0 +1,26 @@
+<section>
+  <p>Change organization</p>
+  <select name="orga">
+    <%= for orga <- @organizations do %>
+      <option value="<%= orga.name %>">
+        <%= orga.name %>
+      </option>
+    <% end %>
+  </select>
+  <img src="<%= @organization.avatar_url %>"
+    alt="<%= "#{@organization.name} – #{@organization.description}" %>"
+    width=38px>
+</section>
+
+<section>
+  <p>Submit your repositories to find additional maintainers</p>
+
+  <ul>
+    <%= for repo <- @repositories do %>
+      <li>
+        <h2><%= repo.name %></h2>
+        <p><%= {:safe, Earmark.as_html!(repo.description)} %></p>
+      </li>
+    <% end %>
+  </ul>
+</section>
