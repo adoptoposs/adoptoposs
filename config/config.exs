@@ -20,7 +20,8 @@ config :adoptoposs, AdoptopossWeb.Endpoint,
   url: [host: "localhost"],
   secret_key_base: "2huvB6wFDsQJGkJYw5712sNJJeFD+itR0VApi8VLNNSFQZG79+Bv6FI6cPpbaCm/",
   render_errors: [view: AdoptopossWeb.ErrorView, accepts: ~w(html json)],
-  pubsub: [name: Adoptoposs.PubSub, adapter: Phoenix.PubSub.PG2]
+  pubsub: [name: Adoptoposs.PubSub, adapter: Phoenix.PubSub.PG2],
+  live_view: [signing_salt: "r3nJpTPt6vBQikTcL+RKVfzNTFcxrm99"]
 
 # Configures Elixir's Logger
 config :logger, :console,
@@ -30,9 +31,12 @@ config :logger, :console,
 # Use Jason for JSON parsing in Phoenix
 config :phoenix, :json_library, Jason
 
-github_api_scopes = Enum.join(~w(user public_repo read:org), ",")
+config :phoenix,
+  template_engines: [leex: Phoenix.LiveView.Engine]
 
 # Authentication
+github_api_scopes = Enum.join(~w(user public_repo read:org), ",")
+
 config :ueberauth, Ueberauth,
   providers: [
     github: {Ueberauth.Strategy.Github, [default_scope: github_api_scopes]}

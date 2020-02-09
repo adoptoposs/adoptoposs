@@ -23,6 +23,8 @@ defmodule AdoptopossWeb do
 
       import Plug.Conn
       import AdoptopossWeb.Gettext
+      import Phoenix.LiveView.Controller
+
       alias AdoptopossWeb.Router.Helpers, as: Routes
     end
   end
@@ -41,6 +43,8 @@ defmodule AdoptopossWeb do
 
       import AdoptopossWeb.ErrorHelpers
       import AdoptopossWeb.Gettext
+      import Phoenix.LiveView.Helpers
+
       alias AdoptopossWeb.Router.Helpers, as: Routes
     end
   end
@@ -50,6 +54,7 @@ defmodule AdoptopossWeb do
       use Phoenix.Router
       import Plug.Conn
       import Phoenix.Controller
+      import Phoenix.LiveView.Router
     end
   end
 

@@ -1,6 +1,7 @@
 /* This file is for your main application css. */
 
 @import "./phoenix.scss";
+@import "../../deps/phoenix_live_view/assets/css/live_view.css";
 
 $alert: #B36A66;
 $less-alert: #FED99E;
