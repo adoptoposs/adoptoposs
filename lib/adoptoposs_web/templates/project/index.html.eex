@@ -1,5 +1,5 @@
 <section>
-  <p>Change organization</p>
+  <p>Change account/organization</p>
   <select name="orga">
     <%= for orga <- @organizations do %>
       <option value="<%= orga.name %>">
@@ -13,7 +13,7 @@
 </section>
 
 <section>
-  <p>Submit your repositories to find additional maintainers</p>
+  <p>Submit your repositories to find additional maintainers for your projects.</p>
 
   <ul>
     <%= for repo <- @repositories do %>
