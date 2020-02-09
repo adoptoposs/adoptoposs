@@ -2,7 +2,7 @@ defprotocol Adoptoposs.Network.Api do
   alias Adoptoposs.Network.{Repository, Organization, PageInfo}
 
   @doc """
-  Get the current user’s administerable organizations.
+  Get the current user’s paginated administerable organizations.
   It takes the auth token, the limit and a start cursor for pagination.
   It returns a result tuple containing the `PageInfo` and a list of `Organization`s.
   """
@@ -10,8 +10,14 @@ defprotocol Adoptoposs.Network.Api do
               {PageInfo.t(), list(Organization.t())}
 
   @doc """
-  Get repos for a given organisation.
+  Get paginated repos for a given organisation.
   It returns a result tuple containing the `PageInfo` and a list of `Repository`s.
   """
   @callback repos(String.t(), String.t(), integer(), String.t()) :: list(Repository.t())
+
+  @doc """
+  Get paginated repos for a given user.
+  It returns a result tuple containing the `PageInfo` and a list of `Repository`s.
+  """
+  @callback user_repos(String.t(), integer(), String.t()) :: list(Repository.t())
 end

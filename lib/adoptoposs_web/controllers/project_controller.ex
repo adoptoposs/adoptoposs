@@ -2,6 +2,7 @@ defmodule AdoptopossWeb.ProjectController do
   use AdoptopossWeb, :controller
 
   alias Adoptoposs.Network
+  alias Adoptoposs.Network.Organization
   alias Adoptoposs.Accounts.User
 
   @orga_limit 10
@@ -10,24 +11,25 @@ defmodule AdoptopossWeb.ProjectController do
 
   def index(conn, _params) do
     token = get_session(conn, :token)
-    provider = get_provider(conn)
+    user = get_session(conn, :current_user)
+    provider = user.provider
 
-    {orga_page_info, [organization | _] = organizations} =
-      Network.organizations(token, provider, @orga_limit)
+    {orga_page_info, organizations} = Network.organizations(token, provider, @orga_limit)
+    organization = %Organization{id: user.username, name: user.name, avatar_url: user.avatar_url}
 
-    {repo_page_info, repositories} = Network.repos(token, provider, organization.id, @repo_limit)
+    {repo_page_info, repositories} =
+      if organization.id == user.username do
+        Network.user_repos(token, provider, @repo_limit)
+      else
+        Network.repos(token, provider, organization.id, @repo_limit)
+      end
 
     render(conn, "index.html",
-      organizations: organizations,
+      organizations: [organization | organizations],
       organization: organization,
       orga_page_info: orga_page_info,
       repositories: repositories,
       repo_page_info: repo_page_info
     )
-  end
-
-  defp get_provider(conn) do
-    %User{provider: provider} = get_session(conn, :current_user)
-    provider
   end
 end

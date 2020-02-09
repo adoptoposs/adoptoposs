@@ -20,6 +20,13 @@ defmodule Adoptoposs.Network.Github do
     |> compile_repos()
   end
 
+  @impl Api
+  def user_repos(token, limit, start_cursor) do
+    user_repos_query(limit, start_cursor)
+    |> send_request(token)
+    |> compile_user_repos()
+  end
+
   defp organizations_query(limit, start_cursor) do
     params = pagination_params(limit, start_cursor)
 
@@ -68,6 +75,35 @@ defmodule Adoptoposs.Network.Github do
                   name
                   color
                 }
+              }
+            }
+          }
+        }
+      }
+    }
+    """
+  end
+
+  defp user_repos_query(limit, start_cursor) do
+    params = pagination_params(limit, start_cursor)
+
+    ~s"""
+    {
+      viewer {
+        repositories(#{params} isFork: false privacy: PUBLIC) {
+          pageInfo {
+            hasNextPage
+            startCursor
+          }
+          edges {
+            node {
+              name
+              viewerCanAdminister
+              descriptionHTML
+              url
+              primaryLanguage {
+                name
+                color
               }
             }
           }
@@ -131,6 +167,21 @@ defmodule Adoptoposs.Network.Github do
   end
 
   defp compile_repos(_data), do: []
+
+  defp compile_user_repos(%{data: %{viewer: %{repositories: repos}}}) do
+    %{edges: edges, pageInfo: page_info} = repos
+    %{hasNextPage: has_next_page, startCursor: start_cursor} = page_info
+    page_info = %PageInfo{has_next_page: has_next_page, start_cursor: start_cursor}
+
+    repositories =
+      edges
+      |> Enum.map(&build_repository(&1.node))
+      |> Enum.reject(&is_nil/1)
+
+    {page_info, repositories}
+  end
+
+  defp compile_user_repos(_data), do: []
 
   defp build_organization(%{viewerCanAdminister: true} = data) do
     %Organization{
