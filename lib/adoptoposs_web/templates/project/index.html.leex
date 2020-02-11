@@ -1,0 +1,38 @@
+<section>
+  <p>Change account/organization</p>
+
+  <form phx-change="organization_selected">
+    <select name="id">
+      <%= for organization <- @organizations do %>
+        <option value="<%= organization.id %>"
+          phx-value_id="<%= organization.id %>"
+          <%= selected_attr(@organization, organization) %>>
+          <%= organization.name %>
+        </option>
+      <% end %>
+    </select>
+  </form>
+</section>
+
+<section>
+  <h2>
+    <%= img_tag @organization.avatar_url,
+    alt: "#{@organization.name} – #{@organization.description}",
+    width: "25px" %>
+    Repos
+  </h2>
+  <p>Submit your repositories to find additional maintainers for your projects.</p>
+
+  <ul>
+    <%= for repo <- @repositories do %>
+      <li>
+        <h2><%= repo.name %></h2>
+        <p><%= {:safe, Earmark.as_html!(repo.description)} %></p>
+
+        <form>
+          <%= submit "Submit" %>
+        </form>
+      </li>
+    <% end %>
+  </ul>
+</section>

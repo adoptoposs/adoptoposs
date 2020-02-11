@@ -3,6 +3,10 @@ defmodule AdoptopossWeb.ProjectView do
 
   alias Adoptoposs.Network.Repository
 
+  def selected_attr(attr, other_attr) do
+    if attr == other_attr, do: :selected
+  end
+
   def readable_number(number) when number > 1_000 do
     decimal = Float.floor(number / 1_000, 1)
     "#{decimal}k"

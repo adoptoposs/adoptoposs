@@ -34,6 +34,7 @@ defmodule AdoptopossWeb.Router do
     pipe_through :browser
 
     get "/projects", ProjectController, :index
+    live "/projects/:organization_id", Project.IndexLive
   end
 
   # Other scopes may use custom stacks.
