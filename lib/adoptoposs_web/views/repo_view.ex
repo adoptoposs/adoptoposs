@@ -1,4 +1,4 @@
-defmodule AdoptopossWeb.ProjectView do
+defmodule AdoptopossWeb.RepoView do
   use AdoptopossWeb, :view
 
   alias Adoptoposs.Network.Repository

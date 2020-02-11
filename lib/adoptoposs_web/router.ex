@@ -33,8 +33,8 @@ defmodule AdoptopossWeb.Router do
   scope "/", AdoptopossWeb do
     pipe_through :browser
 
-    get "/projects", ProjectController, :index
-    live "/projects/:organization_id", Project.IndexLive
+    get "/repos", RepoController, :index
+    live "/repos/:organization_id", Repo.IndexLive
   end
 
   # Other scopes may use custom stacks.

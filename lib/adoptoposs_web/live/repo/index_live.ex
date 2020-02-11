@@ -1,7 +1,7 @@
-defmodule AdoptopossWeb.Project.IndexLive do
+defmodule AdoptopossWeb.Repo.IndexLive do
   use AdoptopossWeb, :live_view
 
-  alias AdoptopossWeb.{Endpoint, ProjectView}
+  alias AdoptopossWeb.{Endpoint, RepoView}
   alias Adoptoposs.Network
   alias Adoptoposs.Network.Organization
   alias Adoptoposs.Accounts.User
@@ -11,7 +11,7 @@ defmodule AdoptopossWeb.Project.IndexLive do
   @start_cursor ""
 
   def render(assigns) do
-    Phoenix.View.render(ProjectView, "index.html", assigns)
+    Phoenix.View.render(RepoView, "index.html", assigns)
   end
 
   def mount(%{"organization_id" => id}, session, socket) do
