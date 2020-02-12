@@ -1,8 +1,15 @@
 <section class="phx-hero">
   <h1><%= gettext "Welcome to %{app_name}!", app_name: "Adoptoposs" %></h1>
-  <p>A platform to ensure that<br/>low-activity open source software</br> projects are still maintained.</p>
+  <p>
+    Connecting people to make sure <br/>
+    <b>open source software</b> projects are maintained </br>
+    by multiple <b>co-maintainers</b>.</br>.
+  </p>
 </section>
 
-<a href="<%= Routes.project_path(AdoptopossWeb.Endpoint, :index) %>" title="Find maintainers">
-  Find maintainers for your repos
+<%= if @current_user do %>
+  <a href="<%= Routes.repo_path(@conn, :index) %>" title="Find co-maintainers">
+  Find co-maintainers
 </a>
+<% end %>
+
