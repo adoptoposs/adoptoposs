@@ -5,7 +5,37 @@ defmodule Adoptoposs.Factory do
 
   use ExMachina.Ecto, repo: Adoptoposs.Repo
 
-  alias Adoptoposs.Network
+  alias Adoptoposs.{Network, Accounts}
+
+  def user_factory do
+    %Accounts.User{
+      uid: sequence("uid"),
+      provider: "provider",
+      email: sequence(:email, &"user#{&1}@example.com"),
+      name: sequence("User"),
+      username: sequence("username"),
+      avatar_url: sequence(:avatar_url, &"https://example.com/avatar-#{&1}.png"),
+      profile_url: sequence(:avatar_url, &"https://example.com/profile/#{&1}")
+    }
+  end
+
+  def auth_factory do
+    %Ueberauth.Auth{
+      uid: sequence("uid"),
+      provider: "provider",
+      info: %{
+        name: sequence("name"),
+        nickname: sequence("nickname"),
+        email: sequence(:email, &"user#{&1}@example.com"),
+        first_name: nil,
+        last_name: nil,
+        urls: %{
+          avatar_url: sequence(:avatar_url, &"https://example.com/avatar-#{&1}.png"),
+          html_url: sequence(:avatar_url, &"https://example.com/profile/#{&1}")
+        }
+      }
+    }
+  end
 
   def language_factory do
     %Network.Repository.Language{name: "Elixir", color: "#4E30A3"}

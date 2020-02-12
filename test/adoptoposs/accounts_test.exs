@@ -1,147 +1,130 @@
 defmodule Adoptoposs.AccountsTest do
   use Adoptoposs.DataCase
 
+  import Adoptoposs.Factory
+
   alias Adoptoposs.Accounts
+  alias Adoptoposs.Accounts.User
 
-  describe "users" do
-    alias Adoptoposs.Accounts.User
-    alias Ueberauth.Auth
+  test "get_user!/1 returns the user with given id" do
+    user = insert(:user)
+    assert Accounts.get_user!(user.id) == user
+  end
 
-    @valid_attrs %{
-      avatar_url: "some avatar_url",
-      email: "some email",
-      name: "some name",
-      profile_url: "some profile_url",
-      provider: "some_provider",
-      uid: "123456789",
-      username: "some username"
-    }
-    @update_attrs %{
-      avatar_url: "some updated avatar_url",
-      email: "some updated email",
-      name: "some updated name",
-      profile_url: "some updated profile_url",
-      provider: "some updated provider",
-      uid: "some updated uid",
-      username: "some updated username"
-    }
-    @invalid_attrs %{
-      avatar_url: nil,
-      email: nil,
-      name: nil,
-      profile_url: nil,
-      provider: nil,
-      uid: nil,
-      username: nil
-    }
-    @valid_auth %Auth{
-      uid: 123_456_789,
-      provider: :some_provider,
-      info: %{
-        name: "some name",
-        nickname: "some username",
-        email: "some email",
-        first_name: nil,
-        last_name: nil,
-        urls: %{avatar_url: "some avatar_url", html_url: "some profile_url"}
-      }
-    }
-    @invalid_auth %Auth{
-      uid: nil,
-      provider: nil
-    }
-
-    def user_fixture(attrs \\ %{}) do
-      {:ok, user} =
-        attrs
-        |> Enum.into(@valid_attrs)
-        |> Accounts.create_user()
-
-      user
+  describe "get_user_by_auth/1" do
+    test "returns the user with the given uid and provider" do
+      user = insert(:user)
+      auth = build(:auth, uid: user.uid, provider: user.provider)
+      assert Accounts.get_user_by_auth(auth) == user
     end
 
-    test "get_user!/1 returns the user with given id" do
-      user = user_fixture()
-      assert Accounts.get_user!(user.id) == user
+    test "returns nil if there is no user matching the given auth" do
+      auth = build(:auth)
+      assert Accounts.get_user_by_auth(auth) == nil
     end
 
-    test "get_user_by_auth/1 returns the user with the given uid and provider" do
-      user = user_fixture()
-      assert Accounts.get_user_by_auth(@valid_auth) == user
+    test "returns nil for auths without a uid" do
+      auth = build(:auth, uid: nil)
+      assert Accounts.get_user_by_auth(auth) == nil
     end
 
-    test "get_user_by_auth/1 returns nil if there is not user matching the given auth" do
-      assert Accounts.get_user_by_auth(@invalid_auth) == nil
+    test "returns nil for auths without a provider" do
+      auth = build(:auth, provider: nil)
+      assert Accounts.get_user_by_auth(auth) == nil
+    end
+  end
+
+  describe "upsert_user!/2" do
+    test "for missing user creates the user" do
+      auth = build(:auth)
+
+      assert {:ok, %User{} = user} = Accounts.upsert_user(auth)
+
+      assert user = %User{
+               uid: auth.uid,
+               provider: auth.provider,
+               email: auth.info.email,
+               name: auth.info.name,
+               username: auth.info.nickname,
+               avatar_url: auth.info.urls.avatar_url,
+               profile_url: auth.info.urls.html_url
+             }
     end
 
-    test "upsert_user!/2 for missing user creates the user" do
-      assert {:ok, %User{} = user} = Accounts.upsert_user(@valid_auth)
-      assert user.avatar_url == "some avatar_url"
-      assert user.email == "some email"
-      assert user.name == "some name"
-      assert user.profile_url == "some profile_url"
-      assert user.provider == "some_provider"
-      assert user.uid == "123456789"
-      assert user.username == "some username"
+    test "for available user updates the user" do
+      user = insert(:user)
+      auth = build(:auth, uid: user.uid, provider: user.provider)
+
+      assert {:ok, %User{} = updated_user} = Accounts.upsert_user(auth)
+
+      assert updated_user = %User{
+               id: user.id,
+               uid: auth.uid,
+               provider: auth.provider,
+               email: auth.info.email,
+               name: auth.info.name,
+               username: auth.info.nickname,
+               avatar_url: auth.info.urls.avatar_url,
+               profile_url: auth.info.urls.html_url
+             }
     end
 
-    test "upsert_user!/2 for available user updates the user" do
-      user_fixture()
-      new_info = Map.merge(@valid_auth.info, %{email: "#{@valid_attrs.email}, but new"})
-      new_attrs = Map.merge(@valid_auth, %{info: new_info})
+    test "with valid data creates a user" do
+      attrs = build(:user) |> Map.from_struct()
+      assert {:ok, %User{} = user} = Accounts.create_user(attrs)
 
-      assert {:ok, %User{} = user} = Accounts.upsert_user(new_attrs)
-      assert user.avatar_url == "some avatar_url"
-      assert user.email == "some email, but new"
-      assert user.name == "some name"
-      assert user.profile_url == "some profile_url"
-      assert user.provider == "some_provider"
-      assert user.uid == "123456789"
-      assert user.username == "some username"
+      assert user = %User{
+               uid: attrs.uid,
+               provider: attrs.provider,
+               email: attrs.email,
+               name: attrs.name,
+               username: attrs.username,
+               avatar_url: attrs.avatar_url,
+               profile_url: attrs.profile_url
+             }
+    end
+  end
+
+  test "create_user/1 with invalid data returns error changeset" do
+    attrs = build(:user, uid: nil, provider: nil) |> Map.from_struct()
+    assert {:error, %Ecto.Changeset{}} = Accounts.create_user(attrs)
+  end
+
+  describe "update_user/2" do
+    test "with valid data updates the user" do
+      user = insert(:user)
+      attrs = build(:user) |> Map.from_struct()
+
+      assert {:ok, %User{} = updated_user} = Accounts.update_user(user, attrs)
+
+      assert updated_user = %User{
+               id: user.id,
+               uid: attrs.uid,
+               provider: attrs.provider,
+               email: attrs.email,
+               name: attrs.name,
+               username: attrs.username,
+               avatar_url: attrs.avatar_url,
+               profile_url: attrs.profile_url
+             }
     end
 
-    test "create_user/1 with valid data creates a user" do
-      assert {:ok, %User{} = user} = Accounts.create_user(@valid_attrs)
-      assert user.avatar_url == "some avatar_url"
-      assert user.email == "some email"
-      assert user.name == "some name"
-      assert user.profile_url == "some profile_url"
-      assert user.provider == "some_provider"
-      assert user.uid == "123456789"
-      assert user.username == "some username"
-    end
-
-    test "create_user/1 with invalid data returns error changeset" do
-      assert {:error, %Ecto.Changeset{}} = Accounts.create_user(@invalid_attrs)
-    end
-
-    test "update_user/2 with valid data updates the user" do
-      user = user_fixture()
-      assert {:ok, %User{} = user} = Accounts.update_user(user, @update_attrs)
-      assert user.avatar_url == "some updated avatar_url"
-      assert user.email == "some updated email"
-      assert user.name == "some updated name"
-      assert user.profile_url == "some updated profile_url"
-      assert user.provider == "some updated provider"
-      assert user.uid == "some updated uid"
-      assert user.username == "some updated username"
-    end
-
-    test "update_user/2 with invalid data returns error changeset" do
-      user = user_fixture()
-      assert {:error, %Ecto.Changeset{}} = Accounts.update_user(user, @invalid_attrs)
+    test "with invalid data returns error changeset" do
+      user = insert(:user)
+      attrs = build(:user, uid: nil, provider: nil) |> Map.from_struct()
+      assert {:error, %Ecto.Changeset{}} = Accounts.update_user(user, attrs)
       assert user == Accounts.get_user!(user.id)
     end
+  end
 
-    test "delete_user/1 deletes the user" do
-      user = user_fixture()
-      assert {:ok, %User{}} = Accounts.delete_user(user)
-      assert_raise Ecto.NoResultsError, fn -> Accounts.get_user!(user.id) end
-    end
+  test "delete_user/1 deletes the user" do
+    user = insert(:user)
+    assert {:ok, %User{}} = Accounts.delete_user(user)
+    assert_raise Ecto.NoResultsError, fn -> Accounts.get_user!(user.id) end
+  end
 
-    test "change_user/1 returns a user changeset" do
-      user = user_fixture()
-      assert %Ecto.Changeset{} = Accounts.change_user(user)
-    end
+  test "change_user/1 returns a user changeset" do
+    user = insert(:user)
+    assert %Ecto.Changeset{} = Accounts.change_user(user)
   end
 end
