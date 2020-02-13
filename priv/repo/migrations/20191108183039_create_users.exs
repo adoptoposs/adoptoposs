@@ -3,11 +3,11 @@ defmodule Adoptoposs.Repo.Migrations.CreateUsers do
 
   def change do
     create table(:users) do
-      add :uid, :string
-      add :provider, :string
+      add :uid, :string, null: false
+      add :provider, :string, null: false
       add :name, :string
-      add :username, :string
-      add :email, :string
+      add :username, :string, null: false
+      add :email, :string, null: false
       add :avatar_url, :string
       add :profile_url, :string
 
