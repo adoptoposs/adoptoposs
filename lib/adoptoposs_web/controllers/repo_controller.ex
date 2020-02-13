@@ -4,7 +4,7 @@ defmodule AdoptopossWeb.RepoController do
   alias Adoptoposs.Accounts.User
   alias AdoptopossWeb.RepoLive
 
-  def index(conn, %{}) do
+  def index(conn, _params) do
     %User{username: id} = get_session(conn, :current_user)
     redirect(conn, to: Routes.live_path(conn, RepoLive.Index, id))
   end

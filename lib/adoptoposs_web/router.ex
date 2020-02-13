@@ -16,10 +16,19 @@ defmodule AdoptopossWeb.Router do
     plug :accepts, ["json"]
   end
 
+  # Routes that are accessible for all users:
   scope "/", AdoptopossWeb do
     pipe_through :browser
 
     get "/", PageController, :index
+  end
+
+  # Routes that require authentication:
+  scope "/", AdoptopossWeb do
+    pipe_through [:browser, Plugs.RequireLogin]
+
+    get "/repos", RepoController, :index
+    live "/repos/:organization_id", RepoLive.Index
   end
 
   scope "/auth", AdoptopossWeb do
@@ -28,13 +37,6 @@ defmodule AdoptopossWeb.Router do
     get "/:provider", AuthController, :request
     get "/:provider/callback", AuthController, :callback
     get "/:provider/logout", AuthController, :delete
-  end
-
-  scope "/", AdoptopossWeb do
-    pipe_through :browser
-
-    get "/repos", RepoController, :index
-    live "/repos/:organization_id", RepoLive.Index
   end
 
   # Other scopes may use custom stacks.
