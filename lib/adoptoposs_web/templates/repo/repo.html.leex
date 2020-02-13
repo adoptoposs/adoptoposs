@@ -1,0 +1,11 @@
+<h2>
+  <%= @repo.name %>
+</h2>
+
+<p>
+  <%= {:safe, Earmark.as_html!(@repo.description)} %>
+</p>
+
+<form>
+  <%= submit "Submit" %>
+</form>

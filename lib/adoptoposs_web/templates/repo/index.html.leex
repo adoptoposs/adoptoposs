@@ -26,12 +26,7 @@
   <ul>
     <%= for repo <- @repositories do %>
       <li>
-        <h2><%= repo.name %></h2>
-        <p><%= {:safe, Earmark.as_html!(repo.description)} %></p>
-
-        <form>
-          <%= submit "Submit" %>
-        </form>
+        <%= live_component @socket, AdoptopossWeb.RepoLive.RepoComponent, repo: repo %>
       </li>
     <% end %>
   </ul>
