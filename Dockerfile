@@ -5,11 +5,13 @@ RUN cat .build-deps | xargs apk add
 
 WORKDIR /app
 
-FROM dev as ci
 COPY mix* ./
 RUN mix do \
     local.hex --force, \
-    local.rebar --force, \
+    local.rebar --force
+
+FROM dev as ci
+RUN mix do \
     deps.get, \
     deps.compile
 
