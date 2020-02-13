@@ -39,7 +39,7 @@ defmodule Adoptoposs.MixProject do
       {:ecto_sql, "~> 3.3"},
       {:postgrex, ">= 0.0.0"},
       {:phoenix_html, "~> 2.13"},
-      {:phoenix_live_view, "~> 0.6"},
+      {:phoenix_live_view, "~> 0.7.1"},
       {:phoenix_live_reload, "~> 1.2", only: :dev},
       {:gettext, "~> 0.17"},
       {:jason, "~> 1.0"},
