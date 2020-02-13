@@ -19,6 +19,7 @@ defmodule AdoptopossWeb.ConnCase do
     quote do
       # Import conveniences for testing with connections
       use Phoenix.ConnTest
+      import Plug.Test
       alias AdoptopossWeb.Router.Helpers, as: Routes
 
       # The default endpoint for testing

@@ -1,8 +1,6 @@
 defmodule AdoptoppossWeb.Plugs.CurrentUserTest do
   use AdoptopossWeb.ConnCase
 
-  import Plug.Test
-
   alias Adoptoposs.Accounts.User
   alias AdoptopossWeb.Plugs.CurrentUser
 
