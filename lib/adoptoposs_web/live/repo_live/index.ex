@@ -1,4 +1,4 @@
-defmodule AdoptopossWeb.Repo.IndexLive do
+defmodule AdoptopossWeb.RepoLive.Index do
   use AdoptopossWeb, :live_view
 
   alias AdoptopossWeb.{Endpoint, RepoView}
