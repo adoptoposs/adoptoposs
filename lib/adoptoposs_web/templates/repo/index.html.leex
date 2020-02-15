@@ -26,7 +26,13 @@
   <ul>
     <%= for repo <- @repositories do %>
       <li>
-        <%= live_component @socket, AdoptopossWeb.RepoLive.RepoComponent, repo: repo %>
+        <%= live_component @socket, AdoptopossWeb.RepoLive.RepoComponent,
+          id: repo.id,
+          repo: repo,
+          submitted: repo.id in @submitted_repos,
+          to_be_submitted: repo.id == @to_be_submitted,
+          to_be_edited: repo.id == @to_be_edited,
+          description: @description %>
       </li>
     <% end %>
   </ul>
