@@ -7,9 +7,19 @@
   </p>
 </section>
 
-<%= if @current_user do %>
-  <a href="<%= Routes.repo_path(@conn, :index) %>" title="Find co-maintainers">
-  Find co-maintainers
-</a>
+<%= for project <- @projects do %>
+  <div>
+    <h2>
+      <a href="<%= project.data["url"] %>" title="<%= project.name %>">
+        <%= project.name %>
+      </a>
+    </h2>
+
+    <p>"<%= project.description %>"</p>
+    <span>
+      submitted by
+      <a href="<%= project.user.profile_url %>">@<%= project.user.username %></a>
+    </span>
+  </div>
 <% end %>
 

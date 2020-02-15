@@ -12,6 +12,13 @@
       <section class="container">
         <nav role="navigation">
           <ul>
+            <li>
+              <%= if @current_user do %>
+                <a href="<%= Routes.repo_path(@conn, :index) %>" title="Find co-maintainers">
+                  Submit your projects
+                </a>
+              <% end %>
+            </li>
             <li class="row">
               <%= if @current_user do %>
                 <a class="column" href="/auth/github/logout">Logout</a>
