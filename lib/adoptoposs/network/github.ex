@@ -67,6 +67,7 @@ defmodule Adoptoposs.Network.Github do
             }
             edges {
               node {
+                id
                 name
                 viewerCanAdminister
                 descriptionHTML
@@ -97,6 +98,7 @@ defmodule Adoptoposs.Network.Github do
           }
           edges {
             node {
+              id
               name
               viewerCanAdminister
               descriptionHTML
@@ -129,7 +131,7 @@ defmodule Adoptoposs.Network.Github do
       {:ok, %HTTPoison.Response{status_code: 200, body: body}} ->
         Jason.decode!(body, keys: :atoms)
 
-      data ->
+      _ ->
         %{}
     end
   end
@@ -194,8 +196,9 @@ defmodule Adoptoposs.Network.Github do
 
   defp build_organization(_data), do: nil
 
-  defp build_repository(%{name: name, descriptionHTML: description, url: url} = data) do
+  defp build_repository(%{id: id, name: name, descriptionHTML: description, url: url} = data) do
     %Repository{
+      id: id,
       name: name,
       description: description,
       url: url,
