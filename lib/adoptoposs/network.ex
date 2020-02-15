@@ -1,6 +1,9 @@
 defmodule Adoptoposs.Network do
   alias Adoptoposs.Network.Github
 
+  @doc """
+  Fetch a user's organizations from the given provider.
+  """
   def organizations(token, provider, limit, start_cursor \\ "")
 
   def organizations(token, "github", limit, start_cursor) do
@@ -8,19 +11,25 @@ defmodule Adoptoposs.Network do
   end
 
   def organizations(_token, provider, _limit, _start_cursor) do
-    raise_provider_not_implemented(provider)
+    raise_provider_not_implemented(provider, "organizations/4")
   end
 
-  def repos(token, preovider, organization, limit, start_cursor \\ "")
+  @doc """
+  Fetch an organization's public repositories from the given provider.
+  """
+  def repos(token, provider, organization, limit, start_cursor \\ "")
 
   def repos(token, "github", organization, limit, start_cursor) do
     Github.repos(token, organization, limit, start_cursor)
   end
 
   def repos(_token, provider, _organization, _limit, _start_cursor) do
-    raise_provider_not_implemented(provider)
+    raise_provider_not_implemented(provider, "repos/4")
   end
 
+  @doc """
+  Fetch an user's public repositories from the given provider.
+  """
   def user_repos(token, provider, limit, start_cursor \\ "")
 
   def user_repos(token, "github", limit, start_cursor) do
@@ -28,10 +37,11 @@ defmodule Adoptoposs.Network do
   end
 
   def user_repos(_token, provider, _limit, _start_cursor) do
-    raise_provider_not_implemented(provider)
+    raise_provider_not_implemented(provider, "user_repos/4")
   end
 
-  defp raise_provider_not_implemented(provider) do
-    raise "#{__MODULE__}.search_repos/4 for provider \"#{provider}\" is not implemented."
+  defp raise_provider_not_implemented(provider, fn_name) do
+    function = "#{__MODULE__}.#{fn_name}"
+    raise "#{function} for provider \"#{provider}\" is not implemented."
   end
 end
