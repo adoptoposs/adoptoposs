@@ -1,17 +1,14 @@
 defmodule Adoptoposs.Network.Organization do
   @moduledoc """
-  The struct representing a user’s organization.
+  The schema representing a user’s organization.
   """
 
-  @type t :: %__MODULE__{
-          id: String.t(),
-          name: String.t(),
-          description: String.t(),
-          avatar_url: String.t()
-        }
+  use Ecto.Schema
 
-  defstruct id: nil,
-            name: nil,
-            description: nil,
-            avatar_url: nil
+  @primary_key {:id, :string, []}
+  embedded_schema do
+    field :name, :string
+    field :description, :string
+    field :avatar_url, :string
+  end
 end

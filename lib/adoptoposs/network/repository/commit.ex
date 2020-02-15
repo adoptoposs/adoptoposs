@@ -1,15 +1,16 @@
 defmodule Adoptoposs.Network.Repository.Commit do
   @moduledoc """
-  The struct representing a commit of a repository.
+  The schema representing a commit of a repository.
   """
 
-  alias Adoptoposs.Network.Repository.User
+  use Ecto.Schema
+  alias Adoptoposs.Network.Repository
 
-  @type t :: %__MODULE__{
-          authored_at: DateTime.t(),
-          author: User.t()
-        }
+  @json_fields [:authored_at, :author]
 
-  defstruct authored_at: nil,
-            author: %User{}
+  @derive {Jason.Encoder, only: @json_fields}
+  embedded_schema do
+    field :authored_at, :naive_datetime
+    embeds_one :author, Repository.User
+  end
 end

@@ -1,15 +1,18 @@
 defmodule Adoptoposs.Network.Repository.User do
-  @type t :: %__MODULE__{
-          login: String.t(),
-          name: String.t(),
-          avatar_url: String.t(),
-          profile_url: String.t(),
-          email: String.t() | none()
-        }
+  @moduledoc """
+  The schema representing a contributing user of a repository.
+  """
 
-  defstruct login: nil,
-            name: nil,
-            avatar_url: nil,
-            profile_url: nil,
-            email: nil
+  use Ecto.Schema
+
+  @json_fields [:login, :name, :avatar_url, :profile_url, :email]
+
+  @derive {Jason.Encoder, only: @json_fields}
+  embedded_schema do
+    field :login, :string
+    field :name, :string
+    field :avatar_url, :string
+    field :profile_url, :string
+    field :email, :string
+  end
 end

@@ -1,13 +1,12 @@
 defmodule Adoptoposs.Network.PageInfo do
   @moduledoc """
-  The struct representing a pagination page info.
+  The schema representing a pagination page info.
   """
 
-  @type t :: %__MODULE__{
-          has_next_page: bool(),
-          start_cursor: String.t()
-        }
+  use Ecto.Schema
 
-  defstruct has_next_page: false,
-            start_cursor: nil
+  embedded_schema do
+    field :has_next_page, :boolean
+    field :start_cursor, :string
+  end
 end

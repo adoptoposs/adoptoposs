@@ -1,30 +1,24 @@
 defmodule Adoptoposs.Network.Repository do
   @moduledoc """
-  The struct representing a project's repository.
+  The schema representing a remote repository.
   """
 
-  alias Adoptoposs.Network.Repository.{User, Commit, Language}
+  use Ecto.Schema
 
-  @type t :: %__MODULE__{
-          name: String.t(),
-          description: String.t(),
-          star_count: integer(),
-          watcher_count: integer(),
-          issue_count: integer(),
-          pull_request_count: integer(),
-          owner: User.t(),
-          last_commit: Commit.t(),
-          language: Language.t()
-        }
+  alias Adoptoposs.Network.Repository
 
-  defstruct name: nil,
-            description: nil,
-            url: nil,
-            star_count: 0,
-            watcher_count: 0,
-            issue_count: 0,
-            pull_request_count: 0,
-            owner: %User{},
-            last_commit: %Commit{},
-            language: %Language{}
+  @primary_key {:id, :string, []}
+  embedded_schema do
+    field :name, :string
+    field :description, :string
+    field :url, :string
+    field :star_count, :integer, default: 0
+    field :watcher_count, :integer, default: 0
+    field :issue_count, :integer, default: 0
+    field :pull_request_count, :integer, default: 0
+
+    embeds_one :owner, Repository.User
+    embeds_one :last_commit, Repository.Commit
+    embeds_one :language, Repository.Language
+  end
 end
