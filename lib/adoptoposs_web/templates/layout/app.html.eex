@@ -12,23 +12,25 @@
       <section class="container">
         <nav role="navigation">
           <ul>
-            <li>
-              <%= if @current_user do %>
-                <a href="<%= Routes.repo_path(@conn, :index) %>" title="Find co-maintainers">
-                  Submit your projects
-                </a>
-              <% end %>
-            </li>
-            <li class="row">
-              <%= if @current_user do %>
-                <a class="column" href="/auth/github/logout">Logout</a>
-                <a class="column" href="<%= @current_user.profile_url %>" title="<%=@current_user.name %>">
-                  <img width="45" src="<%= @current_user.avatar_url %>" alt="<%=@current_user.name %>">
-                </a>
-              <% else %>
+            <%= if @current_user do %>
+              <li>
+                <%= link "Submit repo", to: Routes.live_path(@conn, AdoptopossWeb.RepoLive.Index, @current_user.username) %>
+              </li>
+
+              <li>
+                <%= link "Your Projects", to: Routes.live_path(@conn, AdoptopossWeb.ProjectLive.Index) %>
+              </li>
+
+              <li><a href="/auth/github/logout">Logout</a></li>
+
+              <li>
+                <img width="30px" src="<%= @current_user.avatar_url %>" alt="<%=@current_user.name %>">
+              </li>
+            <% else %>
+              <li>
                 <a href="/auth/github">Login with Github</a>
-              <% end %>
-            </li>
+              </li>
+            <% end %>
           </ul>
         </nav>
         <a href="/" class="phx-logo">

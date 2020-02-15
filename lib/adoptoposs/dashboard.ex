@@ -22,6 +22,7 @@ defmodule Adoptoposs.Dashboard do
   def list_projects(%User{id: id}) do
     Project
     |> where(user_id: ^id)
+    |> order_by(desc: :id)
     |> preload(:user)
     |> Repo.all()
   end
@@ -36,11 +37,10 @@ defmodule Adoptoposs.Dashboard do
 
   """
   def list_projects(limit: limit) do
-    from(project in Project,
-      limit: ^limit,
-      order_by: [desc: :id],
-      preload: :user
-    )
+    Project
+    |> limit(^limit)
+    |> order_by(desc: :id)
+    |> preload(:user)
     |> Repo.all()
   end
 
@@ -51,18 +51,17 @@ defmodule Adoptoposs.Dashboard do
 
   ## Examples
 
-      iex> get_project!(1, "repo-id")
+      iex> get_project!(1, )
       %Project{}
 
-      iex> get_project!(-1, nil)
+      iex> get_project!(-1)
       ** (Ecto.NoResultsError)
 
   """
-  def get_project!(user_id, repo_id) do
+  def get_project!(id) do
     Project
-    |> where(user_id: ^user_id, repo_id: ^repo_id)
     |> preload([:user])
-    |> Repo.one!()
+    |> Repo.get!(id)
   end
 
   @doc """
@@ -95,8 +94,8 @@ defmodule Adoptoposs.Dashboard do
       {:error, %Ecto.Changeset{}}
 
   """
-  def update_project(%{user_id: user_id, repo_id: repo_id} = attrs) do
-    find_project(user_id, repo_id)
+  def update_project(%Project{} = project, attrs \\ %{}) do
+    project
     |> Project.update_changeset(attrs)
     |> Repo.update()
   end
@@ -113,9 +112,8 @@ defmodule Adoptoposs.Dashboard do
       {:error, %Ecto.Changeset{}}
 
   """
-  def delete_project_by(%{user_id: user_id, repo_id: repo_id}) do
-    find_project(user_id, repo_id)
-    |> Repo.delete()
+  def delete_project(%Project{} = project) do
+    Repo.delete(project)
   end
 
   @doc """
@@ -129,11 +127,5 @@ defmodule Adoptoposs.Dashboard do
   """
   def change_project(%Project{} = project) do
     Project.update_changeset(project, %{})
-  end
-
-  defp find_project(user_id, repo_id) do
-    Project
-    |> where(user_id: ^user_id, repo_id: ^repo_id)
-    |> Repo.one()
   end
 end

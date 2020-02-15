@@ -30,9 +30,7 @@
           id: repo.id,
           repo: repo,
           submitted: repo.id in @submitted_repos,
-          to_be_submitted: repo.id == @to_be_submitted,
-          to_be_edited: repo.id == @to_be_edited,
-          description: @description %>
+          to_be_submitted: repo.id == @to_be_submitted %>
       </li>
     <% end %>
   </ul>

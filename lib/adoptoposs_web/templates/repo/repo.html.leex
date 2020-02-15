@@ -1,12 +1,10 @@
 <div id="repo-#{@id}">
   <h2><%= @repo.name %></h2>
+  <span><%= @repo.language.name %></span>
   <p><%= {:safe, Earmark.as_html!(@repo.description)} %></p>
 
-  <%= if @submitted && !@to_be_edited do %>
+  <%= if @submitted do %>
     <span>submitted ✔</span>
-
-    <%= submit "Edit", phx_click: "attempt_edit", phx_value_repo_id: @repo.id %>
-    <%= submit "Remove", phx_click: "remove_project", phx_value_repo_id: @repo.id %>
   <% else %>
     <%= cond do %>
       <% @to_be_submitted -> %>
@@ -16,18 +14,6 @@
           <label>
             What/who are you looking for?
             <textarea name="description"></textarea>
-          </label>
-
-          <%= submit "Save" %>
-        </form>
-        <button phx-click="cancel_submit">Cancel</button>
-      <% @to_be_edited -> %>
-        <form phx-submit="update_project">
-          <input type="hidden" name="repo_id" value="<%= @repo.id %>" phx-value_repo_id=<%= @repo.id %>">
-
-          <label>
-            What/who are you looking for?
-            <textarea name="description"><%= @description %></textarea>
           </label>
 
           <%= submit "Save" %>

@@ -116,8 +116,8 @@ header section :last-child {
 header nav ul,
 header nav li {
   margin: 0;
-  padding: 0;
-  display: block;
+  padding: 10px;
+  display: inline-block;
   text-align: right;
   white-space: nowrap;
 }

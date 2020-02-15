@@ -25,15 +25,8 @@ defmodule AdoptopossWeb.RepoLive.Index do
     {:noreply, assign(socket, to_be_submitted: repo_id)}
   end
 
-  def handle_event("attempt_edit", %{"repo-id" => repo_id}, socket) do
-    project = Dashboard.get_project!(socket.assigns.user_id, repo_id)
-
-    {:noreply,
-     assign(socket, to_be_submitted: nil, to_be_edited: repo_id, description: project.description)}
-  end
-
   def handle_event("cancel_submit", _params, socket) do
-    {:noreply, assign(socket, to_be_submitted: nil, to_be_edited: nil, description: nil)}
+    {:noreply, assign(socket, to_be_submitted: nil)}
   end
 
   def handle_event(
@@ -55,49 +48,6 @@ defmodule AdoptopossWeb.RepoLive.Index do
     end
   end
 
-  def handle_event("remove_project", %{"repo-id" => repo_id}, socket) do
-    %{submitted_repos: submitted_repos, user_id: user_id} = socket.assigns
-    attrs = %{user_id: user_id, repo_id: repo_id}
-
-    case Dashboard.delete_project_by(attrs) do
-      {:ok, _project} ->
-        submitted_repos = submitted_repos |> Enum.drop_while(&(&1 == repo_id))
-
-        {:noreply,
-         assign(socket,
-           submitted_repos: submitted_repos,
-           to_be_submitted: nil,
-           to_be_edited: nil,
-           description: nil
-         )}
-
-      _ ->
-        {:noreply,
-         assign(socket,
-           to_be_submitted: nil,
-           to_be_edited: nil,
-           description: nil
-         )}
-    end
-  end
-
-  def handle_event(
-        "update_project",
-        %{"repo_id" => repo_id, "description" => description},
-        socket
-      ) do
-    %{user_id: user_id} = socket.assigns
-    attrs = %{user_id: user_id, repo_id: repo_id, description: description}
-
-    case Dashboard.update_project(attrs) do
-      {:ok, _project} ->
-        {:noreply, assign(socket, to_be_edited: nil, to_be_submitted: nil, description: nil)}
-
-      _ ->
-        {:noreply, socket}
-    end
-  end
-
   def handle_params(%{"organization_id" => id}, _uri, socket) do
     {:noreply, update_selected(socket, id)}
   end
@@ -109,11 +59,14 @@ defmodule AdoptopossWeb.RepoLive.Index do
     organization = %Organization{id: user.username, name: user.name, avatar_url: user.avatar_url}
     organizations = [organization | organizations]
 
+    projects = Dashboard.list_projects(user)
+
     assign(socket, %{
       user_id: user.id,
       token: sign_token(token, provider),
       provider: user.provider,
       username: user.username,
+      projects: projects,
       organizations: organizations,
       orga_page_info: orga_page_info
     })
@@ -130,9 +83,7 @@ defmodule AdoptopossWeb.RepoLive.Index do
       repositories: repositories,
       repo_page_info: repo_page_info,
       submitted_repos: submitted_repos,
-      to_be_submitted: nil,
-      to_be_edited: nil,
-      description: nil
+      to_be_submitted: nil
     })
   end
 

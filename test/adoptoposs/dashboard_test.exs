@@ -23,9 +23,9 @@ defmodule Adoptoposs.DashboardTest do
       assert Dashboard.list_projects(user) == []
     end
 
-    test "get_project!/2 returns the project with given id" do
+    test "get_project!/1 returns the project with given id" do
       project = insert(:project)
-      assert Dashboard.get_project!(project.user_id, project.repo_id) == project
+      assert Dashboard.get_project!(project.id) == project
     end
 
     test "create_project/2 with valid data creates a project" do
@@ -55,28 +55,26 @@ defmodule Adoptoposs.DashboardTest do
     test "update_project/2 with valid data updates the project" do
       project = insert(:project)
       new_description = "new" <> project.description
-      attrs = %{user_id: project.user_id, repo_id: project.repo_id, description: new_description}
+      attrs = %{description: new_description}
 
-      assert {:ok, %Project{} = project} = Dashboard.update_project(attrs)
+      assert {:ok, %Project{} = project} = Dashboard.update_project(project, attrs)
       assert project.description == new_description
     end
 
     test "update_project/2 with invalid data returns error changeset" do
       project = insert(:project)
-      attrs = %{user_id: project.user_id, repo_id: project.repo_id, description: nil}
+      attrs = %{description: nil}
 
-      assert {:error, %Ecto.Changeset{}} = Dashboard.update_project(attrs)
-      assert project == Dashboard.get_project!(project.user_id, project.repo_id)
+      assert {:error, %Ecto.Changeset{}} = Dashboard.update_project(project, attrs)
+      assert project == Dashboard.get_project!(project.id)
     end
 
-    test "delete_project/1 deletes the project" do
+    test "delete_project/1 deletes the passed project" do
       project = insert(:project)
-      attrs = project |> Map.take([:user_id, :repo_id])
-
-      assert {:ok, %Project{}} = Dashboard.delete_project_by(attrs)
+      assert {:ok, %Project{}} = Dashboard.delete_project(project)
 
       assert_raise Ecto.NoResultsError, fn ->
-        Dashboard.get_project!(project.user_id, project.repo_id)
+        Dashboard.get_project!(project.id)
       end
     end
 
