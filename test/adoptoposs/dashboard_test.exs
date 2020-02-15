@@ -8,7 +8,14 @@ defmodule Adoptoposs.DashboardTest do
     alias Adoptoposs.Dashboard.Project
     alias Adoptoposs.Network.Repository
 
-    test "list_user_projects/1 returns all projects" do
+    test "list_projects/1 returns the latest N projects" do
+      insert(:project)
+      other_project = insert(:project)
+
+      assert Dashboard.list_projects(limit: 1) == [other_project]
+    end
+
+    test "list_projects/1 returns a user's projects" do
       project = insert(:project)
       assert Dashboard.list_projects(project.user) == [project]
 

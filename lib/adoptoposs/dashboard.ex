@@ -11,11 +11,11 @@ defmodule Adoptoposs.Dashboard do
   alias Adoptoposs.Dashboard.Project
 
   @doc """
-  Returns the list of projects.
+  Returns the list of a user's projects.
 
   ## Examples
 
-      iex> list_projects()
+      iex> list_projects(%User{})
       [%Project{}, ...]
 
   """
@@ -23,6 +23,24 @@ defmodule Adoptoposs.Dashboard do
     Project
     |> where(user_id: ^id)
     |> preload(:user)
+    |> Repo.all()
+  end
+
+  @doc """
+  Returns the list of projects.
+
+  ## Examples
+
+      iex> list_projects(limit: 2)
+      [%Project{}, ...]
+
+  """
+  def list_projects(limit: limit) do
+    from(project in Project,
+      limit: ^limit,
+      order_by: [desc: :id],
+      preload: :user
+    )
     |> Repo.all()
   end
 
