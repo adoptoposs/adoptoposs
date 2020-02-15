@@ -5,7 +5,7 @@ defmodule Adoptoposs.Factory do
 
   use ExMachina.Ecto, repo: Adoptoposs.Repo
 
-  alias Adoptoposs.{Network, Accounts}
+  alias Adoptoposs.{Network, Accounts, Dashboard}
 
   def user_factory do
     %Accounts.User{
@@ -16,6 +16,17 @@ defmodule Adoptoposs.Factory do
       username: sequence("username"),
       avatar_url: sequence(:avatar_url, &"https://example.com/avatar-#{&1}.png"),
       profile_url: sequence(:avatar_url, &"https://example.com/profile/#{&1}")
+    }
+  end
+
+  def project_factory do
+    %Dashboard.Project{
+      name: sequence("project"),
+      language: sequence("language"),
+      data: %{"some" => %{"nested" => "data"}},
+      user: build(:user),
+      description: "Description",
+      repo_id: sequence("repo_id")
     }
   end
 
@@ -60,6 +71,7 @@ defmodule Adoptoposs.Factory do
 
   def repository_factory do
     %Network.Repository{
+      id: sequence("id"),
       name: sequence("Repo"),
       description: "Description",
       url: sequence(:url, &"https://example.com/repos/repo#{&1}"),

@@ -11,6 +11,8 @@ defmodule Adoptoposs.Accounts.User do
     field :uid, :string
     field :username, :string
 
+    has_many :projects, Adoptoposs.Dashboard.Project
+
     timestamps()
   end
 
