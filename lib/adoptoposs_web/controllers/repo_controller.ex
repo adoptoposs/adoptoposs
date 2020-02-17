@@ -6,6 +6,6 @@ defmodule AdoptopossWeb.RepoController do
 
   def index(conn, _params) do
     %User{username: id} = get_session(conn, :current_user)
-    redirect(conn, to: Routes.live_path(conn, RepoLive.Index, id))
+    redirect(conn, to: Routes.live_path(conn, RepoLive, id))
   end
 end

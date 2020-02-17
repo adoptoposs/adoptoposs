@@ -1,4 +1,4 @@
-defmodule AdoptopossWeb.RepoLive.RepoComponent do
+defmodule AdoptopossWeb.RepoComponent do
   use Phoenix.LiveComponent
 
   def render(assigns) do

@@ -14,7 +14,7 @@
           <ul>
             <%= if @current_user do %>
               <li>
-                <%= link "Submit repo", to: Routes.live_path(@conn, AdoptopossWeb.RepoLive.Index, @current_user.username) %>
+                <%= link "Submit repo", to: Routes.live_path(@conn, AdoptopossWeb.RepoLive, @current_user.username) %>
               </li>
 
               <li>

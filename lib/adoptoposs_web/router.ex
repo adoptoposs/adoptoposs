@@ -28,7 +28,7 @@ defmodule AdoptopossWeb.Router do
     pipe_through [:browser, Plugs.RequireLogin]
 
     get "/settings/repos", RepoController, :index
-    live "/settings/repos/:organization_id", RepoLive.Index
+    live "/settings/repos/:organization_id", RepoLive
     live "/settings/projects", ProjectLive.Index
   end
 

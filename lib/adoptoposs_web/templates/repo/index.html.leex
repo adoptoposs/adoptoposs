@@ -26,7 +26,7 @@
   <ul>
     <%= for repo <- @repositories do %>
       <li>
-        <%= live_component @socket, AdoptopossWeb.RepoLive.RepoComponent,
+        <%= live_component @socket, AdoptopossWeb.RepoComponent,
           id: repo.id,
           repo: repo,
           submitted: repo.id in @submitted_repos,
