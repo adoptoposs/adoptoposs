@@ -12,12 +12,14 @@ defmodule Adoptoposs.DashboardTest do
       insert(:project)
       other_project = insert(:project)
 
-      assert Dashboard.list_projects(limit: 1) == [other_project]
+      projects = Dashboard.list_projects(limit: 1)
+      assert projects |> Enum.map(& &1.id) == [other_project.id]
     end
 
     test "list_projects/1 returns a user's projects" do
       project = insert(:project)
-      assert Dashboard.list_projects(project.user) == [project]
+      projects = Dashboard.list_projects(project.user)
+      assert projects |> Enum.map(& &1.id) == [project.id]
 
       user = insert(:user)
       assert Dashboard.list_projects(user) == []
@@ -25,7 +27,7 @@ defmodule Adoptoposs.DashboardTest do
 
     test "get_project!/1 returns the project with given id" do
       project = insert(:project)
-      assert Dashboard.get_project!(project.id) == project
+      assert Dashboard.get_project!(project.id).id == project.id
     end
 
     test "create_project/2 with valid data creates a project" do
@@ -66,7 +68,7 @@ defmodule Adoptoposs.DashboardTest do
       attrs = %{description: nil}
 
       assert {:error, %Ecto.Changeset{}} = Dashboard.update_project(project, attrs)
-      assert project == Dashboard.get_project!(project.id)
+      assert project.id == Dashboard.get_project!(project.id).id
     end
 
     test "delete_project/1 deletes the passed project" do

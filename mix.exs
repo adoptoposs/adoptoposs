@@ -26,6 +26,7 @@ defmodule Adoptoposs.MixProject do
 
   # Specifies which paths to compile per environment.
   defp elixirc_paths(:test), do: ["lib", "test/support"]
+  defp elixirc_paths(:dev), do: ["lib", "test/support"]
   defp elixirc_paths(_), do: ["lib"]
 
   # Specifies your project dependencies.
@@ -50,7 +51,8 @@ defmodule Adoptoposs.MixProject do
       {:timex, "~> 3.6"},
       {:earmark, "~> 1.4"},
       {:mix_test_watch, "~> 1.0", only: :dev, runtime: false},
-      {:ex_machina, "~> 2.3", only: :test},
+      {:faker, "~> 0.13", only: [:dev, :test]},
+      {:ex_machina, "~> 2.3", only: [:dev, :test]},
       {:floki, ">= 0.0.0", only: :test}
     ]
   end

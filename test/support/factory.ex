@@ -20,13 +20,15 @@ defmodule Adoptoposs.Factory do
   end
 
   def project_factory do
+    repo_id = sequence("repo_id")
+
     %Dashboard.Project{
       name: sequence("project"),
       language: sequence("language"),
-      data: %{"some" => %{"nested" => "data"}},
+      data: build(:repository, id: repo_id),
       user: build(:user),
       description: "Description",
-      repo_id: sequence("repo_id")
+      repo_id: repo_id
     }
   end
 
@@ -54,6 +56,7 @@ defmodule Adoptoposs.Factory do
 
   def contributor_factory do
     %Network.Repository.User{
+      id: sequence("id"),
       name: sequence("User"),
       login: sequence("user"),
       avatar_url: sequence(:avatar_url, &"https://example.com/user#{&1}.png"),

@@ -7,6 +7,7 @@ defmodule Adoptoposs.Network.Repository do
 
   alias Adoptoposs.Network.Repository
 
+  @derive {Jason.Encoder, []}
   @primary_key {:id, :string, []}
   embedded_schema do
     field :name, :string
