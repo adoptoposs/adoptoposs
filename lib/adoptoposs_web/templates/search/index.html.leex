@@ -1,0 +1,23 @@
+<h1>Find projects</h1>
+
+<form phx-submit="search">
+  <input type="search" name="q"
+    value="<%= @query %>"
+    autocomplete="off"
+    placeholder="Search for project names, programming languages..."
+    <%= if @loading, do: "readonly" %> />
+
+  <%= submit (if @loading, do: "…", else: "Go") %>
+</form>
+
+<%= if @projects do %>
+  <%= if Enum.empty?(@projects) do %>
+    <div>
+      <p>No projects found :(</p>
+    </div>
+  <% else %>
+    <%= for project <- @projects do %>
+      <%= render AdoptopossWeb.ProjectView, "project.html", project: project %>
+    <% end %>
+  <% end %>
+<% end %>

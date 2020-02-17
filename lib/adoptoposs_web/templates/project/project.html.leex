@@ -1,0 +1,13 @@
+<div>
+  <h2><%= @project.name %></h2>
+
+  <span><%= @project.data["language"]["name"] %></span>
+  <p><%= {:safe, Earmark.as_html!(@project.data["description"])} %></p>
+  <p>
+    Maintainer:
+
+    <a href="<%= @project.user.profile_url %>" title="@<%= @project.user.username %>">
+      @<%= @project.user.username %>
+    </a>
+  </p>
+</div>
