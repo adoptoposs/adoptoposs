@@ -8,18 +8,6 @@
 </section>
 
 <%= for project <- @projects do %>
-  <div>
-    <h2>
-      <a href="<%= project.data["url"] %>" title="<%= project.name %>">
-        <%= project.name %>
-      </a>
-    </h2>
-
-    <p>"<%= project.description %>"</p>
-    <span>
-      submitted by
-      <a href="<%= project.user.profile_url %>">@<%= project.user.username %></a>
-    </span>
-  </div>
+  <%= render AdoptopossWeb.ProjectView, "project.html", project: project %>
 <% end %>
 
