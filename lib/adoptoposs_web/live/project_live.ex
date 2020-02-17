@@ -1,4 +1,4 @@
-defmodule AdoptopossWeb.ProjectLive.Index do
+defmodule AdoptopossWeb.ProjectLive do
   use AdoptopossWeb, :live_view
 
   alias Adoptoposs.Dashboard

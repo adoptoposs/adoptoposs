@@ -29,7 +29,7 @@ defmodule AdoptopossWeb.Router do
 
     get "/settings/repos", RepoController, :index
     live "/settings/repos/:organization_id", RepoLive
-    live "/settings/projects", ProjectLive.Index
+    live "/settings/projects", ProjectLive
   end
 
   scope "/auth", AdoptopossWeb do

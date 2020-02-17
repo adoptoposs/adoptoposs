@@ -18,7 +18,7 @@
               </li>
 
               <li>
-                <%= link "Your Projects", to: Routes.live_path(@conn, AdoptopossWeb.ProjectLive.Index) %>
+                <%= link "Your Projects", to: Routes.live_path(@conn, AdoptopossWeb.ProjectLive) %>
               </li>
 
               <li><a href="/auth/github/logout">Logout</a></li>
