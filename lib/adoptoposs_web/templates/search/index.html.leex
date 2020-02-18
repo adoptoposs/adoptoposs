@@ -1,17 +1,22 @@
 <h1>Find projects</h1>
 
-<form phx-submit="search">
-  <input type="search" name="q"
+<form phx-submit="search" phx-change="search">
+  <input type="search"
+    id="search"
+    name="q"
     value="<%= @query %>"
     autocomplete="off"
     placeholder="Search for project names, programming languages..."
-    <%= if @loading, do: "readonly" %> />
+    phx-debounce="500" />
 
-  <%= submit (if @loading, do: "…", else: "Go") %>
+  <%= submit "Go", phx_disable_with: "…" %>
 </form>
 
-<%= if @projects do %>
-  <%= if Enum.empty?(@projects) do %>
+<div id="projects"
+     phx-update="<%= @update %>"
+     phx-hook="InfiniteScroll"
+     data-page="<%= @page %>">
+  <%= if @query && @page == 1 && Enum.empty?(@projects) do %>
     <div>
       <p>No projects found :(</p>
     </div>
@@ -20,4 +25,4 @@
       <%= render AdoptopossWeb.ProjectView, "project.html", project: project %>
     <% end %>
   <% end %>
-<% end %>
+</div>

@@ -9,15 +9,16 @@ import css from "../css/app.scss"
 //
 // Import dependencies
 //
-import "phoenix_html"
-import {Socket} from "phoenix"
-import {LiveSocket} from "phoenix_live_view"
-
-let csrfToken = document.querySelector("meta[name='csrf-token']").getAttribute("content")
-let liveSocket = new LiveSocket("/live", Socket, {params: {_csrf_token: csrfToken}})
-liveSocket.connect()
+import "phoenix_html";
+import {Socket} from "phoenix";
+import {LiveSocket} from "phoenix_live_view";
 
 // Import local files
 //
 // Local files can be imported directly using relative paths, for example:
 // import socket from "./socket"
+import Hooks from "./hooks";
+
+const csrfToken = document.querySelector("meta[name='csrf-token']").getAttribute("content");
+const liveSocket = new LiveSocket("/live", Socket, {hooks: Hooks, params: {_csrf_token: csrfToken}});
+liveSocket.connect();
