@@ -1,8 +1,8 @@
 <h1>Your submitted projects</h1>
 
-<ul>
+<ul id="projects">
   <%= for project <- @projects do %>
-    <li>
+    <li id="project-<%= project.id %>">
       <h2><%= project.name %></h2>
       <span><%= project.data["language"]["name"] %></span>
       <p><%= {:safe, Earmark.as_html!(project.data["description"])} %></p>
