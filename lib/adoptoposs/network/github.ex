@@ -7,28 +7,28 @@ defmodule Adoptoposs.Network.Github do
   @api_uri "https://api.github.com/graphql"
 
   @impl Api
-  def organizations(token, limit, start_cursor) do
-    organizations_query(limit, start_cursor)
+  def organizations(token, limit, after_cursor) do
+    organizations_query(limit, after_cursor)
     |> send_request(token)
     |> compile_organizations()
   end
 
   @impl Api
-  def repos(token, organization, limit, start_cursor) do
-    repos_query(organization, limit, start_cursor)
+  def repos(token, organization, limit, after_cursor) do
+    repos_query(organization, limit, after_cursor)
     |> send_request(token)
     |> compile_repos()
   end
 
   @impl Api
-  def user_repos(token, limit, start_cursor) do
-    user_repos_query(limit, start_cursor)
+  def user_repos(token, limit, after_cursor) do
+    user_repos_query(limit, after_cursor)
     |> send_request(token)
     |> compile_user_repos()
   end
 
-  defp organizations_query(limit, start_cursor) do
-    params = pagination_params(limit, start_cursor)
+  defp organizations_query(limit, after_cursor) do
+    params = pagination_params(limit, after_cursor)
 
     ~s"""
     {
@@ -36,7 +36,7 @@ defmodule Adoptoposs.Network.Github do
         organizations(#{params}) {
           pageInfo {
             hasNextPage
-            startCursor
+            endCursor
           }
           edges {
             node {
@@ -53,8 +53,8 @@ defmodule Adoptoposs.Network.Github do
     """
   end
 
-  defp repos_query(organization, limit, start_cursor) do
-    params = pagination_params(limit, start_cursor)
+  defp repos_query(organization, limit, after_cursor) do
+    params = pagination_params(limit, after_cursor)
 
     ~s"""
     {
@@ -63,7 +63,7 @@ defmodule Adoptoposs.Network.Github do
           repositories(#{params} isFork: false privacy: PUBLIC) {
             pageInfo {
               hasNextPage
-              startCursor
+              endCursor
             }
             edges {
               node {
@@ -85,8 +85,8 @@ defmodule Adoptoposs.Network.Github do
     """
   end
 
-  defp user_repos_query(limit, start_cursor) do
-    params = pagination_params(limit, start_cursor)
+  defp user_repos_query(limit, after_cursor) do
+    params = pagination_params(limit, after_cursor)
 
     ~s"""
     {
@@ -94,7 +94,7 @@ defmodule Adoptoposs.Network.Github do
         repositories(#{params} isFork: false privacy: PUBLIC) {
           pageInfo {
             hasNextPage
-            startCursor
+            endCursor
           }
           edges {
             node {
@@ -119,8 +119,8 @@ defmodule Adoptoposs.Network.Github do
     "first: #{limit}"
   end
 
-  defp pagination_params(limit, start_cursor) do
-    "first: #{limit}, after: \\\"#{start_cursor}\\\""
+  defp pagination_params(limit, after_cursor) do
+    "first: #{limit}, after: \\\"#{after_cursor}\\\""
   end
 
   defp send_request(graphql_query, auth_token) do
@@ -142,8 +142,8 @@ defmodule Adoptoposs.Network.Github do
 
   defp compile_organizations(%{data: %{viewer: %{organizations: orgas}}}) do
     %{edges: edges, pageInfo: info} = orgas
-    %{hasNextPage: has_next_page, startCursor: start_cursor} = info
-    page_info = %PageInfo{has_next_page: has_next_page, start_cursor: start_cursor}
+    %{hasNextPage: has_next_page, endCursor: end_cursor} = info
+    page_info = %PageInfo{has_next_page: has_next_page, end_cursor: end_cursor}
 
     organizations =
       edges
@@ -157,8 +157,8 @@ defmodule Adoptoposs.Network.Github do
 
   defp compile_repos(%{data: %{viewer: %{organization: %{repositories: repos}}}}) do
     %{edges: edges, pageInfo: page_info} = repos
-    %{hasNextPage: has_next_page, startCursor: start_cursor} = page_info
-    page_info = %PageInfo{has_next_page: has_next_page, start_cursor: start_cursor}
+    %{hasNextPage: has_next_page, endCursor: end_cursor} = page_info
+    page_info = %PageInfo{has_next_page: has_next_page, end_cursor: end_cursor}
 
     repositories =
       edges
@@ -172,8 +172,8 @@ defmodule Adoptoposs.Network.Github do
 
   defp compile_user_repos(%{data: %{viewer: %{repositories: repos}}}) do
     %{edges: edges, pageInfo: page_info} = repos
-    %{hasNextPage: has_next_page, startCursor: start_cursor} = page_info
-    page_info = %PageInfo{has_next_page: has_next_page, start_cursor: start_cursor}
+    %{hasNextPage: has_next_page, endCursor: end_cursor} = page_info
+    page_info = %PageInfo{has_next_page: has_next_page, end_cursor: end_cursor}
 
     repositories =
       edges

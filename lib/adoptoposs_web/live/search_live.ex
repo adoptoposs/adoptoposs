@@ -14,7 +14,7 @@ defmodule AdoptopossWeb.SearchLive do
     {:ok,
      socket
      |> assign(query: nil, page: 1)
-     |> append_results(), temporary_assigns: [projects: []]}
+     |> update_with_append(), temporary_assigns: [projects: []]}
   end
 
   def handle_event("search", %{"q" => query}, %{assigns: assigns} = socket) do
@@ -26,7 +26,7 @@ defmodule AdoptopossWeb.SearchLive do
       {:noreply,
        socket
        |> assign(page: 1)
-       |> replace_results()
+       |> update_with_replace()
        |> search(query)}
     end
   end
@@ -35,7 +35,7 @@ defmodule AdoptopossWeb.SearchLive do
     {:noreply,
      socket
      |> assign(page: assigns.page + 1)
-     |> append_results()
+     |> update_with_append()
      |> search(assigns.query)}
   end
 
@@ -46,11 +46,11 @@ defmodule AdoptopossWeb.SearchLive do
     assign(socket, query: query, projects: projects)
   end
 
-  defp append_results(socket) do
+  defp update_with_append(socket) do
     assign(socket, update: "append")
   end
 
-  defp replace_results(socket) do
+  defp update_with_replace(socket) do
     assign(socket, update: "replace")
   end
 end

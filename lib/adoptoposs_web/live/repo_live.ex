@@ -6,45 +6,36 @@ defmodule AdoptopossWeb.RepoLive do
   alias Adoptoposs.Network.Organization
   alias Adoptoposs.Accounts.User
 
-  @orga_limit 10
-  @repo_limit 15
+  @orga_limit 25
+  @repo_limit 10
 
   def render(assigns) do
     Phoenix.View.render(RepoView, "index.html", assigns)
   end
 
   def mount(_params, %{"current_user" => user, "token" => token}, socket) do
-    {:ok, init_data(socket, token, user)}
+    {:ok,
+     socket
+     |> assign(page: 1)
+     |> update_with_append()
+     |> init_data(token, user), temporary_assigns: [repositories: []]}
   end
 
   def handle_event("organization_selected", %{"id" => id}, socket) do
     {:noreply, push_patch(socket, to: Routes.live_path(socket, __MODULE__, id))}
   end
 
-  def handle_event("attempt_submit", %{"repo-id" => repo_id}, socket) do
-    {:noreply, assign(socket, to_be_submitted: repo_id)}
-  end
+  def handle_event("load_more", _, %{assigns: assigns} = socket) do
+    %{has_next_page: has_next_page, end_cursor: after_cursor} = assigns.repo_page_info
 
-  def handle_event("cancel_submit", _params, socket) do
-    {:noreply, assign(socket, to_be_submitted: nil)}
-  end
-
-  def handle_event(
-        "submit_project",
-        %{"repo_id" => repo_id, "description" => description},
-        socket
-      ) do
-    %{repositories: repos, submitted_repos: submitted_repos} = socket.assigns
-    repository = repos |> Enum.find(&(&1.id == repo_id))
-    attrs = %{user_id: socket.assigns.user_id, description: description}
-
-    case Dashboard.create_project(repository, attrs) do
-      {:ok, _project} ->
-        {:noreply,
-         assign(socket, submitted_repos: [repo_id | submitted_repos], to_be_submitted: nil)}
-
-      _ ->
-        {:noreply, socket}
+    if has_next_page do
+      {:noreply,
+       socket
+       |> update_with_append()
+       |> assign(page: assigns.page + 1)
+       |> load_repos(assigns.organization.id, after_cursor)}
+    else
+      {:noreply, socket}
     end
   end
 
@@ -72,31 +63,53 @@ defmodule AdoptopossWeb.RepoLive do
     })
   end
 
-  defp update_selected(socket, id) do
-    {repo_page_info, repositories} = fetch_repo_data(socket, id)
-    organization = socket.assigns.organizations |> Enum.find(&(&1.id == id))
+  defp update_selected(socket, organization_id) do
+    organization = socket.assigns.organizations |> Enum.find(&(&1.id == organization_id))
     projects = Dashboard.list_projects(%User{id: socket.assigns.user_id})
     submitted_repos = projects |> Enum.map(& &1.repo_id)
 
-    assign(socket, %{
+    socket
+    |> update_with_replace()
+    |> load_repos(organization_id)
+    |> assign(%{
       organization: organization,
-      repositories: repositories,
-      repo_page_info: repo_page_info,
       submitted_repos: submitted_repos,
       to_be_submitted: nil
     })
   end
 
-  defp fetch_repo_data(%{assigns: %{username: id}} = socket, id) do
+  defp load_repos(socket, organisation_id, after_cursor \\ "")
+
+  defp load_repos(%{assigns: %{username: id}} = socket, id, after_cursor) do
     %{token: token, provider: provider} = socket.assigns
     token = verify_token(token, provider)
-    Network.user_repos(token, provider, @repo_limit)
+    {page_info, repos} = Network.user_repos(token, provider, @repo_limit, after_cursor)
+
+    assign(socket,
+      repositories: repos,
+      repo_page_info: page_info
+    )
   end
 
-  defp fetch_repo_data(socket, id) do
+  defp load_repos(socket, organisation_id, after_cursor) do
     %{token: token, provider: provider} = socket.assigns
     token = verify_token(token, provider)
-    Network.repos(token, provider, id, @repo_limit)
+
+    {page_info, repos} =
+      Network.repos(token, provider, organisation_id, @repo_limit, after_cursor)
+
+    assign(socket,
+      repositories: repos,
+      repo_page_info: page_info
+    )
+  end
+
+  defp update_with_append(socket) do
+    assign(socket, update: "append")
+  end
+
+  defp update_with_replace(socket) do
+    assign(socket, update: "append")
   end
 
   defp sign_token(token, salt) do

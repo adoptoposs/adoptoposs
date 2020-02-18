@@ -7,6 +7,6 @@ defmodule Adoptoposs.Network.PageInfo do
 
   embedded_schema do
     field :has_next_page, :boolean
-    field :start_cursor, :string
+    field :end_cursor, :string
   end
 end

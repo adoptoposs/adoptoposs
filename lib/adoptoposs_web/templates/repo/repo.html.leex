@@ -1,4 +1,4 @@
-<div id="repo-#{@id}">
+<div id="<%= @id %>">
   <h2><%= @repo.name %></h2>
   <span><%= @repo.language.name %></span>
   <p><%= {:safe, Earmark.as_html!(@repo.description)} %></p>
@@ -8,9 +8,7 @@
   <% else %>
     <%= cond do %>
       <% @to_be_submitted -> %>
-        <form phx-submit="submit_project">
-          <input type="hidden" name="repo_id" value="<%= @repo.id %>" phx-value_repo_id=<%= @repo.id %>">
-
+        <form phx-submit="submit_project" phx-target="#<%= @id %>">
           <label>
             What/who are you looking for?
             <textarea name="description"></textarea>
@@ -18,11 +16,9 @@
 
           <%= submit "Save" %>
         </form>
-        <button phx-click="cancel_submit">Cancel</button>
+        <button phx-click="cancel_submit" phx-target="#<%= @id %>">Cancel</button>
       <% true -> %>
-        <%= submit "Submit…",
-          phx_click: "attempt_submit",
-          phx_value_repo_id: @repo.id %>
+        <%= submit "Submit…", phx_click: "attempt_submit", phx_target: "##{@id}"%>
     <% end %>
   <% end %>
 </div>

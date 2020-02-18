@@ -23,15 +23,17 @@
   </h2>
   <p>Submit your repositories to find additional maintainers for your projects.</p>
 
-  <ul>
+  <div id="repos-<%= @organization.id %>"
+       phx-update="<%= @update %>"
+       phx-hook="InfiniteScroll"
+       data-page=<%= @page %>>
     <%= for repo <- @repositories do %>
-      <li>
-        <%= live_component @socket, AdoptopossWeb.RepoComponent,
-          id: repo.id,
-          repo: repo,
-          submitted: repo.id in @submitted_repos,
-          to_be_submitted: repo.id == @to_be_submitted %>
-      </li>
+      <%= live_component @socket, AdoptopossWeb.RepoComponent,
+        id: "repo-#{hashed(repo.id)}",
+        user_id: @user_id,
+        repo: repo,
+        submitted: repo.id in @submitted_repos,
+        to_be_submitted: repo.id == @to_be_submitted %>
     <% end %>
-  </ul>
+  </div>
 </section>
