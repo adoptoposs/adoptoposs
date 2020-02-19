@@ -1,239 +1,53 @@
-/* This file is for your main application css. */
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
 
-@import "./phoenix.scss";
-@import "../../deps/phoenix_live_view/assets/css/live_view.css";
+body {
+  @apply flex flex-col;
+  @apply bg-gray-100 text-gray-900;
+}
 
-$alert: #B36A66;
-$less-alert: #FED99E;
+header {
+  @apply text-pink-900;
+}
 
-.switch {
-  display: flex;
-  flex-flow: column;
-  align-items: stretch;
+nav {
+  @apply mx-auto;
+}
 
-  .switch-toggles {
-    display: flex;
-    flex-flow: row;
+main {
+  @apply flex flex-col flex-wrap w-full max-w-6xl mx-auto;
+}
 
-    a.switch-toggle {
-      text-decoration: none;
-      height: 100%;
-      flex-grow: 1;
-      text-align: center;
-      padding: 10px;
-      line-height: 2.5em;
-      margin: 0;
+h1, h2, h3, h4, h5 {
+  @apply text-pink-900 font-semibold;
+}
 
-      .icon {
-        font-size: 2em;
-        mix-blend-mode: luminosity;
-      }
+h1 {
+  @apply text-4xl mt-4;
+}
 
-      &.red {
-        background-color: $alert;
-        color: #fff;
-        border-top-left-radius: 4px;
-      }
+h2 {
+  @apply text-2xl mt-4;
+}
 
-      &.yellow {
-        background-color: $less-alert;
-        color: #333;
-        border-top-right-radius: 4px;
-      }
-    }
-  }
+p {
+  @apply mb-4
+}
 
-  .switch-indicator {
-    width: 100%;
-    height: 0.5em;
+button {
+  @apply rounded-sm py-2 px-4 my-2;
+  @apply border border-red-500 text-red-500 text-sm uppercase tracking-wider font-semibold;
 
-    &.red {
-      background-color: $alert;
-    }
-
-    &.yellow {
-      background-color: $less-alert;
-    }
+  &:focus, &:hover {
+    @apply bg-red-500 text-white
   }
 }
 
-.card-container {
-  display: grid;
-  grid-template-columns: 1;
-  width: 100%;
+a {
+  @apply text-red-600;
 
-  &.hidden {
-    display: none;
-  }
-}
-
-.card {
-  background-color: #ffffff;
-  margin: 16px 0;
-  border-radius: 3px;
-  border-bottom: 1px #ddd solid;
-
-  .header, .footer {
-    padding: 16px;
-
-    @media (max-width: 40.0rem) {
-      padding: 16px 8px;
-    }
-  }
-
-  .header {
-    min-height: 100px;
-
-    .top {
-      display: flex;
-      flex-flow: row;
-      justify-content: space-between;
-      align-items: flex-start;
-
-      h2 {
-        font-size: 1.5em;
-        font-weight: bold;
-      }
-
-      div.lang {
-        margin-top: 2px;
-        span {
-          color: #fff;
-          padding: 4px 10px;
-          border-radius: 4px;
-          margin-top: 2px;
-        }
-      }
-    }
-
-    .bottom {
-      color: #444;
-    }
-  }
-
-  .body {
-    padding: 0 16px;
-    background-color: #eee;
-    display: flex;
-    justify-content: space-between;
-    border-top-left-radius: 4px;
-    border-bottom-left-radius: 4px;
-
-    span.lang {
-      width: 8px;
-      position: relative;
-
-      &:first-child {
-        left: -16px;
-        border-top-left-radius: 4px;
-        border-bottom-left-radius: 4px;
-      }
-    }
-
-    .stats {
-      padding: 16px 0;
-      color: #333;
-      width: 100%;
-    }
-
-    .score {
-      display: flex;
-      flex-flow: column;
-      align-items: center;
-      width: 100px;
-
-      .traffic-light {
-        $size: 50px;
-
-        span {
-          display: block;
-          width: $size;
-          height: $size;
-          border-radius: 50%;
-          margin-bottom: 3px;
-          background-color: #ccc;
-
-          i {
-            position: absolute;
-            font-size: 2em;
-            width: $size;
-            height: $size;
-            text-align: center;
-            justify-content: center;
-            color: #333;
-            font-style: normal;
-            font-weight: bold;
-            mix-blend-mode: luminosity;
-          }
-        }
-
-        &.red {
-          span {
-            background-color: $alert;
-            i:before {
-              content: "🙀";
-            }
-          }
-        }
-
-        &.yellow {
-          span {
-            background-color: $less-alert;
-            i:before {
-              content: "😻";
-            }
-          }
-        }
-      }
-
-      align-self: center;
-      padding: 16px;
-      color: #666;
-    }
-  }
-
-  .footer {
-    display: flex;
-    flex-flow: row;
-    align-items: flex-start;
-    justify-content: space-between;
-
-    @media (max-width: 40.0rem) {
-      flex-flow: column;
-    }
-
-    div {
-      display: flex;
-      flex-flow: row;
-      justify-content: flex-end;
-    }
-
-    a {
-      display: inline-flex;
-
-      &.user-link {
-        span {
-          margin-right: 4px;
-        }
-
-        img {
-          padding: 2px;
-          width: 28px;
-          border-radius: 4px;
-        }
-      }
-    }
-  }
-}
-
-form {
-  display: flex;
-  flex-flow: row;
-  justify-content: space-between;
-  align-items: flex-start;
-  width: 100%;
-
-  button, button[type="submit"] {
-    margin-left: 6px;
+  &:focus, &:hover {
+    @apply text-red-400;
   }
 }

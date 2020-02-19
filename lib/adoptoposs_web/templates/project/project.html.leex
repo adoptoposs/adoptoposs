@@ -1,13 +1,28 @@
-<div id="project-<%= @project.id %>">
-  <h2><%= @project.name %></h2>
+<div class="flex flex-col justify-between bg-white rounded-md border border-gray-300 shadow-md hover:bg-red-100" id="project-<%= @project.id %>">
+  <div class="relative flex flex-col justify-between px-6">
+    <div class="flex flex-row justify-between items-center mt-5">
+      <h2 class="mt-0 min-w-0 truncate mr-2">
+        <%= @project.name %>
+      </h2>
 
-  <span><%= @project.data["language"]["name"] %></span>
-  <p><%= {:safe, Earmark.as_html!(@project.data["description"])} %></p>
-  <p>
-    Maintainer:
+      <span class="text-white rounded px-4 py-1" style="background-color: <%= @project.data["language"]["color"] %>;">
+          <%= @project.data["language"]["name"] %>
+      </span>
+    </div>
 
-    <a href="<%= @project.user.profile_url %>" title="@<%= @project.user.username %>">
-      @<%= @project.user.username %>
-    </a>
-  </p>
+    <div class="text-gray-600 mt-4 mb-2">
+      <%= {:safe, Earmark.as_html!(@project.data["description"])} %>
+    </div>
+  </div>
+  <div class="p-6 mt-6 bg-gray-200">
+    <div class="text-gray-600 mb-2">
+      <%= {:safe, Earmark.as_html!(@project.description)} %>
+    </div>
+    <div class="mt-4">
+      <span class="text-gray-600 text-sm">submitted by</span>
+      <a href="<%= @project.user.profile_url %>" title="@<%= @project.user.username %>" class="text-sm">
+        @<%= @project.user.username %>
+      </a>
+    </div>
+  </div>
 </div>

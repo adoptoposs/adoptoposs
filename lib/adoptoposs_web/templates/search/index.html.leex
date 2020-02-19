@@ -1,28 +1,39 @@
-<h1>Find projects</h1>
+<div class="mt-16 mb-20">
+  <h1 class="text-center">
+    Find projects and join as a maintainer
+  </h1>
+</div>
 
-<form phx-submit="search" phx-change="search">
-  <input type="search"
-    id="search"
-    name="q"
-    value="<%= @query %>"
-    autocomplete="off"
-    placeholder="Search for project names, programming languages..."
-    phx-debounce="500" />
+<div class="mt-8 mb-16">
+  <form class="flex flex-wrap items-center" phx-submit="search" phx-change="search">
+    <input type="search"
+      class="flex-grow border border-red-500 rounded-full h-16 px-8 mr-4 text-red-600"
+      id="search"
+      name="q"
+      value="<%= @query %>"
+      autocomplete="off"
+      autofocus
+      placeholder="Search for project names, programming languages..."
+      phx-debounce="500" />
 
-  <%= submit "Go", phx_disable_with: "…" %>
-</form>
+    <%= submit "Go", phx_disable_with: "…", class: "flex-none h-16 w-16 rounded-full" %>
+  </form>
+</div>
 
-<div id="projects"
+<%= if @query && @page == 1 && Enum.empty?(@projects) do %>
+  <div class="flex items-center justify-center text-center h-48 bg-white rounded-md shadow-md border border-gray-300">
+    <span class="text-pink-900 text-lg font-medium">
+      Sorry, no projects found for "<%= @query %>" :(
+    </span>
+  </div>
+<% else %>
+  <div id="projects"
+     class="grid grid-flow-row grid-cols-2 gap-4"
      phx-update="<%= @update %>"
      phx-hook="InfiniteScroll"
      data-page="<%= @page %>">
-  <%= if @query && @page == 1 && Enum.empty?(@projects) do %>
-    <div>
-      <p>No projects found :(</p>
-    </div>
-  <% else %>
     <%= for project <- @projects do %>
       <%= render AdoptopossWeb.ProjectView, "project.html", project: project %>
     <% end %>
-  <% end %>
-</div>
+  </div>
+<% end %>

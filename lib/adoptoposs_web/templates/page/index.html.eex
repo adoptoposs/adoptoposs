@@ -1,4 +1,4 @@
-<section class="phx-hero">
+<section>
   <h1><%= gettext "Welcome to %{app_name}!", app_name: "Adoptoposs" %></h1>
   <p>
     Connecting people to make sure <br/>
