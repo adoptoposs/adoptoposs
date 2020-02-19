@@ -30,7 +30,21 @@ module.exports = (env, options) => ({
       },
       {
         test: /\.scss$/,
-        use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader']
+        use: [
+          MiniCssExtractPlugin.loader,
+          'css-loader',
+          'sass-loader',
+          {
+            loader: 'postcss-loader',
+            options: {
+              ident: 'postcss',
+              plugins: [
+                require('tailwindcss'),
+                require('autoprefixer'),
+              ],
+            },
+          },
+        ]
       }
     ]
   },
