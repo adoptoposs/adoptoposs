@@ -10,7 +10,7 @@
 
   <body>
     <header>
-      <nav class="flex max-w-6xl items-center flex-wrap px-6 py-4" role="navigation">
+      <nav role="navigation">
         <div class="flex items-center flex-shrink-0 mr-6">
           <a href="/" class="font-semibold text-xl tracking-tight">
             <img src="<%= Routes.static_path(@conn, "/images/adoptoposs.png") %>" alt="Adoptoposs Logo"/>
@@ -47,18 +47,34 @@
       </nav>
     </header>
 
-    <main class="p-4" role="main" >
-      <%= if get_flash(@conn, :info) do %>
-        <p class="bg-green-400 text-white text-center font-medium p-4" role="alert"><%= get_flash(@conn, :info) %></p>
-      <% end %>
+    <main role="main" >
+      <section>
+        <%= if get_flash(@conn, :info) do %>
+          <p class="bg-green-400 text-white text-center font-medium p-4" role="alert"><%= get_flash(@conn, :info) %></p>
+        <% end %>
 
-      <%= if get_flash(@conn, :error) do %>
-        <p class="bg-red-400 text-white text-center font-medium p-4" role="alert"><%= get_flash(@conn, :error) %></p>
-      <% end %>
+        <%= if get_flash(@conn, :error) do %>
+          <p class="bg-red-400 text-white text-center font-medium p-4" role="alert"><%= get_flash(@conn, :error) %></p>
+        <% end %>
+      </section>
 
       <%= render @view_module, @view_template, assigns %>
     </main>
 
+    <footer class="bg-gray-900 text-red-400">
+      <section>
+        <div class="flex flex-row flex-wrap justify-between">
+        <ul>
+          <li><a href="#" title="Privacy Policy">Privacy Policy</a></li>
+          <li><a href="#" title="Impressum">What is Adoptoposs?</a></li>
+          <li><a href="#" title="Impressum">Found any bug?</a></li>
+        </ul>
+        <div>
+          <a href="https://github.com/paulgoetze/adoptoposs">Fork us on Github</a>
+        </div>
+      </div>
+      </section>
+    </footer>
     <%= csrf_meta_tag() %>
     <script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/app.js") %>"></script>
   </body>

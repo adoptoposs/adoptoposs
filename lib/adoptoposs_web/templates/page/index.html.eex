@@ -1,13 +1,21 @@
-<section>
-  <h1><%= gettext "Welcome to %{app_name}!", app_name: "Adoptoposs" %></h1>
-  <p>
-    Connecting people to make sure <br/>
-    <b>open source software</b> projects are maintained </br>
-    by multiple <b>co-maintainers</b>.</br>.
-  </p>
-</section>
+<div class="py-12 bg-red-500">
+  <section>
+    <h1 class="text-center">
+      <%= gettext "Welcome to %{app_name}!", app_name: "Adoptoposs" %>
+    </h1>
+    <p class="text-white text-center">
+      Connecting people to make sure <br/>
+      <b>open source software</b> projects are maintained </br>
+      by multiple <b>co-maintainers</b>.
+    </p>
+  </section>
+</div>
 
-<%= for project <- @projects do %>
-  <%= render AdoptopossWeb.ProjectView, "project.html", project: project %>
-<% end %>
+<section class="mt-16">
+  <div class="grid grid-flow-row grid-cols-2 gap-4">
+    <%= for project <- @projects do %>
+      <%= render AdoptopossWeb.ProjectView, "project.html", project: project %>
+    <% end %>
+  </div>
+</section>
 

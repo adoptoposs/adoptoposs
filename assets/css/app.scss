@@ -2,7 +2,12 @@
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
 
+html, body {
+  @apply h-full;
+}
+
 body {
+  @apply antialiased;
   @apply flex flex-col;
   @apply bg-gray-100 text-gray-900;
 }
@@ -12,11 +17,27 @@ header {
 }
 
 nav {
-  @apply mx-auto;
+  @apply flex max-w-6xl mx-auto items-center flex-wrap px-6 py-4;
 }
 
 main {
-  @apply flex flex-col flex-wrap w-full max-w-6xl mx-auto;
+  @apply flex flex-col flex-wrap w-full mb-16;
+}
+
+section {
+  @apply px-4 mt-4 w-full max-w-6xl mx-auto
+}
+
+footer {
+  @apply flex flex-row flex-wrap w-full pt-4 pb-8 mt-auto;
+
+  a {
+    @apply text-red-400;
+
+    &:focus, &:hover {
+      @apply underline;
+    }
+  }
 }
 
 h1, h2, h3, h4, h5 {
@@ -24,7 +45,7 @@ h1, h2, h3, h4, h5 {
 }
 
 h1 {
-  @apply text-4xl mt-4;
+  @apply text-4xl mt-4 mb-4;
 }
 
 h2 {
@@ -37,10 +58,10 @@ p {
 
 button {
   @apply rounded-sm py-2 px-4 my-2;
-  @apply border border-red-500 text-red-500 text-sm uppercase tracking-wider font-semibold;
+  @apply bg-white border border-red-500 text-red-500 text-sm uppercase tracking-wider font-semibold;
 
   &:focus, &:hover {
-    @apply bg-red-500 text-white
+    @apply bg-red-500 text-white border-white
   }
 }
 

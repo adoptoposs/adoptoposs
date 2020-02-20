@@ -1,4 +1,4 @@
-<div class="flex flex-col justify-between bg-white rounded-md border border-gray-300 shadow-md hover:bg-red-100" id="project-<%= @project.id %>">
+<div class="flex flex-col justify-between bg-white rounded-md border border-gray-400 shadow-sm hover:shadow-md" id="project-<%= @project.id %>">
   <div class="relative flex flex-col justify-between px-6">
     <div class="flex flex-row justify-between items-center mt-5">
       <h2 class="mt-0 min-w-0 truncate mr-2">
@@ -14,7 +14,7 @@
       <%= {:safe, Earmark.as_html!(@project.data["description"])} %>
     </div>
   </div>
-  <div class="p-6 mt-6 bg-gray-200">
+  <div class="p-6 mt-6 bg-gray-200 rounded-bl-md rounded-br-md">
     <div class="text-gray-600 mb-2">
       <%= {:safe, Earmark.as_html!(@project.description)} %>
     </div>

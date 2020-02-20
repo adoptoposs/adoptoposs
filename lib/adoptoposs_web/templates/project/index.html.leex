@@ -1,30 +1,32 @@
-<h1>Your submitted projects</h1>
+<section>
+  <h1>Your submitted projects</h1>
 
-<ul id="projects">
-  <%= for project <- @projects do %>
-    <li id="project-<%= project.id %>">
-      <h2><%= project.name %></h2>
-      <span><%= project.data["language"]["name"] %></span>
-      <p><%= {:safe, Earmark.as_html!(project.data["description"])} %></p>
+  <ul id="projects">
+    <%= for project <- @projects do %>
+      <li id="project-<%= project.id %>">
+        <h2><%= project.name %></h2>
+        <span><%= project.data["language"]["name"] %></span>
+        <p><%= {:safe, Earmark.as_html!(project.data["description"])} %></p>
 
-      <%= if @edit_id == to_string(project.id) do %>
-        <form phx-submit="update">
-          <input type="hidden" name="id" value="<%= project.id %>" phx-value_id="<%= project.id %>">
+        <%= if @edit_id == to_string(project.id) do %>
+          <form phx-submit="update">
+            <input type="hidden" name="id" value="<%= project.id %>" phx-value_id="<%= project.id %>">
 
-          <label>
-            What/who are you looking for?
-            <textarea name="description"><%= project.description %></textarea>
-          </label>
+            <label>
+              What/who are you looking for?
+              <textarea name="description"><%= project.description %></textarea>
+            </label>
 
-          <%= submit "Save" %>
-        </form>
-        <button phx-click="cancel_edit">Cancel</button>
-      <% else %>
-        <p><%= {:safe, Earmark.as_html!(project.description)} %></p>
+            <%= submit "Save" %>
+          </form>
+          <button phx-click="cancel_edit">Cancel</button>
+        <% else %>
+          <p><%= {:safe, Earmark.as_html!(project.description)} %></p>
 
-        <%= submit "edit", phx_click: "edit", phx_value_id: project.id %>
-        <%= submit "remove", phx_click: "remove", phx_value_id: project.id %>
-      <% end %>
-    </li>
-  <% end %>
-</ul>
+          <%= submit "edit", phx_click: "edit", phx_value_id: project.id %>
+          <%= submit "remove", phx_click: "remove", phx_value_id: project.id %>
+        <% end %>
+      </li>
+    <% end %>
+  </ul>
+</section>
