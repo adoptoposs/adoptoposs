@@ -1,0 +1,14 @@
+<form id="form-<%= @id %>" phx-submit="<%= @submit_event %>" class="flex flex-col w-full" phx-target="<%= @phx_target %>">
+  <input type="hidden" name="id" value="<%= @id %>" phx-value_id="<%= @id %>">
+
+  <label class="text-gray-700">
+    I’m looking for…
+  </label>
+  <textarea name="description" class="bg-white text-gray-700  w-full h64 p-4 my-4 rounded"><%= @description %></textarea>
+
+  <div class="flex justify-end">
+    <%= submit "Save", id: "btn-save-#{@id}", class: "mr-2" %>
+
+    <%= reset "Cancel", id: "btn-cancel-#{@id}", phx_click: @cancel_event, phx_target: @phx_target %>
+  </div>
+</form>

@@ -21,27 +21,20 @@
             </div>
           </div>
 
-          <div class="flex flex-col justify-center flex-1 px-6 pt-6 pb-4 bg-gray-200">
+          <div class="flex flex-col justify-between flex-1 px-6 pt-6 pb-4 bg-gray-200">
             <%= if @edit_id == to_string(project.id) do %>
-              <form phx-submit="update" class="flex flex-col w-full">
-                <input type="hidden" name="id" value="<%= project.id %>" phx-value_id="<%= project.id %>">
-
-                <label class="text-gray-700">
-                  I’m looking for…
-                </label>
-                <textarea name="description" class="bg-white text-gray-700  w-full h64 p-4 my-4 rounded"><%= project.description %></textarea>
-
-                <div class="flex justify-end">
-                  <%= submit "Save", id: "btn-save-#{project.id}", class: "mr-2" %>
-
-                  <%= reset "Cancel", id: "btn-cancel-#{project.id}", phx_click: "cancel_edit", phx_target: "#project-#{project.id}"%>
-                </div>
-              </form>
+              <%= render AdoptopossWeb.ProjectView, "form.html",
+                id: project.id,
+                description: project.description,
+                submit_event: "update",
+                cancel_event: "cancel_edit",
+                phx_target: "#project-#{project.id}" %>
             <% else %>
-              <p class="text-gray-700">
-                <b>I’m looking for…</b>
-              </p>
               <div class="text-gray-700">
+                <b>I’m looking for…</b>
+              </div>
+
+              <div class="text-gray-700 mt-2 mb-4">
                 <%= {:safe, Earmark.as_html!(project.description)} %>
               </div>
 

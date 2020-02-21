@@ -16,25 +16,20 @@
       </div>
     </div>
 
-    <div class="flex flex-col justify-center items-end flex-1 px-6 pt-4 pb-4 <%= if @submitted || @to_be_submitted, do: "bg-gray-200", else: "bg-white" %>">
+    <div class="flex flex-col justify-center items-end flex-1 px-6 pt-6 pb-4 <%= if @submitted || @to_be_submitted, do: "bg-gray-200", else: "bg-white" %>">
       <%= if @submitted do %>
-        <span class="my-4 p-4 h-16 w-16 rounded rounded-full border text-center text-pink-900 bg-green-200">✔</span>
+        <span class="mt-4
+        mb-6 p-4 h-16 w-16 rounded rounded-full border text-center text-pink-900 bg-green-200">✔</span>
       <% else %>
         <%= if !@to_be_submitted do %>
-          <%= submit "+", id: "btn-submit-#{@id}", phx_click: "attempt_submit", phx_target: "##{@id}", class: "h-16 w-16 rounded rounded-full text-3xl font-light" %>
+          <%= submit "+", id: "btn-submit-#{@id}", phx_click: "attempt_submit", phx_target: "##{@id}", class: "h-16 w-16 rounded rounded-full text-3xl font-light mb-4" %>
         <% else %>
-          <form phx-submit="submit_project" phx-target="#<%= @id %>" class="flex flex-col w-full mt-2">
-            <label class="text-gray-700">
-              I’m looking for…
-            </label>
-            <textarea name="description" class="bg-white text-gray-600 w-full h64 p-4 my-4 rounded"></textarea>
-
-            <div class="flex justify-end">
-              <%= submit "Save", id: "btn-save-#{@id}", class: "mr-2" %>
-
-              <%= reset "Cancel", id: "btn-cancel-#{@id}", phx_click: "cancel_submit", phx_target: "##{@id}"%>
-            </div>
-          </form>
+          <%= render AdoptopossWeb.ProjectView, "form.html",
+            id: @repo.id,
+            description: "",
+            submit_event: "submit_project",
+            cancel_event: "cancel_submit",
+            phx_target: "##{@id}" %>
         <% end %>
       <% end %>
     </div>
