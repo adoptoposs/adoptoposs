@@ -1,24 +1,42 @@
-<div id="<%= @id %>">
-  <h2><%= @repo.name %></h2>
-  <span><%= @repo.language.name %></span>
-  <p><%= {:safe, Earmark.as_html!(@repo.description)} %></p>
+<div id="<%= @id %>" class="flex flex-wrap w-full shadow hover:shadow-md mb-4 border border-gray-300">
+  <div class="flex flex-row justify-between w-full">
+    <div class="flex flex-col flex-1 items-start p-6 bg-white">
+      <div class="flex flex-row flex-wrap justify-between items-top w-full">
+        <h2 class="mt-0 mr-4">
+          <%= @repo.name %>
+        </h2>
+        <span class="text-white rounded px-4 py-1 text-center"
+              style="background-color: <%= @repo.language.color %>;">
+            <%= @repo.language.name %>
+        </span>
+      </div>
 
-  <%= if @submitted do %>
-    <span>submitted ✔</span>
-  <% else %>
-    <%= cond do %>
-      <% @to_be_submitted -> %>
-        <form phx-submit="submit_project" phx-target="#<%= @id %>">
-          <label>
-            What/who are you looking for?
-            <textarea name="description"></textarea>
-          </label>
+      <div class="text-gray-600 mt-6">
+        <%= {:safe, Earmark.as_html!(@repo.description)} %>
+      </div>
+    </div>
 
-          <%= submit "Save" %>
-        </form>
-        <button phx-click="cancel_submit" phx-target="#<%= @id %>">Cancel</button>
-      <% true -> %>
-        <%= submit "Submit…", phx_click: "attempt_submit", phx_target: "##{@id}"%>
-    <% end %>
-  <% end %>
+    <div class="flex flex-col justify-center items-end flex-1 px-6 pt-4 pb-4 <%= if @submitted || @to_be_submitted, do: "bg-gray-200", else: "bg-white" %>">
+      <%= if @submitted do %>
+        <span class="my-4 p-4 h-16 w-16 rounded rounded-full border text-center text-pink-900 bg-green-200">✔</span>
+      <% else %>
+        <%= if !@to_be_submitted do %>
+          <%= submit "+", id: "btn-submit-#{@id}", phx_click: "attempt_submit", phx_target: "##{@id}", class: "h-16 w-16 rounded rounded-full text-3xl font-light" %>
+        <% else %>
+          <form phx-submit="submit_project" phx-target="#<%= @id %>" class="flex flex-col w-full mt-2">
+            <label class="text-gray-700">
+              I’m looking for…
+            </label>
+            <textarea name="description" class="bg-white text-gray-600 w-full h64 p-4 my-4 rounded"></textarea>
+
+            <div class="flex justify-end">
+              <%= submit "Save", id: "btn-save-#{@id}", class: "mr-2" %>
+
+              <%= reset "Cancel", id: "btn-cancel-#{@id}", phx_click: "cancel_submit", phx_target: "##{@id}"%>
+            </div>
+          </form>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
 </div>

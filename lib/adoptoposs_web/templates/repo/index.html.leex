@@ -1,39 +1,49 @@
-<section>
-  <p>Change account/organization</p>
+<div class="pt-8 pb-12 mb-12 bg-gray-200">
+  <section class="flex flex-wrap flex-row justify-center items-center">
+    <h1 class="text-center mr-4">
+      Submit repos from
+    </h1>
 
-  <form phx-change="organization_selected">
-    <select name="id">
-      <%= for organization <- @organizations do %>
-        <option value="<%= organization.id %>"
-          phx-value_id="<%= organization.id %>"
-          <%= selected_attr(@organization, organization) %>>
-          <%= organization.name %>
-        </option>
+    <div class="flex flex-wrap flex-row justify-center items-center">
+      <form phx-change="organization_selected" class="mr-4">
+        <div class="inline-block relative w-full">
+          <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+            <svg class="fill-current h-8 w-8 text-pink-900" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
+          </div>
+
+          <select name="id" class="block appearance-none w-full bg-gray-200 py-2 pr-12 leading-tight focus:outline-none text-4xl font-semibold text-pink-900 border-b-4 border-pink-900">
+            <%= for organization <- @organizations do %>
+              <option value="<%= organization.id %>"
+                phx-value_id="<%= organization.id %>"
+                <%= selected_attr(@organization, organization) %>>
+                <span class="text-pink-900"><%= organization.name %></span>
+              </option>
+            <% end %>
+          </select>
+        </div>
+      </form>
+    </div>
+    <div class="h-12 w-12 bg-gray-200 bg-contain"
+      style="background-image: url(<%= @organization.avatar_url %>); background-blend-mode: multiply;">
+    </div>
+  </section>
+</div>
+
+<section>
+  <div class="flex flex-wrap flex-row">
+    <div id="repos-<%= @organization.id %>"
+         phx-update="<%= @update %>"
+         phx-hook="InfiniteScroll"
+         data-page=<%= @page %>
+         class="flex flex-col w-full">
+      <%= for repo <- @repositories do %>
+        <%= live_component @socket, AdoptopossWeb.RepoComponent,
+          id: "repo-#{hashed(repo.id)}",
+          user_id: @user_id,
+          repo: repo,
+          submitted: repo.id in @submitted_repos,
+          to_be_submitted: repo.id == @to_be_submitted %>
       <% end %>
-    </select>
-  </form>
-</section>
-
-<section>
-  <h2>
-    <%= img_tag @organization.avatar_url,
-    alt: "#{@organization.name} – #{@organization.description}",
-    width: "25px" %>
-    Repos
-  </h2>
-  <p>Submit your repositories to find additional maintainers for your projects.</p>
-
-  <div id="repos-<%= @organization.id %>"
-       phx-update="<%= @update %>"
-       phx-hook="InfiniteScroll"
-       data-page=<%= @page %>>
-    <%= for repo <- @repositories do %>
-      <%= live_component @socket, AdoptopossWeb.RepoComponent,
-        id: "repo-#{hashed(repo.id)}",
-        user_id: @user_id,
-        repo: repo,
-        submitted: repo.id in @submitted_repos,
-        to_be_submitted: repo.id == @to_be_submitted %>
-    <% end %>
+    </div>
   </div>
 </section>

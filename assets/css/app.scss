@@ -65,10 +65,24 @@ button {
   }
 }
 
+input[type="reset"] {
+  @apply rounded-sm py-2 px-4 my-2;
+  @apply bg-white border border-gray-500 text-gray-500 text-sm uppercase tracking-wider font-semibold;
+  @apply cursor-pointer;
+
+  &:focus, &:hover {
+    @apply bg-gray-400 text-white border-white
+  }
+}
+
 a {
   @apply text-red-600;
 
   &:focus, &:hover {
     @apply text-red-400;
   }
+}
+
+label {
+  @apply font-semibold;
 }
