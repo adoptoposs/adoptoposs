@@ -5,7 +5,7 @@ defmodule Adoptoposs.Factory do
 
   use ExMachina.Ecto, repo: Adoptoposs.Repo
 
-  alias Adoptoposs.{Network, Accounts, Dashboard}
+  alias Adoptoposs.{Network, Accounts, Dashboard, Communication}
 
   def user_factory do
     %Accounts.User{
@@ -85,6 +85,13 @@ defmodule Adoptoposs.Factory do
       watcher_count: 0,
       pull_request_count: 0,
       issue_count: 0
+    }
+  end
+
+  def interest_factory do
+    %Communication.Interest{
+      creator: build(:user),
+      project: build(:project)
     }
   end
 end

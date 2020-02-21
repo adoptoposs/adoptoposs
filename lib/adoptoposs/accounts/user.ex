@@ -12,6 +12,7 @@ defmodule Adoptoposs.Accounts.User do
     field :username, :string
 
     has_many :projects, Adoptoposs.Dashboard.Project
+    has_many :interests, Adoptoposs.Communication.Interest, foreign_key: :creator_id
 
     timestamps()
   end
