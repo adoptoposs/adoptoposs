@@ -1,5 +1,9 @@
 # Adoptoposs
 
+[![Build Status](https://github.com/paulgoetze/adoptoposs/workflows/Elixir%20CI/badge.svg)](https://github.com/paulgoetze/adoptoposs/workflows/Elixir%20CI/badge.svg)
+
+Finding co-maintainers for your open source software project. 
+
 ## Development setup
 
 The app comes with a docker image for development. 
