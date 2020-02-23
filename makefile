@@ -26,6 +26,7 @@ usage:
 
 
 setup: dev-config build hex-deps yarn db-setup db-setup-test
+setup-test: dev-config build hex-deps yarn db-setup-test
 
 dev-config:
 	cp -u config/dev.exs.sample config/dev.exs
@@ -40,7 +41,7 @@ db-setup:
 db-migrate:
 	$(call mix-dev, ecto.migrate)
 db-setup-test:
-	$(call mix-test, ecto.setup)
+	$(call mix-test, ecto.create ${comma} ecto.migrate)
 shell:
 	$(call dc-run, ash)
 iex:
