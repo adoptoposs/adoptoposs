@@ -1,4 +1,5 @@
 %{
+  "basic_auth": {:hex, :basic_auth, "2.2.4", "d8c748237870dd1df3bc5c0f1ab4f1fad6270c75472d7e62b19302ec59e92a79", [:mix], [{:plug, "~> 0.14 or ~> 1.0", [hex: :plug, repo: "hexpm", optional: false]}], "hexpm", "a595b5f2a07e94cbde7be3dfeba24573e18655c88e74c8eb118364f856642e62"},
   "certifi": {:hex, :certifi, "2.5.1", "867ce347f7c7d78563450a18a6a28a8090331e77fa02380b4a21962a65d36ee5", [:rebar3], [{:parse_trans, "~>3.3", [hex: :parse_trans, repo: "hexpm", optional: false]}], "hexpm", "805abd97539caf89ec6d4732c91e62ba9da0cda51ac462380bbd28ee697a8c42"},
   "combine": {:hex, :combine, "0.10.0", "eff8224eeb56498a2af13011d142c5e7997a80c8f5b97c499f84c841032e429f", [:mix], [], "hexpm", "1b1dbc1790073076580d0d1d64e42eae2366583e7aecd455d1215b0d16f2451b"},
   "connection": {:hex, :connection, "1.0.4", "a1cae72211f0eef17705aaededacac3eb30e6625b04a6117c1b2db6ace7d5976", [:mix], [], "hexpm", "4a0850c9be22a43af9920a71ab17c051f5f7d45c209e40269a1938832510e4d9"},
