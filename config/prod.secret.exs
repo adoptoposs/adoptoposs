@@ -53,6 +53,12 @@ config :ueberauth, Ueberauth.Strategy.Github.OAuth,
   client_id: github_client_id,
   client_secret: github_client_secret
 
+# Basic Auth
+config :adoptoposs, :basic_auth, [
+  realm: "Only Team members",
+  username: {:system, "BASIC_AUTH_USER"},
+  password: {:system, "BASIC_AUTH_PASSWORD"}
+
 # ## Using releases (Elixir v1.9+)
 #
 # If you are doing OTP releases, you need to instruct Phoenix

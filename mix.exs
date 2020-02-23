@@ -51,6 +51,7 @@ defmodule Adoptoposs.MixProject do
       {:httpoison, "~> 1.6"},
       {:timex, "~> 3.6"},
       {:earmark, "~> 1.4"},
+      {:basic_auth, "~> 2.2.4"},
       {:mix_test_watch, "~> 1.0", only: :dev, runtime: false},
       {:faker, "~> 0.13", only: [:dev, :test]},
       {:ex_machina, "~> 2.3", only: [:dev, :test]},
