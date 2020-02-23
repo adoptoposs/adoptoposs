@@ -1,5 +1,9 @@
 # Adoptoposs
 
+[![Build Status](https://github.com/paulgoetze/adoptoposs/workflows/Elixir%20CI/badge.svg)](https://github.com/paulgoetze/adoptoposs/workflows/Elixir%20CI/badge.svg)
+
+Finding co-maintainers for your open source software project. 
+
 ## Development setup
 
 The app comes with a docker image for development. 
@@ -27,7 +31,7 @@ Next, start the development server with:
 $ make up
 ```
 
-Now you can visit [`localhost:8000`](http://localhost:8000) from your browser.
+Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
 
 
 For further detail on available make tasks please have a look into the task list:
