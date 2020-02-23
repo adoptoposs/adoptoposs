@@ -31,7 +31,7 @@ Next, start the development server with:
 $ make up
 ```
 
-Now you can visit [`localhost:8000`](http://localhost:8000) from your browser.
+Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
 
 
 For further detail on available make tasks please have a look into the task list:
