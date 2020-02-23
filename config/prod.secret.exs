@@ -54,7 +54,7 @@ config :ueberauth, Ueberauth.Strategy.Github.OAuth,
   client_secret: github_client_secret
 
 # Basic Auth
-config :adoptoposs, :basic_auth, [
+config :adoptoposs, :basic_auth,
   realm: "Only Team members",
   username: {:system, "BASIC_AUTH_USER"},
   password: {:system, "BASIC_AUTH_PASSWORD"}
