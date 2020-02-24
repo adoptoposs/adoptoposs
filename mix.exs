@@ -35,7 +35,7 @@ defmodule Adoptoposs.MixProject do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
-      {:phoenix, "~> 1.4.11"},
+      {:phoenix, "~> 1.4.14"},
       {:phoenix_pubsub, "~> 1.1"},
       {:phoenix_ecto, "~> 4.1"},
       {:ecto_sql, "~> 3.3"},
