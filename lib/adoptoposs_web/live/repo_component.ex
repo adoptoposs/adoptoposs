@@ -15,7 +15,7 @@ defmodule AdoptopossWeb.RepoComponent do
     {:noreply, assign(socket, to_be_submitted: nil)}
   end
 
-  def handle_event("submit_project", %{"description" => description}, socket) do
+  def handle_event("submit_project", %{"message" => description}, socket) do
     %{repo: repository, user_id: user_id} = socket.assigns
     attrs = %{user_id: user_id, description: description}
 
