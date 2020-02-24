@@ -24,9 +24,11 @@
         <%= if !@to_be_submitted do %>
           <%= submit "+", id: "btn-submit-#{@id}", phx_click: "attempt_submit", phx_target: "##{@id}", class: "h-16 w-16 rounded rounded-full text-3xl font-light mb-4" %>
         <% else %>
-          <%= render AdoptopossWeb.ProjectView, "form.html",
+          <%= render AdoptopossWeb.SharedView, "form.html",
             id: @repo.id,
-            description: "",
+            headline: "I’m looking for…",
+            message: "",
+            submit_text: "Submit",
             submit_event: "submit_project",
             cancel_event: "cancel_submit",
             phx_target: "##{@id}" %>

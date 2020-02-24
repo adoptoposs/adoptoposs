@@ -1,0 +1,51 @@
+<div id="<%= @id %>" class="flex flex-col justify-end">
+  <div>
+    <div class="text-gray-700 font-semibold">
+      <%= if @project.user_id == @user_id  do %>
+        <span class="text-gray-700 text-md">You are looking for:</span>
+      <% else %>
+        <a href="<%= @project.user.profile_url %>" title="@<%= @project.user.username %>" class="font-medium">
+          @<%= @project.user.username %>
+        </a>
+        <span class="text-gray-700 text-md">is looking for:</span>
+      <% end %>
+    </div>
+
+    <div class="text-gray-700 mb-2">
+      <%= {:safe, Earmark.as_html!(@project.description)} %>
+    </div>
+  </div>
+
+  <div class="flex flex-wrap flex-row justify-end">
+  <%= if @can_be_contacted do %>
+    <%= if @contacted do %>
+      <div class="icon-button disabled" title="You contacted the maintainer">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" class="mr-2">
+          <path d="M18 2a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4c0-1.1.9-2 2-2h16zm-4.37 9.1L20 16v-2l-5.12-3.9L20 6V4l-10 8L0 4v2l5.12 4.1L0 14v2l6.37-4.9L10 14l3.63-2.9z"/>
+        </svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+          <path d="M0 11l2-2 5 5L18 3l2 2L7 18z"/>
+        </svg>
+      </div>
+    <% else %>
+      <%= if @to_be_contacted do %>
+        <%= render AdoptopossWeb.SharedView, "form.html",
+            id: "interest-form-#{@id}",
+            headline: "Say Hi, to show you want to help:",
+            message: "",
+            submit_text: "Send",
+            submit_event: "submit",
+            cancel_event: "cancel",
+            phx_target: "##{@id}" %>
+      <% else %>
+        <div class="icon-button" phx-click="attempt_contact" phx-target="#<%= @id %>" title="Contact maintainer">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+            <path d="M18 2a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4c0-1.1.9-2 2-2h16zm-4.37 9.1L20 16v-2l-5.12-3.9L20 6V4l-10 8L0 4v2l5.12 4.1L0 14v2l6.37-4.9L10 14l3.63-2.9z"/>
+          </svg>
+        </div>
+      <% end %>
+    <% end %>
+  <% end %>
+</div>
+
+

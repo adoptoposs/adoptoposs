@@ -10,9 +10,10 @@ defmodule AdoptopossWeb.SearchLive do
     Phoenix.View.render(SearchView, "index.html", assigns)
   end
 
-  def mount(params, _session, socket) do
+  def mount(params, session, socket) do
     {:ok,
      socket
+     |> assign_user(session)
      |> assign(query: nil, page: 1)
      |> update_with_append(), temporary_assigns: [projects: []]}
   end
@@ -44,6 +45,14 @@ defmodule AdoptopossWeb.SearchLive do
     projects = Search.find_projects(query, offset: offset, limit: @per_page)
 
     assign(socket, query: query, projects: projects)
+  end
+
+  defp assign_user(socket, %{"current_user" => user}) do
+    assign(socket, user_id: user.id)
+  end
+
+  defp assign_user(socket, session) do
+    assign(socket, user_id: nil)
   end
 
   defp update_with_append(socket) do

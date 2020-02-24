@@ -27,11 +27,11 @@ defmodule AdoptopossWeb.ProjectLive do
     {:noreply, assign(socket, edit_id: nil)}
   end
 
-  def handle_event("update", %{"id" => id} = params, socket) do
+  def handle_event("update", %{"id" => id, "message" => description}, socket) do
     {:ok, project} =
       id
       |> Dashboard.get_project!()
-      |> Dashboard.update_project(params)
+      |> Dashboard.update_project(%{description: description})
 
     projects = Dashboard.list_projects(project.user)
 

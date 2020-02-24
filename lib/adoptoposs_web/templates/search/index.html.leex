@@ -31,12 +31,15 @@
     </div>
   <% else %>
     <div id="projects"
-       class="grid grid-flow-row grid-cols-2 gap-4"
+       class="grid grid-flow-row gap-4"
        phx-update="<%= @update %>"
        phx-hook="InfiniteScroll"
        data-page="<%= @page %>">
       <%= for project <- @projects do %>
-        <%= render AdoptopossWeb.ProjectView, "project.html", project: project %>
+        <%= live_component @socket, AdoptopossWeb.ProjectComponent,
+          id: "project-#{project.id}",
+          project: project,
+          user_id: @user_id %>
       <% end %>
     </div>
   <% end %>

@@ -2,7 +2,7 @@ defmodule Adoptoposs.Dashboard.Project do
   use Ecto.Schema
   import Ecto.Changeset
 
-  alias Adoptoposs.{Network, Accounts}
+  alias Adoptoposs.{Network, Accounts, Communication}
 
   schema "projects" do
     field :name, :string
@@ -12,6 +12,7 @@ defmodule Adoptoposs.Dashboard.Project do
     field :description, :string
 
     belongs_to :user, Accounts.User
+    has_many :interests, Communication.Interest
 
     timestamps()
   end
