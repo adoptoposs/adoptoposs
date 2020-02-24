@@ -1,5 +1,5 @@
 defmodule AdoptopossWeb.RepoComponent do
-  use Phoenix.LiveComponent
+  use AdoptopossWeb, :live_component
 
   alias Adoptoposs.Dashboard
 
