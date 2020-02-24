@@ -14,7 +14,10 @@
 <section class="mt-16">
   <div class="grid grid-flow-row grid-cols-2 gap-4">
     <%= for project <- @projects do %>
-      <%= render AdoptopossWeb.ProjectView, "project.html", socket: @socket, project: project %>
+      <%= live_component @socket, AdoptopossWeb.ProjectComponent,
+          id: "project-#{project.id}",
+          project: project,
+          user_id: @user_id %>
     <% end %>
   </div>
 </section>

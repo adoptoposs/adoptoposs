@@ -18,7 +18,7 @@ defmodule Adoptoposs.Search do
     |> limit(^limit)
     |> order_by(desc: :updated_at)
     |> order_by(:name)
-    |> preload(:user)
+    |> preload([:user, :interests])
     |> Repo.all()
   end
 

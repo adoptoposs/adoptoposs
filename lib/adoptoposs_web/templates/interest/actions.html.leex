@@ -1,0 +1,8 @@
+<div id="<%= @id %>" class="flex flex-row justify-end">
+  <%= if @shown do %>
+    <span class="text-gray-600">you showed interest</span>
+    <span class="text-xl text-gray-600">☝️</span>
+  <% else %>
+    <%= submit "I’m interested", phx_click: "show_interest", phx_target: "##{@id}" %>
+  <% end %>
+</div>
