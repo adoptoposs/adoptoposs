@@ -90,6 +90,7 @@ defmodule Adoptoposs.Factory do
 
   def interest_factory do
     %Communication.Interest{
+      message: sequence("Hi, user"),
       creator: build(:user),
       project: build(:project)
     }

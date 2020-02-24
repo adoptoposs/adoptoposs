@@ -38,7 +38,7 @@ defmodule Adoptoposs.CommunicationTest do
     test "create_interest/1 with valid data creates a interest" do
       creator = insert(:user)
       project = insert(:project)
-      attrs = %{creator_id: creator.id, project_id: project.id}
+      attrs = %{creator_id: creator.id, project_id: project.id, message: "Hi!"}
 
       assert {:ok, %Interest{} = interest} = Communication.create_interest(attrs)
     end
