@@ -86,3 +86,42 @@ a {
 label {
   @apply font-semibold;
 }
+
+.icon-button {
+  @apply flex items-center justify-center;
+  @apply cursor-pointer p-2 rounded rounded-full;
+  @apply text-white bg-red-400;
+
+  svg {
+    @apply h-6 w-6 fill-current;
+  }
+
+  &:focus, &:hover {
+    @apply bg-red-300;
+  }
+}
+
+.icon-button.disabled {
+  @apply text-gray-400 bg-transparent;
+  @apply cursor-default py-2 px-0;
+}
+
+.project {
+  .icon-button {
+    &:not(.disabled) {
+      @apply text-gray-200 bg-gray-600;
+    }
+  }
+
+  &:focus, &:hover {
+    .icon-button {
+      &:not(.disabled) {
+        @apply text-white bg-gray-700;
+
+        &:focus, &:hover {
+          @apply text-white bg-red-400;
+        }
+      }
+  }
+  }
+}

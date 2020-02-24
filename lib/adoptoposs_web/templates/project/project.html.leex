@@ -1,39 +1,31 @@
-<div class="flex flex-col justify-between bg-white rounded-md border border-gray-400 shadow-sm hover:shadow-md" id="<%= @id %>">
-  <div class="relative flex flex-col justify-between px-6">
-    <div class="flex flex-row justify-between items-center mt-5">
-      <h2 class="mt-0 min-w-0 truncate mr-2">
-        <%= @project.name %>
-      </h2>
+<div id="<%= @id %>" class="project flex flex-wrap w-full shadow hover:shadow-md border border-gray-300">
+  <div class="flex flex-row justify-between w-full">
+    <div class="flex flex-col flex-1 items-start p-6 bg-white overflow-auto">
+      <div class="flex flex-row justify-between items-top w-full">
+        <h2 class="mt-0 mr-4 overflow-y-hidden truncate">
+          <a href="<%= @project.data["url"] %>" title="<%= @project.data["url"] %>" class="text-pink-900">
+            <%= String.trim(@project.name) %>
+          </a>
+        </h2>
+        <span class="text-white rounded px-4 py-1 text-center"
+              style="background-color: <%= @project.data["language"]["color"] %>;">
+            <%= @project.data["language"]["name"] %>
+        </span>
+      </div>
 
-      <span class="text-white rounded px-4 py-1" style="background-color: <%= @project.data["language"]["color"] %>;">
-          <%= @project.data["language"]["name"] %>
-      </span>
+      <div class="text-gray-600 mt-6">
+        <%= {:safe, Earmark.as_html!(String.trim(@project.data["description"]))} %>
+      </div>
     </div>
 
-    <div class="text-gray-600 mt-4 mb-2">
-      <%= {:safe, Earmark.as_html!(@project.data["description"])} %>
-    </div>
-  </div>
-
-  <div class="p-6 mt-6 bg-gray-200 rounded-bl-md rounded-br-md">
-    <div class="text-gray-600 mb-2">
-      <%= {:safe, Earmark.as_html!(@project.description)} %>
-    </div>
-    <div class="mt-4">
-      <span class="text-gray-600 text-sm">submitted by</span>
-      <a href="<%= @project.user.profile_url %>" title="@<%= @project.user.username %>" class="text-sm">
-        @<%= @project.user.username %>
-      </a>
-    </div>
-  </div>
-
-  <%= if @user_id do %>
-    <div class="p-6 mt-6 bg-gray-200 rounded-bl-md rounded-br-md">
+    <div class="flex flex-col flex-1 flex-grow px-6 pt-6 pb-4 bg-gray-200">
       <%= live_component @socket, AdoptopossWeb.InterestComponent,
         id: "interest-#{@project.id}",
+        project: @project,
         project_id: @project.id,
         user_id: @user_id,
-        shown: @user_id && @user_id in Enum.map(@project.interests, & &1.creator_id) %>
+        can_be_contacted: AdoptopossWeb.ProjectView.can_be_contacted?(@project, @user_id),
+        contacted: AdoptopossWeb.ProjectView.contacted?(@project, @user_id) %>
     </div>
-  <% end %>
+  </div>
 </div>
