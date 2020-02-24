@@ -20,7 +20,7 @@ defmodule AdoptopossWeb.Router do
   scope "/", AdoptopossWeb do
     pipe_through :browser
 
-    get "/", PageController, :index
+    live "/", PageLive
   end
 
   # Routes that require authentication:

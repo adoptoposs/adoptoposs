@@ -1,4 +1,4 @@
-defmodule AdoptopossWeb.PageControllerTest do
+defmodule AdoptopossWeb.PageLiveTest do
   use AdoptopossWeb.ConnCase
 
   test "GET /", %{conn: conn} do
@@ -7,7 +7,7 @@ defmodule AdoptopossWeb.PageControllerTest do
   end
 
   test "does not require authentication on GET /", %{conn: conn} do
-    conn = get(conn, Routes.page_path(conn, :index))
+    conn = get(conn, Routes.live_path(conn, AdoptopossWeb.PageLive))
     assert html_response(conn, 200)
     refute conn.halted
   end

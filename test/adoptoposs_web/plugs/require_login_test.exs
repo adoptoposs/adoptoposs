@@ -16,7 +16,7 @@ defmodule AdoptoppossWeb.Plugs.RequireLoginTest do
   test "user is redirected if current_user is not assigned", %{conn: conn} do
     conn = require_login(conn)
 
-    assert redirected_to(conn) == Routes.page_path(conn, :index)
+    assert redirected_to(conn) == Routes.live_path(conn, AdoptopossWeb.PageLive)
     assert get_flash(conn, :error) =~ "You need to log in"
     assert %{halted: true} = conn
   end
