@@ -24,40 +24,12 @@
         </div>
 
         <div class="w-full text-md block flex-grow justify-end lg:flex lg:flex-row lg:items-end lg:w-auto">
-          <%= link "Search", to: Routes.live_path(@conn, AdoptopossWeb.SearchLive), class: "block mt-4 lg:flex lg:mt-0 mr-4 p-2" %>
-
-          <%= if @current_user do %>
-            <%= link "Submit Repos", to: Routes.live_path(@conn, AdoptopossWeb.RepoLive, @current_user.username), class: "block mt-4 lg:flex lg:mt-0 mr-4 p-2" %>
-
-            <%= link "Your Projects", to: Routes.live_path(@conn, AdoptopossWeb.ProjectLive.Index), class: "block mt-4 lg:flex lg:mt-0 mr-4 p-2" %>
-
-            <a href="/auth/github/logout" class="block mt-4 lg:flex lg:mt-0 mr-4 p-2">
-              Logout
-            </a>
-
-            <img class="inline-block rounded-full h-10 w-10" width="30px" src="<%= @current_user.avatar_url %>" alt="<%=@current_user.name %>">
-          <% else %>
-            <div class="block md:inline-block">
-              <a href="/auth/github" class="inline-block text-md px-4 py-2 leading-none border border-red-300 rounded mt-4 lg:mt-0">
-                Login with Github
-              </a>
-            </div>
-          <% end %>
+          <a href="#" onClick="history.go(-1);return true;">Go back</a>
         </div>
       </nav>
     </header>
 
-    <main role="main" >
-      <section>
-        <%= if get_flash(@conn, :info) do %>
-          <p class="bg-green-400 text-white text-center font-medium p-4" role="alert"><%= get_flash(@conn, :info) %></p>
-        <% end %>
-
-        <%= if get_flash(@conn, :error) do %>
-          <p class="bg-red-400 text-white text-center font-medium p-4" role="alert"><%= get_flash(@conn, :error) %></p>
-        <% end %>
-      </section>
-
+    <main role="main" class="h-full">
       <%= render @view_module, @view_template, assigns %>
     </main>
 

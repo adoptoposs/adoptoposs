@@ -19,7 +19,7 @@ config :adoptoposs,
 config :adoptoposs, AdoptopossWeb.Endpoint,
   url: [host: "localhost"],
   secret_key_base: "2huvB6wFDsQJGkJYw5712sNJJeFD+itR0VApi8VLNNSFQZG79+Bv6FI6cPpbaCm/",
-  render_errors: [view: AdoptopossWeb.ErrorView, accepts: ~w(html json)],
+  render_errors: [view: AdoptopossWeb.ErrorView, accepts: ~w(html json), layout: {AdoptopossWeb.LayoutView, "error.html"}],
   pubsub: [name: Adoptoposs.PubSub, adapter: Phoenix.PubSub.PG2],
   live_view: [signing_salt: "r3nJpTPt6vBQikTcL+RKVfzNTFcxrm99"]
 

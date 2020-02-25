@@ -5,10 +5,12 @@ defmodule AdoptopossWeb.ErrorViewTest do
   import Phoenix.View
 
   test "renders 404.html" do
-    assert render_to_string(AdoptopossWeb.ErrorView, "404.html", []) == "Not Found"
+    page = render_to_string(AdoptopossWeb.ErrorView, "404.html", [])
+    assert page =~ ~r"page(.+) is not available"
   end
 
   test "renders 500.html" do
-    assert render_to_string(AdoptopossWeb.ErrorView, "500.html", []) == "Internal Server Error"
+    page = render_to_string(AdoptopossWeb.ErrorView, "500.html", [])
+    assert page =~ "Looks like you found a bug"
   end
 end
