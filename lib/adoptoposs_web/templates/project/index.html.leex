@@ -5,19 +5,33 @@
     <%= for project <- @projects do %>
       <li id="project-<%= project.id %>" class="flex flex-wrap w-full shadow hover:shadow-md mb-4 border border-gray-300">
         <div class="flex flex-row justify-between w-full">
-          <div class="flex flex-col flex-1 items-start p-6 bg-white">
-            <div class="flex flex-row flex-wrap justify-between items-start w-full">
-              <h2 class="mt-0 mr-4">
-                <%= project.name %>
-              </h2>
-              <span class="text-white rounded px-4 py-1 text-center"
-                    style="background-color: <%= project.data["language"]["color"] %>;">
-                  <%= project.data["language"]["name"] %>
-              </span>
+          <div class="flex flex-col flex-1 items-start justify-between px-6 pt-6 pb-4 bg-white">
+            <div class="w-full">
+              <div class="flex flex-row flex-wrap justify-between items-center">
+                <h2 class="mt-0 mr-4">
+                  <%= project.name %>
+                </h2>
+                <span class="text-white rounded px-4 py-1 text-center"
+                      style="background-color: <%= project.data["language"]["color"] %>;">
+                    <%= project.data["language"]["name"] %>
+                </span>
+              </div>
+
+              <div class="text-gray-600 mt-2">
+                <%= {:safe, Earmark.as_html!(project.data["description"])} %>
+              </div>
             </div>
 
-            <div class="text-gray-600 mt-2">
-              <%= {:safe, Earmark.as_html!(project.data["description"])} %>
+            <div class="flex flex-row w-full mt-4 justify-end items-center">
+              <%= if @remove_id do %>
+                <span class="text-red-500 mr-4 font-semibold">
+                  Are you sure?
+                </span>
+                <%= submit "Yes, remove", id: "btn-attempt-remove-#{project.id}", phx_click: "remove", phx_value_id: project.id, class: "mr-2" %>
+                <%= reset "Cancel", id: "btn-cancel-remove-#{project.id}", phx_click: "cancel_remove" %>
+              <% else %>
+                <%= reset "Remove", id: "btn-remove-#{project.id}", phx_click: "attempt_remove", phx_value_id: project.id %>
+              <% end %>
             </div>
           </div>
 
@@ -69,8 +83,7 @@
                 </div>
 
                 <div class="flex justify-end">
-                  <%= submit "edit", id: "btn-edit-#{project.id}", phx_click: "edit", phx_value_id: project.id, class: "mr-2" %>
-                  <%= submit "remove", id: "btn-remove-#{project.id}", phx_click: "remove", phx_value_id: project.id %>
+                  <%= submit "edit", id: "btn-edit-#{project.id}", phx_click: "edit", phx_value_id: project.id %>
                 </div>
               </div>
             <% end %>

@@ -15,7 +15,8 @@ defmodule AdoptopossWeb.ProjectLive.Index do
      assign(socket,
        user_id: user.id,
        projects: projects,
-       edit_id: nil
+       edit_id: nil,
+       remove_id: nil
      )}
   end
 
@@ -38,6 +39,14 @@ defmodule AdoptopossWeb.ProjectLive.Index do
     projects = Dashboard.list_projects(project.user)
 
     {:noreply, assign(socket, projects: projects, edit_id: nil)}
+  end
+
+  def handle_event("attempt_remove", %{"id" => id}, socket) do
+    {:noreply, assign(socket, remove_id: id)}
+  end
+
+  def handle_event("cancel_remove", _params, socket) do
+    {:noreply, assign(socket, remove_id: nil)}
   end
 
   def handle_event("remove", %{"id" => id}, socket) do
