@@ -23,7 +23,7 @@ defmodule Adoptoposs.Dashboard do
     Project
     |> where(user_id: ^id)
     |> order_by(desc: :id)
-    |> preload(:user)
+    |> preload([:user, :interests])
     |> Repo.all()
   end
 
@@ -51,17 +51,19 @@ defmodule Adoptoposs.Dashboard do
 
   ## Examples
 
-      iex> get_project!(1, )
+      iex> get_user_project(user, 1)
       %Project{}
 
-      iex> get_project!(-1)
-      ** (Ecto.NoResultsError)
+      iex> get_user_project(user, -1)
+      nil
 
   """
-  def get_project!(id) do
-    Project
-    |> preload([:user])
-    |> Repo.get!(id)
+  def get_user_project(%User{} = user, id) do
+    user
+    |> Ecto.assoc(:projects)
+    |> preload(:user)
+    |> preload(interests: [:creator])
+    |> Repo.get(id)
   end
 
   @doc """

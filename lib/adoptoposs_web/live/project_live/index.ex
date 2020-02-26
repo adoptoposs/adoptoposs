@@ -1,7 +1,7 @@
-defmodule AdoptopossWeb.ProjectLive do
+defmodule AdoptopossWeb.ProjectLive.Index do
   use AdoptopossWeb, :live_view
 
-  alias Adoptoposs.Dashboard
+  alias Adoptoposs.{Dashboard, Accounts}
   alias AdoptopossWeb.ProjectView
 
   def render(assigns) do
@@ -28,9 +28,11 @@ defmodule AdoptopossWeb.ProjectLive do
   end
 
   def handle_event("update", %{"id" => id, "message" => description}, socket) do
+    user = %Accounts.User{id: socket.assigns.user_id}
+
     {:ok, project} =
-      id
-      |> Dashboard.get_project!()
+      user
+      |> Dashboard.get_user_project(id)
       |> Dashboard.update_project(%{description: description})
 
     projects = Dashboard.list_projects(project.user)
@@ -39,7 +41,8 @@ defmodule AdoptopossWeb.ProjectLive do
   end
 
   def handle_event("remove", %{"id" => id}, socket) do
-    project = Dashboard.get_project!(id)
+    user = %Accounts.User{id: socket.assigns.user_id}
+    project = Dashboard.get_user_project(user, id)
     {:ok, project} = Dashboard.delete_project(project)
     projects = socket.assigns.projects |> Enum.drop_while(&(&1.id == project.id))
 

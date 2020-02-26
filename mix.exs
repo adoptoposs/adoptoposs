@@ -48,6 +48,7 @@ defmodule Adoptoposs.MixProject do
       {:plug_cowboy, "~> 2.0"},
       {:ueberauth, "~> 0.6"},
       {:ueberauth_github, "~> 0.8"},
+      {:bodyguard, "~> 2.4"},
       {:httpoison, "~> 1.6"},
       {:timex, "~> 3.6"},
       {:earmark, "~> 1.4"},

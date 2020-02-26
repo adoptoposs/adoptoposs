@@ -1,0 +1,7 @@
+<section class="flex flex-grow flex-col justify-center items-center ">
+  <h1>Adoptoposs says no!</h1>
+  <p class="text-red-400 text-6xl">4<span class="inline-block">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" class="fill-current h-12 w-12"><path d="M10 20a10 10 0 1 1 0-20 10 10 0 0 1 0 20zM7.88 7.88l-3.54 7.78 7.78-3.54 3.54-7.78-7.78 3.54zM10 11a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/></svg>
+  </span>4</p>
+  <p>Looks like the page you wanted to visit is not available.</p>
+</section>

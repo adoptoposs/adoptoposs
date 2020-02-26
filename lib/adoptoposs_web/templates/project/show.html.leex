@@ -1,0 +1,63 @@
+<section>
+  <div class="flex flex-col flex-wrap">
+    <div class="flex flex-row justify-between items-center">
+      <h1>
+        Interests in
+        <span class="text-red-400"><%= @project.name%></span>
+      </h1>
+
+      <%= live_redirect to: Routes.live_path(@socket, AdoptopossWeb.ProjectLive.Index), class: "text-gray-600 p-4", title: "Back" do %>
+        Back to all projects
+      <% end %>
+    </div>
+    <ul class="mt-8">
+      <%= for interest <- @project.interests do %>
+        <li class="list-item flex flex-col bg-white p-6 mb-4 rounded shadow hover:shadow-md border border-gray-300">
+          <div class="flex flex-col">
+            <div class="flex flex-row">
+              <%= link to: interest.creator.profile_url,
+                class: "h-12 w-12",
+                title: "@#{interest.creator.username}" do %>
+                <%= img_tag interest.creator.avatar_url,
+                  class: "rounded rounded-full" %>
+              <% end %>
+
+              <div class="flex flex-col ml-4">
+                <div class="font-semibold">
+                  <%= link to: interest.creator.profile_url,
+                    class: "text-gray-700",
+                    title: "@#{interest.creator.username}" do %>
+                    <%= interest.creator.name %>
+                  <% end %>
+                </div>
+                <div class="text-gray-600"><%= interest.creator.email %></div>
+              </div>
+            </div>
+
+            <div class="flex flex-col md:pl-16 pl-0 pt-6 w-full">
+              <div>
+                <%= {:safe, Earmark.as_html!(String.trim(interest.message))} %>
+              </div>
+
+              <div class="flex flex-row justify-between items-center">
+                <div class="text-gray-600 text-sm">
+                  <%= Timex.from_now(interest.inserted_at) %>
+                </div>
+
+                <%= link to: "mailto:#{interest.creator.email}"
+                  <> "?subject=#{AdoptopossWeb.InterestView.email_subject(@project)}"
+                  <> "&body=#{AdoptopossWeb.InterestView.email_body(interest)}",
+                  class: "icon-button",
+                  title: "Reply via email" do %>
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                    <path d="M15 17v-2.99A4 4 0 0 0 11 10H8v5L2 9l6-6v5h3a6 6 0 0 1 6 6v3h-2z"/>
+                  </svg>
+                <% end %>
+              </div>
+            </div>
+          </div>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+</section>
