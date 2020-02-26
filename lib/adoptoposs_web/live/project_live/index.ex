@@ -21,7 +21,7 @@ defmodule AdoptopossWeb.ProjectLive.Index do
   end
 
   def handle_event("edit", %{"id" => id}, socket) do
-    {:noreply, assign(socket, edit_id: id)}
+    {:noreply, assign(socket, edit_id: id, remove_id: nil)}
   end
 
   def handle_event("cancel_edit", _params, socket) do
@@ -42,7 +42,7 @@ defmodule AdoptopossWeb.ProjectLive.Index do
   end
 
   def handle_event("attempt_remove", %{"id" => id}, socket) do
-    {:noreply, assign(socket, remove_id: id)}
+    {:noreply, assign(socket, remove_id: id, edit_id: nil)}
   end
 
   def handle_event("cancel_remove", _params, socket) do
