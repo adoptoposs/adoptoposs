@@ -25,9 +25,16 @@ defmodule Adoptoposs.DashboardTest do
       assert Dashboard.list_projects(user) == []
     end
 
-    test "get_project!/1 returns the project with given id" do
+    test "get_user_project/2 returns the project with given id" do
+      user = insert(:user)
+      project = insert(:project, user: user)
+      assert Dashboard.get_user_project(user, project.id).id == project.id
+    end
+
+    test "get_user_project/2 returns nil for a non-user project" do
+      user = insert(:user)
       project = insert(:project)
-      assert Dashboard.get_project!(project.id).id == project.id
+      refute Dashboard.get_user_project(user, project.id)
     end
 
     test "create_project/2 with valid data creates a project" do
@@ -68,16 +75,13 @@ defmodule Adoptoposs.DashboardTest do
       attrs = %{description: nil}
 
       assert {:error, %Ecto.Changeset{}} = Dashboard.update_project(project, attrs)
-      assert project.id == Dashboard.get_project!(project.id).id
+      assert project.id == Dashboard.get_user_project(project.user, project.id).id
     end
 
     test "delete_project/1 deletes the passed project" do
       project = insert(:project)
       assert {:ok, %Project{}} = Dashboard.delete_project(project)
-
-      assert_raise Ecto.NoResultsError, fn ->
-        Dashboard.get_project!(project.id)
-      end
+      refute Dashboard.get_user_project(project.user, project.id)
     end
 
     test "change_project/1 returns a project changeset" do
