@@ -23,7 +23,7 @@
             </div>
 
             <div class="flex flex-row w-full mt-4 justify-end items-center">
-              <%= if @remove_id do %>
+              <%= if @remove_id == to_string(project.id) do %>
                 <span class="text-red-500 mr-4 font-semibold">
                   Are you sure?
                 </span>
