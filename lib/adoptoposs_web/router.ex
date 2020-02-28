@@ -37,6 +37,7 @@ defmodule AdoptopossWeb.Router do
     live "/settings/repos/:organization_id", RepoLive
     live "/settings/projects", ProjectLive.Index
     live "/projects/:id", ProjectLive.Show
+    live "/settings", SettingsLive
   end
 
   scope "/auth", AdoptopossWeb do
