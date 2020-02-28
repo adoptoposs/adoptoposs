@@ -8,7 +8,7 @@ defmodule Adoptoposs.MixProject do
       elixir: "~> 1.5",
       elixirc_paths: elixirc_paths(Mix.env()),
       compilers: [:phoenix, :gettext] ++ Mix.compilers(),
-      build_embedded: Mix.env == :prod,
+      build_embedded: Mix.env() == :prod,
       start_permanent: Mix.env() == :prod,
       aliases: aliases(),
       deps: deps()
@@ -53,6 +53,7 @@ defmodule Adoptoposs.MixProject do
       {:timex, "~> 3.6"},
       {:earmark, "~> 1.4"},
       {:basic_auth, "~> 2.2.4"},
+      {:yaml_elixir, "~> 2.4"},
       {:mix_test_watch, "~> 1.0", only: :dev, runtime: false},
       {:faker, "~> 0.13", only: [:dev, :test]},
       {:ex_machina, "~> 2.3", only: [:dev, :test]},
@@ -68,7 +69,8 @@ defmodule Adoptoposs.MixProject do
   # See the documentation for `Mix` for more info on aliases.
   defp aliases do
     [
-      "ecto.setup": ["ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
+      "fetch.languages": ["run priv/repo/fetch_languages.exs"],
+      "ecto.setup": ["ecto.create", "ecto.migrate", "fetch.languages", "run priv/repo/seeds.exs"],
       "ecto.reset": ["ecto.drop", "ecto.setup"],
       test: ["ecto.create --quiet", "ecto.migrate", "test"]
     ]
