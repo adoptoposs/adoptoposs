@@ -12,9 +12,9 @@
     <header>
       <nav role="navigation">
         <div class="flex items-center flex-shrink-0 mr-6">
-          <a href="/" class="font-semibold text-xl tracking-tight">
+          <%= live_redirect to: Routes.live_path(@conn, AdoptopossWeb.PageLive), class: "font-semibold text-xl tracking-tight" do %>
             <img src="<%= Routes.static_path(@conn, "/images/adoptoposs.png") %>" alt="Adoptoposs Logo"/>
-          </a>
+          <% end %>
         </div>
 
         <div class="block lg:hidden">
@@ -24,12 +24,12 @@
         </div>
 
         <div class="w-full text-md block flex-grow justify-end lg:flex lg:flex-row lg:items-end lg:w-auto">
-          <%= link "Search", to: Routes.live_path(@conn, AdoptopossWeb.SearchLive), class: "block mt-4 lg:flex lg:mt-0 mr-4 p-2" %>
+          <%= live_redirect "Search", to: Routes.live_path(@conn, AdoptopossWeb.SearchLive), class: "block mt-4 lg:flex lg:mt-0 mr-4 p-2" %>
 
           <%= if @current_user do %>
-            <%= link "Submit Repos", to: Routes.live_path(@conn, AdoptopossWeb.RepoLive, @current_user.username), class: "block mt-4 lg:flex lg:mt-0 mr-4 p-2" %>
+            <%= live_redirect "Submit Repos", to: Routes.live_path(@conn, AdoptopossWeb.RepoLive, @current_user.username), class: "block mt-4 lg:flex lg:mt-0 mr-4 p-2" %>
 
-            <%= link "Your Projects", to: Routes.live_path(@conn, AdoptopossWeb.ProjectLive.Index), class: "block mt-4 lg:flex lg:mt-0 mr-4 p-2" %>
+            <%= live_redirect "Your Projects", to: Routes.live_path(@conn, AdoptopossWeb.ProjectLive.Index), class: "block mt-4 lg:flex lg:mt-0 mr-4 p-2" %>
 
             <a href="/auth/github/logout" class="block mt-4 lg:flex lg:mt-0 mr-4 p-2">
               Logout
