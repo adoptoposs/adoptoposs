@@ -103,4 +103,11 @@ defmodule Adoptoposs.Factory do
       color: "#123456"
     }
   end
+
+  def tag_subscription_factory do
+    %Tags.TagSubscription{
+      user: build(:user),
+      tag: build(:tag)
+    }
+  end
 end

@@ -67,6 +67,19 @@ defmodule Adoptoposs.TagsTest do
       tags = Tags.upsert_tags(data)
       assert data = tags |> Enum.map(fn ({:ok, tag}) -> Map.from_struct(tag) end)
     end
+
+    test "list_user_tags/1 returns all tags for a user" do
+      user = insert(:user)
+      tag = insert(:tag)
+      other_tag = insert(:tag)
+      insert(:tag_subscription, user: user, tag: tag)
+      insert(:tag_subscription, user: user, tag: other_tag)
+
+      # insert another tag subscription for another user
+      insert(:tag_subscription, tag: tag)
+
+      assert [tag, other_tag] = Tags.list_user_tags(user)
+    end
   end
 
   describe "loader" do

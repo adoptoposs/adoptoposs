@@ -6,7 +6,8 @@ defmodule Adoptoposs.Tags do
   import Ecto.Query, warn: false
   alias Adoptoposs.Repo
 
-  alias Adoptoposs.Tags.{Tag, Loader}
+  alias Adoptoposs.Accounts.User
+  alias Adoptoposs.Tags.Tag
 
   @doc """
   Returns the list of tags.
@@ -19,6 +20,21 @@ defmodule Adoptoposs.Tags do
   """
   def list_tags do
     Repo.all(Tag)
+  end
+
+  @doc """
+  Returns the list of all subscribed tags of the given user.
+
+  ## Examples
+
+      iex> list_user_tags(user)
+      [%Tag{}, ...]
+
+  """
+  def list_user_tags(%User{} = user) do
+    user
+    |> Ecto.assoc(:tags)
+    |> Repo.all()
   end
 
   @doc """
