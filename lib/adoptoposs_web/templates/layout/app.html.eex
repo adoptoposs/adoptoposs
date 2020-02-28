@@ -31,6 +31,8 @@
 
             <%= live_redirect "Your Projects", to: Routes.live_path(@conn, AdoptopossWeb.ProjectLive.Index), class: "block mt-4 lg:flex lg:mt-0 mr-4 p-2" %>
 
+            <%= live_redirect "Settings", to: Routes.live_path(@conn, AdoptopossWeb.SettingsLive), class: "block mt-4 lg:flex lg:mt-0 mr-4 p-2" %>
+
             <a href="/auth/github/logout" class="block mt-4 lg:flex lg:mt-0 mr-4 p-2">
               Logout
             </a>
