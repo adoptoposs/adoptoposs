@@ -8,7 +8,7 @@
       <div id="tag-subscriptions" class="flex flex-row flex-wrap mt-6">
         <%= for tag_subscription <- @tag_subscriptions do %>
           <% tag = tag_subscription.tag %>
-          <div id="tag-<%= tag.id %>" class="flex flex-row items-center bg-white bg-white text-red-500 border border-red-500 font-semibold mr-2 mb-2 rounded hover:bg-red-500 hover:text-white hover:border-white">
+          <div id="tag-<%= tag.id %>" class="flex flex-row items-center bg-white text-red-500 border border-red-500 font-semibold mr-2 mb-2 rounded hover:bg-red-500 hover:text-white hover:border-white">
             <div class="w-4 h-4 rounded rounded-full ml-3" style="background-color: <%= tag.color %>;"></div>
             <div class="pl-3" title="<%= tag.name %>">
               <span class=""><%= tag.name %></span>
@@ -60,7 +60,7 @@
                 </div>
               </div>
             <% else %>
-              <div class="flex flex-row items-center bg-white bg-white text-red-500 border border-red-500 font-semibold mr-2 mb-2 rounded hover:bg-red-500 hover:text-white hover:border-white cursor-pointer"
+              <div class="flex flex-row items-center bg-white text-red-500 border border-red-500 font-semibold mr-2 mb-2 rounded hover:bg-red-500 hover:text-white hover:border-white cursor-pointer"
                 title="Follow <%= result.name %>">
                 <form phx-submit="follow_tag"
                   title="Follow <%= result.name %>"
