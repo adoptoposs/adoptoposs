@@ -5,10 +5,9 @@
         <h2 class="mt-0 mr-4">
           <%= @repo.name %>
         </h2>
-        <span class="text-white rounded px-4 py-1 text-center"
-              style="background-color: <%= @repo.language.color %>;">
-            <%= @repo.language.name %>
-        </span>
+        <%= render AdoptopossWeb.SharedView, "language_tag.html",
+          name: @repo.language.name,
+          color: @repo.language.color %>
       </div>
 
       <div class="text-gray-600 mt-2">

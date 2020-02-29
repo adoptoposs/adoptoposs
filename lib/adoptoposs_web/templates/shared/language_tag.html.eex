@@ -1,0 +1,8 @@
+<div class="flex flex-row items-center bg-white text-pink-900 border border-gray-400 font-semibold rounded cursor-default py-1">
+  <div class="w-3 h-3 rounded rounded-full ml-2 bg-gray-500"
+    style="background-color: <%= @color %>;">
+  </div>
+  <div class="px-2">
+    <%= @name %>
+  </div>
+</div>
