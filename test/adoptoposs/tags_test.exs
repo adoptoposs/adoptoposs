@@ -6,10 +6,14 @@ defmodule Adoptoposs.TagsTest do
   alias Adoptoposs.Tags
 
   describe "tags" do
-    alias Adoptoposs.Tags.Tag
+    alias Adoptoposs.Tags.{Tag, TagSubscription}
 
     @valid_attrs %{color: "some color", name: "some name", type: "some type"}
-    @update_attrs %{color: "some updated color", name: "some updated name", type: "some updated type"}
+    @update_attrs %{
+      color: "some updated color",
+      name: "some updated name",
+      type: "some updated type"
+    }
     @invalid_attrs %{color: nil, name: nil, type: nil}
 
     test "list_tags/0 returns all tags" do
@@ -65,20 +69,69 @@ defmodule Adoptoposs.TagsTest do
       ]
 
       tags = Tags.upsert_tags(data)
-      assert data = tags |> Enum.map(fn ({:ok, tag}) -> Map.from_struct(tag) end)
+      assert data = tags |> Enum.map(fn {:ok, tag} -> Map.from_struct(tag) end)
     end
 
-    test "list_user_tags/1 returns all tags for a user" do
+    test "list_user_tag_subscriptions/1 returns all tag subscriptions for a user" do
       user = insert(:user)
       tag = insert(:tag)
       other_tag = insert(:tag)
+      tag_subscription_1 = insert(:tag_subscription, user: user, tag: tag)
+      tag_subscription_2 = insert(:tag_subscription, user: user, tag: other_tag)
+      tag_subscription_3 = insert(:tag_subscription, tag: tag)
+
+      tag_subscriptions = Tags.list_user_tag_subscriptions(user)
+      loaded_ids = tag_subscriptions |> Enum.map(& &1.id)
+
+      assert tag_subscription_1.id in loaded_ids
+      assert tag_subscription_2.id in loaded_ids
+      refute tag_subscription_3.id in loaded_ids
+    end
+
+    test "get_tag_subscription!/2 returns the tag_subscription for the given user and tag" do
+      %{id: id, tag_id: tag_id} = insert(:tag_subscription)
+      assert %TagSubscription{id: ^id, tag_id: ^tag_id} = Tags.get_tag_subscription!(id)
+    end
+
+    test "create_tag_subscription/2 creates a tag subscription with valid data" do
+      user = insert(:user)
+      tag = insert(:tag)
+      attrs = %{user_id: user.id, tag_id: tag.id}
+
+      assert {:ok, tag_subscription} = Tags.create_tag_subscription(attrs)
+      assert user.id == tag_subscription.user_id
+      assert tag.id == tag_subscription.tag_id
+    end
+
+    test "create_tag_subscription/2 does not create a subscription if it exists" do
+      user = insert(:user)
+      tag = insert(:tag)
       insert(:tag_subscription, user: user, tag: tag)
-      insert(:tag_subscription, user: user, tag: other_tag)
+      attrs = %{user_id: user.id, tag_id: tag.id}
 
-      # insert another tag subscription for another user
-      insert(:tag_subscription, tag: tag)
+      assert {:error, changeset} = Tags.create_tag_subscription(attrs)
 
-      assert [tag, other_tag] = Tags.list_user_tags(user)
+      assert changeset = %{
+               errors: [
+                 tag_subscriptions:
+                   {"has already been taken",
+                    [
+                      constraint: :unique,
+                      constraint_name: "tag_subscriptions_user_id_tag_id_index"
+                    ]}
+               ]
+             }
+    end
+
+    test "delete_tag_subscription/2 removes a tag subscription" do
+      user = insert(:user)
+      tag = insert(:tag)
+      tag_subscription = insert(:tag_subscription, user: user, tag: tag)
+
+      assert {:ok, tag_subscription} = Tags.delete_tag_subscription(tag_subscription)
+      assert user.id == tag_subscription.user_id
+      assert tag.id == tag_subscription.tag_id
+      assert TagSubscription |> Repo.get(tag_subscription.id) == nil
     end
   end
 
@@ -87,9 +140,9 @@ defmodule Adoptoposs.TagsTest do
       path = fixture_path!("languages.yml")
 
       assert [
-        %{name: "CSS", type: "language", color: "#563d7c"},
-        %{name: "Elixir", type: "language", color: "#6e4a7e"}
-      ] = Tags.Loader.fetch_languages(path)
+               %{name: "CSS", type: "language", color: "#563d7c"},
+               %{name: "Elixir", type: "language", color: "#6e4a7e"}
+             ] = Tags.Loader.fetch_languages(path)
     end
   end
 end

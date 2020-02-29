@@ -7,7 +7,7 @@ defmodule Adoptoposs.Tags do
   alias Adoptoposs.Repo
 
   alias Adoptoposs.Accounts.User
-  alias Adoptoposs.Tags.Tag
+  alias Adoptoposs.Tags.{Tag, TagSubscription}
 
   @doc """
   Returns the list of tags.
@@ -20,21 +20,6 @@ defmodule Adoptoposs.Tags do
   """
   def list_tags do
     Repo.all(Tag)
-  end
-
-  @doc """
-  Returns the list of all subscribed tags of the given user.
-
-  ## Examples
-
-      iex> list_user_tags(user)
-      [%Tag{}, ...]
-
-  """
-  def list_user_tags(%User{} = user) do
-    user
-    |> Ecto.assoc(:tags)
-    |> Repo.all()
   end
 
   @doc """
@@ -51,9 +36,7 @@ defmodule Adoptoposs.Tags do
       ** (Ecto.NoResultsError)
 
   """
-  def get_tag!(id) when is_integer(id) do
-     Repo.get!(Tag, id)
-   end
+  def get_tag!(id), do: Repo.get!(Tag, id)
 
   @doc """
   Creates a tag.
@@ -142,8 +125,71 @@ defmodule Adoptoposs.Tags do
   end
 
   defp get_tag(name) when is_binary(name) do
-     Tag
-     |> where(name: ^name)
-     |> Repo.one()
-   end
+    Tag
+    |> where(name: ^name)
+    |> Repo.one()
+  end
+
+  @doc """
+  Returns the list of all tag subscriptions of a user.
+
+  ## Examples
+
+      iex> list_user_tag_subscriptions(user)
+      [%TagSubscription{}, ...]
+
+  """
+  def list_user_tag_subscriptions(%User{} = user) do
+    user
+    |> Ecto.assoc(:tag_subscriptions)
+    |> preload(:tag)
+    |> order_by(:inserted_at)
+    |> Repo.all()
+  end
+
+  @doc """
+  Returns the tag subscription for the given user and tag.
+
+  ## Examples
+
+      iex> get_tag_subscription(id)
+      %TagSubscription{}
+
+      iex> get_tag_subscription(-1)
+      ** (Ecto.NoResultsError)
+
+  """
+  def get_tag_subscription!(id), do: Repo.get!(TagSubscription, id)
+
+  @doc """
+  Creates a subscription to a tag for a user.
+
+  ## Examples
+
+      iex> create_tag_subscription(%{user_id: 1, tag_id: 1})
+      {:ok, %TagSubscription{}}
+
+      iex> create_tag_subscription(%{field: "bad value"})
+      {:error, %Ecto.Changeset{}}
+  """
+  def create_tag_subscription(attrs \\ []) do
+    %TagSubscription{}
+    |> TagSubscription.changeset(attrs)
+    |> Repo.insert()
+  end
+
+  @doc """
+  Deletes the tag subscription.
+
+  ## Examples
+
+      iex> delete_tag_subscription(tag_subscription)
+      {:ok, %TagSubscription{}}
+
+      iex> delete_tag_subscription(%TagSubscription{})
+      {:error, %Ecto.Changeset{}}
+  """
+  def delete_tag_subscription(%TagSubscription{} = tag_subscription) do
+    Repo.delete(tag_subscription)
+  end
 end
