@@ -1,14 +1,14 @@
 <section>
   <h1>Settings</h1>
 
-  <div class="flex flex-row">
+  <div class="grid grid-flow-col grid-cols-2 gap-4">
     <div class="flex flex-col flex-wrap flex-1">
       <h2>Languages you follow</h2>
 
-      <div class="flex flex-row flex-wrap mt-6">
+      <div id="tag-subscriptions" class="flex flex-row flex-wrap mt-6">
         <%= for tag_subscription <- @tag_subscriptions do %>
           <% tag = tag_subscription.tag %>
-          <div class="flex flex-row items-center bg-white bg-white text-red-500 border border-red-500 font-semibold mr-2 mb-2 rounded hover:bg-red-500 hover:text-white hover:border-white">
+          <div id="tag-<%= tag.id %>" class="flex flex-row items-center bg-white bg-white text-red-500 border border-red-500 font-semibold mr-2 mb-2 rounded hover:bg-red-500 hover:text-white hover:border-white">
             <div class="w-4 h-4 rounded rounded-full ml-3" style="background-color: <%= tag.color %>;"></div>
             <div class="pl-3" title="<%= tag.name %>">
               <span class=""><%= tag.name %></span>
@@ -40,7 +40,7 @@
           phx-debounce="500" />
       </form>
 
-      <div class="flex flex-row flex-wrap mt-6" phx-update="<%= @update %>">
+      <div id="tags-search" class="flex flex-row flex-wrap mt-6" phx-update="<%= @update %>">
         <%= if @query && @page == 1 && Enum.empty?(@tag_results) do %>
           <p class="text-pink-900">
             No language found for "<%= @query %>" :(
@@ -48,7 +48,7 @@
         <% else %>
           <%= for result <- @tag_results do %>
             <%= if result in Enum.map(@tag_subscriptions, &(&1.tag)) do %>
-              <div class="flex flex-row flex-wrap items-center bg-gray-200 text-gray-500 border border-gray-500 font-semibold mr-2 mb-2 rounded cursor-default py-2"  title="<%= result.name %>">
+              <div id="tag-result-<%= result.id %>" class="flex flex-row flex-wrap items-center bg-gray-200 text-gray-500 border border-gray-500 font-semibold mr-2 mb-2 rounded cursor-default py-2"  title="<%= result.name %>">
                 <div class="w-4 h-4 rounded rounded-full ml-3 bg-gray-500"></div>
 
                 <div class="pl-3"><%= result.name %></div>
@@ -67,7 +67,7 @@
                   class="flex flex-row flex-wrap items-center cursor-pointer">
                   <input type="hidden" name="tag_id" value="<%= result.id %>" phx-value_tag_id="<%= result.id %>">
 
-                  <%= submit class: "plain flex flex-row items-center font-semibold text-md py-2 pl-0 pr-3" do %>
+                  <%= submit class: "plain flex flex-row items-center font-semibold text-md py-2 pl-0 pr-3 focus:bg-red-500 focus:text-white" do %>
                     <div class="w-4 h-4 rounded rounded-full ml-3" style="background-color: <%= result.color %>;">
                     </div>
 
