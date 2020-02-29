@@ -1,7 +1,7 @@
 defmodule AdoptopossWeb.PageLive do
   use AdoptopossWeb, :live_view
 
-  alias Adoptoposs.{Dashboard, Accounts}
+  alias Adoptoposs.Dashboard
   alias AdoptopossWeb.PageView
 
   def render(assigns) do
@@ -21,7 +21,7 @@ defmodule AdoptopossWeb.PageLive do
     assign(socket, user_id: user.id)
   end
 
-  defp assign_user(socket, session) do
+  defp assign_user(socket, _) do
     assign(socket, user_id: nil)
   end
 end

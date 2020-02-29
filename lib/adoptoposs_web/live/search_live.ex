@@ -10,7 +10,7 @@ defmodule AdoptopossWeb.SearchLive do
     Phoenix.View.render(SearchView, "index.html", assigns)
   end
 
-  def mount(params, session, socket) do
+  def mount(_params, session, socket) do
     {:ok,
      socket
      |> assign_user(session)
@@ -51,7 +51,7 @@ defmodule AdoptopossWeb.SearchLive do
     assign(socket, user_id: user.id)
   end
 
-  defp assign_user(socket, session) do
+  defp assign_user(socket, _) do
     assign(socket, user_id: nil)
   end
 
