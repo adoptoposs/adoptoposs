@@ -12,9 +12,9 @@ defmodule AdoptopossWeb.PageLive do
     projects = Dashboard.list_projects(limit: 6)
 
     {:ok,
-    socket
-    |> assign_user(session)
-    |> assign(projects: projects)}
+     socket
+     |> assign_user(session)
+     |> assign(projects: projects)}
   end
 
   defp assign_user(socket, %{"current_user" => user}) do

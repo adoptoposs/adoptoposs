@@ -35,7 +35,8 @@ defmodule Adoptoposs.Tags.Loader do
     data |> Enum.reduce([], &build_language/2)
   end
 
-  defp build_language({key, %{"type" => type, "color" => color}}, result) when type in @type_filters do
+  defp build_language({key, %{"type" => type, "color" => color}}, result)
+       when type in @type_filters do
     result ++ [%{name: key, type: "language", color: color}]
   end
 
