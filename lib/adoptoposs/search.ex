@@ -8,12 +8,13 @@ defmodule Adoptoposs.Search do
 
   alias Adoptoposs.Repo
   alias Adoptoposs.Dashboard.Project
+  alias Adoptoposs.Tags.Tag
 
   def find_projects(query, offset: offset, limit: limit) do
     terms = Regex.split(~r/[\s\.-_]/, String.downcase(query))
 
     Project
-    |> where_all_terms_match(terms)
+    |> where_all_terms_match(terms, &matches_project/2)
     |> offset(^offset)
     |> limit(^limit)
     |> order_by(desc: :updated_at)
@@ -22,12 +23,28 @@ defmodule Adoptoposs.Search do
     |> Repo.all()
   end
 
-  def where_all_terms_match(query, terms) do
-    Enum.reduce(terms, query, &and_where_term_matches/2)
+  def find_tags(query, offset: offset, limit: limit) do
+    terms = Regex.split(~r/[\s\.-_]/, String.downcase(query))
+
+    Tag
+    |> where_all_terms_match(terms, &matches_tag/2)
+    |> offset(^offset)
+    |> limit(^limit)
+    |> order_by(:name)
+    |> Repo.all()
   end
 
-  def and_where_term_matches(term, query) do
+  defp where_all_terms_match(query, terms, fun) do
+    Enum.reduce(terms, query, fun)
+  end
+
+  def matches_project(term, query) do
     from p in query,
       where: ilike(p.name, ^"%#{term}%") or ilike(p.language, ^"%#{term}%")
+  end
+
+  def matches_tag(term, query) do
+    from p in query,
+      where: ilike(p.name, ^"%#{term}%")
   end
 end

@@ -6,15 +6,17 @@ defmodule AdoptopossWeb.ProjectLiveTest do
   alias AdoptopossWeb.ProjectLive
 
   test "requires authentication on all project routes", %{conn: conn} do
-    Enum.each([
+    Enum.each(
+      [
         Routes.live_path(conn, ProjectLive.Index),
-        Routes.live_path(conn, ProjectLive.Show, 1),
+        Routes.live_path(conn, ProjectLive.Show, 1)
       ],
       fn path ->
         conn = get(conn, path)
         assert html_response(conn, 302)
         assert conn.halted
-    end)
+      end
+    )
   end
 
   test "GET /settings/projects shows the page for a logged in user", %{conn: conn} do
@@ -29,8 +31,6 @@ defmodule AdoptopossWeb.ProjectLiveTest do
     assert html_response(conn, 200) =~ "Your submitted projects"
     {:ok, _view, _html} = live(conn)
   end
-
-
 
   test "GET /projects/:id shows a project’s data and interests", %{conn: conn} do
     project = insert(:project)
@@ -47,6 +47,7 @@ defmodule AdoptopossWeb.ProjectLiveTest do
     for interest <- interests do
       assert html_response(conn, 200) =~ interest.message
     end
+
     {:ok, _view, _html} = live(conn)
   end
 

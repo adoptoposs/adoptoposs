@@ -2,6 +2,8 @@ defmodule Adoptoposs.Accounts.User do
   use Ecto.Schema
   import Ecto.Changeset
 
+  alias Adoptoposs.{Dashboard, Communication, Tags}
+
   schema "users" do
     field :avatar_url, :string
     field :email, :string
@@ -11,8 +13,10 @@ defmodule Adoptoposs.Accounts.User do
     field :uid, :string
     field :username, :string
 
-    has_many :projects, Adoptoposs.Dashboard.Project
-    has_many :interests, Adoptoposs.Communication.Interest, foreign_key: :creator_id
+    has_many :projects, Dashboard.Project
+    has_many :interests, Communication.Interest, foreign_key: :creator_id
+    has_many :tag_subscriptions, Tags.TagSubscription, on_delete: :delete_all
+    has_many :tags, through: [:tag_subscriptions, :tag]
 
     timestamps()
   end

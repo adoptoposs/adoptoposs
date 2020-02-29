@@ -22,6 +22,7 @@ defmodule Adoptoposs.DataCase do
       import Ecto.Changeset
       import Ecto.Query
       import Adoptoposs.DataCase
+      import Adoptoposs.TestHelpers
     end
   end
 

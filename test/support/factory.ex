@@ -5,7 +5,7 @@ defmodule Adoptoposs.Factory do
 
   use ExMachina.Ecto, repo: Adoptoposs.Repo
 
-  alias Adoptoposs.{Network, Accounts, Dashboard, Communication}
+  alias Adoptoposs.{Network, Accounts, Dashboard, Communication, Tags}
 
   def user_factory do
     %Accounts.User{
@@ -93,6 +93,21 @@ defmodule Adoptoposs.Factory do
       message: sequence("Hi, user"),
       creator: build(:user),
       project: build(:project)
+    }
+  end
+
+  def tag_factory do
+    %Tags.Tag{
+      name: sequence("tag"),
+      type: "language",
+      color: "#123456"
+    }
+  end
+
+  def tag_subscription_factory do
+    %Tags.TagSubscription{
+      user: build(:user),
+      tag: build(:tag)
     }
   end
 end

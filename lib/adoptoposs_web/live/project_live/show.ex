@@ -11,7 +11,9 @@ defmodule AdoptopossWeb.ProjectLive.Show do
   def mount(%{"id" => id}, %{"current_user" => user}, socket) do
     case Dashboard.get_user_project(user, id) do
       nil ->
-        {:ok, push_redirect(socket, to: Routes.live_path(socket, AdoptopossWeb.ProjectLive.Index))}
+        {:ok,
+         push_redirect(socket, to: Routes.live_path(socket, AdoptopossWeb.ProjectLive.Index))}
+
       project ->
         {:ok, assign(socket, user_id: user.id, project: project)}
     end

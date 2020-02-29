@@ -1,0 +1,32 @@
+# Excerpt from https://raw.githubusercontent.com/github/linguist/master/lib/linguist/languages.yml
+
+CSS:
+  type: markup
+  tm_scope: source.css
+  ace_mode: css
+  codemirror_mode: css
+  codemirror_mime_type: text/css
+  color: "#563d7c"
+  extensions:
+  - ".css"
+  language_id: 50
+CSV:
+  type: data
+  ace_mode: text
+  tm_scope: none
+  extensions:
+  - ".csv"
+  language_id: 51
+Elixir:
+  type: programming
+  color: "#6e4a7e"
+  extensions:
+  - ".ex"
+  - ".exs"
+  tm_scope: source.elixir
+  ace_mode: elixir
+  filenames:
+  - mix.lock
+  interpreters:
+  - elixir
+  language_id: 100

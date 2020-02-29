@@ -63,6 +63,15 @@ button {
   &:focus, &:hover {
     @apply bg-red-500 text-white border-white
   }
+
+  &.plain {
+    @apply tracking-normal text-base;
+    border: inherit;
+    background-color: inherit;
+    color: inherit;
+    margin: 0;
+    text-transform: none;
+  }
 }
 
 input[type="reset"] {
