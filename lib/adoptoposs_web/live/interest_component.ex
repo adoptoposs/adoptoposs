@@ -2,6 +2,7 @@ defmodule AdoptopossWeb.InterestComponent do
   use AdoptopossWeb, :live_component
 
   alias Adoptoposs.{Accounts, Communication}
+  alias AdoptopossWeb.Mailer
 
   def render(assigns) do
     AdoptopossWeb.InterestView.render("actions.html", assigns)
@@ -22,8 +23,15 @@ defmodule AdoptopossWeb.InterestComponent do
   def handle_event("submit", %{"message" => message}, %{assigns: assigns} = socket) do
     user = Accounts.get_user!(assigns.user_id)
     attrs = %{creator_id: user.id, project_id: assigns.project_id, message: message}
-    {:ok, _} = Communication.create_interest(attrs)
 
-    {:noreply, assign(socket, contacted: true, to_be_contacted: false)}
+    case Communication.create_interest(attrs) do
+      {:ok, interest} ->
+        interest.id
+        |> Communication.get_interest!()
+        |> Mailer.send_interest_received_email()
+        {:noreply, assign(socket, contacted: true, to_be_contacted: false)}
+      {:error, _} ->
+        {:noreply, socket}
+    end
   end
 end

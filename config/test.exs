@@ -16,3 +16,7 @@ config :adoptoposs, AdoptopossWeb.Endpoint,
 
 # Print only warnings and errors during test
 config :logger, level: :warn
+
+# Mailing
+config :adoptoposs, AdoptopossWeb.Mailer,
+  adapter: Bamboo.TestAdapter
