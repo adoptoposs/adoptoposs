@@ -10,35 +10,23 @@
 # We recommend using the bang functions (`insert!`, `update!`
 # and so on) as they will fail if something goes wrong.
 
-alias Adoptoposs.Dashboard
+alias Adoptoposs.{Dashboard, Tags}
 
 Faker.start()
 
 defmodule Adoptoposs.Seeds do
   import Adoptoposs.Factory
 
-  @languages [
-    "Elixir",
-    "JavaScript",
-    "Python",
-    "C",
-    "Ruby",
-    "Java",
-    "TypeScript",
-    "Rust",
-    "Kotlin",
-    "C++"
-  ]
-
   def create_projects(count) do
     user_count = ceil(count / 100)
     users = create_users(user_count)
+    languages = Tags.list_language_tags()
 
     for _ <- 1..count do
       user = Enum.random(users)
-      language = Enum.random(@languages)
+      language = Enum.random(languages)
       name = Faker.Internet.slug()
-      repo = build(:repository, language: build(:language, name: language))
+      repo = build(:repository, language: build(:language, name: language.name))
 
       insert(:project,
         user: user,

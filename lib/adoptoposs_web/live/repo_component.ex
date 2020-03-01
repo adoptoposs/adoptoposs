@@ -1,7 +1,7 @@
 defmodule AdoptopossWeb.RepoComponent do
   use AdoptopossWeb, :live_component
 
-  alias Adoptoposs.Dashboard
+  alias Adoptoposs.{Dashboard, Tags}
 
   def render(assigns) do
     AdoptopossWeb.RepoView.render("repo.html", assigns)
@@ -17,7 +17,8 @@ defmodule AdoptopossWeb.RepoComponent do
 
   def handle_event("submit_project", %{"message" => description}, socket) do
     %{repo: repository, user_id: user_id} = socket.assigns
-    attrs = %{user_id: user_id, description: description}
+    tag = Tags.get_tag_by_name!(repository.language.name)
+    attrs = %{user_id: user_id, language_id: tag.id, description: description}
 
     case Dashboard.create_project(repository, attrs) do
       {:ok, _project} ->

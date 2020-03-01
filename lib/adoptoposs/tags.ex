@@ -18,8 +18,10 @@ defmodule Adoptoposs.Tags do
       [%Tag{}, ...]
 
   """
-  def list_tags do
-    Repo.all(Tag)
+  def list_language_tags do
+    Tag
+    |> where(type: ^Tag.Language.type())
+    |> Repo.all()
   end
 
   @doc """
@@ -37,6 +39,32 @@ defmodule Adoptoposs.Tags do
 
   """
   def get_tag!(id), do: Repo.get!(Tag, id)
+
+  @doc """
+  Gets a single tag by its name.
+
+  Raises `Ecto.NoResultsError` if the Tag does not exist.
+
+  ## Examples
+
+      iex> get_tag_by_name!("some-name")
+      %Tag{}
+
+      iex> get_tag_by_name!(nil)
+      %Tag{name: "unknown"}
+
+      iex> get_tag_by_name!("not exisiting")
+      ** (Ecto.NoResultsError)
+  """
+  def get_tag_by_name!(nil) do
+    unknown_tag = Tag.Utility.unknown()
+    get_tag_by_name!(unknown_tag.name)
+  end
+
+  def get_tag_by_name!(name) do
+    from(t in Tag, where: fragment("lower(?) = lower(?)", t.name, ^name))
+    |> Repo.one!()
+  end
 
   @doc """
   Creates a tag.

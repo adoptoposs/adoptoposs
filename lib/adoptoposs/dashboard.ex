@@ -23,7 +23,7 @@ defmodule Adoptoposs.Dashboard do
     Project
     |> where(user_id: ^id)
     |> order_by(desc: :id)
-    |> preload([:user, :interests])
+    |> preload([:user, :language, :interests])
     |> Repo.all()
   end
 
@@ -40,7 +40,7 @@ defmodule Adoptoposs.Dashboard do
     Project
     |> limit(^limit)
     |> order_by(desc: :id)
-    |> preload([:user, :interests])
+    |> preload([:user, :language, :interests])
     |> Repo.all()
   end
 

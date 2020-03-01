@@ -9,8 +9,8 @@
         </h2>
 
         <%= render AdoptopossWeb.SharedView, "language_tag.html",
-          name: @project.data["language"]["name"],
-          color: @project.data["language"]["color"] %>
+          name: @project.language.name,
+          color: @project.language.color %>
       </div>
 
       <div class="text-gray-600 mt-2">
