@@ -59,6 +59,21 @@ config :adoptoposs, :basic_auth,
   username: {:system, "BASIC_AUTH_USER"},
   password: {:system, "BASIC_AUTH_PASSWORD"}
 
+# Mailing
+email_api_key =
+  System.get_env("EMAIL_API_KEY") ||
+    raise """
+    environment variable EMAIL_API_KEY is missing.
+    See your SendGrid Account
+    """
+
+config :my_app, AdoptopossWeb.Mailer,
+  adapter: Bamboo.SendGridAdapter,
+  api_key: email_api_key,
+  hackney_opts: [
+    recv_timeout: :timer.minutes(1)
+  ]
+
 # ## Using releases (Elixir v1.9+)
 #
 # If you are doing OTP releases, you need to instruct Phoenix

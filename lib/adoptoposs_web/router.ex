@@ -2,6 +2,10 @@ defmodule AdoptopossWeb.Router do
   use AdoptopossWeb, :router
   alias AdoptopossWeb.Plugs
 
+  if Mix.env() == :dev do
+    forward "/sent_emails", Bamboo.SentEmailViewerPlug
+  end
+
   pipeline :browser do
     # Setup HTTP basic auth only if the user & password is set:
     if System.get_env("BASIC_AUTH_USER") && System.get_env("BASIC_AUTH_PASSWORD") do
