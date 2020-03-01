@@ -24,7 +24,7 @@ defmodule Adoptoposs.Factory do
 
     %Dashboard.Project{
       name: sequence("project"),
-      language: sequence("language"),
+      language: build(:tag),
       data: build(:repository, id: repo_id),
       user: build(:user),
       description: "Description",
@@ -99,7 +99,7 @@ defmodule Adoptoposs.Factory do
   def tag_factory do
     %Tags.Tag{
       name: sequence("tag"),
-      type: "language",
+      type: sequence("type"),
       color: "#123456"
     }
   end

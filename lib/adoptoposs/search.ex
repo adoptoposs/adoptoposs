@@ -14,12 +14,13 @@ defmodule Adoptoposs.Search do
     terms = Regex.split(~r/[\s\.-_]/, String.downcase(query))
 
     Project
+    |> join(:left, [p], t in assoc(p, :language))
     |> where_all_terms_match(terms, &matches_project/2)
     |> offset(^offset)
     |> limit(^limit)
     |> order_by(desc: :updated_at)
     |> order_by(:name)
-    |> preload([:user, :interests])
+    |> preload([:user, :language, :interests])
     |> Repo.all()
   end
 
@@ -27,6 +28,7 @@ defmodule Adoptoposs.Search do
     terms = Regex.split(~r/[\s\.-_]/, String.downcase(query))
 
     Tag
+    |> where(type: ^Tag.Language.type())
     |> where_all_terms_match(terms, &matches_tag/2)
     |> offset(^offset)
     |> limit(^limit)
@@ -39,12 +41,12 @@ defmodule Adoptoposs.Search do
   end
 
   def matches_project(term, query) do
-    from p in query,
-      where: ilike(p.name, ^"%#{term}%") or ilike(p.language, ^"%#{term}%")
+    from [project, tag] in query,
+      where: ilike(project.name, ^"%#{term}%") or ilike(tag.name, ^"%#{term}%")
   end
 
   def matches_tag(term, query) do
-    from p in query,
-      where: ilike(p.name, ^"%#{term}%")
+    from project in query,
+      where: ilike(project.name, ^"%#{term}%")
   end
 end

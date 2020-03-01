@@ -16,14 +16,30 @@ defmodule Adoptoposs.TagsTest do
     }
     @invalid_attrs %{color: nil, name: nil, type: nil}
 
-    test "list_tags/0 returns all tags" do
-      tag = insert(:tag)
-      assert Tags.list_tags() == [tag]
+    test "list_language_tags/0 returns all tags of type language" do
+      tag = insert(:tag, type: Tag.Language.type())
+      insert(:tag)
+
+      assert Tags.list_language_tags() == [tag]
     end
 
     test "get_tag!/1 returns the tag with given id" do
       tag = insert(:tag)
       assert Tags.get_tag!(tag.id) == tag
+    end
+
+    test "get_tag_by_name!/1 return the tag with the given name" do
+      tag = insert(:tag)
+
+      assert Tags.get_tag_by_name!(tag.name) == tag
+      assert Tags.get_tag_by_name!(String.upcase(tag.name)) == tag
+    end
+
+    test "get_tag_by_name!/1 returns the unknown tag if passing a nil name" do
+      unknown_tag = Tags.Tag.Utility.unknown()
+      tag = insert(:tag, name: unknown_tag.name)
+
+      assert Tags.get_tag_by_name!(nil) == tag
     end
 
     test "create_tag/1 with valid data creates a tag" do
@@ -136,12 +152,14 @@ defmodule Adoptoposs.TagsTest do
   end
 
   describe "loader" do
+    alias Adoptoposs.Tags.Tag
+
     test "fetch_languages/1 fetches and compiles a list of programming language from the given file" do
       path = fixture_path!("languages.yml")
 
       assert [
-               %{name: "CSS", type: "language", color: "#563d7c"},
-               %{name: "Elixir", type: "language", color: "#6e4a7e"}
+               %Tag{name: "CSS", type: "language", color: "#563d7c"},
+               %Tag{name: "Elixir", type: "language", color: "#6e4a7e"}
              ] = Tags.Loader.fetch_languages(path)
     end
   end

@@ -2,23 +2,23 @@ defmodule Adoptoposs.Dashboard.Project do
   use Ecto.Schema
   import Ecto.Changeset
 
-  alias Adoptoposs.{Network, Accounts, Communication}
+  alias Adoptoposs.{Network, Accounts, Communication, Tags}
 
   schema "projects" do
     field :name, :string
-    field :language, :string
     field :data, :map
     field :repo_id, :string
     field :description, :string
 
+    belongs_to :language, Tags.Tag
     belongs_to :user, Accounts.User
     has_many :interests, Communication.Interest
 
     timestamps()
   end
 
-  @cast_attrs [:name, :language, :data, :repo_id, :user_id, :description]
-  @required_attrs [:name, :language, :data, :user_id, :repo_id]
+  @cast_attrs [:name, :data, :user_id, :language_id, :repo_id, :description]
+  @required_attrs [:name, :data, :user_id, :language_id, :repo_id]
 
   @doc false
   def create_changeset(project, %Network.Repository{} = repository, attrs \\ %{}) do

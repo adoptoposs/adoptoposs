@@ -7,6 +7,7 @@ defmodule Adoptoposs.DashboardTest do
   describe "project" do
     alias Adoptoposs.Dashboard.Project
     alias Adoptoposs.Network.Repository
+    alias Adoptoposs.Tags.Tag
 
     test "list_projects/1 returns the latest N projects" do
       insert(:project)
@@ -14,12 +15,16 @@ defmodule Adoptoposs.DashboardTest do
 
       projects = Dashboard.list_projects(limit: 1)
       assert projects |> Enum.map(& &1.id) == [other_project.id]
+
+      [project | _] = projects
+      assert %Tag{} = project.language
     end
 
     test "list_projects/1 returns a user's projects" do
       project = insert(:project)
       projects = Dashboard.list_projects(project.user)
       assert projects |> Enum.map(& &1.id) == [project.id]
+      assert %Tag{} = List.first(projects).language
 
       user = insert(:user)
       assert Dashboard.list_projects(user) == []
@@ -40,11 +45,18 @@ defmodule Adoptoposs.DashboardTest do
     test "create_project/2 with valid data creates a project" do
       %{id: user_id} = insert(:user)
       %{id: repo_id} = repository = build(:repository)
+      %{id: tag_id} = insert(:tag)
       description = "description"
-      attrs = %{user_id: user_id, description: description}
+      attrs = %{user_id: user_id, description: description, language_id: tag_id}
 
       assert {:ok, project} = Dashboard.create_project(repository, attrs)
-      assert project = %Project{description: description, user_id: user_id, repo_id: repo_id}
+
+      assert project = %Project{
+               description: description,
+               user_id: user_id,
+               repo_id: repo_id,
+               language_id: tag_id
+             }
     end
 
     test "create_project/2 with invalid data returns error changeset" do
@@ -53,9 +65,10 @@ defmodule Adoptoposs.DashboardTest do
 
     test "create_project/2 converts unique_constraint on user and project to error" do
       user = insert(:user)
+      tag = insert(:tag)
       repository = build(:repository)
-      insert(:project, user: user, repo_id: repository.id)
-      attrs = %{user_id: user.id}
+      insert(:project, user: user, language: tag, repo_id: repository.id)
+      attrs = %{user_id: user.id, language_id: tag.id}
 
       assert {:error, changeset} = Dashboard.create_project(repository, attrs)
       assert assert [{:project, {"has already been taken", _}}] = changeset.errors
