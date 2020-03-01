@@ -41,7 +41,7 @@
           <% else %>
             <div class="block md:inline-block">
               <a href="/auth/github" class="inline-block text-md px-4 py-2 leading-none border border-red-300 rounded mt-4 lg:mt-0">
-                Login with Github
+                Login with GitHub
               </a>
             </div>
           <% end %>
@@ -72,7 +72,7 @@
           <li><a href="#" title="Impressum">Found any bug?</a></li>
         </ul>
         <div>
-          <a href="https://github.com/paulgoetze/adoptoposs">Fork us on Github</a>
+          <a href="https://github.com/paulgoetze/adoptoposs">Fork us on GitHub</a>
         </div>
       </div>
       </section>
