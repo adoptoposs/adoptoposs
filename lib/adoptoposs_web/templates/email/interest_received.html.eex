@@ -1,0 +1,20 @@
+<p>
+  Hi <%= @interest.project.user.name %>,
+</p>
+
+<p>
+  you’ve got a new message for your project <b><%= @interest.project.name %></b>  on Adoptoposs:
+</p>
+
+<div>
+  <hr />
+  <%= render AdoptopossWeb.InterestView, "reply.html",
+    interest: @interest,
+    project_url: @project_url %>
+  <hr />
+</div>
+
+<p>
+  You can find the original message <%= link "here", to: @project_url %>.
+  In order to get into contact you can directly reply to this email.
+</p>

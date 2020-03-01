@@ -1,0 +1,9 @@
+<p>
+  On <%= Timex.format!(@interest.inserted_at, "{D}/{M}/{YY} {h12}:{m} {AM}") %>, <%= link @interest.creator.name, to: @interest.creator.profile_url %> wrote:
+</p>
+
+<blockquote cite="<%= @project_url %>">
+  <em>
+    <%= {:safe, Earmark.as_html!(String.trim(@interest.message))} %>
+  </em>
+</blockquote>

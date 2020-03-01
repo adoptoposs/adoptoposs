@@ -3,5 +3,22 @@
   </head>
   <body>
     <%= render @view_module, @view_template, assigns %>
+
+    <p>
+      Always keep maintaining! <br/>
+      - Your Adoptoposs
+    </p>
   </body>
+  <footer>
+    <div>
+      <small>
+        Visit <%= link AdoptopossWeb.Endpoint.host(), to: Routes.live_url(AdoptopossWeb.Endpoint, AdoptopossWeb.PageLive) %> to find co-maintainers for your open source software project!
+      </small>
+    <div>
+    <div>
+      <small>
+        You can <%= link "unsubscribe", to: Routes.live_url(AdoptopossWeb.Endpoint, AdoptopossWeb.SettingsLive) %> from these notifications in your account settings.
+      </small>
+    <div>
+  </footer>
 </html>

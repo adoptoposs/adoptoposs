@@ -1,1 +1,8 @@
 <%= render @view_module, @view_template, assigns %>
+
+Always keep maintaining!
+- Your Adoptoposs
+
+
+Visit <%= Routes.live_url(AdoptopossWeb.Endpoint, AdoptopossWeb.PageLive) %> to find co-maintainers for your open source software project!
+You can unsubscribe from these notifications in your account settings: <%= Routes.live_url(AdoptopossWeb.Endpoint, AdoptopossWeb.SettingsLive) %>.
