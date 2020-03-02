@@ -1,24 +1,73 @@
 <div class="py-12 bg-red-500">
   <section>
-    <h1 class="text-center">
-      <%= gettext "Welcome to %{app_name}!", app_name: "Adoptoposs" %>
+    <h1 class="text-center text-6xl font-semibold uppercase">
+      <%= "Adoptoposs." %>
     </h1>
-    <p class="text-white text-center">
-      Connecting people to make sure <br/>
-      <b>open source software</b> projects are maintained </br>
-      by multiple <b>co-maintainers</b>.
+    <p class="text-white text-center text-4xl leading-tight">
+      Connecting people to keep<br/>
+      <b class="underline">open source software</b> projects maintained –</br>
+      by <b class="underline">multiple maintainers</b>.
     </p>
   </section>
 </div>
 
-<section class="mt-16">
-  <div id="projects" class="grid grid-flow-row gap-4">
-    <%= for project <- @projects do %>
-      <%= live_component @socket, AdoptopossWeb.ProjectComponent,
-          id: "project-#{project.id}",
-          project: project,
-          user_id: @user_id %>
-    <% end %>
-  </div>
-</section>
+<div class="py-32">
+  <section>
+    <h1 class="text-center text-gray-800">
+      How it works
+    </h1>
 
+    <div class="mt-4 grid grid-flow-row md:grid-cols-3 gap-8">
+      <div class="flex flex-col items-center justify-between">
+        <img src="https://via.placeholder.com/250" class="mb-6 rounded rounded-full">
+        <p class="text-xl text-center">
+          Searching for an additional maintainer? Or someone to take over your project?<br/>
+          Sumbit your repo.
+        </p>
+        <div></div>
+      </div>
+
+      <div class="flex flex-col items-center justify-between">
+        <img src="https://via.placeholder.com/250" class="mb-6 rounded rounded-full">
+        <p class="text-xl text-center">
+          Want to help with OSS maintainance?<br/>
+          Simply contact the maintainer on Adoptoposs.
+        </p>
+        <div></div>
+      </div>
+
+      <div class="flex flex-col items-center justify-between">
+        <img src="https://via.placeholder.com/250" class="mb-6 rounded rounded-full">
+        <p class="text-xl text-center">
+          Not sure where to help?<br/>
+          Get projects for your favorite programming languages directly into your inbox.
+        </p>
+        <div></div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<div class="bg-gray-900 py-12">
+  <section>
+    <h1 class="text-red-400 text-center">
+      Latest submitted projects:
+    </h1>
+    <div id="projects" class="mt-10 grid grid-flow-row gap-4">
+      <%= for project <- @projects do %>
+        <%= live_component @socket, AdoptopossWeb.ProjectComponent,
+            id: "project-#{project.id}",
+            project: project,
+            user_id: @user_id %>
+      <% end %>
+    </div>
+  </section>
+</div>
+
+<div class="py-12">
+  <section>
+    <h1 class="text-center text-pink-900">
+      Why does it matter?
+    </h1>
+  </section>
+</div>
