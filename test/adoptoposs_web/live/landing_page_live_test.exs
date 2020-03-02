@@ -1,13 +1,13 @@
-defmodule AdoptopossWeb.PageLiveTest do
+defmodule AdoptopossWeb.LandingPageLiveTest do
   use AdoptopossWeb.ConnCase
 
   import Phoenix.LiveViewTest
   import Adoptoposs.Factory
 
-  alias AdoptopossWeb.PageLive
+  alias AdoptopossWeb.LandingPageLive
 
   test "GET / shows the landing page for not logged in users", %{conn: conn} do
-    conn = get(conn, Routes.live_path(conn, PageLive))
+    conn = get(conn, Routes.live_path(conn, LandingPageLive))
 
     assert html_response(conn, 200) =~ "Adoptoposs."
     refute html_response(conn, 200) =~ "Projects For You"
@@ -21,7 +21,7 @@ defmodule AdoptopossWeb.PageLiveTest do
       conn
       |> init_test_session(%{current_user: user})
       |> put_req_header("content-type", "html")
-      |> get(Routes.live_path(conn, PageLive))
+      |> get(Routes.live_path(conn, LandingPageLive))
 
     assert html_response(conn, 200) =~ "Projects For You"
     refute html_response(conn, 200) =~ "Adoptoposs."

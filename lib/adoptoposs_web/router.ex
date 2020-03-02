@@ -34,7 +34,7 @@ defmodule AdoptopossWeb.Router do
   scope "/", AdoptopossWeb do
     pipe_through :browser
 
-    live "/", PageLive
+    live "/", LandingPageLive
     live "/search", SearchLive
   end
 

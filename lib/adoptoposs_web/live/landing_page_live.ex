@@ -1,21 +1,21 @@
-defmodule AdoptopossWeb.PageLive do
+defmodule AdoptopossWeb.LandingPageLive do
   use AdoptopossWeb, :live_view
 
   alias Adoptoposs.{Dashboard, Tags}
-  alias AdoptopossWeb.PageView
+  alias AdoptopossWeb.LandingPageView
 
   @doc """
   Renders the logged out landing page template.
   """
   def render(%{user_id: nil} = assigns) do
-    Phoenix.View.render(PageView, "index.html", assigns)
+    Phoenix.View.render(LandingPageView, "index.html", assigns)
   end
 
   @doc """
   Renders the logged-in user's dashbard template.
   """
   def render(assigns) do
-    Phoenix.View.render(PageView, "dashboard.html", assigns)
+    Phoenix.View.render(LandingPageView, "dashboard.html", assigns)
   end
 
   def mount(_params, session, socket) do

@@ -24,7 +24,7 @@ defmodule AdoptopossWeb.Plugs.RequireLogin do
   def call(conn, _opts) do
     conn
     |> put_flash(:error, "You need to log in to visit this page.")
-    |> redirect(to: Routes.live_path(conn, AdoptopossWeb.PageLive))
+    |> redirect(to: Routes.live_path(conn, AdoptopossWeb.LandingPageLive))
     |> halt()
   end
 end

@@ -12,7 +12,7 @@
     <header>
       <nav role="navigation">
         <div class="flex items-center flex-shrink-0 mr-6">
-          <%= live_redirect to: Routes.live_path(@conn, AdoptopossWeb.PageLive), class: "font-semibold text-xl tracking-tight" do %>
+          <%= live_redirect to: Routes.live_path(@conn, AdoptopossWeb.LandingPageLive), class: "font-semibold text-xl tracking-tight" do %>
             <img src="<%= Routes.static_path(@conn, "/images/adoptoposs.png") %>" alt="Adoptoposs"/>
           <% end %>
         </div>
