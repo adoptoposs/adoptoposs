@@ -28,7 +28,7 @@ defmodule AdoptopossWeb.ProjectLiveTest do
       |> put_req_header("content-type", "html")
       |> get(Routes.live_path(conn, ProjectLive.Index))
 
-    assert html_response(conn, 200) =~ "Your submitted projects"
+    assert html_response(conn, 200) =~ "Your Submitted Projects"
     {:ok, _view, _html} = live(conn)
   end
 
