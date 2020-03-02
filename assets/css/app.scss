@@ -134,3 +134,50 @@ label {
   }
   }
 }
+
+
+.phx-disconnected{
+  cursor: wait;
+}
+.phx-disconnected *{
+  pointer-events: none;
+}
+
+.phx-disconnected {
+  $dark: #702459;
+  $bright: #fc8181;
+
+  h1, select {
+    -webkit-animation: color-change 0.8s infinite;
+    -moz-animation: color-change 0.8s infinite;
+    -o-animation: color-change 0.8s infinite;
+    -ms-animation: color-change 0.8s infinite;
+    animation: color-change 0.8s infinite;
+  }
+
+    @-webkit-keyframes color-change {
+        0% { color: $dark; }
+        50% { color: $bright; }
+        100% { color: $dark; }
+    }
+    @-moz-keyframes color-change {
+        0% { color: $dark; }
+        50% { color: $bright; }
+        100% { color: $dark; }
+    }
+    @-ms-keyframes color-change {
+        0% { color: $dark; }
+        50% { color: $bright; }
+        100% { color: $dark; }
+    }
+    @-o-keyframes color-change {
+        0% { color: $dark; }
+        50% { color: $bright; }
+        100% { color: $dark; }
+    }
+    @keyframes color-change {
+        0% { color: $dark; }
+        50% { color: $bright; }
+        100% { color: $dark; }
+    }
+}
