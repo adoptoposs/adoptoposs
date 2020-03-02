@@ -18,6 +18,7 @@ defmodule AdoptopossWeb.Router do
     plug :fetch_live_flash
     plug :protect_from_forgery
     plug :put_secure_browser_headers
+    plug NavigationHistory.Tracker, excluded_paths: ["/", ~r{/auth/.*}]
     plug Plugs.CurrentUser
   end
 
@@ -26,7 +27,6 @@ defmodule AdoptopossWeb.Router do
   end
 
   pipeline :require_login do
-    plug NavigationHistory.Tracker, excluded_paths: [~r{/auth/.*}]
     plug Plugs.RequireLogin
   end
 
