@@ -1,15 +1,17 @@
 @import "tailwindcss/base";
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
+@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro|Oswald&display=swap');
 
 html, body {
   @apply h-full;
+  font-family: "Source Sans Pro", sans-serif;
 }
 
 body {
   @apply antialiased;
   @apply flex flex-col;
-  @apply bg-gray-100 text-gray-900;
+  @apply bg-gray-100 text-gray-800;
 }
 
 header {
@@ -21,11 +23,11 @@ nav {
 }
 
 main {
-  @apply flex flex-col flex-wrap w-full mb-16;
+  @apply flex flex-col flex-wrap w-full;
 }
 
 section {
-  @apply flex flex-col px-4 mt-4 w-full max-w-6xl mx-auto
+  @apply flex flex-col px-4 w-full max-w-6xl mx-auto
 }
 
 footer {
@@ -46,10 +48,15 @@ h1, h2, h3, h4, h5 {
 
 h1 {
   @apply text-4xl mt-4 mb-4;
+  font-family: "Oswald", sans-serif;
 }
 
 h2 {
   @apply text-2xl mt-4;
+}
+
+select.h1 {
+  font-family: "Oswald", sans-serif;
 }
 
 p {
