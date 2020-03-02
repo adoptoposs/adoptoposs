@@ -18,8 +18,8 @@ defmodule AdoptopossWeb.SearchLive do
      |> update_with_append(), temporary_assigns: [projects: []]}
   end
 
-  def handle_event("search", %{"q" => query}, %{assigns: assigns} = socket) do
-    query = String.trim(query)
+  def handle_params(params, _uri, %{assigns: assigns} = socket) do
+    query = String.trim(params["q"] || "")
 
     if query == "" || query == assigns.query do
       {:noreply, socket}
@@ -30,6 +30,10 @@ defmodule AdoptopossWeb.SearchLive do
        |> update_with_replace()
        |> search(query)}
     end
+  end
+
+  def handle_event("search", %{"q" => query}, socket) do
+    {:noreply, push_patch(socket, to: Routes.live_path(socket, AdoptopossWeb.SearchLive, q: query))}
   end
 
   def handle_event("load_more", _, %{assigns: assigns} = socket) do

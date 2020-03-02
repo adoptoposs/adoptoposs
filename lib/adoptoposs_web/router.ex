@@ -25,6 +25,11 @@ defmodule AdoptopossWeb.Router do
     plug :accepts, ["json"]
   end
 
+  pipeline :require_login do
+    plug NavigationHistory.Tracker, excluded_paths: [~r{/auth/.*}]
+    plug Plugs.RequireLogin
+  end
+
   # Routes that are accessible for all users:
   scope "/", AdoptopossWeb do
     pipe_through :browser
@@ -35,7 +40,7 @@ defmodule AdoptopossWeb.Router do
 
   # Routes that require authentication:
   scope "/", AdoptopossWeb do
-    pipe_through [:browser, Plugs.RequireLogin]
+    pipe_through [:browser, :require_login]
 
     get "/settings/repos", RepoController, :index
     live "/settings/repos/:organization_id", RepoLive
