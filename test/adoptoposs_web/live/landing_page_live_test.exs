@@ -10,7 +10,7 @@ defmodule AdoptopossWeb.LandingPageLiveTest do
     conn = get(conn, Routes.live_path(conn, LandingPageLive))
 
     assert html_response(conn, 200) =~ "Adoptoposs."
-    refute html_response(conn, 200) =~ "Projects For You"
+    refute html_response(conn, 200) =~ "Your Dashboard"
     {:ok, _view, _html} = live(conn)
   end
 
@@ -23,7 +23,7 @@ defmodule AdoptopossWeb.LandingPageLiveTest do
       |> put_req_header("content-type", "html")
       |> get(Routes.live_path(conn, LandingPageLive))
 
-    assert html_response(conn, 200) =~ "Projects For You"
+    assert html_response(conn, 200) =~ "Your Dashboard"
     refute html_response(conn, 200) =~ "Adoptoposs."
     {:ok, _view, _html} = live(conn)
   end

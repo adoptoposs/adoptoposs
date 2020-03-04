@@ -1,7 +1,7 @@
 defmodule AdoptopossWeb.LandingPageLive do
   use AdoptopossWeb, :live_view
 
-  alias Adoptoposs.{Dashboard, Tags}
+  alias Adoptoposs.{Dashboard, Communication}
   alias AdoptopossWeb.LandingPageView
 
   @doc """
@@ -27,8 +27,7 @@ defmodule AdoptopossWeb.LandingPageLive do
 
   defp put_assigns(socket, %{"current_user" => user}) do
     assign(socket,
-      projects: Dashboard.list_projects(limit: 6),
-      tags: Tags.list_user_tag_subscriptions(user) |> Enum.map(& &1.tag)
+      interests: Communication.list_user_interests(user)
     )
   end
 

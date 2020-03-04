@@ -17,7 +17,7 @@
                   color: project.language.color %>
               </div>
 
-              <div class="text-gray-600 mt-2">
+              <div class="markdown text-gray-600 mt-2">
                 <%= {:safe, Earmark.as_html!(project.data["description"])} %>
               </div>
             </div>
@@ -50,7 +50,7 @@
                 <b>I’m looking for…</b>
               </div>
 
-              <div class="text-gray-700 mt-2 mb-4">
+              <div class="markdown text-gray-700 mt-2 mb-4">
                 <%= {:safe, Earmark.as_html!(project.description)} %>
               </div>
 

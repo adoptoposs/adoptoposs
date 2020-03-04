@@ -3,9 +3,12 @@
 @import "tailwindcss/utilities";
 @import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro|Oswald&display=swap');
 
+$font-family-primary: "Source Sans Pro";
+$font-family-secondary: "Oswald";
+
 html, body {
   @apply h-full;
-  font-family: "Source Sans Pro", sans-serif;
+  font-family: $font-family-primary, sans-serif;
 }
 
 body {
@@ -47,16 +50,24 @@ h1, h2, h3, h4, h5 {
 }
 
 h1 {
-  @apply text-4xl mt-4 mb-4;
-  font-family: "Oswald", sans-serif;
+  @apply text-2xl my-2;
+  font-family: $font-family-secondary, sans-serif;
+
+  @screen md {
+    @apply text-4xl my-4;
+  }
 }
 
 h2 {
-  @apply text-2xl mt-4;
+  @apply text-xl mt-2;
+
+  @screen md {
+    @apply text-2xl mt-4;
+  }
 }
 
 select.h1 {
-  font-family: "Oswald", sans-serif;
+  font-family: $font-family-secondary, sans-serif;
 }
 
 p {
@@ -142,7 +153,6 @@ label {
   }
 }
 
-
 .phx-disconnected{
   cursor: wait;
 }
@@ -187,4 +197,26 @@ label {
         50% { color: $bright; }
         100% { color: $dark; }
     }
+}
+
+.w-max-content {
+  width: max-content;
+}
+
+/* Reset some styles for markdown rendering, because the headlines
+   and margins would be too large in the inline descriptions */
+.markdown {
+  h1, h2, h3, h4, h5, h6 {
+    @apply text-base font-semibold text-pink-900 m-0;
+    font-family: $font-family-primary, sans-serif;
+  }
+
+  p {
+    @apply mb-2;
+  }
+
+  pre, code, p {
+    font-family: $font-family-primary, sans-serif;
+    @apply break-normal whitespace-normal;
+  }
 }

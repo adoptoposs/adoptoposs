@@ -1,25 +1,5 @@
 <section>
-  <h1>Projects For Your Favorite Languages</h1>
+  <h1>Your Dashboard</h1>
 
-  <div id="tags" class="mt-10 flex flex-col flex-wrap">
-    <div class="flex flex-row flex-wrap">
-      <%= for tag <- @tags do %>
-        <div class="mb-2 mr-2">
-          <%= render AdoptopossWeb.SharedView, "language_tag.html",
-            name: tag.name,
-            color: tag.color %>
-        </div>
-      <% end %>
-    </div>
-    <%= live_redirect "Edit Languages", to: Routes.live_path(@socket, AdoptopossWeb.SettingsLive), class: "self-end" %>
-  </div>
-
-  <div id="projects" class="mt-10 grid grid-flow-row gap-4">
-    <%= for project <- @projects do %>
-      <%= live_component @socket, AdoptopossWeb.ProjectComponent,
-          id: "project-#{project.id}",
-          project: project,
-          user_id: @user_id %>
-    <% end %>
-  </div>
-</section
+  <%= render AdoptopossWeb.LandingPageView, "contacted.html", interests: @interests %>
+</section>
