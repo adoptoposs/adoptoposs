@@ -67,7 +67,12 @@ h2 {
 }
 
 select.h1 {
+  @apply text-2xl;
   font-family: $font-family-secondary, sans-serif;
+
+  @screen md {
+    @apply text-4xl;
+  }
 }
 
 p {
@@ -112,6 +117,22 @@ a {
 
 label {
   @apply font-semibold;
+}
+
+nav .nav-link {
+  @apply block p-2 mb-1;
+
+  &:hover, &:focus {
+    @apply bg-gray-300 rounded;
+  }
+
+  @screen md {
+    @apply flex items-center p-2 m-0 mr-4;
+
+    &:hover, &:focus {
+      @apply bg-transparent;
+    }
+  }
 }
 
 .icon-button {
