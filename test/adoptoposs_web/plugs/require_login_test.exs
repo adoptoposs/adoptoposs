@@ -3,6 +3,7 @@ defmodule AdoptoppossWeb.Plugs.RequireLoginTest do
 
   alias Adoptoposs.Accounts.User
   alias AdoptopossWeb.Plugs.RequireLogin
+  alias AdoptopossWeb.LandingPageLive
 
   setup(%{conn: conn}) do
     conn =
@@ -16,7 +17,7 @@ defmodule AdoptoppossWeb.Plugs.RequireLoginTest do
   test "user is redirected if current_user is not assigned", %{conn: conn} do
     conn = require_login(conn)
 
-    assert redirected_to(conn) == Routes.live_path(conn, AdoptopossWeb.PageLive)
+    assert redirected_to(conn) == Routes.live_path(conn, LandingPageLive)
     assert get_flash(conn, :error) =~ "You need to log in"
     assert %{halted: true} = conn
   end

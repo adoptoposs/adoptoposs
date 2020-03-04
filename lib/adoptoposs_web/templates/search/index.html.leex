@@ -1,10 +1,10 @@
-<div class="py-12 mb-12 bg-gray-200">
+<div class="pt-8 pb-12 mb-12 bg-gray-200">
   <section>
     <h1 class="text-center">
       Find projects and join as a maintainer
     </h1>
 
-    <div class="mt-12">
+    <div class="mt-2">
       <form class="flex flex-wrap items-center" phx-submit="search" phx-change="search">
         <input type="search"
           class="flex-grow border border-red-500 rounded-full h-16 px-8 mr-4 text-red-600"
@@ -15,8 +15,6 @@
           autofocus
           placeholder="Search for project names, programming languages..."
           phx-debounce="500" />
-
-        <%= submit "Go", phx_disable_with: "…", class: "flex-none h-16 w-16 rounded-full" %>
       </form>
     </div>
   </section>

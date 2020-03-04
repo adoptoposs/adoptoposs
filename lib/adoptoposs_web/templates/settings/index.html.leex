@@ -1,14 +1,14 @@
 <section>
   <h1>Settings</h1>
 
-  <div class="grid grid-flow-col grid-cols-2 gap-4">
-    <div class="flex flex-col flex-wrap flex-1">
-      <h2>Languages you follow</h2>
+  <div class="md:grid md:grid-flow-col md:grid-cols-2 md:gap-4">
+    <div class="flex flex-col flex-wrap">
+      <h2>Languages you Follow</h2>
 
       <div id="tag-subscriptions" class="flex flex-row flex-wrap mt-6">
         <%= for tag_subscription <- @tag_subscriptions do %>
           <% tag = tag_subscription.tag %>
-          <div id="tag-<%= tag.id %>" class="flex flex-row items-center bg-white text-red-500 border border-red-500 font-semibold mr-2 mb-2 rounded hover:bg-red-500 hover:text-white hover:border-white">
+          <div id="tag-<%= tag.id %>" class="flex flex-row items-center bg-white text-pink-900 border border-gray-400 font-semibold mr-2 mb-2 rounded hover:bg-red-500 hover:text-white hover:border-white">
             <div class="w-4 h-4 rounded rounded-full ml-3" style="background-color: <%= tag.color %>;"></div>
             <div class="pl-3" title="<%= tag.name %>">
               <span class=""><%= tag.name %></span>
@@ -25,10 +25,10 @@
       </div>
     </div>
 
-    <div class="flex flex-col flex-wrap flex-1">
-      <h2>Add a language</h2>
+    <div class="flex flex-col w-full mt-4 md:mt-0">
+      <h2>Add a Language</h2>
 
-      <form class="flex flex-wrap mt-6" phx-submit="search_tags" phx-change="search_tags">
+      <form class="flex flex-row flex-wrap mt-6" phx-submit="search_tags" phx-change="search_tags">
         <input type="search"
           class="flex-grow border border-red-500 rounded-full h-16 px-8 mr-4 text-red-600"
           id="search"
@@ -48,7 +48,7 @@
         <% else %>
           <%= for result <- @tag_results do %>
             <%= if result in Enum.map(@tag_subscriptions, &(&1.tag)) do %>
-              <div id="tag-result-<%= result.id %>" class="flex flex-row flex-wrap items-center bg-gray-200 text-gray-500 border border-gray-500 font-semibold mr-2 mb-2 rounded cursor-default py-2"  title="<%= result.name %>">
+              <div id="tag-result-<%= result.id %>" class="flex flex-row flex-wrap items-center bg-gray-200 text-gray-500 border border-gray-400 font-semibold mr-2 mb-2 rounded cursor-default py-2"  title="<%= result.name %>">
                 <div class="w-4 h-4 rounded rounded-full ml-3 bg-gray-500"></div>
 
                 <div class="pl-3"><%= result.name %></div>
@@ -60,7 +60,7 @@
                 </div>
               </div>
             <% else %>
-              <div class="flex flex-row items-center bg-white text-red-500 border border-red-500 font-semibold mr-2 mb-2 rounded hover:bg-red-500 hover:text-white hover:border-white cursor-pointer"
+              <div class="flex flex-row items-center bg-white text-pink-900 border border-gray-400 font-semibold mr-2 mb-2 rounded hover:bg-red-500 hover:text-white hover:border-white cursor-pointer"
                 title="Follow <%= result.name %>">
                 <form phx-submit="follow_tag"
                   title="Follow <%= result.name %>"

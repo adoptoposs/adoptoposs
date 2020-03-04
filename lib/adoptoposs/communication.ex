@@ -26,7 +26,8 @@ defmodule Adoptoposs.Communication do
     user
     |> Ecto.assoc(:interests)
     |> preload(:creator)
-    |> preload(project: :user)
+    |> preload(project: [:user, :language])
+    |> order_by(desc: :inserted_at)
     |> Repo.all()
   end
 

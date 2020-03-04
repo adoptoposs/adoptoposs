@@ -1,27 +1,20 @@
-<div id="<%= @id %>" class="flex flex-wrap w-full shadow hover:shadow-md mb-4 border border-gray-300">
+<div id="<%= @id %>" class="flex flex-wrap w-full mb-4 border border-gray-400 <%= if @submitted, do: "border-gray-400", else: "shadow hover:shadow-md" %> rounded">
   <div class="flex flex-row justify-between w-full">
-    <div class="flex flex-col flex-1 items-start p-6 bg-white">
-      <div class="flex flex-row flex-wrap justify-between items-start w-full">
-        <h2 class="mt-0 mr-4">
-          <%= @repo.name %>
-        </h2>
-        <%= render AdoptopossWeb.SharedView, "language_tag.html",
-          name: @repo.language.name,
-          color: @repo.language.color %>
-      </div>
-
-      <div class="text-gray-600 mt-2">
-        <%= {:safe, Earmark.as_html!(@repo.description)} %>
-      </div>
+    <div class="flex flex-col flex-1 items-start p-6 rounded-tl rounded-bl <%= if @submitted, do: "bg-gray-100", else: "bg-white" %>">
+      <%= render AdoptopossWeb.SharedView, "project_repo.html", project: @repo %>
     </div>
 
-    <div class="flex flex-col justify-center items-end flex-1 px-6 pt-6 pb-4 <%= if @submitted || @to_be_submitted, do: "bg-gray-200", else: "bg-white" %>">
+    <div class="flex flex-col justify-center items-end flex-1 px-6 pt-6 pb-4 rounded-tr rounded-br <%= if @submitted || @to_be_submitted, do: "bg-gray-200", else: "bg-white" %>">
       <%= if @submitted do %>
-        <span class="mt-4
-        mb-6 p-4 h-16 w-16 rounded rounded-full border text-center text-pink-900 bg-green-200">✔</span>
+        <span class="mt-2
+        mb-4 p-4 h-16 w-16 rounded rounded-full border text-center text-green-700 bg-green-200">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" class="h-8 w-8 p-2 fill-current">
+            <path d="M0 11l2-2 5 5L18 3l2 2L7 18z"/>
+          </svg>
+        </span>
       <% else %>
         <%= if !@to_be_submitted do %>
-          <%= submit "+", id: "btn-submit-#{@id}", phx_click: "attempt_submit", phx_target: "##{@id}", class: "h-16 w-16 rounded rounded-full text-3xl font-light mb-4" %>
+          <%= submit "+", id: "btn-submit-#{@id}", phx_click: "attempt_submit", phx_target: "##{@id}", class: "h-16 w-16 rounded rounded-full text-3xl font-light mb-4", title: "Submit Repo" %>
         <% else %>
           <%= render AdoptopossWeb.SharedView, "form.html",
             id: @repo.id,
