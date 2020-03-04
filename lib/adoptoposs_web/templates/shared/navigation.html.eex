@@ -1,0 +1,13 @@
+<nav role="navigation" class="flex flex-row flex-wrap justify-between items-center">
+  <div class="flex items-center flex-shrink-0 mr-6">
+    <%= live_redirect to: Routes.live_path(@conn, AdoptopossWeb.LandingPageLive), class: "font-semibold text-xl tracking-tight" do %>
+      <img src="https://via.placeholder.com/40" alt="Adoptoposs" class="rounded-full"/>
+    <% end %>
+  </div>
+
+  <%= if @current_user do %>
+    <%= render AdoptopossWeb.SharedView, "navigation_logged_in.html", assigns %>
+  <% else %>
+    <%= render AdoptopossWeb.SharedView, "navigation_logged_out.html", assigns %>
+  <% end %>
+</nav>

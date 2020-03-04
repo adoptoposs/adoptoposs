@@ -1,0 +1,47 @@
+<div class="md:hidden inline-block">
+  <%= live_redirect "Sumbit Repo",
+    to: Routes.live_path(@conn, AdoptopossWeb.RepoLive, @current_user.username),
+    class: "text-md px-4 py-2 leading-none border border-red-300 rounded" %>
+</div>
+
+<div id="menu-toggle" class="block md:hidden self-end">
+  <button class="flex items-center px-3 py-2 border-red-300 rounded hover:text-white hover:bg-red-400">
+    <svg class="fill-current h-5 w-5" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+      <title>Menu</title>
+      <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"/>
+    </svg>
+  </button>
+</div>
+
+<div id="mobile-menu" class="hidden w-full text-md md:flex-grow justify-end md:flex md:flex-row md:items-end md:w-auto md:items-center mt-4 md:mt-0">
+  <div class="hidden md:inline-block">
+    <%= live_redirect "Sumbit Repo",
+      to: Routes.live_path(@conn, AdoptopossWeb.RepoLive, @current_user.username),
+      class: "md:flex text-md p-2 mr-4 leading-none border border-red-300 rounded" %>
+  </div>
+
+  <%= live_redirect to: Routes.live_path(@conn, AdoptopossWeb.SearchLive), class: "nav-link" do %>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" class="inline h-4 w-4 fill-current mr-2">
+      <path d="M12.9 14.32a8 8 0 1 1 1.41-1.41l5.35 5.33-1.42 1.42-5.33-5.34zM8 14A6 6 0 1 0 8 2a6 6 0 0 0 0 12z"/>
+    </svg>
+    <span>Search</span>
+  <% end %>
+
+  <%= live_redirect "Your Projects",
+    to: Routes.live_path(@conn, AdoptopossWeb.ProjectLive.Index),
+    class: "nav-link" %>
+
+  <%= live_redirect "Settings",
+    to: Routes.live_path(@conn, AdoptopossWeb.SettingsLive),
+    class: "nav-link" %>
+
+  <%= link "Logout",
+    to: "/auth/github/logout",
+    class: "nav-link" %>
+
+  <div class="flex justify-end md:inline-block">
+    <img class="rounded-full h-10 w-10"
+      src="<%= @current_user.avatar_url %>"
+      alt="<%=@current_user.name %>">
+  </div>
+</div>

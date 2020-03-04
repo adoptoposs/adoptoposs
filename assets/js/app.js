@@ -22,3 +22,22 @@ import Hooks from "./hooks";
 const csrfToken = document.querySelector("meta[name='csrf-token']").getAttribute("content");
 const liveSocket = new LiveSocket("/live", Socket, {hooks: Hooks, params: {_csrf_token: csrfToken}});
 liveSocket.connect();
+
+const mobileMenuToggle = document.getElementById("menu-toggle");
+const menu  = document.getElementById("mobile-menu");
+
+if (mobileMenuToggle) {
+  mobileMenuToggle.addEventListener("click", (e) => {
+    menu.classList.toggle("block");
+    menu.classList.toggle("hidden");
+
+    const links = menu.getElementsByTagName("a");
+
+    for (let link of links) {
+      link.addEventListener("click", (e) => {
+        menu.classList.add("hidden");
+        menu.classList.remove("block");
+      });
+    }
+  });
+}
