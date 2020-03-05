@@ -5,7 +5,7 @@
     <div class="flex flex-col flex-wrap">
       <h2>Languages you Follow</h2>
 
-      <div id="tag-subscriptions" class="flex flex-row flex-wrap mt-6">
+      <div id="tag-subscriptions" class="flex flex-row flex-wrap mt-4 md:mt-6">
         <%= for tag_subscription <- @tag_subscriptions do %>
           <% tag = tag_subscription.tag %>
           <div id="tag-<%= tag.id %>" class="flex flex-row items-center bg-white text-pink-900 border border-gray-400 font-semibold mr-2 mb-2 rounded hover:bg-red-500 hover:text-white hover:border-white">
@@ -25,12 +25,12 @@
       </div>
     </div>
 
-    <div class="flex flex-col w-full mt-4 md:mt-0">
+    <div class="flex flex-col w-full mt-2 md:mt-0">
       <h2>Add a Language</h2>
 
-      <form class="flex flex-row flex-wrap mt-6" phx-submit="search_tags" phx-change="search_tags">
+      <form class="flex flex-row flex-wrap mt-4 md:mt-6" phx-submit="search_tags" phx-change="search_tags">
         <input type="search"
-          class="flex-grow border border-red-500 rounded-full h-16 px-8 mr-4 text-red-600"
+          class="flex-grow border border-red-500 rounded-full h-16 px-8 text-red-600"
           id="search"
           name="q"
           value="<%= @query %>"
@@ -40,7 +40,7 @@
           phx-debounce="500" />
       </form>
 
-      <div id="tags-search" class="flex flex-row flex-wrap mt-6" phx-update="<%= @update %>">
+      <div id="tags-search" class="flex flex-row flex-wrap mt-4 md:mt-6" phx-update="<%= @update %>">
         <%= if @query && @page == 1 && Enum.empty?(@tag_results) do %>
           <p class="text-pink-900">
             No language found for "<%= @query %>" :(
