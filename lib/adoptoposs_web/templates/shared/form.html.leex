@@ -1,10 +1,10 @@
-<form id="form-<%= @id %>" phx-submit="<%= @submit_event %>" class="flex flex-col w-full" phx-target="<%= @phx_target %>">
+<form id="form-<%= @id %>" phx-submit="<%= @submit_event %>" class="flex flex-col w-full <%= assigns[:class] %>" phx-target="<%= @phx_target %>">
   <input type="hidden" name="id" value="<%= @id %>" phx-value_id="<%= @id %>">
 
   <label class="text-gray-700">
     <%= @headline %>
   </label>
-  <textarea name="message" class="bg-white text-gray-700  w-full h64 p-4 my-4 rounded"><%= @message %></textarea>
+  <textarea name="message" class="bg-white text-gray-700  w-full h64 p-2 md:p-4 my-2 md:my-4 rounded"><%= @message %></textarea>
 
   <div class="flex justify-end">
     <%= submit @submit_text, id: "btn-save-#{@id}", class: "mr-2" %>
