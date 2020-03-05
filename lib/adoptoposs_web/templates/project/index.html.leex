@@ -4,30 +4,16 @@
   <ul id="projects" class="mt-6">
     <%= for project <- @projects do %>
       <li id="project-<%= project.id %>" class="flex flex-wrap w-full shadow hover:shadow-md mb-4 border border-gray-400 rounded">
-        <div class="flex flex-row justify-between w-full">
-          <div class="flex flex-col flex-1 items-start justify-between px-6 pt-6 pb-4 bg-white rounded-tl rounded-bl">
-            <div class="w-full">
-              <div class="flex flex-row flex-wrap justify-between items-center">
-                <h2 class="mt-0 mr-4">
-                  <%= project.name %>
-                </h2>
-
-                <%= render AdoptopossWeb.SharedView, "language_tag.html",
-                  name: project.language.name,
-                  color: project.language.color %>
-              </div>
-
-              <div class="markdown text-gray-600 mt-2">
-                <%= {:safe, Earmark.as_html!(project.data["description"])} %>
-              </div>
-            </div>
+        <div class="flex flex-col md:flex-row md:justify-between w-full">
+          <div class="flex flex-col flex-1 items-start justify-between px-4 md:px-6  pt-4 pb-2 md:py-6 bg-white rounded-tl rounded-tr md:rounded-bl md:rounded-tr-none">
+            <%= render AdoptopossWeb.SharedView, "project_repo.html", project: project %>
 
             <div class="flex flex-row w-full mt-4 justify-end items-center">
               <%= if @remove_id == to_string(project.id) do %>
-                <span class="text-red-500 mr-4 font-semibold">
+                <span class="text-red-500 mr-4 font-semibold leading-tight">
                   Are you sure?
                 </span>
-                <%= submit "Yes, remove", id: "btn-attempt-remove-#{project.id}", phx_click: "remove", phx_value_id: project.id, class: "mr-2" %>
+                <%= submit "Yes, remove", id: "btn-attempt-remove-#{project.id}", phx_click: "remove", phx_value_id: project.id, class: "mr-2 flex-shrink-0" %>
                 <%= reset "Cancel", id: "btn-cancel-remove-#{project.id}", phx_click: "cancel_remove" %>
               <% else %>
                 <%= reset "Remove", id: "btn-remove-#{project.id}", phx_click: "attempt_remove", phx_value_id: project.id %>
@@ -35,7 +21,7 @@
             </div>
           </div>
 
-          <div class="flex flex-col justify-between flex-1 px-6 pt-6 pb-4 bg-gray-200 rounded-tr rounded-br">
+          <div class="flex flex-col justify-between flex-1 px-4 pt-4 pb-2 md:px-6 md:pt-6 md:pb-4 bg-gray-200 rounded-br rounded-bl md:rounded-bl-none md:rounded-tr">
             <%= if @edit_id == to_string(project.id) do %>
               <%= render AdoptopossWeb.SharedView, "form.html",
                 id: project.id,
@@ -50,7 +36,7 @@
                 <b>I’m looking for…</b>
               </div>
 
-              <div class="markdown text-gray-700 mt-2 mb-4">
+              <div class="markdown text-gray-700 my-2 md:mb-4">
                 <%= {:safe, Earmark.as_html!(project.description)} %>
               </div>
 
