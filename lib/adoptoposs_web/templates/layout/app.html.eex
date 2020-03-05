@@ -9,6 +9,8 @@
   </head>
 
   <body>
+    <a name="top"></a>
+
     <header>
       <%= render AdoptopossWeb.SharedView, "navigation.html", assigns %>
     </header>
@@ -23,7 +25,7 @@
       <%= render @view_module, @view_template, assigns %>
     </main>
 
-    <footer class="bg-gray-900 text-red-400 py-10">
+    <footer class="bg-gray-900 text-red-400 py-6 md:py-10">
       <section>
         <div class="flex flex-row flex-wrap justify-between">
         <ul>

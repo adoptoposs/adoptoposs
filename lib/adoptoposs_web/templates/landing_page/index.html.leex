@@ -48,11 +48,16 @@
   </section>
 </div>
 
-<div class="bg-gray-900 py-8 md:py-12">
+<div class="bg-gray-900 pt-8 pb-16 md:pt-12 md:pb-24">
   <section>
     <h1 class="text-red-400 text-center">
       Latest Submitted Projects
     </h1>
+
+    <div class="pb-2 md:pb-4 text-md md:text-lg text-center">
+      <%= link "Please log in to contact project maintainers.", to: "#top", class: "text-red-400" %>
+    </div>
+
     <div id="projects" class="mt-6 md:mt-10 grid grid-flow-row gap-4">
       <%= for project <- @projects do %>
         <%= live_component @socket, AdoptopossWeb.ProjectComponent,
