@@ -1,22 +1,23 @@
 <h2>Contacted Maintainers</h2>
 
-<ul class="mt-8 grid grid-flow-row gap-4">
+<ul class="mt-4 md:mt-8 grid grid-flow-row gap-4">
   <%= for interest <- @interests do %>
     <li class="list-item flex md:flex-row flex-col bg-white rounded shadow hover:shadow-md border border-gray-300">
-      <div class="flex flex-col flex-1 items-start p-6 bg-white overflow-auto rounded-tl rounded-tr md:rounded-bl">
+      <div class="flex flex-col flex-1 items-start p-4 md:p-6 bg-white overflow-auto rounded-tl rounded-tr md:rounded-bl">
         <%= render AdoptopossWeb.SharedView, "project_repo.html",
           project: interest.project %>
       </div>
 
-      <div class="flex flex-col flex-1 justify-between p-6 bg-gray-200">
+      <div class="flex flex-col flex-1 justify-between p-4 md:p-6 bg-gray-200">
         <div class="flex flex-row items-center">
           <%= img_tag interest.creator.avatar_url,
             class: "h-8 w-8 rounded rounded-full self-start" %>
 
-          <div class="flex flex-col ml-4 flex-1">
-            <div class="flex flex-row justify-between">
+          <div class="flex flex-col ml-2 md:ml-4 flex-1">
+            <div class="flex flex-row justify-between flex-wrap">
               <div class="text-gray-700 font-semibold">
-                You contacted <%= link to: interest.project.user.profile_url,
+                <span>You contacted</span>
+                <%= link to: interest.project.user.profile_url,
                   title: "@#{interest.project.user.username}" do %>
                   <%= interest.project.user.name %>
                 <% end %>
@@ -28,7 +29,7 @@
               </div>
             </div>
 
-            <div class="markdown w-full mt-4">
+            <div class="markdown w-full mt-2 md:mt-4">
               <div class="italic text-pink-900">
                 <%= {:safe, Earmark.as_html!(String.trim(interest.message))} %>
               </div>
