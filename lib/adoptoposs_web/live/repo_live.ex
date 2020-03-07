@@ -2,9 +2,8 @@ defmodule AdoptopossWeb.RepoLive do
   use AdoptopossWeb, :live_view
 
   alias AdoptopossWeb.{Endpoint, RepoView}
-  alias Adoptoposs.{Network, Dashboard}
+  alias Adoptoposs.{Accounts, Network, Dashboard}
   alias Adoptoposs.Network.Organization
-  alias Adoptoposs.Accounts.User
 
   @orga_limit 25
   @repo_limit 10
@@ -13,12 +12,12 @@ defmodule AdoptopossWeb.RepoLive do
     Phoenix.View.render(RepoView, "index.html", assigns)
   end
 
-  def mount(_params, %{"current_user" => user, "token" => token}, socket) do
+  def mount(_params, %{"user_id" => user_id, "token" => token}, socket) do
     {:ok,
      socket
      |> assign(page: 1)
      |> update_with_append()
-     |> init_data(token, user), temporary_assigns: [repositories: []]}
+     |> init_data(token, user_id), temporary_assigns: [repositories: []]}
   end
 
   def handle_event("organization_selected", %{"id" => id}, socket) do
@@ -43,7 +42,8 @@ defmodule AdoptopossWeb.RepoLive do
     {:noreply, update_selected(socket, id)}
   end
 
-  defp init_data(socket, token, user) do
+  defp init_data(socket, token, user_id) do
+    user = Accounts.get_user!(user_id)
     provider = user.provider
     {orga_page_info, organizations} = Network.organizations(token, provider, @orga_limit)
 
@@ -53,7 +53,7 @@ defmodule AdoptopossWeb.RepoLive do
     projects = Dashboard.list_projects(user)
 
     assign(socket, %{
-      user_id: user.id,
+      user_id: user_id,
       token: sign_token(token, provider),
       provider: user.provider,
       username: user.username,
@@ -65,7 +65,7 @@ defmodule AdoptopossWeb.RepoLive do
 
   defp update_selected(socket, organization_id) do
     organization = socket.assigns.organizations |> Enum.find(&(&1.id == organization_id))
-    projects = Dashboard.list_projects(%User{id: socket.assigns.user_id})
+    projects = Dashboard.list_projects(%Accounts.User{id: socket.assigns.user_id})
     submitted_repos = projects |> Enum.map(& &1.repo_id)
 
     socket

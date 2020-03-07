@@ -8,12 +8,15 @@ defmodule AdoptopossWeb.ProjectLive.Index do
     Phoenix.View.render(ProjectView, "index.html", assigns)
   end
 
-  def mount(_params, %{"current_user" => user}, socket) do
-    projects = Dashboard.list_projects(user)
+  def mount(_params, %{"user_id" => user_id}, socket) do
+    projects =
+      user_id
+      |> Accounts.get_user!()
+      |> Dashboard.list_projects()
 
     {:ok,
      assign(socket,
-       user_id: user.id,
+       user_id: user_id,
        projects: projects,
        edit_id: nil,
        remove_id: nil

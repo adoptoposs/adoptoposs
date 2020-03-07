@@ -24,7 +24,7 @@ defmodule AdoptopossWeb.ProjectLiveTest do
 
     conn =
       conn
-      |> init_test_session(%{current_user: user})
+      |> init_test_session(%{user_id: user.id})
       |> put_req_header("content-type", "html")
       |> get(Routes.live_path(conn, ProjectLive.Index))
 
@@ -38,7 +38,7 @@ defmodule AdoptopossWeb.ProjectLiveTest do
 
     conn =
       conn
-      |> init_test_session(%{current_user: project.user})
+      |> init_test_session(%{user_id: project.user_id})
       |> put_req_header("content-type", "html")
       |> get(Routes.live_path(conn, ProjectLive.Show, project.id))
 
@@ -58,7 +58,7 @@ defmodule AdoptopossWeb.ProjectLiveTest do
 
     conn =
       conn
-      |> init_test_session(%{current_user: other_user})
+      |> init_test_session(%{user_id: other_user.id})
       |> put_req_header("content-type", "html")
       |> get(Routes.live_path(conn, ProjectLive.Show, project.id))
 
