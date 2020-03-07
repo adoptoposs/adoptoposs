@@ -82,4 +82,32 @@
       </div>
     </div>
   </div>
+
+  <div class="mt-6">
+    <h2>Notifications</h2>
+
+    <div>
+      <div class="mt-4 p-4 rounded bg-white border border-gray-300">
+        <h3 class="text-gray-800">
+          Project Messages
+        </h3>
+        <p>
+          Send me an email if a person is interested in one of my submitted projects and contacted me:
+        <p>
+
+        <%= f = form_for @settings, "#", [phx_change: "update_settings"] %>
+          <%= inputs_for f, :settings, fn fs -> %>
+            <%= for value <- Adoptoposs.Accounts.Settings.email_when_contacted_values() do %>
+              <div class="flex items-center rounded pl-4 mb-1 <%= if active?(@settings, :email_when_contacted, value), do: "bg-gray-200" %>">
+                <%= radio_button fs, :email_when_contacted, value, id: "email-when-contacted-#{value}" %>
+                <label for="email-when-contacted-<%= value %>" class="text-md p-4 w-full">
+                  <%= Gettext.gettext(AdoptopossWeb.Gettext, value) %>
+                </label>
+              </div>
+            <% end %>
+          <% end %>
+        </form>
+      </div>
+    </div>
+  </div>
 </section>

@@ -66,6 +66,14 @@ h2 {
   }
 }
 
+h3 {
+  @apply text-base;
+
+  @screen md {
+    @apply text-lg;
+  }
+}
+
 select.h1 {
   @apply text-2xl;
   font-family: $font-family-secondary, sans-serif;
