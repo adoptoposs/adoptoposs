@@ -15,7 +15,8 @@ defmodule Adoptoposs.Factory do
       name: sequence("User"),
       username: sequence("username"),
       avatar_url: sequence(:avatar_url, &"https://example.com/avatar-#{&1}.png"),
-      profile_url: sequence(:avatar_url, &"https://example.com/profile/#{&1}")
+      profile_url: sequence(:avatar_url, &"https://example.com/profile/#{&1}"),
+      settings: %Accounts.Settings{}
     }
   end
 
