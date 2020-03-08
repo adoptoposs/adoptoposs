@@ -26,10 +26,14 @@ defmodule AdoptopossWeb.InterestComponent do
 
     case Communication.create_interest(attrs) do
       {:ok, interest} ->
-        interest.id
-        |> Communication.get_interest!()
-        |> Mailer.send_interest_received_email()
+        interest = Communication.get_interest!(interest.id)
+
+        if interest.project.user.settings.email_when_contacted == "immediately" do
+          Mailer.send_interest_received_email(interest)
+        end
+
         {:noreply, assign(socket, contacted: true, to_be_contacted: false)}
+
       {:error, _} ->
         {:noreply, socket}
     end

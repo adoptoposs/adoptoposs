@@ -9,7 +9,8 @@ defmodule Adoptoposs.Accounts.UserFromAuth do
       username: username_from_auth(auth),
       email: email_from_auth(auth),
       avatar_url: avatar_url_from_auth(auth),
-      profile_url: profile_url_from_auth(auth)
+      profile_url: profile_url_from_auth(auth),
+      settings: %{}
     }
   end
 

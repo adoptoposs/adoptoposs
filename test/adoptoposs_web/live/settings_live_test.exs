@@ -16,7 +16,7 @@ defmodule AdoptopossWeb.SettingsLiveTest do
 
     conn =
       conn
-      |> init_test_session(%{current_user: user})
+      |> init_test_session(%{user_id: user.id})
       |> put_req_header("content-type", "html")
       |> get(Routes.live_path(conn, SettingsLive))
 

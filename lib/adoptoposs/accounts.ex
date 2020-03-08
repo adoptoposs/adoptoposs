@@ -26,6 +26,22 @@ defmodule Adoptoposs.Accounts do
   def get_user!(id), do: Repo.get!(User, id)
 
   @doc """
+  Gets a single user.
+
+  Returns nil if the User does not exist.
+
+  ## Examples
+
+      iex> get_user(123)
+      %User{}
+
+      iex> get_user(-1)
+      nil
+
+  """
+  def get_user(id), do: Repo.get(User, id)
+
+  @doc """
   Gets a single user by an %Ueberauth.Auth{}.
 
   ## Examples
@@ -58,7 +74,7 @@ defmodule Adoptoposs.Accounts do
   """
   def create_user(attrs \\ %{}) do
     %User{}
-    |> User.changeset(attrs)
+    |> User.create_changeset(attrs)
     |> Repo.insert()
   end
 
@@ -76,7 +92,7 @@ defmodule Adoptoposs.Accounts do
   """
   def update_user(%User{} = user, attrs) do
     user
-    |> User.changeset(attrs)
+    |> User.update_changeset(attrs)
     |> Repo.update()
   end
 
@@ -93,11 +109,12 @@ defmodule Adoptoposs.Accounts do
 
   """
   def upsert_user(%Auth{} = auth) do
+    attrs = UserFromAuth.build(auth)
+
     case get_user_by_auth(auth) do
-      nil -> %User{}
-      user -> user
+      nil -> User.create_changeset(%User{}, attrs)
+      user -> User.update_changeset(user, attrs)
     end
-    |> User.changeset(UserFromAuth.build(auth))
     |> Repo.insert_or_update()
   end
 
@@ -127,6 +144,16 @@ defmodule Adoptoposs.Accounts do
 
   """
   def change_user(%User{} = user) do
-    User.changeset(user, %{})
+    User.update_changeset(user, %{})
+  end
+
+  def change_settings(%User{} = user) do
+    User.settings_changeset(user, %{})
+  end
+
+  def update_settings(%User{} = user, attrs) do
+    user
+    |> User.settings_changeset(attrs)
+    |> Repo.update()
   end
 end

@@ -10,10 +10,13 @@ defmodule AdoptopossWeb.SettingsLive do
     Phoenix.View.render(SettingsView, "index.html", assigns)
   end
 
-  def mount(_params, %{"current_user" => user} = session, socket) do
+  def mount(_params, %{"user_id" => user_id} = session, socket) do
+    user = Accounts.get_user!(user_id)
+
     {:ok,
      socket
      |> assign_user(session)
+     |> assign_settings(user)
      |> assign_tag_subscriptions(user)
      |> assign(query: nil, page: 1)
      |> update_with_append(), temporary_assigns: [tag_results: []]}
@@ -75,8 +78,23 @@ defmodule AdoptopossWeb.SettingsLive do
     end
   end
 
-  defp assign_user(socket, %{"current_user" => user}) do
-    assign(socket, user_id: user.id)
+  def handle_event("update_settings", %{"user" => %{"settings" => settings}}, socket) do
+    user = Accounts.get_user!(socket.assigns.user_id)
+
+    case Accounts.update_settings(user, settings) do
+      {:ok, updated_user} ->
+        {:noreply, assign_settings(socket, updated_user)}
+      {:error, changeset} ->
+        {:noreply, assign(socket, settings: changeset)}
+    end
+  end
+
+  defp assign_user(socket, %{"user_id" => user_id}) do
+    assign(socket, user_id: user_id)
+  end
+
+  defp assign_settings(socket, user) do
+    assign(socket, settings: Accounts.change_settings(user))
   end
 
   defp assign_tag_subscriptions(socket, user) do

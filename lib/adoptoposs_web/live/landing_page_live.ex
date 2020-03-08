@@ -1,7 +1,7 @@
 defmodule AdoptopossWeb.LandingPageLive do
   use AdoptopossWeb, :live_view
 
-  alias Adoptoposs.{Dashboard, Communication}
+  alias Adoptoposs.{Accounts, Dashboard, Communication}
   alias AdoptopossWeb.LandingPageView
 
   @doc """
@@ -25,18 +25,21 @@ defmodule AdoptopossWeb.LandingPageLive do
      |> put_assigns(session)}
   end
 
-  defp put_assigns(socket, %{"current_user" => user}) do
-    assign(socket,
-      interests: Communication.list_user_interests(user)
-    )
+  defp put_assigns(socket, %{"user_id" => user_id}) do
+    interests =
+      user_id
+      |> Accounts.get_user!()
+      |> Communication.list_user_interests()
+
+    assign(socket, interests: interests)
   end
 
   defp put_assigns(socket, _) do
     assign(socket, projects: Dashboard.list_projects(limit: 6))
   end
 
-  defp assign_user(socket, %{"current_user" => user}) do
-    assign(socket, user_id: user.id)
+  defp assign_user(socket, %{"user_id" => user_id}) do
+    assign(socket, user_id: user_id)
   end
 
   defp assign_user(socket, _) do

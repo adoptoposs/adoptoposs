@@ -12,9 +12,9 @@ defmodule AdoptopossWeb.AuthController do
 
   def callback(%{assigns: %{ueberauth_auth: auth}} = conn, _params) do
     case Accounts.upsert_user(auth) do
-      {:ok, current_user} ->
+      {:ok, user} ->
         conn
-        |> put_session(:current_user, current_user)
+        |> put_session(:user_id, user.id)
         |> put_session(:token, auth.credentials.token)
         |> configure_session(renew: true)
         |> redirect(to: NavigationHistory.last_path(conn, default: "/"))

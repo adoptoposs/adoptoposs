@@ -4,12 +4,33 @@ defmodule Adoptoposs.AccountsTest do
   import Adoptoposs.Factory
 
   alias Adoptoposs.Accounts
-  alias Adoptoposs.Accounts.User
+  alias Adoptoposs.Accounts.{User, Settings}
+
+  describe "settings" do
+    test "notify_on_contact_values/0 return all allowed values for 'notify_on_contact'" do
+      assert Settings.email_when_contacted_values() == ~w(immediately off)
+    end
+  end
 
   describe "accounts" do
+    test "get_user/1 returns the user with given id" do
+      user = insert(:user)
+      assert Accounts.get_user(user.id) == user
+    end
+
+    test "get_user/1 returns nil for a missing id" do
+      assert Accounts.get_user(-1) == nil
+    end
+
     test "get_user!/1 returns the user with given id" do
       user = insert(:user)
       assert Accounts.get_user!(user.id) == user
+    end
+
+    test "get_user!/1 raises error for a missing id" do
+      assert_raise Ecto.NoResultsError, fn ->
+        Accounts.get_user!(-1)
+      end
     end
 
     test "get_user_by_auth/1 returns the user with the given uid and provider" do
@@ -121,6 +142,23 @@ defmodule Adoptoposs.AccountsTest do
     test "change_user/1 returns a user changeset" do
       user = insert(:user)
       assert %Ecto.Changeset{} = Accounts.change_user(user)
+    end
+
+    test "update_settings/2 with valid data updates a user's settings" do
+      for value <- Settings.email_when_contacted_values() do
+        user = insert(:user, settings: %{})
+        attrs = %{email_when_contacted: value}
+
+        assert {:ok,%User{settings: settings}} = Accounts.update_settings(user, attrs)
+        assert %{email_when_contacted: ^value} = settings
+      end
+    end
+
+    test "update_settings/2 with invalid data returns error changeset" do
+      user = insert(:user, settings: %{})
+      attrs = %{email_when_contacted: "invalid"}
+
+      assert {:error, changeset} = Accounts.update_settings(user, attrs)
     end
   end
 end
