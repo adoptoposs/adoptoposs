@@ -46,7 +46,7 @@
         <% end %>
       <% end %>
     <% else %>
-      <%= unless @project.user_id == @user_id  do %>
+      <%= unless @user_id do %>
         <div class="icon-button disabled" title="Log in to contact">
           <span class="text-gray-500 mr-3">Log in to contact</span>
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" class="mr-2">
