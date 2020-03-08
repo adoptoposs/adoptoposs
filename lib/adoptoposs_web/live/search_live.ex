@@ -33,7 +33,8 @@ defmodule AdoptopossWeb.SearchLive do
   end
 
   def handle_event("search", %{"q" => query}, socket) do
-    {:noreply, push_patch(socket, to: Routes.live_path(socket, AdoptopossWeb.SearchLive, q: query))}
+    {:noreply,
+     push_patch(socket, to: Routes.live_path(socket, AdoptopossWeb.SearchLive, q: query))}
   end
 
   def handle_event("load_more", _, %{assigns: assigns} = socket) do
@@ -51,8 +52,8 @@ defmodule AdoptopossWeb.SearchLive do
     assign(socket, query: query, projects: projects)
   end
 
-  defp assign_user(socket, %{"current_user" => user}) do
-    assign(socket, user_id: user.id)
+  defp assign_user(socket, %{"user_id" => user_id}) do
+    assign(socket, user_id: user_id)
   end
 
   defp assign_user(socket, _) do
