@@ -60,7 +60,10 @@ defmodule Adoptoposs.Dashboard do
       ** (Ecto.NoResultsError)
 
   """
-  def get_project!(id), do: Repo.get!(Project, id)
+  def get_project!(id, opts \\ []) do
+    from(p in Project, preload: ^(opts[:preload] || []))
+    |> Repo.get!(id)
+  end
 
   @doc """
   Gets a single project.

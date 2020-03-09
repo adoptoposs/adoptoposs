@@ -33,6 +33,20 @@ defmodule Adoptoposs.DashboardTest do
 
       assert {:error, :unauthorized} = Bodyguard.permit(Dashboard, :delete_project, user, project)
     end
+
+    test "show_project is permitted for own projects" do
+      user = build(:user, id: 1)
+      project = build(:project, user_id: user.id)
+
+      assert :ok = Bodyguard.permit(Dashboard, :show_project, user, project)
+    end
+
+    test "show_project is forbidden for other user’s projects" do
+      user = build(:user, id: 1)
+      project = build(:project, user_id: 2)
+
+      assert {:error, :unauthorized} = Bodyguard.permit(Dashboard, :show_project, user, project)
+    end
   end
 
   describe "project" do
