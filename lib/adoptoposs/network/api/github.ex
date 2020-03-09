@@ -1,4 +1,4 @@
-defmodule Adoptoposs.Network.Github do
+defmodule Adoptoposs.Network.Api.Github do
   alias Adoptoposs.Network.{Api, Repository, PageInfo, Organization}
   alias Adoptoposs.Network.Repository.{Commit, User, Language}
 
