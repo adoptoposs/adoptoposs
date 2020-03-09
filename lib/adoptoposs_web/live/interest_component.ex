@@ -27,13 +27,12 @@ defmodule AdoptopossWeb.InterestComponent do
     attrs = %{creator_id: user.id, project_id: project.id, message: message}
 
     with :ok <- Bodyguard.permit(Communication, :create_interest, user, project),
-      {:ok, interest} <- Communication.create_interest(attrs) do
-          send_notification(interest)
-          {:noreply, assign(socket, contacted: true, to_be_contacted: false)}
+         {:ok, interest} <- Communication.create_interest(attrs) do
+      send_notification(interest)
+      {:noreply, assign(socket, contacted: true, to_be_contacted: false)}
     else
       {:error, _} -> {:noreply, socket}
     end
-
   end
 
   defp send_notification(%Interest{id: id}) do

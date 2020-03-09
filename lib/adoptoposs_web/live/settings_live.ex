@@ -90,10 +90,6 @@ defmodule AdoptopossWeb.SettingsLive do
     end
   end
 
-  defp assign_user(socket, %{"user_id" => user_id}) do
-    assign(socket, user_id: user_id)
-  end
-
   defp assign_settings(socket, user) do
     assign(socket, settings: Accounts.change_settings(user))
   end
@@ -110,13 +106,5 @@ defmodule AdoptopossWeb.SettingsLive do
     tags = Search.find_tags(query, offset: offset, limit: @per_page)
 
     assign(socket, query: query, tag_results: tags)
-  end
-
-  defp update_with_append(socket) do
-    assign(socket, update: "append")
-  end
-
-  defp update_with_replace(socket) do
-    assign(socket, update: "replace")
   end
 end

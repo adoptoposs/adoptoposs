@@ -12,12 +12,13 @@ defmodule AdoptopossWeb.RepoLive do
     Phoenix.View.render(RepoView, "index.html", assigns)
   end
 
-  def mount(_params, %{"user_id" => user_id, "token" => token}, socket) do
+  def mount(_params, session, socket) do
     {:ok,
      socket
      |> assign(page: 1)
+     |> assign_user(session)
      |> update_with_append()
-     |> init_data(token, user_id), temporary_assigns: [repositories: []]}
+     |> init_data(session), temporary_assigns: [repositories: []]}
   end
 
   def handle_event("organization_selected", %{"id" => id}, socket) do
@@ -42,7 +43,7 @@ defmodule AdoptopossWeb.RepoLive do
     {:noreply, update_selected(socket, id)}
   end
 
-  defp init_data(socket, token, user_id) do
+  defp init_data(socket, %{"user_id" => user_id, "token" => token}) do
     user = Accounts.get_user!(user_id)
     provider = user.provider
     {orga_page_info, organizations} = Network.organizations(token, provider, @orga_limit)
@@ -53,7 +54,6 @@ defmodule AdoptopossWeb.RepoLive do
     projects = Dashboard.list_projects(user)
 
     assign(socket, %{
-      user_id: user_id,
       token: sign_token(token, provider),
       provider: user.provider,
       username: user.username,
@@ -102,14 +102,6 @@ defmodule AdoptopossWeb.RepoLive do
       repositories: repos,
       repo_page_info: page_info
     )
-  end
-
-  defp update_with_append(socket) do
-    assign(socket, update: "append")
-  end
-
-  defp update_with_replace(socket) do
-    assign(socket, update: "append")
   end
 
   defp sign_token(token, salt) do

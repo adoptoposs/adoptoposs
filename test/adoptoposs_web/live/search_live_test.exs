@@ -73,8 +73,14 @@ defmodule AdoptopossWeb.SearchLiveTest do
     html = render_submit(interest_component, :submit, %{message: "Hi"})
 
     assert html =~ "You contacted the maintainer"
-    assert %Interest{} = Adoptoposs.Repo.get_by(Interest, project_id: project.id, creator_id: user.id)
-    assert_email_delivered_with(subject: "[Adoptoposs][#{project.name}] #{user.name} wrote you a message", to: [project.user.email])
+
+    assert %Interest{} =
+             Adoptoposs.Repo.get_by(Interest, project_id: project.id, creator_id: user.id)
+
+    assert_email_delivered_with(
+      subject: "[Adoptoposs][#{project.name}] #{user.name} wrote you a message",
+      to: [project.user.email]
+    )
   end
 
   @tag login_as: "user123"

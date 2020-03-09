@@ -37,12 +37,4 @@ defmodule AdoptopossWeb.LandingPageLive do
   defp put_assigns(socket, _) do
     assign(socket, projects: Dashboard.list_projects(limit: 6))
   end
-
-  defp assign_user(socket, %{"user_id" => user_id}) do
-    assign(socket, user_id: user_id)
-  end
-
-  defp assign_user(socket, _) do
-    assign(socket, user_id: nil)
-  end
 end

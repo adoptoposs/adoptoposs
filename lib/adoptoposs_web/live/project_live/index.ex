@@ -8,19 +8,12 @@ defmodule AdoptopossWeb.ProjectLive.Index do
     Phoenix.View.render(ProjectView, "index.html", assigns)
   end
 
-  def mount(_params, %{"user_id" => user_id}, socket) do
-    projects =
-      user_id
-      |> Accounts.get_user!()
-      |> Dashboard.list_projects()
-
+  def mount(_params, session, socket) do
     {:ok,
-     assign(socket,
-       user_id: user_id,
-       projects: projects,
-       edit_id: nil,
-       remove_id: nil
-     )}
+     socket
+     |> assign_user(session)
+     |> assign_projects(session)
+     |> assign(edit_id: nil, remove_id: nil)}
   end
 
   def handle_event("edit", %{"id" => id}, socket) do
@@ -59,5 +52,14 @@ defmodule AdoptopossWeb.ProjectLive.Index do
     projects = socket.assigns.projects |> Enum.drop_while(&(&1.id == project.id))
 
     {:noreply, assign(socket, projects: projects)}
+  end
+
+  defp assign_projects(socket, %{"user_id" => user_id}) do
+    projects =
+      user_id
+      |> Accounts.get_user!()
+      |> Dashboard.list_projects()
+
+    assign(socket, projects: projects)
   end
 end
