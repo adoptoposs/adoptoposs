@@ -13,10 +13,14 @@ defmodule AdoptopossWeb.EmailTest do
     assert email.to == interest.project.user.email
     assert email.subject =~ "[Adoptoposs][#{interest.project.name}]"
 
-    assert email.html_body =~ ~r/you’ve got a new message for your project.+#{interest.project.name}/
+    assert email.html_body =~
+             ~r/you’ve got a new message for your project.+#{interest.project.name}/
+
     assert email.html_body =~ interest.message
 
-    assert email.text_body =~ ~r/you’ve got a new message for your project "#{interest.project.name}"/
+    assert email.text_body =~
+             ~r/you’ve got a new message for your project "#{interest.project.name}"/
+
     assert email.text_body =~ interest.message
   end
 end

@@ -73,6 +73,22 @@ defmodule Adoptoposs.Factory do
     }
   end
 
+  def organization_factory do
+    %Network.Organization{
+      id: sequence("id"),
+      name: sequence("organization"),
+      description: sequence("Orga description "),
+      avatar_url: sequence(:avatar_url, &"https://example.com/user#{&1}.png")
+    }
+  end
+
+  def page_info_factory do
+    %Network.PageInfo{
+      has_next_page: false,
+      end_cursor: "123"
+    }
+  end
+
   def repository_factory do
     %Network.Repository{
       id: sequence("id"),

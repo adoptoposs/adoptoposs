@@ -34,7 +34,7 @@ defmodule Adoptoposs.Accounts.Settings do
   end
 
   defp validate_allowed(changeset, field, values) do
-    validate_change(changeset, field, fn (_field, value) ->
+    validate_change(changeset, field, fn _field, value ->
       if value in values do
         []
       else

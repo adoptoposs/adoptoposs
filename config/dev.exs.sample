@@ -35,6 +35,9 @@ config :ueberauth, Ueberauth.Strategy.Github.OAuth,
   client_id: "MY_GITHUB_CLIENT_ID",
   client_secret: "MY_GITHUB_CLIENT_SECRET"
 
+# External APIs
+config :adoptoposs, :github_api, Adoptoposs.Network.Api.Github
+
 # ## SSL Support
 #
 # In order to use HTTPS in development, a self-signed

@@ -10,7 +10,7 @@ defmodule AdoptopossWeb.ProjectLive.Show do
 
   def mount(%{"id" => id}, %{"user_id" => user_id}, socket) do
     project =
-    user_id
+      user_id
       |> Accounts.get_user!()
       |> Dashboard.get_user_project(id)
 

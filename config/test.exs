@@ -17,6 +17,8 @@ config :adoptoposs, AdoptopossWeb.Endpoint,
 # Print only warnings and errors during test
 config :logger, level: :warn
 
+# External APIs
+config :adoptoposs, :github_api, Adoptoposs.Network.Api.GithubInMemory
+
 # Mailing
-config :adoptoposs, AdoptopossWeb.Mailer,
-  adapter: Bamboo.TestAdapter
+config :adoptoposs, AdoptopossWeb.Mailer, adapter: Bamboo.TestAdapter

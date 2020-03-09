@@ -18,6 +18,9 @@ config :adoptoposs, AdoptopossWeb.Endpoint,
 # Do not print debug messages in production
 config :logger, level: :info
 
+# External APIs
+config :adoptoposs, :github_api, Adoptoposs.Network.Api.Github
+
 # ## SSL Support
 #
 # To get SSL working, you will need to add the `https` key

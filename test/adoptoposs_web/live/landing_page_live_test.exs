@@ -1,30 +1,31 @@
 defmodule AdoptopossWeb.LandingPageLiveTest do
-  use AdoptopossWeb.ConnCase
-
-  import Phoenix.LiveViewTest
-  import Adoptoposs.Factory
+  use AdoptopossWeb.LiveCase
 
   alias AdoptopossWeb.LandingPageLive
 
-  test "GET / shows the landing page for not logged in users", %{conn: conn} do
+  test "disconnected mount when logged out", %{conn: conn} do
     conn = get(conn, Routes.live_path(conn, LandingPageLive))
 
     assert html_response(conn, 200) =~ "Adoptoposs."
     refute html_response(conn, 200) =~ "Your Dashboard"
-    {:ok, _view, _html} = live(conn)
   end
 
-  test "GET / shows the user dashboard for logged in users", %{conn: conn} do
-    user = insert(:user)
-
-    conn =
-      conn
-      |> init_test_session(%{user_id: user.id})
-      |> put_req_header("content-type", "html")
-      |> get(Routes.live_path(conn, LandingPageLive))
+  @tag login_as: "user123"
+  test "disconnected mount when logged in", %{conn: conn} do
+    conn = get(conn, Routes.live_path(conn, LandingPageLive))
 
     assert html_response(conn, 200) =~ "Your Dashboard"
     refute html_response(conn, 200) =~ "Adoptoposs."
-    {:ok, _view, _html} = live(conn)
+  end
+
+  test "connected mount when logged out", %{conn: conn} do
+    {:ok, _view, html} = live(conn, Routes.live_path(conn, LandingPageLive))
+    assert html =~ "Adoptoposs."
+  end
+
+  @tag login_as: "user123"
+  test "connected mount when logged in", %{conn: conn} do
+    {:ok, _view, html} = live(conn, Routes.live_path(conn, LandingPageLive))
+    assert html =~ "Your Dashboard"
   end
 end

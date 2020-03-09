@@ -1,11 +1,11 @@
 defmodule AdoptopossWeb.ProjectLiveTest do
-  use AdoptopossWeb.ConnCase
-  import Phoenix.LiveViewTest
+  use AdoptopossWeb.LiveCase
+
   import Adoptoposs.Factory
 
   alias AdoptopossWeb.ProjectLive
 
-  test "requires authentication on all project routes", %{conn: conn} do
+  test "disconnected mount requires authentication on all project routes", %{conn: conn} do
     Enum.each(
       [
         Routes.live_path(conn, ProjectLive.Index),
@@ -19,50 +19,82 @@ defmodule AdoptopossWeb.ProjectLiveTest do
     )
   end
 
-  test "GET /settings/projects shows the page for a logged in user", %{conn: conn} do
-    user = insert(:user)
-
-    conn =
-      conn
-      |> init_test_session(%{user_id: user.id})
-      |> put_req_header("content-type", "html")
-      |> get(Routes.live_path(conn, ProjectLive.Index))
-
-    assert html_response(conn, 200) =~ "Your Submitted Projects"
-    {:ok, _view, _html} = live(conn)
+  test "connected mount requires authentication on all project routes", %{conn: conn} do
+    Enum.each(
+      [
+        Routes.live_path(conn, ProjectLive.Index),
+        Routes.live_path(conn, ProjectLive.Show, 1)
+      ],
+      fn path ->
+        {:error, %{redirect: %{to: "/"}}} = live(conn, path)
+      end
+    )
   end
 
-  test "GET /projects/:id shows a project’s data and interests", %{conn: conn} do
-    project = insert(:project)
+  @tag login_as: "user123"
+  test "disconnected mount of /settings/projects shows the page when logged in", %{conn: conn} do
+    conn = get(conn, Routes.live_path(conn, ProjectLive.Index))
+    assert html_response(conn, 200) =~ "Your Submitted Projects"
+  end
+
+  @tag login_as: "user123"
+  test "connected mount of /settings/projects shows the page when logged in", %{conn: conn} do
+    {:ok, _view, html} = live(conn, Routes.live_path(conn, ProjectLive.Index))
+    assert html =~ "Your Submitted Projects"
+  end
+
+  @tag login_as: "user123"
+  test "disconnected mount of /projects/:id shows a project’s data and interests", %{
+    conn: conn,
+    user: user
+  } do
+    project = insert(:project, user: user)
     interests = insert_list(2, :interest, project: project)
 
-    conn =
-      conn
-      |> init_test_session(%{user_id: project.user_id})
-      |> put_req_header("content-type", "html")
-      |> get(Routes.live_path(conn, ProjectLive.Show, project.id))
+    conn = get(conn, Routes.live_path(conn, ProjectLive.Show, project.id))
+    html = html_response(conn, 200)
 
-    assert html_response(conn, 200) =~ project.name
+    assert html =~ project.name
 
     for interest <- interests do
-      assert html_response(conn, 200) =~ interest.message
+      assert html =~ interest.message
     end
-
-    {:ok, _view, _html} = live(conn)
   end
 
-  test "GET /projects/:id is not accessible for anyone else but the creator", %{conn: conn} do
+  @tag login_as: "user123"
+  test "connected mount of /projects/:id shows a project’s data and interests", %{
+    conn: conn,
+    user: user
+  } do
+    project = insert(:project, user: user)
+    interests = insert_list(2, :interest, project: project)
+
+    {:ok, _view, html} = live(conn, Routes.live_path(conn, ProjectLive.Show, project.id))
+
+    for interest <- interests do
+      assert html =~ interest.message
+    end
+  end
+
+  @tag login_as: "user123"
+  test "disconnected mount of /projects/:id is not accessible for anyone else but the creator", %{
+    conn: conn
+  } do
     project = insert(:project)
     insert_list(2, :interest, project: project)
-    other_user = insert(:user)
 
-    conn =
-      conn
-      |> init_test_session(%{user_id: other_user.id})
-      |> put_req_header("content-type", "html")
-      |> get(Routes.live_path(conn, ProjectLive.Show, project.id))
-
+    conn = get(conn, Routes.live_path(conn, ProjectLive.Show, project.id))
     assert html_response(conn, 302)
-    assert {:error, %{redirect: %{to: Routes.live_path(conn, ProjectLive.Index)}}} == live(conn)
+  end
+
+  @tag login_as: "user123"
+  test "connected mount of /projects/:id is not accessible for anyone else but the creator", %{
+    conn: conn
+  } do
+    project = insert(:project)
+    insert_list(2, :interest, project: project)
+
+    assert {:error, %{redirect: %{to: Routes.live_path(conn, ProjectLive.Index)}}} ==
+             live(conn, Routes.live_path(conn, ProjectLive.Show, project.id))
   end
 end
