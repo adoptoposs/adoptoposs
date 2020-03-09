@@ -25,16 +25,16 @@ defmodule AdoptopossWeb.ProjectLive.Index do
   end
 
   def handle_event("update", %{"id" => id, "message" => description}, socket) do
-    user = %Accounts.User{id: socket.assigns.user_id}
+    user = Accounts.get_user!(socket.assigns.user_id)
+    project = Dashboard.get_project!(id)
 
-    {:ok, project} =
-      user
-      |> Dashboard.get_user_project(id)
-      |> Dashboard.update_project(%{description: description})
-
-    projects = Dashboard.list_projects(project.user)
-
-    {:noreply, assign(socket, projects: projects, edit_id: nil)}
+    with :ok <- Bodyguard.permit(Dashboard, :update_project, user, project),
+         {:ok, _project} <- Dashboard.update_project(project, %{description: description}) do
+      projects = Dashboard.list_projects(user)
+      {:noreply, assign(socket, projects: projects, edit_id: nil)}
+    else
+      {:error, _} -> {:noreply, socket}
+    end
   end
 
   def handle_event("attempt_remove", %{"id" => id}, socket) do
@@ -47,11 +47,16 @@ defmodule AdoptopossWeb.ProjectLive.Index do
 
   def handle_event("remove", %{"id" => id}, socket) do
     user = %Accounts.User{id: socket.assigns.user_id}
-    project = Dashboard.get_user_project(user, id)
-    {:ok, project} = Dashboard.delete_project(project)
-    projects = socket.assigns.projects |> Enum.drop_while(&(&1.id == project.id))
+    project = Dashboard.get_project!(id)
 
-    {:noreply, assign(socket, projects: projects)}
+    with :ok <- Bodyguard.permit(Dashboard, :delete_project, user, project),
+         {:ok, project} <- Dashboard.delete_project(project) do
+      projects = socket.assigns.projects |> Enum.drop_while(&(&1.id == project.id))
+      {:noreply, assign(socket, projects: projects)}
+    else
+      {:error, _} ->
+        {:noreply, socket}
+    end
   end
 
   defp assign_projects(socket, %{"user_id" => user_id}) do

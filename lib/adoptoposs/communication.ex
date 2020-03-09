@@ -4,8 +4,8 @@ defmodule Adoptoposs.Communication do
   """
 
   import Ecto.Query, warn: false
-  alias Adoptoposs.Repo
 
+  alias Adoptoposs.Repo
   alias Adoptoposs.Communication.{Interest, Policy}
   alias Adoptoposs.Accounts.User
   alias Adoptoposs.Dashboard.Project

@@ -8,7 +8,9 @@ defmodule Adoptoposs.Dashboard do
   alias Adoptoposs.Repo
   alias Adoptoposs.Network.Repository
   alias Adoptoposs.Accounts.User
-  alias Adoptoposs.Dashboard.Project
+  alias Adoptoposs.Dashboard.{Project, Policy}
+
+  defdelegate authorize(action, user, params), to: Policy
 
   @doc """
   Returns the list of a user's projects.

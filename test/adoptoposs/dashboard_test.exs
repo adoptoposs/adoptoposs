@@ -2,7 +2,38 @@ defmodule Adoptoposs.DashboardTest do
   use Adoptoposs.DataCase
 
   import Adoptoposs.Factory
+
   alias Adoptoposs.Dashboard
+
+  describe "policy" do
+    test "update_project is permitted for own projects" do
+      user = build(:user, id: 1)
+      project = build(:project, user_id: user.id)
+
+      assert :ok = Bodyguard.permit(Dashboard, :update_project, user, project)
+    end
+
+    test "update_project is forbidden for other user’s projects" do
+      user = build(:user, id: 1)
+      project = build(:project, user_id: 2)
+
+      assert {:error, :unauthorized} = Bodyguard.permit(Dashboard, :update_project, user, project)
+    end
+
+    test "delete_project is permitted for own projects" do
+      user = build(:user, id: 1)
+      project = build(:project, user_id: user.id)
+
+      assert :ok = Bodyguard.permit(Dashboard, :delete_project, user, project)
+    end
+
+    test "delete_project is forbidden for other user’s projects" do
+      user = build(:user, id: 1)
+      project = build(:project, user_id: 2)
+
+      assert {:error, :unauthorized} = Bodyguard.permit(Dashboard, :delete_project, user, project)
+    end
+  end
 
   describe "project" do
     alias Adoptoposs.Dashboard.Project
