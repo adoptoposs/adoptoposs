@@ -6,9 +6,11 @@ defmodule Adoptoposs.Communication do
   import Ecto.Query, warn: false
   alias Adoptoposs.Repo
 
-  alias Adoptoposs.Communication.Interest
+  alias Adoptoposs.Communication.{Interest, Policy}
   alias Adoptoposs.Accounts.User
   alias Adoptoposs.Dashboard.Project
+
+  defdelegate authorize(action, user, params), to: Policy
 
   @doc """
   Returns the list of interests of a user.

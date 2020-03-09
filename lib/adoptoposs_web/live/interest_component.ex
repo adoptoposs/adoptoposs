@@ -1,7 +1,8 @@
 defmodule AdoptopossWeb.InterestComponent do
   use AdoptopossWeb, :live_component
 
-  alias Adoptoposs.{Accounts, Communication}
+  alias Adoptoposs.{Accounts, Communication, Dashboard}
+  alias Adoptoposs.Communication.Interest
   alias AdoptopossWeb.Mailer
 
   def render(assigns) do
@@ -22,20 +23,24 @@ defmodule AdoptopossWeb.InterestComponent do
 
   def handle_event("submit", %{"message" => message}, %{assigns: assigns} = socket) do
     user = Accounts.get_user!(assigns.user_id)
-    attrs = %{creator_id: user.id, project_id: assigns.project_id, message: message}
+    project = Dashboard.get_project!(assigns.project_id)
+    attrs = %{creator_id: user.id, project_id: project.id, message: message}
 
-    case Communication.create_interest(attrs) do
-      {:ok, interest} ->
-        interest = Communication.get_interest!(interest.id)
+    with :ok <- Bodyguard.permit(Communication, :create_interest, user, project),
+      {:ok, interest} <- Communication.create_interest(attrs) do
+          send_notification(interest)
+          {:noreply, assign(socket, contacted: true, to_be_contacted: false)}
+    else
+      {:error, _} -> {:noreply, socket}
+    end
 
-        if interest.project.user.settings.email_when_contacted == "immediately" do
-          Mailer.send_interest_received_email(interest)
-        end
+  end
 
-        {:noreply, assign(socket, contacted: true, to_be_contacted: false)}
+  defp send_notification(%Interest{id: id}) do
+    interest = Communication.get_interest!(id)
 
-      {:error, _} ->
-        {:noreply, socket}
+    if interest.project.user.settings.email_when_contacted == "immediately" do
+      Mailer.send_interest_received_email(interest)
     end
   end
 end
