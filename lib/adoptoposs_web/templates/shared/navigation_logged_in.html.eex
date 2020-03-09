@@ -1,5 +1,5 @@
 <div class="md:hidden inline-block">
-  <%= live_redirect "Sumbit Repo",
+  <%= live_redirect "Submit Repo",
     to: Routes.live_path(@conn, AdoptopossWeb.RepoLive, @current_user.username),
     class: "text-md px-4 py-2 leading-none border border-red-300 rounded" %>
 </div>
@@ -15,7 +15,7 @@
 
 <div id="mobile-menu" class="hidden w-full text-md md:flex-grow justify-end md:flex md:flex-row md:items-end md:w-auto md:items-center mt-4 md:mt-0">
   <div class="hidden md:inline-block">
-    <%= live_redirect "Sumbit Repo",
+    <%= live_redirect "Submit Repo",
       to: Routes.live_path(@conn, AdoptopossWeb.RepoLive, @current_user.username),
       class: "md:flex text-md p-2 mr-4 leading-none border border-red-300 rounded" %>
   </div>
