@@ -51,6 +51,22 @@ defmodule Adoptoposs.Dashboard do
 
   ## Examples
 
+      iex> get_project!(user, 1)
+      %Project{}
+
+      iex> get_project!(user, -1)
+      ** (Ecto.NoResultsError)
+
+  """
+  def get_project!(id), do: Repo.get!(Project, id)
+
+  @doc """
+  Gets a single project.
+
+  Return nil if the Project does not exist for the given user.
+
+  ## Examples
+
       iex> get_user_project(user, 1)
       %Project{}
 

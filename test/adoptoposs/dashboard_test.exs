@@ -30,6 +30,17 @@ defmodule Adoptoposs.DashboardTest do
       assert Dashboard.list_projects(user) == []
     end
 
+    test "get_project!/1 return the project with the given id" do
+      project = insert(:project)
+      assert Dashboard.get_project!(project.id).id == project.id
+    end
+
+    test "get_project!/1 raises error when the project does not exist" do
+      assert_raise Ecto.NoResultsError, fn ->
+        Dashboard.get_project!(-1)
+      end
+    end
+
     test "get_user_project/2 returns the project with given id" do
       user = insert(:user)
       project = insert(:project, user: user)
