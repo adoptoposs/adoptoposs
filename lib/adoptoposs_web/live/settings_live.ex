@@ -84,6 +84,7 @@ defmodule AdoptopossWeb.SettingsLive do
     case Accounts.update_settings(user, settings) do
       {:ok, updated_user} ->
         {:noreply, assign_settings(socket, updated_user)}
+
       {:error, changeset} ->
         {:noreply, assign(socket, settings: changeset)}
     end

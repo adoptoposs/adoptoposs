@@ -7,7 +7,7 @@ defmodule AdoptopossWeb.MailerTest do
   alias AdoptopossWeb.Mailer
 
   test "send interest received email" do
-    interest = build(:interest, inserted_at: DateTime.utc_now() ,project: build(:project, id: 1))
-    assert_delivered_email Mailer.send_interest_received_email(interest)
+    interest = build(:interest, inserted_at: DateTime.utc_now(), project: build(:project, id: 1))
+    assert_delivered_email(Mailer.send_interest_received_email(interest))
   end
 end

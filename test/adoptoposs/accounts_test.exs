@@ -149,7 +149,7 @@ defmodule Adoptoposs.AccountsTest do
         user = insert(:user, settings: %{})
         attrs = %{email_when_contacted: value}
 
-        assert {:ok,%User{settings: settings}} = Accounts.update_settings(user, attrs)
+        assert {:ok, %User{settings: settings}} = Accounts.update_settings(user, attrs)
         assert %{email_when_contacted: ^value} = settings
       end
     end

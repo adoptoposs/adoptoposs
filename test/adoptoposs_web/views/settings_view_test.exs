@@ -19,12 +19,12 @@ defmodule AdoptopossWeb.SettingsViewTest do
   end
 
   test "active?/3 returns true if the given key/value pair exits in the changeset",
-    %{changeset: changeset, key: key, value: value} do
+       %{changeset: changeset, key: key, value: value} do
     assert SettingsView.active?(changeset, key, value)
   end
 
   test "active?/3 returns false if the given key/value pair does not exits in the changeset",
-    %{changeset: changeset, key: key, value: value} do
+       %{changeset: changeset, key: key, value: value} do
     refute SettingsView.active?(changeset, key, "other" <> value)
     refute SettingsView.active?(changeset, :"other_#{key}", value)
   end

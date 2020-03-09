@@ -18,5 +18,4 @@ config :adoptoposs, AdoptopossWeb.Endpoint,
 config :logger, level: :warn
 
 # Mailing
-config :adoptoposs, AdoptopossWeb.Mailer,
-  adapter: Bamboo.TestAdapter
+config :adoptoposs, AdoptopossWeb.Mailer, adapter: Bamboo.TestAdapter
