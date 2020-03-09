@@ -1,26 +1,27 @@
 defmodule AdoptopossWeb.SettingsLiveTest do
-  use AdoptopossWeb.ConnCase
-  import Phoenix.LiveViewTest
-  import Adoptoposs.Factory
+  use AdoptopossWeb.LiveCase
 
   alias AdoptopossWeb.SettingsLive
 
-  test "requires authentication on GET /settings", %{conn: conn} do
+  test "disconnected mount of /settings when logged out", %{conn: conn} do
     conn = get(conn, Routes.live_path(conn, SettingsLive))
     assert html_response(conn, 302)
     assert conn.halted
   end
 
-  test "GET /settings shows the page for a logged in user", %{conn: conn} do
-    user = insert(:user)
+  test "connected mount of /settings when logged out", %{conn: conn} do
+    {:error, %{redirect: %{to: "/"}}} = live(conn, Routes.live_path(conn, SettingsLive))
+  end
 
-    conn =
-      conn
-      |> init_test_session(%{user_id: user.id})
-      |> put_req_header("content-type", "html")
-      |> get(Routes.live_path(conn, SettingsLive))
-
+  @tag login_as: "user123"
+  test "disconnected mount of /settings when logged in", %{conn: conn} do
+    conn = get(conn, Routes.live_path(conn, SettingsLive))
     assert html_response(conn, 200) =~ "Settings"
-    {:ok, _view, _html} = live(conn)
+  end
+
+  @tag login_as: "user123"
+  test "connected mount of /settings when logged in", %{conn: conn} do
+    {:ok, _view, html} = live(conn, Routes.live_path(conn, SettingsLive))
+    assert html =~ "Settings"
   end
 end
