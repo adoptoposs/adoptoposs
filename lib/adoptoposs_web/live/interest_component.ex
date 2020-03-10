@@ -1,7 +1,7 @@
 defmodule AdoptopossWeb.InterestComponent do
   use AdoptopossWeb, :live_component
 
-  alias Adoptoposs.{Accounts, Communication, Dashboard}
+  alias Adoptoposs.{Accounts, Communication, Submissions}
   alias Adoptoposs.Communication.Interest
   alias AdoptopossWeb.Mailer
 
@@ -23,7 +23,7 @@ defmodule AdoptopossWeb.InterestComponent do
 
   def handle_event("submit", %{"message" => message}, %{assigns: assigns} = socket) do
     user = Accounts.get_user!(assigns.user_id)
-    project = Dashboard.get_project!(assigns.project_id)
+    project = Submissions.get_project!(assigns.project_id)
     attrs = %{creator_id: user.id, project_id: project.id, message: message}
 
     with :ok <- Bodyguard.permit(Communication, :create_interest, user, project),

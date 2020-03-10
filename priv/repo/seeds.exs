@@ -10,7 +10,7 @@
 # We recommend using the bang functions (`insert!`, `update!`
 # and so on) as they will fail if something goes wrong.
 
-alias Adoptoposs.{Dashboard, Tags}
+alias Adoptoposs.{Submissions, Tags}
 
 Faker.start()
 
@@ -56,7 +56,7 @@ defmodule Adoptoposs.Seeds do
   end
 end
 
-if Enum.empty?(Dashboard.list_projects(limit: 1)) do
+if Enum.empty?(Submissions.list_projects(limit: 1)) do
   Adoptoposs.Seeds.create_projects(2000)
 else
   IO.puts("The database is not empty – skipping seed.")

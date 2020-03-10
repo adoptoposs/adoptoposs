@@ -1,7 +1,7 @@
 defmodule AdoptopossWeb.LandingPageLive do
   use AdoptopossWeb, :live_view
 
-  alias Adoptoposs.{Accounts, Dashboard, Communication}
+  alias Adoptoposs.{Accounts, Submissions, Communication}
   alias AdoptopossWeb.LandingPageView
 
   @doc """
@@ -35,6 +35,6 @@ defmodule AdoptopossWeb.LandingPageLive do
   end
 
   defp put_assigns(socket, _) do
-    assign(socket, projects: Dashboard.list_projects(limit: 6))
+    assign(socket, projects: Submissions.list_projects(limit: 6))
   end
 end

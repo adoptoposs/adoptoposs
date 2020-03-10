@@ -1,7 +1,7 @@
 defmodule AdoptopossWeb.InterestView do
   use AdoptopossWeb, :view
 
-  alias Adoptoposs.Dashboard.Project
+  alias Adoptoposs.Submissions.Project
   alias Adoptoposs.Communication.Interest
 
   @doc """

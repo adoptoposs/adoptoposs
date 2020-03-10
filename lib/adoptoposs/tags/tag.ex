@@ -2,7 +2,7 @@ defmodule Adoptoposs.Tags.Tag do
   use Ecto.Schema
   import Ecto.Changeset
 
-  alias Adoptoposs.{Dashboard, Tags}
+  alias Adoptoposs.{Submissions, Tags}
 
   schema "tags" do
     field :color, :string
@@ -11,7 +11,7 @@ defmodule Adoptoposs.Tags.Tag do
 
     has_many :tag_subscriptions, Tags.TagSubscription, on_delete: :delete_all
     has_many :users, through: [:tag_subscriptions, :user]
-    has_many :projects, Dashboard.Project, foreign_key: :language_id
+    has_many :projects, Submissions.Project, foreign_key: :language_id
 
     timestamps()
   end

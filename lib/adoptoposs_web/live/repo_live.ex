@@ -2,7 +2,7 @@ defmodule AdoptopossWeb.RepoLive do
   use AdoptopossWeb, :live_view
 
   alias AdoptopossWeb.{Endpoint, RepoView}
-  alias Adoptoposs.{Accounts, Network, Dashboard}
+  alias Adoptoposs.{Accounts, Network, Submissions}
   alias Adoptoposs.Network.Organization
 
   @orga_limit 25
@@ -51,7 +51,7 @@ defmodule AdoptopossWeb.RepoLive do
     organization = %Organization{id: user.username, name: user.name, avatar_url: user.avatar_url}
     organizations = [organization | organizations]
 
-    projects = Dashboard.list_projects(user)
+    projects = Submissions.list_projects(user)
 
     assign(socket, %{
       token: sign_token(token, provider),
@@ -65,7 +65,7 @@ defmodule AdoptopossWeb.RepoLive do
 
   defp update_selected(socket, organization_id) do
     organization = socket.assigns.organizations |> Enum.find(&(&1.id == organization_id))
-    projects = Dashboard.list_projects(%Accounts.User{id: socket.assigns.user_id})
+    projects = Submissions.list_projects(%Accounts.User{id: socket.assigns.user_id})
     submitted_repos = projects |> Enum.map(& &1.repo_id)
 
     socket

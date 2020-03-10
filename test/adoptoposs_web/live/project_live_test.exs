@@ -4,8 +4,8 @@ defmodule AdoptopossWeb.ProjectLiveTest do
   import Adoptoposs.Factory
 
   alias AdoptopossWeb.ProjectLive
-  alias Adoptoposs.Dashboard
-  alias Adoptoposs.Dashboard.Project
+  alias Adoptoposs.Submissions
+  alias Adoptoposs.Submissions.Project
 
   test "disconnected mount requires authentication on all project routes", %{conn: conn} do
     Enum.each(
@@ -137,6 +137,6 @@ defmodule AdoptopossWeb.ProjectLiveTest do
 
     {:ok, view, _html} = live(conn, Routes.live_path(conn, ProjectLive.Index))
     render_submit(view, :remove, %{id: project.id})
-    assert Dashboard.get_project!(project.id).id == project.id
+    assert Submissions.get_project!(project.id).id == project.id
   end
 end

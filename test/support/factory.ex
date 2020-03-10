@@ -5,7 +5,7 @@ defmodule Adoptoposs.Factory do
 
   use ExMachina.Ecto, repo: Adoptoposs.Repo
 
-  alias Adoptoposs.{Network, Accounts, Dashboard, Communication, Tags}
+  alias Adoptoposs.{Network, Accounts, Submissions, Communication, Tags}
 
   def user_factory do
     %Accounts.User{
@@ -23,7 +23,7 @@ defmodule Adoptoposs.Factory do
   def project_factory do
     repo_id = sequence("repo_id")
 
-    %Dashboard.Project{
+    %Submissions.Project{
       name: sequence("project"),
       language: build(:tag),
       data: build(:repository, id: repo_id),

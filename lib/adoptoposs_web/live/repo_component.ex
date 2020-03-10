@@ -1,7 +1,7 @@
 defmodule AdoptopossWeb.RepoComponent do
   use AdoptopossWeb, :live_component
 
-  alias Adoptoposs.{Dashboard, Tags}
+  alias Adoptoposs.{Submissions, Tags}
 
   def render(assigns) do
     AdoptopossWeb.RepoView.render("repo.html", assigns)
@@ -20,7 +20,7 @@ defmodule AdoptopossWeb.RepoComponent do
     tag = Tags.get_tag_by_name!(repository.language.name)
     attrs = %{user_id: user_id, language_id: tag.id, description: description}
 
-    case Dashboard.create_project(repository, attrs) do
+    case Submissions.create_project(repository, attrs) do
       {:ok, _project} ->
         {:noreply, assign(socket, submitted: true, to_be_submitted: nil)}
 
