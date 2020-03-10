@@ -2,7 +2,7 @@ defmodule AdoptopossWeb.SharedView do
   use AdoptopossWeb, :view
 
   alias Adoptoposs.Network.Repository
-  alias Adoptoposs.Dashboard.Project
+  alias Adoptoposs.Submissions.Project
 
   def project_url(%Project{} = project), do: project.data["url"]
   def project_url(%Repository{} = project), do: project.url

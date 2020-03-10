@@ -1,4 +1,4 @@
-defmodule Adoptoposs.Dashboard.Project do
+defmodule Adoptoposs.Submissions.Project do
   use Ecto.Schema
   import Ecto.Changeset
 

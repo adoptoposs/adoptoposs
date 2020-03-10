@@ -7,7 +7,7 @@ defmodule Adoptoposs.Search do
   import Ecto.Query, warn: false
 
   alias Adoptoposs.Repo
-  alias Adoptoposs.Dashboard.Project
+  alias Adoptoposs.Submissions.Project
   alias Adoptoposs.Tags.Tag
 
   def find_projects(query, offset: offset, limit: limit) do

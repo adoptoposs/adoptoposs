@@ -8,7 +8,7 @@ defmodule Adoptoposs.Communication do
   alias Adoptoposs.Repo
   alias Adoptoposs.Communication.{Interest, Policy}
   alias Adoptoposs.Accounts.User
-  alias Adoptoposs.Dashboard.Project
+  alias Adoptoposs.Submissions.Project
 
   defdelegate authorize(action, user, params), to: Policy
 

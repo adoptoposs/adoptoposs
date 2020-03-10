@@ -1,6 +1,6 @@
-defmodule Adoptoposs.Dashboard do
+defmodule Adoptoposs.Submissions do
   @moduledoc """
-  The Dashboard context.
+  The Submissions context.
   """
 
   import Ecto.Query, warn: false
@@ -8,7 +8,7 @@ defmodule Adoptoposs.Dashboard do
   alias Adoptoposs.Repo
   alias Adoptoposs.Network.Repository
   alias Adoptoposs.Accounts.User
-  alias Adoptoposs.Dashboard.{Project, Policy}
+  alias Adoptoposs.Submissions.{Project, Policy}
 
   defdelegate authorize(action, user, params), to: Policy
 

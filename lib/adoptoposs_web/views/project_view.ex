@@ -1,7 +1,7 @@
 defmodule AdoptopossWeb.ProjectView do
   use AdoptopossWeb, :view
 
-  alias Adoptoposs.Dashboard.Project
+  alias Adoptoposs.Submissions.Project
 
   def can_be_contacted?(%Project{user_id: user_id}, user_id), do: false
   def can_be_contacted?(nil, _), do: false

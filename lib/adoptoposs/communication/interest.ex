@@ -2,13 +2,13 @@ defmodule Adoptoposs.Communication.Interest do
   use Ecto.Schema
   import Ecto.Changeset
 
-  alias Adoptoposs.{Accounts, Dashboard}
+  alias Adoptoposs.{Accounts, Submissions}
 
   schema "interests" do
     field :message, :string
 
     belongs_to :creator, Accounts.User, foreign_key: :creator_id
-    belongs_to :project, Dashboard.Project
+    belongs_to :project, Submissions.Project
 
     timestamps()
   end
