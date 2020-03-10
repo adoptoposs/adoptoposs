@@ -7,7 +7,9 @@ defmodule Adoptoposs.Tags do
   alias Adoptoposs.Repo
 
   alias Adoptoposs.Accounts.User
-  alias Adoptoposs.Tags.{Tag, TagSubscription}
+  alias Adoptoposs.Tags.{Tag, TagSubscription, Policy}
+
+  defdelegate authorize(action, user, params), to: Policy
 
   @doc """
   Returns the list of tags.

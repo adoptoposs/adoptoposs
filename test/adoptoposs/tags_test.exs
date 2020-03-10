@@ -5,6 +5,41 @@ defmodule Adoptoposs.TagsTest do
 
   alias Adoptoposs.Tags
 
+  describe "policy" do
+    test "create_tag_subscription is permitted if it doesn’t exist yet" do
+      user = insert(:user)
+      tag = insert(:tag)
+
+      assert :ok = Bodyguard.permit(Tags, :create_tag_subscription, user, tag)
+    end
+
+    test "create_tag_subscription is forbidden if it already exists" do
+      user = insert(:user)
+      tag = insert(:tag)
+      insert(:tag_subscription, user: user, tag: tag)
+
+      assert {:error, :unauthorized} = Bodyguard.permit(Tags, :create_tag_subscription, user, tag)
+    end
+
+    test "delete_tag_subscription is permitted for own tag subscriptions" do
+      user = insert(:user)
+      tag = insert(:tag)
+      tag_subscription = insert(:tag_subscription, user: user, tag: tag)
+
+      assert :ok = Bodyguard.permit(Tags, :delete_tag_subscription, user, tag_subscription)
+    end
+
+    test "delete_tag_subscription is forbidden for other users’ tag subscriptions" do
+      user = insert(:user)
+      other_user = insert(:user)
+      tag = insert(:tag)
+      tag_subscription = insert(:tag_subscription, user: other_user, tag: tag)
+
+      assert {:error, :unauthorized} =
+               Bodyguard.permit(Tags, :delete_tag_subscription, user, tag_subscription)
+    end
+  end
+
   describe "tags" do
     alias Adoptoposs.Tags.{Tag, TagSubscription}
 
