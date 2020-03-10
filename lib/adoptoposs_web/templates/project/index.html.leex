@@ -1,6 +1,26 @@
 <section>
   <h1>Your Submitted Projects</h1>
 
+  <%= if Enum.empty?(@projects) do %>
+    <div class="flex flex-col md:p-4 my-6 w-full justify-center items-center">
+      <p class="text-lg md:text-2xl text-gray-600 text-center">
+        Great.</br>
+        Looks like you’re happy with the maintainance of your Repos.
+      </p>
+      <div class="flex flex-col w-full p-8 mt-6 justify-center items-center bg-white rounded border border-gray-300 text-gray-600 md:text-lg text-center">
+        <p>
+          Looking for a maintainer?
+        </p>
+        <%= link "Submit Repo",
+            to: Routes.repo_path(AdoptopossWeb.Endpoint, :index),
+            class: "px-4 py-2 mb-4 text-base rounded border border-red-300 leading-tight" %>
+        <p>
+          Submitted Repos will appear here.
+        </p>
+      </div>
+    </div>
+  <% end %>
+
   <ul id="projects" class="mt-6">
     <%= for project <- @projects do %>
       <li id="project-<%= project.id %>" class="flex flex-wrap w-full shadow hover:shadow-md mb-4 border border-gray-400 rounded">

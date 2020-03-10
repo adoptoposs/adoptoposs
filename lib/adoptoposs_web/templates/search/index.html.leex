@@ -22,8 +22,8 @@
 
 <section>
   <%= if @query && @page == 1 && Enum.empty?(@projects) do %>
-    <div class="flex items-center justify-center text-center p-4 h-32 md:h-48 min-h-full bg-white rounded-md shadow-md border border-gray-300">
-      <span class="text-pink-900 text-lg font-medium">
+    <div class="flex items-center justify-center text-center p-4 h-32 md:h-48 min-h-full bg-white rounded border border-gray-300">
+      <span class="text-pink-900 md:text-lg font-medium">
         Sorry, no projects found for <span class="text-red-500">"<%= @query %>"</span> :(
       </span>
     </div>

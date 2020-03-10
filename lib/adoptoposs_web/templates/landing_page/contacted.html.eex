@@ -1,5 +1,19 @@
 <h2>Contacted Maintainers</h2>
 
+<%= if Enum.empty?(@interests) do %>
+  <div class="flex flex-col w-full p-8 mt-4 md:mt-8 justify-center items-center text-gray-600 md:text-lg text-center bg-white border border-gray-300 rounded">
+    <p class="text-lg md:text-2xl text-gray-600 text-center mb-4 md:mb-8">
+      You did not contact any maintainer yet.
+    </p>
+    <%= live_redirect "Explore Projects",
+        to: Routes.live_path(AdoptopossWeb.Endpoint, AdoptopossWeb.SearchLive),
+        class: "px-4 py-2 mb-4 bg-white text-base rounded border border-red-300 leading-tight" %>
+    <p>
+      Messages you sent will appear here.
+    </p>
+  </div>
+<% end %>
+
 <ul class="mt-4 md:mt-8 grid grid-flow-row gap-4">
   <%= for interest <- @interests do %>
     <li class="list-item flex md:flex-row flex-col bg-white rounded shadow hover:shadow-md border border-gray-300">
