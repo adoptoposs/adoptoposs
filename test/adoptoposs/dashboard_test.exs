@@ -2,7 +2,52 @@ defmodule Adoptoposs.DashboardTest do
   use Adoptoposs.DataCase
 
   import Adoptoposs.Factory
+
   alias Adoptoposs.Dashboard
+
+  describe "policy" do
+    test "update_project is permitted for own projects" do
+      user = build(:user, id: 1)
+      project = build(:project, user_id: user.id)
+
+      assert :ok = Bodyguard.permit(Dashboard, :update_project, user, project)
+    end
+
+    test "update_project is forbidden for other user’s projects" do
+      user = build(:user, id: 1)
+      project = build(:project, user_id: 2)
+
+      assert {:error, :unauthorized} = Bodyguard.permit(Dashboard, :update_project, user, project)
+    end
+
+    test "delete_project is permitted for own projects" do
+      user = build(:user, id: 1)
+      project = build(:project, user_id: user.id)
+
+      assert :ok = Bodyguard.permit(Dashboard, :delete_project, user, project)
+    end
+
+    test "delete_project is forbidden for other user’s projects" do
+      user = build(:user, id: 1)
+      project = build(:project, user_id: 2)
+
+      assert {:error, :unauthorized} = Bodyguard.permit(Dashboard, :delete_project, user, project)
+    end
+
+    test "show_project is permitted for own projects" do
+      user = build(:user, id: 1)
+      project = build(:project, user_id: user.id)
+
+      assert :ok = Bodyguard.permit(Dashboard, :show_project, user, project)
+    end
+
+    test "show_project is forbidden for other user’s projects" do
+      user = build(:user, id: 1)
+      project = build(:project, user_id: 2)
+
+      assert {:error, :unauthorized} = Bodyguard.permit(Dashboard, :show_project, user, project)
+    end
+  end
 
   describe "project" do
     alias Adoptoposs.Dashboard.Project
@@ -28,6 +73,17 @@ defmodule Adoptoposs.DashboardTest do
 
       user = insert(:user)
       assert Dashboard.list_projects(user) == []
+    end
+
+    test "get_project!/1 return the project with the given id" do
+      project = insert(:project)
+      assert Dashboard.get_project!(project.id).id == project.id
+    end
+
+    test "get_project!/1 raises error when the project does not exist" do
+      assert_raise Ecto.NoResultsError, fn ->
+        Dashboard.get_project!(-1)
+      end
     end
 
     test "get_user_project/2 returns the project with given id" do

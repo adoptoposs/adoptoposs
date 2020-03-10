@@ -8,7 +8,9 @@ defmodule Adoptoposs.Dashboard do
   alias Adoptoposs.Repo
   alias Adoptoposs.Network.Repository
   alias Adoptoposs.Accounts.User
-  alias Adoptoposs.Dashboard.Project
+  alias Adoptoposs.Dashboard.{Project, Policy}
+
+  defdelegate authorize(action, user, params), to: Policy
 
   @doc """
   Returns the list of a user's projects.
@@ -48,6 +50,25 @@ defmodule Adoptoposs.Dashboard do
   Gets a single project.
 
   Raises `Ecto.NoResultsError` if the Project does not exist.
+
+  ## Examples
+
+      iex> get_project!(user, 1)
+      %Project{}
+
+      iex> get_project!(user, -1)
+      ** (Ecto.NoResultsError)
+
+  """
+  def get_project!(id, opts \\ []) do
+    from(p in Project, preload: ^(opts[:preload] || []))
+    |> Repo.get!(id)
+  end
+
+  @doc """
+  Gets a single project.
+
+  Return nil if the Project does not exist for the given user.
 
   ## Examples
 

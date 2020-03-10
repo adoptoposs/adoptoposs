@@ -67,7 +67,7 @@ defmodule AdoptopossWeb do
 
   def live_view do
     quote do
-      use Phoenix.LiveView, layout: {AdoptopossWeb.LayoutView, "live.html"}
+      use AdoptopossWeb.LiveView
       alias AdoptopossWeb.Router.Helpers, as: Routes
     end
   end

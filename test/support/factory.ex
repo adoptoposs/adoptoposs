@@ -116,7 +116,7 @@ defmodule Adoptoposs.Factory do
   def tag_factory do
     %Tags.Tag{
       name: sequence("tag"),
-      type: sequence("type"),
+      type: sequence("language"),
       color: "#123456"
     }
   end

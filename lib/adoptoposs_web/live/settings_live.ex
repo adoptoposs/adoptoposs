@@ -50,13 +50,13 @@ defmodule AdoptopossWeb.SettingsLive do
     tag = Tags.get_tag!(id)
     attrs = %{user_id: user.id, tag_id: tag.id}
 
-    case Tags.create_tag_subscription(attrs) do
-      {:ok, _tag_subscription} ->
-        {:noreply,
-         socket
-         |> assign_tag_subscriptions(user)
-         |> search_tags(socket.assigns.query)}
-
+    with :ok <- Bodyguard.permit(Tags, :create_tag_subscription, user, tag),
+         {:ok, _tag_subscription} <- Tags.create_tag_subscription(attrs) do
+      {:noreply,
+       socket
+       |> assign_tag_subscriptions(user)
+       |> search_tags(socket.assigns.query)}
+    else
       {:error, _changeset} ->
         {:noreply, socket}
     end
@@ -66,13 +66,13 @@ defmodule AdoptopossWeb.SettingsLive do
     user = Accounts.get_user!(socket.assigns.user_id)
     tag_subscription = Tags.get_tag_subscription!(id)
 
-    case Tags.delete_tag_subscription(tag_subscription) do
-      {:ok, _tag_subscription} ->
-        {:noreply,
-         socket
-         |> assign_tag_subscriptions(user)
-         |> search_tags(socket.assigns.query)}
-
+    with :ok <- Bodyguard.permit(Tags, :delete_tag_subscription, user, tag_subscription),
+         {:ok, _tag_subscription} <- Tags.delete_tag_subscription(tag_subscription) do
+      {:noreply,
+       socket
+       |> assign_tag_subscriptions(user)
+       |> search_tags(socket.assigns.query)}
+    else
       {:error, _changeset} ->
         {:noreply, socket}
     end
@@ -85,13 +85,9 @@ defmodule AdoptopossWeb.SettingsLive do
       {:ok, updated_user} ->
         {:noreply, assign_settings(socket, updated_user)}
 
-      {:error, changeset} ->
-        {:noreply, assign(socket, settings: changeset)}
+      {:error, _changeset} ->
+        {:noreply, assign(socket, settings: Accounts.change_settings(user))}
     end
-  end
-
-  defp assign_user(socket, %{"user_id" => user_id}) do
-    assign(socket, user_id: user_id)
   end
 
   defp assign_settings(socket, user) do
@@ -110,13 +106,5 @@ defmodule AdoptopossWeb.SettingsLive do
     tags = Search.find_tags(query, offset: offset, limit: @per_page)
 
     assign(socket, query: query, tag_results: tags)
-  end
-
-  defp update_with_append(socket) do
-    assign(socket, update: "append")
-  end
-
-  defp update_with_replace(socket) do
-    assign(socket, update: "replace")
   end
 end

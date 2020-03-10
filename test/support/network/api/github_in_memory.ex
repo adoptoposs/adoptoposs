@@ -1,5 +1,5 @@
 defmodule Adoptoposs.Network.Api.GithubInMemory do
-  alias Adoptoposs.Network.{Api, PageInfo}
+  alias Adoptoposs.Network.Api
 
   import Adoptoposs.Factory
 

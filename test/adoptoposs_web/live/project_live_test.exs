@@ -4,6 +4,8 @@ defmodule AdoptopossWeb.ProjectLiveTest do
   import Adoptoposs.Factory
 
   alias AdoptopossWeb.ProjectLive
+  alias Adoptoposs.Dashboard
+  alias Adoptoposs.Dashboard.Project
 
   test "disconnected mount requires authentication on all project routes", %{conn: conn} do
     Enum.each(
@@ -81,7 +83,6 @@ defmodule AdoptopossWeb.ProjectLiveTest do
     conn: conn
   } do
     project = insert(:project)
-    insert_list(2, :interest, project: project)
 
     conn = get(conn, Routes.live_path(conn, ProjectLive.Show, project.id))
     assert html_response(conn, 302)
@@ -92,9 +93,50 @@ defmodule AdoptopossWeb.ProjectLiveTest do
     conn: conn
   } do
     project = insert(:project)
-    insert_list(2, :interest, project: project)
 
     assert {:error, %{redirect: %{to: Routes.live_path(conn, ProjectLive.Index)}}} ==
              live(conn, Routes.live_path(conn, ProjectLive.Show, project.id))
+  end
+
+  @tag login_as: "user123"
+  test "editing a project", %{conn: conn, user: user} do
+    project = insert(:project, user: user)
+
+    {:ok, view, html} = live(conn, Routes.live_path(conn, ProjectLive.Index))
+    assert html =~ project.name
+
+    description = "Updated " <> project.description
+    html = render_submit(view, :update, %{id: project.id, message: description})
+    assert html =~ description
+  end
+
+  @tag login_as: "user123"
+  test "editing another user’s project is not possible", %{conn: conn} do
+    project = insert(:project)
+
+    {:ok, view, _html} = live(conn, Routes.live_path(conn, ProjectLive.Index))
+    description = "Updated " <> project.description
+    html = render_submit(view, :update, %{id: project.id, message: description})
+    refute html =~ description
+  end
+
+  @tag login_as: "user123"
+  test "removing a project", %{conn: conn, user: user} do
+    project = insert(:project, user: user)
+
+    {:ok, view, html} = live(conn, Routes.live_path(conn, ProjectLive.Index))
+    assert html =~ project.description
+    html = render_submit(view, :remove, %{id: project.id})
+    refute html =~ project.description
+    assert Adoptoposs.Repo.aggregate(Project, :count) == 0
+  end
+
+  @tag login_as: "user123"
+  test "removing another user’s project is not possible", %{conn: conn} do
+    project = insert(:project)
+
+    {:ok, view, _html} = live(conn, Routes.live_path(conn, ProjectLive.Index))
+    render_submit(view, :remove, %{id: project.id})
+    assert Dashboard.get_project!(project.id).id == project.id
   end
 end

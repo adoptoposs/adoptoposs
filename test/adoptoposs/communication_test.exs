@@ -5,6 +5,23 @@ defmodule Adoptoposs.CommunicationTest do
 
   alias Adoptoposs.Communication
 
+  describe "policy" do
+    test "create_interest is permitted for other user’s projects" do
+      user = build(:user, id: 1)
+      project = build(:project, user_id: 2)
+
+      assert :ok = Bodyguard.permit(Communication, :create_interest, user, project)
+    end
+
+    test "create_interest is forbidden for own projects" do
+      user = build(:user, id: 1)
+      project = build(:project, user_id: user.id)
+
+      assert {:error, :unauthorized} =
+               Bodyguard.permit(Communication, :create_interest, user, project)
+    end
+  end
+
   describe "interests" do
     alias Adoptoposs.Communication.Interest
 

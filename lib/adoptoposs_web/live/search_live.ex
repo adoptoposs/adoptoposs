@@ -51,20 +51,4 @@ defmodule AdoptopossWeb.SearchLive do
 
     assign(socket, query: query, projects: projects)
   end
-
-  defp assign_user(socket, %{"user_id" => user_id}) do
-    assign(socket, user_id: user_id)
-  end
-
-  defp assign_user(socket, _) do
-    assign(socket, user_id: nil)
-  end
-
-  defp update_with_append(socket) do
-    assign(socket, update: "append")
-  end
-
-  defp update_with_replace(socket) do
-    assign(socket, update: "replace")
-  end
 end

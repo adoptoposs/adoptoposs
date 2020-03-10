@@ -22,3 +22,4 @@ config :adoptoposs, :github_api, Adoptoposs.Network.Api.GithubInMemory
 
 # Mailing
 config :adoptoposs, AdoptopossWeb.Mailer, adapter: Bamboo.TestAdapter
+config :bamboo, :refute_timeout, 10
