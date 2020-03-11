@@ -27,6 +27,12 @@ defmodule Adoptoposs.AccountsTest do
       assert Accounts.get_user!(user.id) == user
     end
 
+    test "get_user!/1 allows preloading assocs" do
+      user = insert(:user)
+      fetched_user = Accounts.get_user!(user.id, preload: [:interests])
+      assert fetched_user.interests == []
+    end
+
     test "get_user!/1 raises error for a missing id" do
       assert_raise Ecto.NoResultsError, fn ->
         Accounts.get_user!(-1)
