@@ -9,6 +9,6 @@
   <div class="inline-block">
     <%= live_redirect "Login with GitHub",
       to: "/auth/github",
-      class: "text-md px-4 py-2 leading-none border border-red-300 rounded" %>
+      class: "button-link subtle" %>
   </div>
 </div>
