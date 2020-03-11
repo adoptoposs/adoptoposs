@@ -27,11 +27,44 @@ defmodule AdoptopossWeb.LandingPageLive do
      |> put_assigns(session)}
   end
 
-  def handle_event("filter_recommendations", %{"tag_subscription_id" => id}, socket) do
+  def handle_params(%{"f" => tag_name}, _uri, socket) do
     user = %Accounts.User{id: socket.assigns.user_id}
-    tag = find_tag(socket.assigns.tag_subscriptions, id)
+    tag_subscriptions = socket.assigns[:tag_subscriptions]
+    tag = find_tag_by_name(tag_subscriptions, tag_name)
 
+    socket |> apply_tag_filter(user, tag)
+  end
+
+  def handle_params(_params, _uri, %{assigns: %{tag_subscriptions: tag_subscriptions}} = socket) do
+    user = %Accounts.User{id: socket.assigns.user_id}
+    tag = first_tag(tag_subscriptions)
     {:noreply, socket |> put_recommendations(user, tag)}
+  end
+
+  def handle_params(_params, _uri, socket) do
+    {:noreply, socket}
+  end
+
+  def handle_event("filter_recommendations", %{"tag_subscription_id" => id}, socket) do
+    tag = find_tag(socket.assigns.tag_subscriptions, id)
+    {:noreply, socket |> push_tag_filter(tag)}
+  end
+
+  defp apply_tag_filter(socket, _user, nil) do
+    tag = first_tag(socket.assigns[:tag_subscriptions])
+    {:noreply, socket |> push_tag_filter(tag)}
+  end
+
+  defp apply_tag_filter(socket, user, tag) do
+    {:noreply, socket |> put_recommendations(user, tag)}
+  end
+
+  defp push_tag_filter(socket, nil), do: socket
+
+  defp push_tag_filter(socket, tag) do
+    filter = String.downcase(tag.name)
+    path = Routes.live_path(socket, __MODULE__, f: filter)
+    push_patch(socket, to: path)
   end
 
   defp put_assigns(socket, %{"user_id" => user_id}) do
@@ -40,7 +73,7 @@ defmodule AdoptopossWeb.LandingPageLive do
     socket
     |> put_interests(user)
     |> assign(tag_subscriptions: user.tag_subscriptions)
-    |> put_recommendations(user, first_tag(user.tag_subscriptions))
+    |> put_recommendations(user, nil)
   end
 
   defp put_assigns(socket, _) do
@@ -62,7 +95,8 @@ defmodule AdoptopossWeb.LandingPageLive do
     assign(socket, recommendations: recommendations, tag_filter: tag.id)
   end
 
-  defp first_tag([]), do: nil
+  defp first_tag(nil), do: nil
+  defp first_tag(tag_subscriptions) when length(tag_subscriptions) == 0, do: nil
 
   defp first_tag(tag_subscriptions) do
     List.first(tag_subscriptions).tag
@@ -70,6 +104,20 @@ defmodule AdoptopossWeb.LandingPageLive do
 
   defp find_tag(tag_subscriptions, id) do
     tag_subscription = Enum.find(tag_subscriptions, &(to_string(&1.id) == id))
+    if tag_subscription, do: tag_subscription.tag, else: nil
+  end
+
+  defp find_tag_by_name(nil, _), do: nil
+  defp find_tag_by_name(_, nil), do: nil
+  defp find_tag_by_name(tag_subscriptions, _) when length(tag_subscriptions) == 0, do: nil
+
+  defp find_tag_by_name(tag_subscriptions, name) do
+    tag_subscription =
+      Enum.find(
+        tag_subscriptions,
+        &(String.downcase(&1.tag.name) == String.downcase(name))
+      )
+
     if tag_subscription, do: tag_subscription.tag, else: nil
   end
 end
