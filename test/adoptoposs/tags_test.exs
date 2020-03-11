@@ -63,10 +63,7 @@ defmodule Adoptoposs.TagsTest do
       user = build(:user, provider: "github")
       {_page_info, repos} = Network.user_repos("token", user.provider, 3)
 
-      uniq_names =
-        repos
-        |> Enum.map(& &1.language.name)
-        |> Enum.uniq()
+      repos = repos |> Enum.uniq_by(& &1.language.name)
 
       for repo <- repos do
         insert(:tag, type: Tag.Language.type(), name: String.upcase(repo.language.name))
@@ -77,7 +74,7 @@ defmodule Adoptoposs.TagsTest do
 
       tags = Tags.list_recommended_tags(user, "token")
 
-      assert Enum.count(tags) == Enum.count(uniq_names)
+      assert Enum.count(tags) == Enum.count(repos)
 
       for {tag, index} <- Enum.with_index(tags) do
         language_name = Enum.at(repos, index).language.name
