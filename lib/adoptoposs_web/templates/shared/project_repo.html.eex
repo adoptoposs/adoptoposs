@@ -9,7 +9,7 @@
     <%= render AdoptopossWeb.SharedView, "language_tag.html",
       name: @project.language.name,
       color: @project.language.color,
-      class: "mb-2" %>
+      class: "mb-2 text-pink-900 border-gray-400" %>
   </div>
 
   <%= unless assigns[:hide_description] == true do %>

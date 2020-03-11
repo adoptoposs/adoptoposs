@@ -8,6 +8,8 @@ defmodule Adoptoposs.Submissions do
   alias Adoptoposs.Repo
   alias Adoptoposs.Network.Repository
   alias Adoptoposs.Accounts.User
+  alias Adoptoposs.Tags.Tag
+  alias Adoptoposs.Communication.Interest
   alias Adoptoposs.Submissions.{Project, Policy}
 
   defdelegate authorize(action, user, params), to: Policy
@@ -150,5 +152,37 @@ defmodule Adoptoposs.Submissions do
   """
   def change_project(%Project{} = project) do
     Project.update_changeset(project, %{})
+  end
+
+  @doc """
+  Returns recommended projects of the given language for a user.
+
+  Supported options are `:limit` and `:preload`
+
+  ## Examples
+
+      iex> list_recommended_projects(user, tag)
+      [%Project{}, ...]
+
+      iex> list_recommended_projects(user, tag, limit: 1)
+      [%Project{}]
+
+      iex> list_recommended_projects(user, tag, preload: :user)
+      [%Project{user: %User{}}, ...]
+  """
+  def list_recommended_projects(%User{id: user_id}, %Tag{id: tag_id}, opts \\ []) do
+    Repo.all(
+      from p in Project,
+        preload: ^(opts[:preload] || []),
+        limit: ^opts[:limit],
+        where: p.language_id == ^tag_id,
+        where: p.user_id != ^user_id,
+        where:
+          fragment(
+            "SELECT COUNT(*) FROM interests WHERE project_id = ? AND creator_id = ?",
+            p.id,
+            ^user_id
+          ) == 0
+    )
   end
 end

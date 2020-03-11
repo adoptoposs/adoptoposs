@@ -1,0 +1,82 @@
+<h2>Recommended Projects</h2>
+
+<%= if Enum.empty?(@tag_subscriptions) do %>
+  <div class="flex flex-col w-full p-8 mt-4 md:mt-8 justify-center items-center text-gray-600 md:text-lg text-center bg-white border border-gray-300 rounded">
+    <p class="text-lg md:text-2xl text-gray-600 text-center mb-4 md:mb-8">
+      You don’t follow any programming languages yet.
+    </p>
+
+    <%= if Enum.any?(@suggested_tags) do %>
+      <p>
+        We found that you might be interested in
+      </p>
+
+      <div class="flex flex-row flex-wrap justify-center items-center mb-4">
+        <%= for tag <- @suggested_tags do %>
+          <%= render AdoptopossWeb.SharedView, "language_tag.html",
+            name: tag.name,
+            color: tag.color,
+            class: "mr-2 mb-2 border-gray-400 text-base" %>
+        <% end %>
+      </div>
+    <% end %>
+
+    <%= submit "Follow All",
+      class: "button-link mb-4",
+      phx_click: "follow_suggested_tags",
+      phx_disable_with: "…" %>
+
+    <p>
+      Follow your favourite languages in
+      <%= live_redirect "your settings", to: Routes.live_path(AdoptopossWeb.Endpoint, AdoptopossWeb.SettingsLive) %>.</br>
+      Related projects will appear here.
+    </p>
+  </div>
+<% else %>
+  <div class="flex flex-row mt-4 md:mt-8 items-center">
+    <div class="flex flex-row flex-wrap flex-grow items-center">
+      <%= for tag_subscription <- @tag_subscriptions do %>
+        <div phx-click="filter_recommendations" phx-value-tag_subscription_id="<%= tag_subscription.id %>">
+          <% tag = tag_subscription.tag%>
+          <%= render AdoptopossWeb.SharedView, "language_tag.html",
+            name: tag.name,
+            color: tag.color,
+            class: "mr-2 mb-2 cursor-pointer hover:text-white hover:bg-red-500 hover:border-white #{if tag.id == @tag_filter, do: "text-white bg-red-500 border-white", else: "border-gray-400"}" %>
+        </div>
+      <% end %>
+    </div>
+
+    <div class="ml-2 text-center">
+      <%= live_redirect "Edit Languages", to: Routes.live_path(AdoptopossWeb.Endpoint, AdoptopossWeb.SettingsLive) %>
+    </div>
+  </div>
+
+  <%= if Enum.empty?(@recommendations) do %>
+    <div class="flex flex-col w-full p-8 mt-4 md:mt-8 justify-center items-center text-gray-600 md:text-lg text-center bg-white border border-gray-300 rounded">
+      <p class="text-lg md:text-2xl text-gray-600 text-center mb-4 md:mb-8">
+        We could not find any
+        <span class="text-red-500">
+          <%= tag_name(@tag_subscriptions, @tag_filter) %>
+        </span>
+        projects for you.
+      </p>
+      <p>
+        Subscribe to
+        <%= live_redirect "email notifications", to: Routes.live_path(@socket, AdoptopossWeb.SettingsLive) %> and we’ll let you know if new ones come in.
+      </p>
+    </div>
+  <% else %>
+    <div id="recommendations" class="mt-4 md:mt-8 grid grid-flow-row gap-4 mb-4">
+      <%= for project <- @recommendations do %>
+        <%= live_component @socket, AdoptopossWeb.ProjectComponent,
+            id: "recommendation-#{project.id}",
+            project: project,
+            user_id: @user_id %>
+      <% end %>
+    </div>
+
+    <div class="text-center mt-6">
+      <%= live_redirect "Explore More…", to: Routes.live_path(@socket, AdoptopossWeb.SearchLive, q: tag_name(@tag_subscriptions, @tag_filter)) %>
+    </div>
+  <% end %>
+<% end %>

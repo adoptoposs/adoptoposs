@@ -1,5 +1,11 @@
 <section>
   <h1>Your Dashboard</h1>
 
-  <%= render AdoptopossWeb.LandingPageView, "contacted.html", interests: @interests %>
+  <div>
+    <%= render AdoptopossWeb.LandingPageView, "recommendations.html", assigns %>
+  </div>
+
+  <div class="mt-4 md:mt-6">
+    <%= render AdoptopossWeb.LandingPageView, "contacted.html", assigns %>
+  </div>
 </section>

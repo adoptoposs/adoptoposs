@@ -7,6 +7,7 @@ defmodule Adoptoposs.Tags do
   alias Adoptoposs.Repo
 
   alias Adoptoposs.Accounts.User
+  alias Adoptoposs.Network
   alias Adoptoposs.Tags.{Tag, TagSubscription, Policy}
 
   defdelegate authorize(action, user, params), to: Policy
@@ -201,11 +202,27 @@ defmodule Adoptoposs.Tags do
 
       iex> create_tag_subscription(%{field: "bad value"})
       {:error, %Ecto.Changeset{}}
+
   """
-  def create_tag_subscription(attrs \\ []) do
+  def create_tag_subscription(attrs \\ %{}) do
     %TagSubscription{}
     |> TagSubscription.changeset(attrs)
     |> Repo.insert()
+  end
+
+  @doc """
+  Batch creates subscriptions to multiple tags for a user.
+
+  ## Examples
+
+      iex> create_tag_subscriptions(user, [%{tag_id: 1}, %{tag_id: 2}])
+      {:ok, [%TagSubscription{}, %TagSubscription{}]}
+
+      iex> create_tag_subscription(user, [%{field: "bad value"}])
+      {:error, %Ecto.Changeset{}}
+  """
+  def create_tag_subscriptions(attrs \\ []) do
+    attrs |> Enum.map(&create_tag_subscription(&1))
   end
 
   @doc """
@@ -218,8 +235,28 @@ defmodule Adoptoposs.Tags do
 
       iex> delete_tag_subscription(%TagSubscription{})
       {:error, %Ecto.Changeset{}}
+
   """
   def delete_tag_subscription(%TagSubscription{} = tag_subscription) do
     Repo.delete(tag_subscription)
+  end
+
+  @doc """
+  Returns tags that match the given users repo languages.
+
+  ## Examples
+
+      iex> list_recommended_tags(user, token)
+      [%Tag{}, ...]
+
+  """
+  def list_recommended_tags(%User{} = user, api_token) do
+    {_page_info, repos} = Network.user_repos(api_token, user.provider, 25)
+    names = repos |> Enum.map(&String.downcase(&1.language.name))
+
+    Tag
+    |> where([t], t.type == ^Tag.Language.type())
+    |> where([t], fragment("lower(?)", t.name) in ^names)
+    |> Repo.all()
   end
 end

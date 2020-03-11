@@ -4,6 +4,7 @@ defmodule Adoptoposs.TagsTest do
   import Adoptoposs.Factory
 
   alias Adoptoposs.Tags
+  alias Adoptoposs.Network
 
   describe "policy" do
     test "create_tag_subscription is permitted if it doesn’t exist yet" do
@@ -56,6 +57,29 @@ defmodule Adoptoposs.TagsTest do
       insert(:tag)
 
       assert Tags.list_language_tags() == [tag]
+    end
+
+    test "list_recommended_tags/2 returns all tags that match the languages of a user's repos" do
+      user = build(:user, provider: "github")
+      {_page_info, repos} = Network.user_repos("token", user.provider, 3)
+
+      repos = repos |> Enum.uniq_by(& &1.language.name)
+
+      for repo <- repos do
+        insert(:tag, type: Tag.Language.type(), name: String.upcase(repo.language.name))
+      end
+
+      insert(:tag)
+      insert(:tag, type: Tag.Language.type())
+
+      tags = Tags.list_recommended_tags(user, "token")
+
+      assert Enum.count(tags) == Enum.count(repos)
+
+      for {tag, index} <- Enum.with_index(tags) do
+        language_name = Enum.at(repos, index).language.name
+        assert String.downcase(language_name) == String.downcase(tag.name)
+      end
     end
 
     test "get_tag!/1 returns the tag with given id" do
@@ -183,6 +207,18 @@ defmodule Adoptoposs.TagsTest do
       assert user.id == tag_subscription.user_id
       assert tag.id == tag_subscription.tag_id
       assert TagSubscription |> Repo.get(tag_subscription.id) == nil
+    end
+
+    test "create_tag_subscriptions/2 bulk insert tags for the given user" do
+      user = insert(:user)
+      tags = insert_list(2, :tag, type: Tag.Language.type())
+      attrs = tags |> Enum.map(&%{user_id: user.id, tag_id: &1.id})
+
+      tag_subscriptions = Tags.create_tag_subscriptions(attrs)
+
+      for tag_subscription <- tag_subscriptions do
+        assert {:ok, _} = tag_subscription
+      end
     end
   end
 

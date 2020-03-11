@@ -159,5 +159,26 @@ defmodule Adoptoposs.SubmissionsTest do
       project = insert(:project)
       assert %Ecto.Changeset{} = Submissions.change_project(project)
     end
+
+    test "list_recommended_projects/2 returns projects for the given language" do
+      user = insert(:user)
+      language = insert(:tag, type: "language", name: "Elixir")
+
+      # The user’s projects should not be in the results.
+      insert(:project, language: language, user: user)
+
+      # Other languages should not be in the results.
+      other_language = insert(:tag, type: "language", name: "Ruby")
+      insert(:project, language: other_language)
+
+      # Contacted projects should not be in the results.
+      insert(:interest, project: build(:project, language: language), creator: user)
+
+      projects = insert_list(2, :project, language: language)
+      recommendations = Submissions.list_recommended_projects(user, language)
+
+      assert Enum.count(recommendations) == Enum.count(projects)
+      assert Enum.map(recommendations, & &1.id) == Enum.map(projects, & &1.id)
+    end
   end
 end

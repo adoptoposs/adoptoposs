@@ -6,6 +6,12 @@
       <h2>Languages you Follow</h2>
 
       <div id="tag-subscriptions" class="flex flex-row flex-wrap mt-4 md:mt-6">
+        <%= if Enum.empty?(@tag_subscriptions) do %>
+          <p class="text-gray-600 py-2">
+            You don’t follow any languages yet.
+          </p>
+        <% end %>
+
         <%= for tag_subscription <- @tag_subscriptions do %>
           <% tag = tag_subscription.tag %>
           <div id="tag-<%= tag.id %>" class="flex flex-row items-center bg-white text-pink-900 border border-gray-400 font-semibold mr-2 mb-2 rounded hover:bg-red-500 hover:text-white hover:border-white">
@@ -43,7 +49,7 @@
       <div id="tags-search" class="flex flex-row flex-wrap mt-4 md:mt-6" phx-update="<%= @update %>">
         <%= if @query && @page == 1 && Enum.empty?(@tag_results) do %>
           <p class="text-pink-900">
-            No language found for "<%= @query %>" :(
+            No language found for <span class="text-red-500">"<%= @query %>"</span> :(
           </p>
         <% else %>
           <%= for result <- @tag_results do %>

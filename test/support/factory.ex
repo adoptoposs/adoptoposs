@@ -52,7 +52,10 @@ defmodule Adoptoposs.Factory do
   end
 
   def language_factory do
-    %Network.Repository.Language{name: "Elixir", color: "#4E30A3"}
+    %Network.Repository.Language{
+      name: sequence("Language"),
+      color: "#4E30A3"
+    }
   end
 
   def contributor_factory do

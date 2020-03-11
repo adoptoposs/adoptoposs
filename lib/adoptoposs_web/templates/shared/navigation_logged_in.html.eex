@@ -17,7 +17,7 @@
   <div class="hidden md:inline-block">
     <%= live_redirect "Submit Repo",
       to: Routes.live_path(@conn, AdoptopossWeb.RepoLive, @current_user.username),
-      class: "md:flex text-md p-2 mr-4 leading-none border border-red-300 rounded" %>
+      class: "md:flex button-link subtle mr-4" %>
   </div>
 
   <%= live_redirect to: Routes.live_path(@conn, AdoptopossWeb.SearchLive), class: "nav-link" do %>

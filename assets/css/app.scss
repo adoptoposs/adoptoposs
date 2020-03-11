@@ -162,6 +162,26 @@ nav .nav-link {
   @apply cursor-default py-2 px-0;
 }
 
+a, button, input[type="button"] {
+  &.button-link {
+    @apply rounded px-4 py-2;
+    @apply normal-case text-base font-normal leading-tight tracking-normal;
+    @apply bg-white border border-red-300  text-red-600;
+
+    &:focus, &:hover {
+      @apply bg-red-500 text-white border-white;
+    }
+
+    &.subtle {
+      @apply leading-none bg-transparent;
+
+      &:focus, &:hover {
+        @apply bg-transparent text-red-500 border-red-300;
+      }
+    }
+  }
+}
+
 .list-item {
   .icon-button {
     &:not(.disabled) {
