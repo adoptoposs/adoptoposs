@@ -12,13 +12,15 @@ defmodule AdoptopossWeb.RepoLive do
     Phoenix.View.render(RepoView, "index.html", assigns)
   end
 
-  def mount(_params, session, socket) do
+  def mount(_params, %{"user_id" => user_id} = session, socket) do
+    user = Accounts.get_user!(user_id)
+
     {:ok,
      socket
-     |> assign(page: 1)
      |> assign_user(session)
-     |> update_with_append()
-     |> init_data(session), temporary_assigns: [repositories: []]}
+     |> assign_token(session, user.provider)
+     |> put_assigns(session, user)
+     |> update_with_append(), temporary_assigns: [repositories: []]}
   end
 
   def handle_event("organization_selected", %{"id" => id}, socket) do
@@ -43,8 +45,7 @@ defmodule AdoptopossWeb.RepoLive do
     {:noreply, update_selected(socket, id)}
   end
 
-  defp init_data(socket, %{"user_id" => user_id, "token" => token}) do
-    user = Accounts.get_user!(user_id)
+  defp put_assigns(socket, %{"token" => token}, user) do
     provider = user.provider
     {orga_page_info, organizations} = Network.organizations(token, provider, @orga_limit)
 
@@ -54,8 +55,8 @@ defmodule AdoptopossWeb.RepoLive do
     projects = Submissions.list_projects(user)
 
     assign(socket, %{
-      token: sign_token(token, provider),
-      provider: user.provider,
+      page: 1,
+      provider: provider,
       username: user.username,
       projects: projects,
       organizations: organizations,
@@ -82,7 +83,7 @@ defmodule AdoptopossWeb.RepoLive do
 
   defp load_repos(%{assigns: %{username: id}} = socket, id, after_cursor) do
     %{token: token, provider: provider} = socket.assigns
-    token = verify_token(token, provider)
+    token = verify_value(token, provider)
     {page_info, repos} = Network.user_repos(token, provider, @repo_limit, after_cursor)
 
     assign(socket,
@@ -93,7 +94,7 @@ defmodule AdoptopossWeb.RepoLive do
 
   defp load_repos(socket, organisation_id, after_cursor) do
     %{token: token, provider: provider} = socket.assigns
-    token = verify_token(token, provider)
+    token = verify_value(token, provider)
 
     {page_info, repos} =
       Network.repos(token, provider, organisation_id, @repo_limit, after_cursor)
@@ -102,14 +103,5 @@ defmodule AdoptopossWeb.RepoLive do
       repositories: repos,
       repo_page_info: page_info
     )
-  end
-
-  defp sign_token(token, salt) do
-    Phoenix.Token.sign(Endpoint, salt, token)
-  end
-
-  def verify_token(token, salt) do
-    {:ok, token} = Phoenix.Token.verify(Endpoint, salt, token, max_age: 86400)
-    token
   end
 end

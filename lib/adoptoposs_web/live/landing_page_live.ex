@@ -1,34 +1,42 @@
 defmodule AdoptopossWeb.LandingPageLive do
   use AdoptopossWeb, :live_view
 
-  alias Adoptoposs.{Accounts, Submissions, Communication}
+  alias Adoptoposs.{Accounts, Submissions, Communication, Tags}
+  alias Adoptoposs.Accounts.User
   alias AdoptopossWeb.LandingPageView
 
   @recommendations_limit 5
 
   @doc """
-  Renders the logged out landing page template.
-  """
-  def render(%{user_id: nil} = assigns) do
-    Phoenix.View.render(LandingPageView, "index.html", assigns)
-  end
-
-  @doc """
   Renders the logged-in user's dashbard template.
   """
-  def render(assigns) do
+  def render(%{user_id: user_id} = assigns) when not is_nil(user_id) do
     Phoenix.View.render(LandingPageView, "dashboard.html", assigns)
   end
 
-  def mount(_params, session, socket) do
+  @doc """
+  Renders the logged out landing page template.
+  """
+  def render(assigns) do
+    Phoenix.View.render(LandingPageView, "index.html", assigns)
+  end
+
+  def mount(_params, %{"user_id" => user_id} = session, socket) when not is_nil(user_id) do
+    user = Accounts.get_user!(user_id, preload: [tag_subscriptions: [:tag]])
+
     {:ok,
      socket
      |> assign_user(session)
-     |> put_assigns(session)}
+     |> assign_token(session, user.provider)
+     |> put_assigns(user)}
   end
 
-  def handle_params(%{"f" => tag_name}, _uri, socket) do
-    user = %Accounts.User{id: socket.assigns.user_id}
+  def mount(_params, _session, socket) do
+    {:ok, put_projects(socket)}
+  end
+
+  def handle_params(%{"f" => tag_name}, _uri, %{assigns: %{user_id: user_id}} = socket) do
+    user = %User{id: user_id}
     tag_subscriptions = socket.assigns[:tag_subscriptions]
     tag = find_tag_by_name(tag_subscriptions, tag_name)
 
@@ -36,7 +44,7 @@ defmodule AdoptopossWeb.LandingPageLive do
   end
 
   def handle_params(_params, _uri, %{assigns: %{tag_subscriptions: tag_subscriptions}} = socket) do
-    user = %Accounts.User{id: socket.assigns.user_id}
+    user = %User{id: socket.assigns.user_id}
     tag = first_tag(tag_subscriptions)
     {:noreply, socket |> put_recommendations(user, tag)}
   end
@@ -48,6 +56,16 @@ defmodule AdoptopossWeb.LandingPageLive do
   def handle_event("filter_recommendations", %{"tag_subscription_id" => id}, socket) do
     tag = find_tag(socket.assigns.tag_subscriptions, id)
     {:noreply, socket |> push_tag_filter(tag)}
+  end
+
+  def handle_event("follow_proposed_tags", _params, %{assigns: assigns} = socket) do
+    user = Accounts.get_user!(assigns.user_id)
+    tags = assigns.proposed_tags
+    attrs = tags |> Enum.map(&%{user_id: user.id, tag_id: &1.id})
+
+    Tags.create_tag_subscriptions(attrs)
+
+    {:noreply, socket |> put_assigns(user)}
   end
 
   defp apply_tag_filter(socket, _user, nil) do
@@ -67,21 +85,36 @@ defmodule AdoptopossWeb.LandingPageLive do
     push_patch(socket, to: path)
   end
 
-  defp put_assigns(socket, %{"user_id" => user_id}) do
-    user = Accounts.get_user!(user_id, preload: [tag_subscriptions: [:tag]])
-
+  defp put_assigns(socket, %User{} = user) do
     socket
     |> put_interests(user)
-    |> assign(tag_subscriptions: user.tag_subscriptions)
+    |> put_tag_subsriptions(user)
     |> put_recommendations(user, nil)
   end
 
-  defp put_assigns(socket, _) do
+  defp put_projects(socket) do
     assign(socket, projects: Submissions.list_projects(limit: 6))
   end
 
   defp put_interests(socket, user) do
     assign(socket, interests: Communication.list_user_interests(user))
+  end
+
+  defp put_tag_subsriptions(socket, user) do
+    if Enum.empty?(user.tag_subscriptions) do
+      token = verify_value(socket.assigns.token, user.provider)
+      tags = Tags.list_recommended_tags(user, token)
+
+      assign(socket,
+        tag_subscriptions: [],
+        proposed_tags: tags
+      )
+    else
+      assign(socket,
+        tag_subscriptions: user.tag_subscriptions,
+        proposed_tags: []
+      )
+    end
   end
 
   defp put_recommendations(socket, _user, nil) do
