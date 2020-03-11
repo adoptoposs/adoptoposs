@@ -58,9 +58,9 @@ defmodule AdoptopossWeb.LandingPageLive do
     {:noreply, socket |> push_tag_filter(tag)}
   end
 
-  def handle_event("follow_proposed_tags", _params, %{assigns: assigns} = socket) do
+  def handle_event("follow_suggested_tags", _params, %{assigns: assigns} = socket) do
     user = Accounts.get_user!(assigns.user_id)
-    tags = assigns.proposed_tags
+    tags = assigns.suggested_tags
     attrs = tags |> Enum.map(&%{user_id: user.id, tag_id: &1.id})
 
     Tags.create_tag_subscriptions(attrs)
@@ -106,12 +106,12 @@ defmodule AdoptopossWeb.LandingPageLive do
 
       assign(socket,
         tag_subscriptions: [],
-        proposed_tags: tags
+        suggested_tags: tags
       )
     else
       assign(socket,
         tag_subscriptions: user.tag_subscriptions,
-        proposed_tags: []
+        suggested_tags: []
       )
     end
   end

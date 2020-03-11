@@ -49,7 +49,7 @@ defmodule AdoptopossWeb.LandingPageLiveTest do
     assert html =~ "Follow All"
     assert Enum.count(Tags.list_user_tag_subscriptions(user)) == 0
 
-    html = render_click(view, :follow_proposed_tags, %{})
+    html = render_click(view, :follow_suggested_tags, %{})
     assert Enum.count(Tags.list_user_tag_subscriptions(user)) > 0
     assert {:error, {:live_redirect, %{kind: :push, to: "/"}}} = html
   end

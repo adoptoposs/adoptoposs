@@ -6,13 +6,13 @@
       You don’t follow any programming languages yet.
     </p>
 
-    <%= if Enum.any?(@proposed_tags) do %>
+    <%= if Enum.any?(@suggested_tags) do %>
       <p>
         We found that you might be interested in
       </p>
 
       <div class="flex flex-row flex-wrap justify-center items-center mb-4">
-        <%= for tag <- @proposed_tags do %>
+        <%= for tag <- @suggested_tags do %>
           <%= render AdoptopossWeb.SharedView, "language_tag.html",
             name: tag.name,
             color: tag.color,
@@ -23,7 +23,7 @@
 
     <%= submit "Follow All",
       class: "button-link mb-4",
-      phx_click: "follow_proposed_tags",
+      phx_click: "follow_suggested_tags",
       phx_disable_with: "…" %>
 
     <p>
