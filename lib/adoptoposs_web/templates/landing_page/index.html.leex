@@ -19,7 +19,7 @@
 
     <div class="mt-4 grid grid-flow-row md:grid-cols-3 gap-6 md:gap-8">
       <div class="flex flex-col items-center justify-between">
-        <img src="https://via.placeholder.com/250" class="mb-4 md:mb-6 rounded rounded-full h-48 md:h-auto">
+        <img src="<%= Routes.static_path(@socket, "/images/adoptoposs-submit.png")%>" class="mb-4 md:mb-6 h-48 md:h-auto">
         <p class="text-lg md:text-xl text-center">
           Searching for an additional maintainer? Or someone to take over your project?<br/>
           Submit your repo.
@@ -28,7 +28,7 @@
       </div>
 
       <div class="flex flex-col items-center justify-between">
-        <img src="https://via.placeholder.com/250" class="mb-4 md:mb-6 rounded rounded-full h-48 md:h-auto">
+        <img src="<%= Routes.static_path(@socket, "/images/adoptoposs-contact.png")%>" class="mb-4 md:mb-6 h-48 md:h-auto">
         <p class="text-lg md:text-xl text-center">
           Want to help with OSS maintainance?<br/>
           Simply contact the maintainer on Adoptoposs.
@@ -37,7 +37,7 @@
       </div>
 
       <div class="flex flex-col items-center justify-between">
-        <img src="https://via.placeholder.com/250" class="mb-4 md:mb-6 rounded rounded-full h-48 md:h-auto">
+        <img src="<%= Routes.static_path(@socket, "/images/adoptoposs-message.png")%>" class="mb-4 md:mb-6 h-48 md:h-auto">
         <p class="text-lg md:text-xl text-center">
           Not sure where to help?<br/>
           Get projects for your favorite programming languages directly into your inbox.
