@@ -1,0 +1,27 @@
+<p>
+  Hi <%= @user.name %>,
+</p>
+
+<p>
+  We’ve found some projects on Adoptoposs for which you might be interested in helping with their maintanance:
+</p>
+
+<%= for {language_name, projects} <- Enum.group_by(@projects, & &1.language.name) do %>
+  <div>
+    <h1><%= language_name %></h1>
+
+    <ul>
+      <%= for project <- projects do %>
+        <li>
+          <div>
+            <%= link "#{project.data["owner"]["login"]}/#{project.name}", to: project.data["url"] %>
+          </div>
+          <p>
+            <%= project.data["description"] %>
+          </p>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
