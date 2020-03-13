@@ -13,15 +13,25 @@
     <ul>
       <%= for project <- projects do %>
         <li>
-          <div>
-            <%= link "#{project.data["owner"]["login"]}/#{project.name}", to: project.data["url"] %>
-          </div>
+          <h2>
+            <%= link "#{project.data["owner"]["login"]}/#{project.name}",
+              to: Routes.live_url(AdoptopossWeb.Endpoint, AdoptopossWeb.SearchLive, q: language_name <> " " <> String.downcase(project.name)) %>
+          </h2>
           <p>
-            <%= project.data["description"] %>
+            <%= project.data["description"] %></br>
+          </p>
+          <p>
+            <%= link project.data["url"], to: project.data["url"] %>
           </p>
         </li>
       <% end %>
     </ul>
+
+    <p>
+      Find more
+      <%= link "#{language_name} projects",
+        to: Routes.live_url(AdoptopossWeb.Endpoint, AdoptopossWeb.LandingPageLive, f: String.downcase(language_name)) %> on Adoptoposs.
+    </p>
   </div>
 <% end %>
 

@@ -11,7 +11,9 @@ defmodule Adoptoposs.Application do
       # Start the Ecto repository
       Adoptoposs.Repo,
       # Start the endpoint when the application starts
-      AdoptopossWeb.Endpoint
+      AdoptopossWeb.Endpoint,
+      # Start scheduler for Quantum tasks
+      Adoptoposs.Scheduler
       # Starts a worker by calling: Adoptoposs.Worker.start_link(arg)
       # {Adoptoposs.Worker, arg},
     ]
