@@ -2,6 +2,7 @@ defmodule AdoptopossWeb.SettingsLiveTest do
   use AdoptopossWeb.LiveCase
 
   alias AdoptopossWeb.SettingsLive
+  alias Adoptoposs.Accounts.Settings
 
   test "disconnected mount of /settings when logged out", %{conn: conn} do
     conn = get(conn, Routes.live_path(conn, SettingsLive))
@@ -70,26 +71,41 @@ defmodule AdoptopossWeb.SettingsLiveTest do
     @tag login_as: "user123"
     test "changing email_when_contacted", %{conn: conn} do
       {:ok, view, html} = live(conn, Routes.live_path(conn, SettingsLive))
-      assert html =~ "value=\"immediately\" checked"
 
-      html =
-        render_change(view, :update_settings, %{user: %{settings: %{email_when_contacted: "off"}}})
+      valid_values = Settings.email_when_contacted_values()
+      assert html =~ "value=\"#{List.first(valid_values)}\" checked"
 
-      assert html =~ "value=\"off\" checked"
+      for value <- valid_values do
+        settings = %{email_when_contacted: value}
+        html = render_change(view, :update_settings, %{user: %{settings: settings}})
 
-      html =
-        render_change(view, :update_settings, %{
-          user: %{settings: %{email_when_contacted: "not-valid"}}
-        })
+        assert html =~ "value=\"#{value}\" checked"
 
-      assert html =~ "value=\"off\" checked"
+        settings = %{email_when_contacted: "not-valid"}
+        html = render_change(view, :update_settings, %{user: %{settings: settings}})
 
-      html =
-        render_change(view, :update_settings, %{
-          user: %{settings: %{email_when_contacted: "immediately"}}
-        })
+        assert html =~ "value=\"#{value}\" checked"
+      end
+    end
 
-      assert html =~ "value=\"immediately\" checked"
+    @tag login_as: "user123"
+    test "changing email_project_recommendations", %{conn: conn} do
+      {:ok, view, html} = live(conn, Routes.live_path(conn, SettingsLive))
+
+      valid_values = Settings.email_project_recommendations_values()
+      assert html =~ "value=\"#{List.first(valid_values)}\" checked"
+
+      for value <- valid_values do
+        settings = %{email_project_recommendations: value}
+        html = render_change(view, :update_settings, %{user: %{settings: settings}})
+
+        assert html =~ "value=\"#{value}\" checked"
+
+        settings = %{email_project_recommendations: "not-valid"}
+        html = render_change(view, :update_settings, %{user: %{settings: settings}})
+
+        assert html =~ "value=\"#{value}\" checked"
+      end
     end
   end
 end

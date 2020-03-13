@@ -1,0 +1,17 @@
+<div class="mt-4 p-4 md:p-6 rounded bg-white border border-gray-300">
+  <h3 class="text-gray-800"><%= @title %></h3>
+  <p><%= @description %><p>
+
+  <%= f = form_for @settings, "#", [phx_change: "update_settings"] %>
+    <%= inputs_for f, :settings, fn fs -> %>
+      <%= for value <- apply(Adoptoposs.Accounts.Settings, :"#{@key}_values", []) do %>
+        <div class="flex items-center rounded pl-4 mb-1 <%= if active?(@settings, @key, value), do: "bg-gray-200" %>">
+          <%= radio_button fs, @key, value, id: "#{@key}-#{value}" %>
+          <label for="<%= @key %>-<%= value %>" class="text-md p-4 w-full">
+            <%= Gettext.gettext(AdoptopossWeb.Gettext, value) %>
+          </label>
+        </div>
+      <% end %>
+    <% end %>
+  </form>
+</div>
