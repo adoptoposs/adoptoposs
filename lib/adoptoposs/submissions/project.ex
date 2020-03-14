@@ -8,6 +8,7 @@ defmodule Adoptoposs.Submissions.Project do
     field :name, :string
     field :data, :map
     field :repo_id, :string
+    field :repo_owner, :string
     field :description, :string
 
     belongs_to :language, Tags.Tag
@@ -17,8 +18,8 @@ defmodule Adoptoposs.Submissions.Project do
     timestamps()
   end
 
-  @cast_attrs [:name, :data, :user_id, :language_id, :repo_id, :description]
-  @required_attrs [:name, :data, :user_id, :language_id, :repo_id]
+  @cast_attrs [:name, :data, :user_id, :language_id, :repo_id, :repo_owner, :description]
+  @required_attrs [:name, :data, :user_id, :language_id, :repo_owner, :repo_id]
 
   @doc false
   def create_changeset(project, %Network.Repository{} = repository, attrs \\ %{}) do
@@ -42,6 +43,7 @@ defmodule Adoptoposs.Submissions.Project do
   defp merge_attrs(attrs, repository) do
     Map.merge(attrs, %{
       repo_id: repository.id,
+      repo_owner: (repository.owner || %{login: nil}).login,
       name: repository.name,
       language: (repository.language || %{name: nil}).name,
       data: repository |> Map.from_struct()

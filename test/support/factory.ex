@@ -22,15 +22,17 @@ defmodule Adoptoposs.Factory do
 
   def project_factory do
     repo_id = sequence("repo_id")
+    owner = build(:contributor, login: sequence("owner"))
 
     %Submissions.Project{
       name: sequence("project"),
       language: build(:tag),
       # encode and decode repository to get the data as it is stored in the database
-      data: build(:repository, id: repo_id) |> Jason.encode!() |> Jason.decode!(),
+      data: build(:repository, id: repo_id, owner: owner) |> Jason.encode!() |> Jason.decode!(),
       user: build(:user),
       description: "Description",
-      repo_id: repo_id
+      repo_id: repo_id,
+      repo_owner: owner.login
     }
   end
 
