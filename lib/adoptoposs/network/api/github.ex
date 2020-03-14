@@ -76,6 +76,11 @@ defmodule Adoptoposs.Network.Api.Github do
                   name
                   color
                 }
+                owner {
+                  login
+                  avatarUrl
+                  url
+                }
               }
             }
           }
@@ -106,6 +111,11 @@ defmodule Adoptoposs.Network.Api.Github do
               primaryLanguage {
                 name
                 color
+              }
+              owner {
+                login
+                avatarUrl
+                url
               }
             }
           }
@@ -202,7 +212,8 @@ defmodule Adoptoposs.Network.Api.Github do
       name: name,
       description: description,
       url: url,
-      language: build_language(data)
+      language: build_language(data),
+      owner: build_owner(data)
     }
   end
 

@@ -4,6 +4,14 @@ defmodule AdoptopossWeb.SharedView do
   alias Adoptoposs.Network.Repository
   alias Adoptoposs.Submissions.Project
 
+  def project_name(%Project{} = project) do
+    "#{project.data["owner"]["login"]}/#{project.name}"
+  end
+
+  def project_name(%Repository{} = project) do
+    project.name
+  end
+
   def project_url(%Project{} = project), do: project.data["url"]
   def project_url(%Repository{} = project), do: project.url
 

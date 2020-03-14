@@ -1,20 +1,19 @@
-<div class="w-full">
-  <div class="flex flex-row flex-wrap justify-between items-start w-full overflow-y-hidden truncate">
-    <h2 class="mt-0 mr-6 overflow-y-hidden truncate leading-tight mb-2">
-      <%= link String.trim(@project.name),
-        to: project_url(@project),
-        class: "text-pink-900" %>
-    </h2>
+<div class="flex w-full flex-col justify-between">
+  <h2 class="text-xl mt-0 overflow-y-hidden truncate leading-tight mb-2">
+    <%= link project_name(@project),
+      to: project_url(@project),
+      class: "text-pink-900",
+      title: project_name(@project) %>
+  </h2>
 
-    <%= render AdoptopossWeb.SharedView, "language_tag.html",
-      name: @project.language.name,
-      color: @project.language.color,
-      class: "mb-2 text-pink-900 border-gray-400" %>
+  <div class="markdown text-gray-600">
+    <%= {:safe, Earmark.as_html!(String.trim(project_description(@project)))} %>
   </div>
 
-  <%= unless assigns[:hide_description] == true do %>
-    <div class="markdown text-gray-600">
-      <%= {:safe, Earmark.as_html!(String.trim(project_description(@project)))} %>
-    </div>
-  <% end %>
+  <div class="flex flex-row justify-between items-center mt-4">
+    <%= render AdoptopossWeb.SharedView, "language_tag.html",
+        name: @project.language.name,
+        color: @project.language.color,
+        class: "text-gray-700" %>
+  </div>
 </div>
