@@ -13,10 +13,10 @@
 
       <div class="flex flex-row flex-wrap justify-center items-center mb-4">
         <%= for tag <- @suggested_tags do %>
-          <%= render AdoptopossWeb.SharedView, "language_tag.html",
-            name: tag.name,
-            color: tag.color,
-            class: "mr-2 mb-2 border-gray-400 text-base" %>
+            <%= render AdoptopossWeb.SharedView, "language_tag.html",
+              name: tag.name,
+              color: tag.color,
+              class: "p-3 py-1 mr-2 mb-2 border border-gray-400 text-base" %>
         <% end %>
       </div>
     <% end %>
@@ -41,7 +41,7 @@
           <%= render AdoptopossWeb.SharedView, "language_tag.html",
             name: tag.name,
             color: tag.color,
-            class: "mr-2 mb-2 cursor-pointer hover:text-white hover:bg-red-500 hover:border-white #{if tag.id == @tag_filter, do: "text-white bg-red-500 border-white", else: "border-gray-400"}" %>
+            class: "p-3 py-1 mr-2 mb-2 border cursor-pointer hover:text-white hover:bg-red-500 hover:border-white #{if tag.id == @tag_filter, do: "text-white bg-red-500 border-white", else: "border-gray-400"}" %>
         </div>
       <% end %>
     </div>

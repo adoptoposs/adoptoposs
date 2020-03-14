@@ -1,8 +1,8 @@
-<div class="flex flex-row flex-no-wrap min-width-0 items-center bg-white border font-semibold rounded cursor-default py-1 <%= assigns[:class] %>">
-  <div class="w-3 h-3 rounded rounded-full ml-2 bg-gray-500"
+<div class="flex flex-row flex-no-wrap min-width-0 items-center bg-white font-semibold rounded cursor-default <%= assigns[:class] %>">
+  <div class="w-3 h-3 rounded rounded-full bg-gray-500"
     style="background-color: <%= @color %>;">
   </div>
-  <div class="w-max-content px-2">
+  <div class="w-max-content ml-2">
     <%= @name %>
   </div>
 </div>
