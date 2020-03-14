@@ -21,6 +21,16 @@ config :logger, level: :info
 # External APIs
 config :adoptoposs, :github_api, Adoptoposs.Network.Api.Github
 
+# Job Scheduling
+config :adoptoposs, Adoptoposs.Scheduler,
+  jobs: [
+    project_recommendations: [
+      # every day, 4pm UTC
+      schedule: {"0 16 * * *"},
+      task: {Adoptoposs.Jobs, :send_project_recommendations, []}
+    ]
+  ]
+
 # ## SSL Support
 #
 # To get SSL working, you will need to add the `https` key

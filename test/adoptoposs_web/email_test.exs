@@ -23,4 +23,33 @@ defmodule AdoptopossWeb.EmailTest do
 
     assert email.text_body =~ interest.message
   end
+
+  test "project recommendations email" do
+    user = build(:user)
+    elixir_projects = build_list(2, :project, language: build(:language, name: "Elixir"))
+    js_projects = build_list(2, :project, language: build(:language, name: "JavaScript"))
+    build_list(2, :project, language: build(:language, name: "Ruby"))
+
+    projects = elixir_projects ++ js_projects
+    email = Email.project_recommendations_email(user, projects)
+
+    assert email.to == user.email
+    assert email.subject =~ "[Adoptoposs] Projects you might like to help maintain"
+
+    assert email.html_body =~ "Elixir"
+    assert email.html_body =~ "JavaScript"
+    refute email.html_body =~ "Ruby"
+
+    assert email.text_body =~ "Elixir"
+    assert email.text_body =~ "JavaScript"
+    refute email.text_body =~ "Ruby"
+
+    for project <- projects do
+      assert email.html_body =~ project.name
+      assert email.html_body =~ project.data["url"]
+
+      assert email.text_body =~ project.name
+      assert email.text_body =~ project.data["url"]
+    end
+  end
 end

@@ -21,6 +21,15 @@ defmodule AdoptopossWeb.Email do
     |> render(:interest_received)
   end
 
+  def project_recommendations_email(user, projects) do
+    base_email()
+    |> to(user.email)
+    |> subject("[Adoptoposs] Projects you might like to help maintain")
+    |> assign(:user, user)
+    |> assign(:projects, projects)
+    |> render(:project_recommendations)
+  end
+
   defp base_email do
     new_email()
     |> from("Adoptoposs<notifications@#{System.get_env("HOST")}>")

@@ -10,4 +10,10 @@ defmodule AdoptopossWeb.MailerTest do
     interest = build(:interest, inserted_at: DateTime.utc_now(), project: build(:project, id: 1))
     assert_delivered_email(Mailer.send_interest_received_email(interest))
   end
+
+  test "send project recommendations email" do
+    user = build(:user)
+    projects = build_list(2, :project)
+    assert_delivered_email(Mailer.send_project_recommendations_email(user, projects))
+  end
 end

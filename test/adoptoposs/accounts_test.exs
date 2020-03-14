@@ -7,8 +7,12 @@ defmodule Adoptoposs.AccountsTest do
   alias Adoptoposs.Accounts.{User, Settings}
 
   describe "settings" do
-    test "notify_on_contact_values/0 return all allowed values for 'notify_on_contact'" do
+    test "email_when_contact_values/0 return all allowed values" do
       assert Settings.email_when_contacted_values() == ~w(immediately off)
+    end
+
+    test "email_project_recommendations/0 return all allowed values" do
+      assert Settings.email_project_recommendations_values() == ~w(weekly monthly off)
     end
   end
 
@@ -151,12 +155,25 @@ defmodule Adoptoposs.AccountsTest do
     end
 
     test "update_settings/2 with valid data updates a user's settings" do
-      for value <- Settings.email_when_contacted_values() do
+      combinations =
+        for a <- Settings.email_when_contacted_values(),
+            b <- Settings.email_project_recommendations_values(),
+            do: [a, b]
+
+      for [a, b] <- combinations do
         user = insert(:user, settings: %{})
-        attrs = %{email_when_contacted: value}
+
+        attrs = %{
+          email_when_contacted: a,
+          email_project_recommendations: b
+        }
 
         assert {:ok, %User{settings: settings}} = Accounts.update_settings(user, attrs)
-        assert %{email_when_contacted: ^value} = settings
+
+        assert %{
+                 email_when_contacted: ^a,
+                 email_project_recommendations: ^b
+               } = settings
       end
     end
 

@@ -26,7 +26,8 @@ defmodule Adoptoposs.Factory do
     %Submissions.Project{
       name: sequence("project"),
       language: build(:tag),
-      data: build(:repository, id: repo_id),
+      # encode and decode repository to get the data as it is stored in the database
+      data: build(:repository, id: repo_id) |> Jason.encode!() |> Jason.decode!(),
       user: build(:user),
       description: "Description",
       repo_id: repo_id

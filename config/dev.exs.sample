@@ -38,6 +38,18 @@ config :ueberauth, Ueberauth.Strategy.Github.OAuth,
 # External APIs
 config :adoptoposs, :github_api, Adoptoposs.Network.Api.Github
 
+# # Job Scheduling
+# # For testing in dev the jobs are run every 5 sec.
+# # Please adjust the config to your needs.
+#
+# config :adoptoposs, Adoptoposs.Scheduler,
+#   jobs: [
+#     project_recommendations: [
+#       schedule: {:extended, "*/5 * * * * *"},
+#       task: {Adoptoposs.Jobs, :send_project_recommendations, []}
+#     ]
+#   ]
+
 # ## SSL Support
 #
 # In order to use HTTPS in development, a self-signed

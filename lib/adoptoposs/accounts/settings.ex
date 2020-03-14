@@ -7,7 +7,8 @@ defmodule Adoptoposs.Accounts.Settings do
   import Ecto.Changeset
 
   @fields [
-    :email_when_contacted
+    :email_when_contacted,
+    :email_project_recommendations
   ]
 
   @email_when_contacted_values ~w(
@@ -15,8 +16,17 @@ defmodule Adoptoposs.Accounts.Settings do
     off
   )
 
+  @email_project_recommendations_values ~w(
+    weekly
+    monthly
+    off
+  )
+
   embedded_schema do
     field :email_when_contacted, :string, default: List.first(@email_when_contacted_values)
+
+    field :email_project_recommendations, :string,
+      default: List.first(@email_project_recommendations_values)
   end
 
   @doc false
@@ -24,6 +34,7 @@ defmodule Adoptoposs.Accounts.Settings do
     settings
     |> cast(attrs, @fields)
     |> validate_allowed(:email_when_contacted, @email_when_contacted_values)
+    |> validate_allowed(:email_project_recommendations, @email_project_recommendations_values)
   end
 
   @doc """
@@ -31,6 +42,13 @@ defmodule Adoptoposs.Accounts.Settings do
   """
   def email_when_contacted_values do
     @email_when_contacted_values
+  end
+
+  @doc """
+  Returns all allowed values for the email_project_recommendations setting.
+  """
+  def email_project_recommendations_values do
+    @email_project_recommendations_values
   end
 
   defp validate_allowed(changeset, field, values) do
