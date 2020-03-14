@@ -9,18 +9,20 @@ defmodule Adoptoposs.SearchTest do
     test "find_projects/2 returns the matching projects by language" do
       project_1 = insert(:project, language: build(:tag, name: "Elixir"))
       project_2 = insert(:project, name: "Pixi")
+      project_3 = insert(:project, repo_owner: "FIXIT")
+
       insert(:project, language: build(:tag, name: "Ruby"))
       insert(:project, language: build(:tag, name: "JavaScript"))
 
       query = "IXi"
 
-      projects = Search.find_projects(query, offset: 0, limit: 2)
+      projects = Search.find_projects(query, offset: 0, limit: 3)
 
       for project <- projects do
         assert %Tag{} = project.language
       end
 
-      assert [project_2.id, project_1.id] == projects |> Enum.map(& &1.id)
+      assert [project_2.id, project_1.id, project_3.id] == projects |> Enum.map(& &1.id)
 
       projects = Search.find_projects(query, offset: 0, limit: 1)
       assert [project_2.id] == projects |> Enum.map(& &1.id)
@@ -29,6 +31,9 @@ defmodule Adoptoposs.SearchTest do
       assert [project_1.id] == projects |> Enum.map(& &1.id)
 
       projects = Search.find_projects(query, offset: 2, limit: 1)
+      assert [project_3.id] == projects |> Enum.map(& &1.id)
+
+      projects = Search.find_projects(query, offset: 3, limit: 1)
       assert [] == projects
     end
 

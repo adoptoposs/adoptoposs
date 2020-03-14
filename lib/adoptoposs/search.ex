@@ -19,7 +19,7 @@ defmodule Adoptoposs.Search do
     |> offset(^offset)
     |> limit(^limit)
     |> order_by(desc: :updated_at)
-    |> order_by(:name)
+    |> order_by([:name, :repo_owner])
     |> preload([:user, :language, :interests])
     |> Repo.all()
   end
@@ -42,7 +42,10 @@ defmodule Adoptoposs.Search do
 
   def matches_project(term, query) do
     from [project, tag] in query,
-      where: ilike(project.name, ^"%#{term}%") or ilike(tag.name, ^"%#{term}%")
+      where:
+        ilike(project.name, ^"%#{term}%") or
+          ilike(project.repo_owner, ^"%#{term}%") or
+          ilike(tag.name, ^"%#{term}%")
   end
 
   def matches_tag(term, query) do
