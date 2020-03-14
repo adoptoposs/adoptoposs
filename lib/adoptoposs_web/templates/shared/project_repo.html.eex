@@ -10,7 +10,7 @@
     <%= {:safe, Earmark.as_html!(String.trim(project_description(@project)))} %>
   </div>
 
-  <div class="flex flex-row justify-between items-center mt-4">
+  <div class="flex flex-row justify-between items-center mt-2 md:mt-4">
     <%= render AdoptopossWeb.SharedView, "language_tag.html",
         name: @project.language.name,
         color: @project.language.color,
