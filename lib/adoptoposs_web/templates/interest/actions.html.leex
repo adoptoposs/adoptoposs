@@ -4,7 +4,7 @@
       <%= if @project.user_id == @user_id  do %>
         <span class="text-gray-700 text-md">You are looking for:</span>
       <% else %>
-        <a href="<%= @project.user.profile_url %>" title="@<%= @project.user.username %>" class="font-medium">
+        <a href="<%= @project.user.profile_url %>" title="@<%= @project.user.username %>" class="font-semibold">
           @<%= @project.user.username %>
         </a>
         <span class="text-gray-700 text-md">is looking for:</span>
