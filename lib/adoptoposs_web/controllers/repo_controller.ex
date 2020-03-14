@@ -1,7 +1,6 @@
 defmodule AdoptopossWeb.RepoController do
   use AdoptopossWeb, :controller
 
-  alias Adoptoposs.Accounts.User
   alias AdoptopossWeb.RepoLive
 
   def index(conn, _params) do

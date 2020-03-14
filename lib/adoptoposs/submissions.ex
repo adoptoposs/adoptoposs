@@ -9,7 +9,6 @@ defmodule Adoptoposs.Submissions do
   alias Adoptoposs.Network.Repository
   alias Adoptoposs.Accounts.User
   alias Adoptoposs.Tags.Tag
-  alias Adoptoposs.Communication.Interest
   alias Adoptoposs.Submissions.{Project, Policy}
 
   defdelegate authorize(action, user, params), to: Policy
