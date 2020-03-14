@@ -25,8 +25,8 @@ config :adoptoposs, :github_api, Adoptoposs.Network.Api.Github
 config :adoptoposs, Adoptoposs.Scheduler,
   jobs: [
     project_recommendations: [
-      # every day, 4pm UTC
-      schedule: {"0 16 * * *"},
+      # default: every day, 4pm UTC
+      schedule: System.get_env("CRONTAB_PROJECT_RECOMMENDATIONS") || "0 16 * * *",
       task: {Adoptoposs.Jobs, :send_project_recommendations, []}
     ]
   ]
