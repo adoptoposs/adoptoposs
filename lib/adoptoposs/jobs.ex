@@ -9,7 +9,8 @@ defmodule Adoptoposs.Jobs do
   alias Adoptoposs.Jobs.{Policy, ProjectRecommendations}
   alias Adoptoposs.Accounts.Settings
 
-  @default_email_weekday 6 # Friday
+  # Friday
+  @default_email_weekday 5
 
   defdelegate authorize(action, date, params), to: Policy
 
@@ -31,16 +32,15 @@ defmodule Adoptoposs.Jobs do
       action = :"send_emails_#{setting}"
 
       with :ok <- Bodyguard.permit(policy, action, Timex.today(), email_weekday()),
-         count <- ProjectRecommendations.send_emails(setting) do
-      {:ok, {setting, count}}
-    else
-      {:error, :unauthorized} ->
-        {:error, {setting, 0}}
+           count <- ProjectRecommendations.send_emails(setting) do
+        {:ok, {setting, count}}
+      else
+        {:error, :unauthorized} ->
+          {:error, {setting, 0}}
 
-      {:error, reason} ->
-        {:error, reason}
-    end
-
+        {:error, reason} ->
+          {:error, reason}
+      end
     end
   end
 

@@ -27,9 +27,10 @@ defmodule Adoptoposs.Jobs.ProjectRecommendations do
   end
 
   defp get_user_ids(setting) do
-    Repo.all(from u in User,
-      select: u.id,
-      where: fragment("settings->>'email_project_recommendations' = ?", ^to_string(setting))
+    Repo.all(
+      from u in User,
+        select: u.id,
+        where: fragment("settings->>'email_project_recommendations' = ?", ^to_string(setting))
     )
   end
 
