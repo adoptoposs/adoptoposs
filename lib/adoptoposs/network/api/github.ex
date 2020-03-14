@@ -60,7 +60,7 @@ defmodule Adoptoposs.Network.Api.Github do
     {
       viewer {
         organization(login: \\\"#{organization}\\\") {
-          repositories(#{params} isFork: false privacy: PUBLIC) {
+          repositories(#{params} isFork: false privacy: PUBLIC orderBy: {field: UPDATED_AT, direction: DESC}) {
             pageInfo {
               hasNextPage
               endCursor
@@ -96,7 +96,7 @@ defmodule Adoptoposs.Network.Api.Github do
     ~s"""
     {
       viewer {
-        repositories(#{params} isFork: false privacy: PUBLIC) {
+        repositories(#{params} isFork: false privacy: PUBLIC orderBy: {field: UPDATED_AT, direction: DESC}) {
           pageInfo {
             hasNextPage
             endCursor
