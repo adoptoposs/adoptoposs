@@ -1,6 +1,6 @@
 defmodule Adoptoposs.Network.Api.Github do
   alias Adoptoposs.Network.{Api, Repository, PageInfo, Organization}
-  alias Adoptoposs.Network.Repository.{Commit, User, Language}
+  alias Adoptoposs.Network.Repository.{User, Language}
 
   @behaviour Api
 
@@ -228,41 +228,6 @@ defmodule Adoptoposs.Network.Api.Github do
   end
 
   defp build_owner(_data), do: %User{}
-
-  defp build_last_commit(%{target: %{history: %{edges: edges}}}) do
-    last_commit =
-      case edges do
-        [head | _] -> head.node
-        _ -> nil
-      end
-
-    {authored_at, author} =
-      case last_commit do
-        %{authoredDate: authored_date, author: %{user: author}, committer: %{user: committer}} ->
-          user = committer || author || %{}
-
-          case DateTime.from_iso8601(authored_date) do
-            {:ok, date, _} -> {date, user}
-            {:error, _} -> {nil, user}
-          end
-
-        _ ->
-          {nil, %{}}
-      end
-
-    %Commit{
-      authored_at: authored_at,
-      author: %User{
-        login: author[:login],
-        name: author[:name],
-        avatar_url: author[:avatarUrl],
-        profile_url: author[:url],
-        email: author[:email]
-      }
-    }
-  end
-
-  defp build_last_commit(_data), do: %Commit{}
 
   defp build_language(%{primaryLanguage: language}) when not is_nil(language) do
     struct(Language, language)

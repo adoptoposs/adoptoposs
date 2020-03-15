@@ -72,13 +72,6 @@ defmodule Adoptoposs.Factory do
     }
   end
 
-  def commit_factory do
-    %Network.Repository.Commit{
-      authored_at: DateTime.utc_now(),
-      author: build(:contributor)
-    }
-  end
-
   def organization_factory do
     %Network.Organization{
       id: sequence("id"),
@@ -102,7 +95,6 @@ defmodule Adoptoposs.Factory do
       description: "Description",
       url: sequence(:url, &"https://example.com/repos/repo#{&1}"),
       owner: build(:contributor),
-      last_commit: build(:commit),
       language: build(:language),
       star_count: 0,
       watcher_count: 0,
