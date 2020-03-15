@@ -252,6 +252,10 @@ a, button, input[type="button"] {
   width: max-content;
 }
 
+.text-hyphen {
+  hyphens: auto;
+}
+
 /* Reset some styles for markdown rendering, because the headlines
    and margins would be too large in the inline descriptions */
 .markdown {

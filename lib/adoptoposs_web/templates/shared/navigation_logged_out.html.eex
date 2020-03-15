@@ -8,7 +8,7 @@
 
   <div class="inline-block">
     <%= live_redirect "Login with GitHub",
-      to: "/auth/github",
+      to: Routes.auth_path(@conn, :request, "github"),
       class: "button-link subtle" %>
   </div>
 </div>

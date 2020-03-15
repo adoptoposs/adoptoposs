@@ -19,7 +19,6 @@ defmodule Adoptoposs.Network.Repository do
     field :pull_request_count, :integer, default: 0
 
     embeds_one :owner, Repository.User
-    embeds_one :last_commit, Repository.Commit
     embeds_one :language, Repository.Language
   end
 end

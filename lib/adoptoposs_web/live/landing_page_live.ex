@@ -6,6 +6,7 @@ defmodule AdoptopossWeb.LandingPageLive do
   alias AdoptopossWeb.LandingPageView
 
   @recommendations_limit 5
+  @latest_projects_limit 5
 
   @doc """
   Renders the logged-in user's dashbard template.
@@ -92,7 +93,7 @@ defmodule AdoptopossWeb.LandingPageLive do
   end
 
   defp put_projects(socket) do
-    assign(socket, projects: Submissions.list_projects(limit: 6))
+    assign(socket, projects: Submissions.list_projects(limit: @latest_projects_limit))
   end
 
   defp put_interests(socket, user) do

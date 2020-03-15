@@ -1,7 +1,7 @@
 <div class="pt-12 pb-16 bg-red-500">
   <section>
     <h1 class="text-center text-6xl font-semibold uppercase">
-      <%= "Adoptoposs." %>
+      Adoptop<acronym title="Open Source Software">oss</acronym>.
     </h1>
     <p class="text-white text-center text-2xl md:text-4xl leading-tight">
       Connecting people to keep<br/>
@@ -18,29 +18,33 @@
     </h1>
 
     <div class="mt-4 grid grid-flow-row md:grid-cols-3 gap-6 md:gap-8">
-      <div class="flex flex-col items-center justify-between">
+      <div class="flex flex-col items-center">
         <img src="<%= Routes.static_path(@socket, "/images/adoptoposs-submit.png")%>" class="mb-4 md:mb-6 h-48 md:h-auto">
-        <p class="text-lg md:text-xl text-center">
-          Searching for an additional maintainer? Or someone to take over your project?<br/>
+        <h2 class="text-center mb-2">Submit Your Repo</h2>
+        <p class="text-lg text-hyphen md:text-xl max-w-sm mx-auto">
+          You are looking for an additional maintainer?
+          Or someone to take over your project?
           Submit your repo.
         </p>
         <div></div>
       </div>
 
-      <div class="flex flex-col items-center justify-between">
+      <div class="flex flex-col items-center">
         <img src="<%= Routes.static_path(@socket, "/images/adoptoposs-contact.png")%>" class="mb-4 md:mb-6 h-48 md:h-auto">
-        <p class="text-lg md:text-xl text-center">
-          Want to help with OSS maintainance?<br/>
-          Simply contact the maintainer on Adoptoposs.
+        <h2 class="text-center text-gray-800 mb-2">Contact Maintainers</h2>
+        <p class="text-lg text-hyphen md:text-xl max-w-sm mx-auto">
+          You want to help with <acronym title="Open Source Software">OSS</acronym> maintainance?
+          Contacting maintainers on Adoptoposs is just one click away.
         </p>
         <div></div>
       </div>
 
-      <div class="flex flex-col items-center justify-between">
+      <div class="flex flex-col items-center">
         <img src="<%= Routes.static_path(@socket, "/images/adoptoposs-message.png")%>" class="mb-4 md:mb-6 h-48 md:h-auto">
-        <p class="text-lg md:text-xl text-center">
-          Not sure where to help?<br/>
-          Get projects for your favorite programming languages directly into your inbox.
+        <h2 class="text-center text-red-500 mb-2">Explore Projects</h2>
+        <p class="text-lg text-hyphen md:text-xl max-w-sm mx-auto">
+          Not sure where to help?
+          Get projects for your favourite programming languages directly into your inbox.
         </p>
         <div></div>
       </div>
@@ -48,7 +52,7 @@
   </section>
 </div>
 
-<div class="bg-gray-900 pt-8 pb-16 md:pt-12 md:pb-24">
+<div class="bg-gray-900 pt-8 pb-16 md:pt-12 md:pb-20">
   <section>
     <h1 class="text-red-400 text-center">
       Latest Submitted Projects
@@ -65,6 +69,12 @@
             project: project,
             user_id: nil %>
       <% end %>
+    </div>
+
+    <div class="mt-6 text-center text-lg">
+      <%= live_redirect "Explore More…",
+        to: Routes.live_path(@socket, AdoptopossWeb.SearchLive),
+        class: "text-red-400 hover:underline focus:underline" %>
     </div>
   </section>
 </div>

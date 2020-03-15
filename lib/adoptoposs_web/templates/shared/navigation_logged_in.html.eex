@@ -35,8 +35,8 @@
     to: Routes.live_path(@conn, AdoptopossWeb.SettingsLive),
     class: "nav-link" %>
 
-  <%= link "Logout",
-    to: "/auth/github/logout",
+  <%= link "Log out",
+    to: Routes.auth_path(@conn, :delete, @current_user.provider),
     class: "nav-link" %>
 
   <div class="flex justify-end md:inline-block">
