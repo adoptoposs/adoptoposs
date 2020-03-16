@@ -13,25 +13,28 @@ defmodule AdoptopossWeb.InterestComponent do
     {:ok, assign(socket, to_be_contacted: false)}
   end
 
-  def handle_event("attempt_contact", _, socket) do
-    {:noreply, assign(socket, to_be_contacted: true)}
+  def handle_event("attempt_contact", _, %{assigns: assigns} = socket) do
+    interest = %Interest{creator_id: assigns.user_id, project_id: assigns.project_id}
+    changeset = Communication.change_interest(interest)
+    {:noreply, assign(socket, changeset: changeset, to_be_contacted: true)}
   end
 
   def handle_event("cancel", _, socket) do
-    {:noreply, assign(socket, to_be_contacted: false)}
+    {:noreply, assign(socket, changeset: nil, to_be_contacted: false)}
   end
 
-  def handle_event("submit", %{"message" => message}, %{assigns: assigns} = socket) do
-    user = Accounts.get_user!(assigns.user_id)
-    project = Submissions.get_project!(assigns.project_id)
+  def handle_event("submit", %{"interest" => %{"message" => message}}, socket) do
+    user = Accounts.get_user!(socket.assigns.user_id)
+    project = Submissions.get_project!(socket.assigns.project_id)
     attrs = %{creator_id: user.id, project_id: project.id, message: message}
 
     with :ok <- Bodyguard.permit(Communication, :create_interest, user, project),
          {:ok, interest} <- Communication.create_interest(attrs) do
       send_notification(interest)
-      {:noreply, assign(socket, contacted: true, to_be_contacted: false)}
+      {:noreply, assign(socket, changeset: nil, contacted: true, to_be_contacted: false)}
     else
-      {:error, _} -> {:noreply, socket}
+      {:error, changeset} ->
+        {:noreply, assign(socket, changeset: changeset)}
     end
   end
 

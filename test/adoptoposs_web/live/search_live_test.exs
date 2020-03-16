@@ -68,11 +68,13 @@ defmodule AdoptopossWeb.SearchLiveTest do
 
     html = render_change(view, :search, %{q: project.name})
     assert html =~ project.name
-    assert html =~ "Contact maintainer"
+    assert html =~ ~r/contact maintainer/i
 
-    html = render_submit(interest_component, :submit, %{message: "Hi"})
+    html = render_click(interest_component, :attempt_contact, %{id: project.id})
+    assert html =~ ~r/send/i
 
-    assert html =~ "You contacted the maintainer"
+    html = render_submit(interest_component, :submit, %{interest: %{message: "Hi"}})
+    assert html =~ ~r/you contacted the maintainer/i
 
     assert %Interest{} =
              Adoptoposs.Repo.get_by(Interest, project_id: project.id, creator_id: user.id)
@@ -94,7 +96,7 @@ defmodule AdoptopossWeb.SearchLiveTest do
     assert html =~ project.name
     refute html =~ "Contact maintainer"
 
-    render_submit(interest_component, :submit, %{message: "Hi"})
+    render_submit(interest_component, :submit, %{interest: %{message: "Hi"}})
     assert Adoptoposs.Repo.aggregate(Adoptoposs.Communication.Interest, :count) == 0
     assert_no_emails_delivered()
   end
