@@ -23,7 +23,9 @@
         <% else %>
           <%= render AdoptopossWeb.SharedView, "form.html",
             id: @repo.id,
+            changeset: @changeset,
             headline: "I’m looking for…",
+            message_field: :description,
             message: "",
             submit_text: "Submit",
             submit_event: "submit_project",

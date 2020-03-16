@@ -75,5 +75,10 @@ defmodule Adoptoposs.CommunicationTest do
       assert {:ok, %Interest{}} = Communication.delete_interest(interest)
       assert_raise Ecto.NoResultsError, fn -> Communication.get_interest!(interest.id) end
     end
+
+    test "change_interest/1 returns an interest changeset" do
+      interest = insert(:interest)
+      assert %Ecto.Changeset{} = Communication.change_interest(interest)
+    end
   end
 end

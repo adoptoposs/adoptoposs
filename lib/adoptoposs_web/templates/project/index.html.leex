@@ -42,10 +42,12 @@
           </div>
 
           <div class="flex flex-col justify-between flex-1 px-4 pt-4 pb-2 md:px-6 md:pt-6 md:pb-4 bg-gray-200 rounded-br rounded-bl md:rounded-bl-none md:rounded-tr">
-            <%= if @edit_id == to_string(project.id) do %>
+            <%= if to_string(@edit_id) == to_string(project.id) do %>
               <%= render AdoptopossWeb.SharedView, "form.html",
                 id: project.id,
+                changeset: @changeset,
                 headline: "I’m looking for…",
+                message_field: :description,
                 message: project.description,
                 submit_text: "Save",
                 submit_event: "update",

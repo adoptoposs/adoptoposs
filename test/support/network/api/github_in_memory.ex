@@ -11,21 +11,23 @@ defmodule Adoptoposs.Network.Api.GithubInMemory do
   end
 
   @impl Api
-  def repos(_token, _organization, limit, _after_cursor) do
-    {build(:page_info), build_repos(limit)}
+  def repos(_token, organization, limit, _after_cursor) do
+    {build(:page_info), build_repos(organization, limit)}
   end
 
   @impl Api
   def user_repos(_token, limit, _after_cursor) do
-    {build(:page_info), build_repos(limit)}
+    {build(:page_info), build_repos("user", limit)}
   end
 
-  defp build_repos(count) do
+  defp build_repos(organization, count) do
     languages = ["Elixir", "JavaScript", "Ruby", "Rust", "Go", "Python"]
 
-    Enum.map(1..count, fn _ ->
-      language = build(:language, name: Enum.random(languages))
-      build(:repository, language: language)
+    Enum.map(1..count, fn id ->
+      name = Enum.at(languages, rem(10, Enum.count(languages)))
+      language = build(:language, name: name)
+
+      build(:repository, id: to_string(id), name: "#{organization}-repo-#{id}", language: language)
     end)
   end
 end

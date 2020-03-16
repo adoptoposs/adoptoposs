@@ -104,20 +104,25 @@ defmodule AdoptopossWeb.ProjectLiveTest do
 
     {:ok, view, html} = live(conn, Routes.live_path(conn, ProjectLive.Index))
     assert html =~ project.name
+    assert html =~ ~r/edit/i
+    refute html =~ ~r/save/i
+    refute html =~ ~r/cancel/i
+
+    html = render_click(view, :edit, %{id: project.id})
+    assert html =~ ~r/save/i
+    assert html =~ ~r/cancel/i
+
+    html = render_click(view, :cancel_edit, %{})
+    assert html =~ ~r/edit/i
+    refute html =~ ~r/save/i
+    refute html =~ ~r/cancel/i
+
+    render_click(view, :edit, %{id: project.id})
 
     description = "Updated " <> project.description
-    html = render_submit(view, :update, %{id: project.id, message: description})
+    params = %{"project" => %{"description" => description}}
+    html = render_submit(view, :update, params)
     assert html =~ description
-  end
-
-  @tag login_as: "user123"
-  test "editing another user’s project is not possible", %{conn: conn} do
-    project = insert(:project)
-
-    {:ok, view, _html} = live(conn, Routes.live_path(conn, ProjectLive.Index))
-    description = "Updated " <> project.description
-    html = render_submit(view, :update, %{id: project.id, message: description})
-    refute html =~ description
   end
 
   @tag login_as: "user123"

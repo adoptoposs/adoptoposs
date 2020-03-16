@@ -31,6 +31,7 @@
         <%= if @to_be_contacted do %>
           <%= render AdoptopossWeb.SharedView, "form.html",
               id: "interest-form-#{@id}",
+              changeset: @changeset,
               headline: "Say Hi, to show you want to help:",
               message: "",
               submit_text: "Send",

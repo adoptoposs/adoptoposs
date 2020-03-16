@@ -123,4 +123,17 @@ defmodule Adoptoposs.Communication do
   def delete_interest(%Interest{} = interest) do
     Repo.delete(interest)
   end
+
+  @doc """
+  Returns an `%Ecto.Changeset{}` for tracking interest changes.
+
+  ## Examples
+
+      iex> change_interest(interest)
+      %Ecto.Changeset{source: %Interest{}}
+
+  """
+  def change_interest(%Interest{} = interest) do
+    Interest.changeset(interest, %{})
+  end
 end

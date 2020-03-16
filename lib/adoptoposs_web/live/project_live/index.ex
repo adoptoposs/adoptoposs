@@ -13,27 +13,36 @@ defmodule AdoptopossWeb.ProjectLive.Index do
      socket
      |> assign_user(session)
      |> assign_projects(session)
-     |> assign(edit_id: nil, remove_id: nil)}
+     |> assign(changeset: nil, edit_id: nil, remove_id: nil)}
   end
 
   def handle_event("edit", %{"id" => id}, socket) do
-    {:noreply, assign(socket, edit_id: id, remove_id: nil)}
+    project = Submissions.get_project!(id)
+    changeset = Submissions.change_project(project)
+
+    {:noreply,
+     assign(socket,
+       changeset: changeset,
+       edit_id: project.id,
+       remove_id: nil
+     )}
   end
 
   def handle_event("cancel_edit", _params, socket) do
-    {:noreply, assign(socket, edit_id: nil)}
+    {:noreply, assign(socket, changeset: nil, edit_id: nil)}
   end
 
-  def handle_event("update", %{"id" => id, "message" => description}, socket) do
+  def handle_event("update", %{"project" => %{"description" => description}}, socket) do
     user = Accounts.get_user!(socket.assigns.user_id)
-    project = Submissions.get_project!(id)
+    project = Submissions.get_project!(socket.assigns.edit_id)
 
     with :ok <- Bodyguard.permit(Submissions, :update_project, user, project),
          {:ok, _project} <- Submissions.update_project(project, %{description: description}) do
       projects = Submissions.list_projects(user)
       {:noreply, assign(socket, projects: projects, edit_id: nil)}
     else
-      {:error, _} -> {:noreply, socket}
+      {:error, changeset} ->
+        {:noreply, assign(socket, changeset: changeset)}
     end
   end
 
