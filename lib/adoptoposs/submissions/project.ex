@@ -19,7 +19,7 @@ defmodule Adoptoposs.Submissions.Project do
   end
 
   @cast_attrs [:name, :data, :user_id, :language_id, :repo_id, :repo_owner, :description]
-  @required_attrs [:name, :data, :user_id, :language_id, :repo_owner, :repo_id]
+  @required_attrs [:name, :data, :user_id, :language_id, :repo_owner, :repo_id, :description]
 
   @doc false
   def create_changeset(project, %Network.Repository{} = repository, attrs \\ %{}) do

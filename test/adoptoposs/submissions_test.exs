@@ -126,7 +126,7 @@ defmodule Adoptoposs.SubmissionsTest do
       tag = insert(:tag)
       repository = build(:repository)
       insert(:project, user: user, language: tag, repo_id: repository.id)
-      attrs = %{user_id: user.id, language_id: tag.id}
+      attrs = %{user_id: user.id, language_id: tag.id, description: "text"}
 
       assert {:error, changeset} = Submissions.create_project(repository, attrs)
       assert assert [{:project, {"has already been taken", _}}] = changeset.errors
