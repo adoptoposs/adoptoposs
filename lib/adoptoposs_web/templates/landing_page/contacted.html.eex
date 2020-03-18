@@ -43,11 +43,7 @@
               </div>
             </div>
 
-            <div class="markdown w-full mt-2 md:mt-4">
-              <div class="italic text-pink-900">
-                <%= {:safe, Earmark.as_html!(String.trim(interest.message))} %>
-              </div>
-            </div>
+            <div class="w-full mt-2 md:mt-4 whitespace-pre-wrap italic text-pink-900"><%= String.trim(interest.message) %></div>
           </div>
         </div>
       </div>

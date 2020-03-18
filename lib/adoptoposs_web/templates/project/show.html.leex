@@ -35,9 +35,7 @@
             </div>
 
             <div class="flex flex-col md:pl-16 pl-0 pt-6 w-full">
-              <div>
-                <%= {:safe, Earmark.as_html!(String.trim(interest.message))} %>
-              </div>
+              <div class="whitespace-pre-wrap"><%= String.trim(interest.message) %></div>
 
               <div class="flex flex-row justify-between items-center">
                 <div class="text-gray-600 text-sm">

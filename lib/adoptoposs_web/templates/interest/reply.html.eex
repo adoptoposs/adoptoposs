@@ -3,7 +3,5 @@
 </p>
 
 <blockquote cite="<%= @project_url %>">
-  <em>
-    <%= {:safe, Earmark.as_html!(String.trim(@interest.message))} %>
-  </em>
+  <em style="white-space: pre-wrap;"><%= String.trim(@interest.message) %></em>
 </blockquote>
