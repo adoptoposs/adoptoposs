@@ -11,9 +11,7 @@
       <% end %>
     </div>
 
-    <div class="markdown text-gray-700 my-2">
-      <%= {:safe, Earmark.as_html!(@project.description)} %>
-    </div>
+    <div class="whitespace-pre-wrap text-gray-700 my-2"><%= @project.description %></div>
   </div>
 
   <div class="flex flex-wrap flex-row justify-end">

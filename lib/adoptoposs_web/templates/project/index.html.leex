@@ -58,9 +58,7 @@
                 <b>I’m looking for…</b>
               </div>
 
-              <div class="markdown text-gray-700 my-2 md:mb-4">
-                <%= {:safe, Earmark.as_html!(project.description)} %>
-              </div>
+              <div class="whitespace-pre-wrap text-gray-700 my-2 md:mb-4"><%= project.description %></div>
 
               <div class="flex justify-between items-end">
                 <div class="mt-2 mb-4">
