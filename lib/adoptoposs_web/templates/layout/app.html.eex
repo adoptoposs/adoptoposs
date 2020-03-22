@@ -27,18 +27,7 @@
     </main>
 
     <footer class="bg-gray-900 text-red-400 py-6 md:py-10">
-      <section>
-        <div class="flex flex-row flex-wrap justify-between">
-        <ul>
-          <li><a href="#" title="Privacy Policy">Privacy Policy</a></li>
-          <li><a href="#" title="About">What is Adoptoposs?</a></li>
-          <li><a href="#" title="Open an Issue">Found any bug?</a></li>
-        </ul>
-        <div>
-          <a href="https://github.com/paulgoetze/adoptoposs">Fork us on GitHub</a>
-        </div>
-      </div>
-      </section>
+      <%= render AdoptopossWeb.SharedView, "footer.html", assigns %>
     </footer>
     <%= csrf_meta_tag() %>
     <script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/app.js") %>"></script>
