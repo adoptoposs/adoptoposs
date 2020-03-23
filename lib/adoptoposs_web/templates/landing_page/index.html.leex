@@ -14,7 +14,7 @@
 <div class="py-12 md:py-32">
   <section>
     <h1 class="text-center text-gray-800">
-      How it works
+      How It Works
     </h1>
 
     <div class="mt-4 grid grid-flow-row md:grid-cols-3 gap-6 md:gap-8">
@@ -22,7 +22,7 @@
         <img src="<%= Routes.static_path(@socket, "/images/adoptoposs-submit.png")%>" class="mb-4 md:mb-6 h-48 md:h-auto">
         <h2 class="text-center mb-2">Submit Your Repo</h2>
         <p class="text-lg text-hyphen md:text-xl max-w-sm mx-auto">
-          You are looking for an additional maintainer?
+          You are looking for a co-maintainer?
           Or someone to take over your project?
           Submit your repo.
         </p>
@@ -80,9 +80,63 @@
 </div>
 
 <div class="py-8 md:py-12">
-  <section>
+  <section class="text-lg md:text-xl">
     <h1 class="text-center text-pink-900">
-      Why does it matter?
+      Why It Matters
     </h1>
+
+    <p>
+      Open source software runs the world. Not only is most of the internet based on open source software, but thousands of programs, non-profit organizations, and companies depend on openly developed software libraries.
+    </p>
+
+    <p>
+      Currently, lots of open source libraries have only a single person who is responsible for its maintenance. However, reasons for not being able to put time into security fixes and the further development of a project are manifold.
+      They reach from leaving the company or losing interest, to changes in your personal life, up to sad circumstances like illness, burnout or death.
+    </p>
+    <p>
+      If maintainers are not able to look after their projects anymore and they did not give anyone else access to their repository and the package registry, trouble is sure to follow. It will get harder and harder to keep the project well-maintained, even if the community is involved in taking it over.
+    </p>
+  </section>
+</div>
+
+<div class="py-8 md:py-12 bg-red-500">
+  <section class="text-lg md:text-xl text-white">
+    <div class="flex flex-col items-center text-center">
+      <p class="italic md:w-3/5">
+        Adoptoposs claims that open source software can be better maintained and maintainers will be healthier when following this rather simple rule:
+      </p>
+
+      <p class="italic text-3xl md:w-3/5 md:pt-8 font-semibold">
+        “Each and every open source software project of considerable
+        popularity should have a team of co-maintainers.”
+      </p>
+    </div>
+  </section>
+</div>
+
+<div class="py-8 md:py-12 pb-0">
+  <section class="text-lg md:text-xl">
+    <p>
+      When a project gains popularity, original creators and maintainers will need help. Adoptoposs offers them a platform to find co-maintainers or put their projects up for adoption. It allows to make the initial contact between maintainers and future co-maintainers.
+    </p>
+
+    <p class="md:self-center mt-4">
+      Ready for helping with open source maintenance?
+    </p>
+
+    <div class="flex flex-row items-center my-6 md:my-8">
+      <hr class="flex-grow border-red-300">
+      <div class="self-center">
+        <%= live_redirect "Login with GitHub",
+          to: Routes.auth_path(@socket, :request, "github"),
+          class: "button-link mx-3" %>
+      </div>
+      <hr class="flex-grow border-red-300">
+    </div>
+
+    <p class="italic text-base md:text-lg mt-4 md:mt-8 md:w-2/3 self-center text-center">
+      If you want to learn more about why having co-maintainers with full access on your OSS project brings a lot of stability and benefits, read about it in
+      <%= link "this post", to: "https://medium.com/p/74c1cd5df5d5" %>.
+    </p>
   </section>
 </div>
