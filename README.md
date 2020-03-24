@@ -39,3 +39,9 @@ For further detail on available make tasks please have a look into the task list
 ```
 $ make usage
 ```
+
+# Copyright and License
+
+Copyright (c) 2020, Paul Götze
+
+Adoptoposs is licensed under the [MIT License](https://github.com/paulgoetze/adoptoposs/blob/master/LICENSE.md).
