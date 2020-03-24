@@ -15,7 +15,7 @@ defmodule AdoptopossWeb.Router do
     plug :accepts, ["html"]
     plug :fetch_session
     plug :fetch_flash
-    plug :put_live_layout, {AdoptopossWeb.LayoutView, "app.html"}
+    plug :put_root_layout, {AdoptopossWeb.LayoutView, "app.html"}
     plug :fetch_live_flash
     plug :protect_from_forgery
     plug :put_secure_browser_headers

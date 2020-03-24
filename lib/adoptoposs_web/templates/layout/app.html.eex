@@ -23,7 +23,7 @@
         <% end %>
       </section>
 
-      <%= render @view_module, @view_template, assigns %>
+      <%= @inner_content %>
     </main>
 
     <footer class="bg-gray-900 text-red-400 py-6 md:py-10">
