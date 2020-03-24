@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Adoptoposs · Keep open source software maintained</title>
     <link rel="stylesheet" href="<%= Routes.static_path(@conn, "/css/app.css") %>"/>
+    <%= render AdoptopossWeb.SharedView, "google_analytics.html" %>
   </head>
 
   <body>
