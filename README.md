@@ -4,38 +4,32 @@
 
 Finding co-maintainers for your open source software project. 
 
-## Development setup
+<img src="https://github.com/paulgoetze/adoptoposs/blob/master/assets/static/images/adoptoposs-logo.png" width="204">
 
-The app comes with a docker image for development. 
-In order to setup the development environment you need to have some dependencies installed on your machine:
+Adoptoposs offers a platform to put your open source
+projects up for adoption and make initial contact with
+potential co-maintainers.
 
-- [docker engine](https://docs.docker.com/install/)
-- [docker-compose](https://docs.docker.com/compose/install/)
-- [git](https://git-scm.com/downloads)
+**Having a team of multiple maintainers is good for you and your project, because:**
 
-Checkout the Adoptoposs repository with
+* The workload can be split up between all maintainers
+* It's easier to take decisions as a team
+* There will be no single point of failure
+* It is possible to step down as a maintainer
 
-```
-$ git clone git@github.com:paulgoetze/adoptoposs.git
-```
+If you like to learn more about the reasons behind
+building Adoptoposs you can read the
+[announcement post](https://medium.com/p/74c1cd5df5d5) on Medium.
 
-Then step into the project and run the setup make task. This will build the docker container, create a development config, install all dependencies and setup development & test databases:
+# Contributing
 
-```
-$ cd adoptoposs && make setup
-```
+We encourage you to contribute to Adoptoposs. 
+Please check our [CONTRIBUTING.md](https://github.com/paulgoetze/adoptoposs/blob/master/CONTRIBUTING.md) guides for more information. 
 
-Next, start the development server with:
+This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to our [CODE_OF_CONDUCT.md](https://github.com/paulgoetze/adoptoposs/blob/master/CODE_OF_CONDUCT.md).
 
-```
-$ make up
-```
+# Copyright and License
 
-Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
+Copyright (c) 2020, Paul Götze
 
-
-For further detail on available make tasks please have a look into the task list:
-
-```
-$ make usage
-```
+Adoptoposs is licensed under the [MIT License](https://github.com/paulgoetze/adoptoposs/blob/master/LICENSE.md).
