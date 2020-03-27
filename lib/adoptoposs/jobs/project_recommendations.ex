@@ -49,7 +49,7 @@ defmodule Adoptoposs.Jobs.ProjectRecommendations do
   defp list_recommended_projects(user) do
     Enum.reduce(user.tag_subscriptions, [], fn tag_subscription, projects ->
       tag = tag_subscription.tag
-      options = [preload: :language, limit: @project_per_tag]
+      options = [preload: [:language, :user], limit: @project_per_tag]
 
       projects ++ Submissions.list_recommended_projects(user, tag, options)
     end)
