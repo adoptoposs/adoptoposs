@@ -1,35 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8"/>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Adoptoposs · Keep open source software maintained</title>
-    <link rel="stylesheet" href="<%= Routes.static_path(@conn, "/css/app.css") %>"/>
-    <%= render AdoptopossWeb.SharedView, "google_analytics.html" %>
-  </head>
+<section>
+  <%= if get_flash(@conn, :error) do %>
+    <p class="bg-red-400 text-white text-center font-medium p-4" role="alert"><%= get_flash(@conn, :error) %></p>
+  <% end %>
 
-  <body>
-    <a name="top"></a>
+</section>
 
-    <header>
-      <%= render AdoptopossWeb.SharedView, "navigation.html", assigns %>
-    </header>
-
-    <main role="main" class="pb-8">
-      <section>
-        <%= if get_flash(@conn, :error) do %>
-          <p class="bg-red-400 text-white text-center font-medium p-4" role="alert"><%= get_flash(@conn, :error) %></p>
-        <% end %>
-      </section>
-
-      <%= @inner_content %>
-    </main>
-
-    <footer class="bg-gray-900 text-red-400 py-6 md:py-10">
-      <%= render AdoptopossWeb.SharedView, "footer.html", assigns %>
-    </footer>
-    <%= csrf_meta_tag() %>
-    <script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/app.js") %>"></script>
-  </body>
-</html>
+<%= render @view_module, @view_template, assigns %>
