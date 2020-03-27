@@ -8,16 +8,18 @@
 
 <%= for {language_name, projects} <- Enum.group_by(@projects, & &1.language.name) do %>
   <div>
-    <h1><%= language_name %></h1>
+    <b><%= language_name %></b>
 
     <ul>
       <%= for project <- projects do %>
         <li>
-          <h2>
+          <p>
+            <b>
             <%= link "#{project.data["owner"]["login"]}/#{project.name}",
               to: Routes.live_url(AdoptopossWeb.Endpoint, AdoptopossWeb.SearchLive, q: language_name <> " " <> String.downcase(project.name)) %>
-          </h2>
-          <p>
+            </b>
+            </br>
+            <%= link "@#{project.user.username}", to: project.user.profile_url %> is looking for:</br>
             <%= project.data["description"] %></br>
           </p>
           <p>

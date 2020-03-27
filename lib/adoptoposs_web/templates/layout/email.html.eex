@@ -8,11 +8,12 @@
       Always keep maintaining! <br/>
       - Your Adoptoposs
     </p>
+    <img src="<%= Routes.static_path(AdoptopossWeb.Endpoint, "/images/adoptoposs-logo.png")%>" alt="Adoptoposs"/>
   </body>
   <footer>
     <div>
       <small>
-        Visit <%= link AdoptopossWeb.Endpoint.host(), to: Routes.live_url(AdoptopossWeb.Endpoint, AdoptopossWeb.LandingPageLive) %> to find co-maintainers for your open source software project!
+        Visit <%= link AdoptopossWeb.Endpoint.host(), to: Routes.live_url(AdoptopossWeb.Endpoint, AdoptopossWeb.LandingPageLive) %> to find co-maintainers for your open source software project.
       </small>
     <div>
     <div>
