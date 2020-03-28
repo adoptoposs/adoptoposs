@@ -1,3 +1,133 @@
-<section>
-  <h1>Privacy Policy</h1>
+<section class="text-lg md:text-xl">
+  <h1>Adoptoposs Privacy Policy</h1>
+
+  <p class="italic text-gray-600 text-base">
+    Last updated: March 28, 2020
+  </p>
+
+  <p>
+    The privacy of your data — and it is your data, not ours! — is a big deal to us. We’ll only ever access your account to help you with a problem or squash a software bug.
+  </p>
+
+  <h2 class="mb-2">Identity & Access</h2>
+
+  <p>
+    When you log in to Adoptoposs via your GitHub account, we store your name, username, and email adress. That's just so you can use the features of the app, and we can send you notifications, or other essential information. We’ll never sell your personal info to third parties, and we won’t use your name or GitHub account data in marketing statements without your permission, either.
+  </p>
+
+  <p>
+    When you write Adoptoposs with a question or to ask for help, we'll keep that correspondence, and the email address, for future reference.
+  </p>
+
+  <p>
+    The only times we’ll ever share your info is to investigate, prevent, or take action regarding illegal activities, suspected fraud, situations involving potential threats to the physical safety of any person, violations of our <%= link "Code of Conduct", to: "https://github.com/paulgoetze/adoptoposs/blob/master/CODE_OF_CONDUCT.md" %>, or as otherwise required by law.
+  </p>
+
+  <h2 class="mb-2">Your Rights With Respect to Your Information</h2>
+
+  <p>
+    You may have heard about the General Data Protection Regulation (“GDPR”) in Europe. GDPR gives people under its protection certain rights with respect to their personal information collected by us on the Site. Accordingly, Adoptoposs recognizes and will comply with GDPR and those rights, except as limited by applicable law. The rights under GDPR include:
+  </p>
+
+  <ul class="list-disc list-inner pb-4 pl-6">
+    <li>
+      <b>Right of Access.</b> This includes your right to access the personal information we gather about you, and your right to obtain information about the sharing, storage, security and processing of that information.
+    </li>
+    <li>
+      <b>Right to Correction.</b> This is your right to request correction of your personal information.
+    </li>
+    <li>
+      <b>Right to Erasure.</b> This is your right to request, subject to certain limitations under applicable law, that your personal information be erased from our possession (also known as the “Right to be forgotten”).  However, if applicable law requires us to comply with your request to delete your information, fulfillment of your request may prevent you from using Adoptoposs services and may result in closing your account.
+    </li>
+    <li>
+      <b>Right to Complain.</b> You have the right to make a complaint regarding our handling of your personal information with the appropriate supervisory authority.
+    </li>
+    <li>
+      <b>Right to Restrict Processing.</b> This is your right to request restriction of how and why your personal information is used or processed.
+    </li>
+    <li>
+      <b>Right to Object.</b> This is your right, in certain situations, to object to how or why your personal information is processed.
+    </li>
+    <li>
+      <b>Right to Portability.</b> This is your right to receive the personal information we have about you and the right to transmit it to another party.
+    </li>
+    <li>
+      <b>Right to not be subject to Automated Decision-Making.</b> This is your right to object and prevent any decision that could have a legal, or similarly significant, effect on you from being made solely based on automated processes. This right is limited, however, if the decision is necessary for performance of any contract between you and us, is allowed by applicable European law, or is based on your explicit consent.
+    </li>
+  </ul>
+
+  <p>
+    Many of these rights can be exercised by logging in and directly updating your account information. If you have questions about exercising these rights or need assistance, please contact us by <%= link "opening a GitHub issue", to: "https://github.com/paulgoetze/adoptoposs/issues/new" %>.
+  </p>
+
+  <p>
+    If you have a private question or comment, open an issue noting you want to be contacted, and support can be provided by email.
+  </p>
+
+  <h2 class="mb-2">Processors We Use</h2>
+
+  <p>
+    As part of the services we provide, and only to the extent necessary, we may use certain third party processors to process some or all of your personal information.
+  </p>
+
+  <p>
+    <i>Subprocessors located in the United States:</i>
+
+    <ul class="list-disc list-inner ml-6">
+      <li>
+        <%= link "Heroku", to: "https://devcenter.heroku.com/articles/gdpr" %>. Cloud service provider.
+      </li>
+      <li>
+        <%= link "Twilio (Sendgrid)", to: "https://www.twilio.com/gdpr" %>. Text messaging service.
+      </li>
+      <li>
+        <%= link "Google Analytics", to: "https://support.google.com/analytics/answer/6004245?hl=en" %>. Web analytics service.
+      </li>
+    </ul>
+  </p>
+
+  <h2 class="mb-2">Law Enforcement</h2>
+
+  <p>
+    Adoptoposs won’t hand your data over to law enforcement unless a court order says we have to. We flat-out reject requests from local and federal law enforcement when they seek data without a court order. And unless we're legally prevented from it, we’ll always inform you when such requests are made.
+  </p>
+
+  <h2 class="mb-2">Security & Encryption</h2>
+
+  <p>
+    All data is encrypted via <%= link "SSL/TLS", to: "https://en.wikipedia.org/wiki/Transport_Layer_Security" %> when transmitted from our servers to your browser. Data isn’t encrypted while it's live in our database (since it needs to be ready to send to you when you need it).
+  </p>
+
+  <h2 class="mb-2">Cookies</h2>
+
+  <p>
+    In order to improve our services and the website, and provide more convenient, relevant experiences to you, we and our vendors may use “cookies”, “web beacons”, and similar devices to track your activities.
+  </p>
+
+  <h2 class="mb-2">Deleted data</h2>
+
+  <p>
+    When you cancel your account, we'll ensure that all data you entered is removed from our database.
+  </p>
+
+
+  <h2 class="mb-2">Location of Site and Data</h2>
+
+  <p>
+    This Site is operated in the European Union. Since we use subprocessors, that might not be located in the European Union, please be aware that any information you provide to us will be transferred to the respective subproviders’ location. By using our Site, participating in any of our services and/or providing us with your information, you consent to this transfer.
+  </p>
+
+  <h2 class="mb-2">Changes & Questions</h2>
+
+  <p>
+    Adoptoposs may update this policy once in a blue moon — we’ll notify you about significant changes by emailing you or by placing a prominent notice on our site. You can access, change or delete your personal information at any time by contacting the maintainers.
+  </p>
+
+  <p>
+    Questions about this privacy policy? Please <%= link "open an issue", to: "https://github.com/paulgoetze/adoptoposs/issues/new" %> and we’ll be happy to answer them!
+  </p>
+
+  <p class="italic text-gray-600 text-base">
+    Adapted from the <%= link "Basecamp open-source policies", to: "https://github.com/basecamp/policies" %> / <%= link "CC BY 4.0", to: "https://creativecommons.org/licenses/by/4.0/" %>
+  </p>
 </section>
