@@ -1,0 +1,9 @@
+<details class="bg-white rounded border">
+  <summary class="font-semibold p-4 text-lg md:text-xl bg-white rounded">
+    <%= @question %>
+  </summary>
+
+  <div class="my-4 px-4 md:pl-12 md:text-lg">
+    <%= content_tag(:p, @answer) %>
+  </div>
+</details>

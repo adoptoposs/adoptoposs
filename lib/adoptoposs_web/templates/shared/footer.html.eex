@@ -1,0 +1,22 @@
+<section>
+  <div class="flex flex-row flex-wrap justify-between">
+    <ul>
+      <li><a href="/faq" title="Frequently Asked Questions">FAQ</a></li>
+      <li><a href="https://github.com/paulgoetze/adoptoposs/issues/new" title="Open an Issue">Found any bug?</a></li>
+      <li><a href="/privacy" title="Privacy Policy">Privacy Policy</a></li>
+      <li><a href="https://twitter.com/paulgoetze" title="Contact">Contact</a></li>
+    </ul>
+
+    <div>
+      <a href="https://github.com/paulgoetze/adoptoposs">Fork us on GitHub</a>
+    </div>
+  </div>
+
+  <div class="inline-flex items-center justify-center mt-4">
+    <p class="text-red-400 mb-0">
+      Made with ♡ |
+      <%= link "Phoenix LiveView", to: "https://github.com/phoenixframework/phoenix_live_view" %> |
+      <%= link "Tailwind CSS", to: "https://tailwindcss.com" %>
+    </p>
+  </div>
+</section>
