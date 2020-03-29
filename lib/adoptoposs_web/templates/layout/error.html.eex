@@ -4,16 +4,23 @@
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Adoptoposs · Keep open source projects maintained</title>
+    <%= render AdoptopossWeb.SharedView, "meta_tags.html", assigns %>
+
     <link rel="stylesheet" href="<%= Routes.static_path(@conn, "/css/app.css") %>"/>
+    <%= render AdoptopossWeb.SharedView, "google_analytics.html" %>
+
+    <%= csrf_meta_tag() %>
+    <script defer type="text/javascript" src="<%= Routes.static_path(@conn, "/js/app.js") %>"></script>
   </head>
 
   <body>
+    <a name="top"></a>
+
     <header>
       <nav role="navigation">
         <div class="flex items-center flex-shrink-0 mr-6">
           <a href="/" class="font-semibold text-xl tracking-tight">
-            <img src="<%= Routes.static_path(@conn, "/images/adoptoposs.png") %>" alt="Adoptoposs Logo"/>
+            <img src="<%= Routes.static_path(@conn, "/images/adoptoposs-logo.png")%>" alt="Adoptoposs" class="h-10"/>
           </a>
         </div>
 
@@ -33,21 +40,8 @@
       <%= render @view_module, @view_template, assigns %>
     </main>
 
-    <footer class="bg-gray-900 text-red-400">
-      <section>
-        <div class="flex flex-row flex-wrap justify-between">
-        <ul>
-          <li><a href="#" title="Privacy Policy">Privacy Policy</a></li>
-          <li><a href="#" title="Impressum">What is Adoptoposs?</a></li>
-          <li><a href="#" title="Impressum">Found any bug?</a></li>
-        </ul>
-        <div>
-          <a href="https://github.com/paulgoetze/adoptoposs">Fork us on Github</a>
-        </div>
-      </div>
-      </section>
+    <footer class="bg-gray-900 text-red-400 py-6 md:py-10">
+      <%= render AdoptopossWeb.SharedView, "footer.html", assigns %>
     </footer>
-    <%= csrf_meta_tag() %>
-    <script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/app.js") %>"></script>
   </body>
 </html>
