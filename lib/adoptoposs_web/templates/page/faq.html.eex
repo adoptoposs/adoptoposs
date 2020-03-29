@@ -122,9 +122,9 @@
   <h2>Settings & Privacy</h2>
 
   <div class="grid grid-flow-row gap-4 mt-4">
-    <%= faq "Can other users see my email adress?" do %>
+    <%= faq "Can other users see my email address?" do %>
       <p>
-        Other users can only see your email in certain cases.
+        Other users can only see your email address in certain cases.
       </p>
 
       <p>
