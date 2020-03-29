@@ -1,0 +1,22 @@
+<% title = "Adoptoposs · Keep open source software maintained" %>
+<% description = "Adoptoposs helps maintainers of open source software to finding co-maintainers or people to take over their project." %>
+<% url = Plug.Conn.request_url(@conn) %>
+<% image = Routes.static_url(@conn, "/images/adoptoposs-social.jpg") %>
+
+<title><%= title %></title>
+<meta content="<%= title %>" name="title">
+<meta content="<%= description%>" name="description">
+
+<%# Open Graph tags %>
+<meta content="website" property="og:type">
+<meta content="<%= url %>" property="og:url">
+<meta content="<%= title %>" property="og:title">
+<meta content="<%= description %>" property="og:description">
+<meta content="<%= image %>" property="og:image">
+
+<%# Twitter tags %>
+<meta content="summary_large_image" name="twitter:card">
+<meta content="<%= url %>" name="twitter:url">
+<meta content="<%= title %>" name="twitter:title">
+<meta content="<%= description %>" name="twitter:description">
+<meta content="<%= image %>" name="twitter:image">
