@@ -69,7 +69,7 @@
     <%= faq "Can I submit repos from other services than GitHub?" do %>
       Currently we only support submitting GitHub repositories.</br>
       If you want to submit repos from another service, please
-      <%= link "open an issue", to: "https://github.com/paulgoetze/adoptoposs/issues/new" %>
+      <%= link "open an issue", to: "https://github.com/adoptoposs/adoptoposs/issues/new" %>
       and let us know.
     <% end %>
 

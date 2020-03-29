@@ -20,7 +20,7 @@
   </p>
 
   <p>
-    The only times we’ll ever share your info is to investigate, prevent, or take action regarding illegal activities, suspected fraud, situations involving potential threats to the physical safety of any person, violations of our <%= link "Code of Conduct", to: "https://github.com/paulgoetze/adoptoposs/blob/master/CODE_OF_CONDUCT.md" %>, or as otherwise required by law.
+    The only times we’ll ever share your info is to investigate, prevent, or take action regarding illegal activities, suspected fraud, situations involving potential threats to the physical safety of any person, violations of our <%= link "Code of Conduct", to: "https://github.com/adoptoposs/adoptoposs/blob/master/CODE_OF_CONDUCT.md" %>, or as otherwise required by law.
   </p>
 
   <h2 class="mb-2">Your Rights With Respect to Your Information</h2>
@@ -57,7 +57,7 @@
   </ul>
 
   <p>
-    Many of these rights can be exercised by logging in and directly updating your account information. If you have questions about exercising these rights or need assistance, please contact us by <%= link "opening a GitHub issue", to: "https://github.com/paulgoetze/adoptoposs/issues/new" %>.
+    Many of these rights can be exercised by logging in and directly updating your account information. If you have questions about exercising these rights or need assistance, please contact us by <%= link "opening a GitHub issue", to: "https://github.com/adoptoposs/adoptoposs/issues/new" %>.
   </p>
 
   <p>
@@ -127,7 +127,7 @@
   </p>
 
   <p>
-    Questions about this privacy policy? Please <%= link "open an issue", to: "https://github.com/paulgoetze/adoptoposs/issues/new" %> and we’ll be happy to answer them!
+    Questions about this privacy policy? Please <%= link "open an issue", to: "https://github.com/adoptoposs/adoptoposs/issues/new" %> and we’ll be happy to answer them!
   </p>
 
   <p class="italic text-gray-600 text-base">
