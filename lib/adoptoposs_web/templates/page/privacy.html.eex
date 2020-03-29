@@ -2,7 +2,7 @@
   <h1>Adoptoposs Privacy Policy</h1>
 
   <p class="italic text-gray-600 text-base">
-    Last updated: March 28, 2020
+    Last updated: March 29, 2020
   </p>
 
   <p>
@@ -79,6 +79,9 @@
       </li>
       <li>
         <%= link "Twilio (Sendgrid)", to: "https://www.twilio.com/gdpr" %>. Text messaging service.
+      </li>
+      <li>
+        <%= link "New Relic", to: "https://newrelic.com/termsandconditions/privacy" %>. Performance monitoring service.
       </li>
       <li>
         <%= link "Google Analytics", to: "https://support.google.com/analytics/answer/6004245?hl=en" %>. Web analytics service.
