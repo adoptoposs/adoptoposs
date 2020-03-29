@@ -86,10 +86,7 @@ defmodule AdoptopossWeb.RepoLive do
     token = verify_value(token, provider)
     {page_info, repos} = Network.user_repos(token, provider, @repo_limit, after_cursor)
 
-    assign(socket,
-      repositories: repos,
-      repo_page_info: page_info
-    )
+    update_repos(socket, repos, page_info)
   end
 
   defp load_repos(socket, organisation_id, after_cursor) do
@@ -99,9 +96,12 @@ defmodule AdoptopossWeb.RepoLive do
     {page_info, repos} =
       Network.repos(token, provider, organisation_id, @repo_limit, after_cursor)
 
-    assign(socket,
-      repositories: repos,
-      repo_page_info: page_info
-    )
+    update_repos(socket, repos, page_info)
+  end
+
+  defp update_repos(socket, repos, page_info) do
+    socket
+    |> assign(repo_page_info: page_info)
+    |> Phoenix.LiveView.Utils.force_assign(:repositories, repos)
   end
 end
