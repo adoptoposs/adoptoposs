@@ -74,6 +74,14 @@ config :my_app, AdoptopossWeb.Mailer,
     recv_timeout: :timer.minutes(1)
   ]
 
+# Performance monitoring
+config :new_relic_agent,
+  app_name: System.get_env("NEW_RELIC_APP_NAME") || "Adoptoposs",
+  license_key: System.get_env("NEW_RELIC_LICENSE_KEY")
+
+config :adoptoposs, AdoptopossWeb.Endpoint,
+  instrumenters: [NewRelic.Phoenix.Instrumenter]
+
 # ## Using releases (Elixir v1.9+)
 #
 # If you are doing OTP releases, you need to instruct Phoenix

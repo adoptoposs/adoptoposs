@@ -57,6 +57,7 @@ defmodule Adoptoposs.MixProject do
       {:bamboo, "~> 1.4"},
       {:navigation_history, "~> 0.3"},
       {:quantum, "~> 2.4"},
+      {:new_relic_phoenix, "~> 0.2.1"},
       {:mix_test_watch, "~> 1.0", only: :dev, runtime: false},
       {:faker, "~> 0.13", only: [:dev, :test]},
       {:ex_machina, "~> 2.3", only: [:dev, :test]},
