@@ -67,7 +67,7 @@ email_api_key =
     See your SendGrid Account
     """
 
-config :my_app, AdoptopossWeb.Mailer,
+config :adoptoposs, AdoptopossWeb.Mailer,
   adapter: Bamboo.SendGridAdapter,
   api_key: email_api_key,
   hackney_opts: [
