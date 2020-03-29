@@ -36,3 +36,6 @@ npm-debug.log
 # local dev config
 /config/dev.exs
 /config/dev_env.exs
+
+# temp files
+/tmp/

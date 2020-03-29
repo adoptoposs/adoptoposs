@@ -67,12 +67,20 @@ email_api_key =
     See your SendGrid Account
     """
 
-config :my_app, AdoptopossWeb.Mailer,
+config :adoptoposs, AdoptopossWeb.Mailer,
   adapter: Bamboo.SendGridAdapter,
   api_key: email_api_key,
   hackney_opts: [
     recv_timeout: :timer.minutes(1)
   ]
+
+# Performance monitoring
+config :new_relic_agent,
+  app_name: System.get_env("NEW_RELIC_APP_NAME") || "Adoptoposs",
+  license_key: System.get_env("NEW_RELIC_LICENSE_KEY")
+
+config :adoptoposs, AdoptopossWeb.Endpoint,
+  instrumenters: [NewRelic.Phoenix.Instrumenter]
 
 # ## Using releases (Elixir v1.9+)
 #
