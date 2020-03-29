@@ -56,8 +56,8 @@ config :ueberauth, Ueberauth.Strategy.Github.OAuth,
 # Basic Auth
 config :adoptoposs, :basic_auth,
   realm: "Only Team members",
-  username: {:system, "BASIC_AUTH_USER"},
-  password: {:system, "BASIC_AUTH_PASSWORD"}
+  username: System.get_env("BASIC_AUTH_USER"),
+  password: System.get_env("BASIC_AUTH_PASSWORD")
 
 # Mailing
 email_api_key =

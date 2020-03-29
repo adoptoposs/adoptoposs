@@ -8,7 +8,10 @@ defmodule AdoptopossWeb.Router do
 
   pipeline :browser do
     # Setup HTTP basic auth only if the user & password is set:
-    if System.get_env("BASIC_AUTH_USER") && System.get_env("BASIC_AUTH_PASSWORD") do
+    @username Application.get_env(:adoptoposs, :basic_auth)[:username]
+    @password Application.get_env(:adoptoposs, :basic_auth)[:password]
+
+    if @username && @password do
       plug BasicAuth, use_config: {:adoptoposs, :basic_auth}
     end
 
