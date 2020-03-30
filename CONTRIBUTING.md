@@ -2,9 +2,9 @@
 
 Thanks for considering to contribute to Adoptoposs. ❤
 
-Bug reports, feature suggestions, and pull requests for any open issues are very welcome. Issues can be reported on GitHub: https://github.com/paulgoetze/adoptoposs/issues/new.
+Bug reports, feature suggestions, and pull requests for any open issues are very welcome. Issues can be reported on GitHub: https://github.com/adoptoposs/adoptoposs/issues/new.
 
-Please read and follow our [Code of Conduct](https://github.com/paulgoetze/adoptoposs/blob/master/CODE_OF_CONDUCT.md).
+Please read and follow our [Code of Conduct](https://github.com/adoptoposs/adoptoposs/blob/master/CODE_OF_CONDUCT.md).
 
 ## Development setup
 
@@ -19,7 +19,7 @@ In order to setup the development environment you need to have some dependencies
 Checkout the Adoptoposs repository with
 
 ```
-$ git clone git@github.com:paulgoetze/adoptoposs.git
+$ git clone git@github.com:adoptoposs/adoptoposs.git
 ```
 
 Then step into the project and run the setup make task. This will build the docker container, create a development config, install all dependencies and setup development & test databases:
@@ -54,7 +54,7 @@ The `master` branch represents the production state that is deployed to https://
 
 Here’s how to contribute:
 
-* Fork it (https://github.com/paulgoetze/adoptoposs/fork)
+* Fork it (https://github.com/adoptoposs/adoptoposs/fork)
 * Create your feature branch (git checkout -b feature/my-new-feature staging)
 * Commit your changes (git commit -am 'Add some feature')
 * Push to the branch (git push origin feature/my-new-feature)
