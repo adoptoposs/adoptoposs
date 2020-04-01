@@ -10,7 +10,7 @@ defmodule Adoptoposs.Search do
   alias Adoptoposs.Submissions.Project
   alias Adoptoposs.Tags.Tag
 
-  def find_projects(query, offset: offset, limit: limit) do
+  def find_projects(query, offset: offset, limit: limit) when is_binary(query) do
     terms = Regex.split(~r/[\s\.-_]/, String.downcase(query))
 
     Project
@@ -24,7 +24,9 @@ defmodule Adoptoposs.Search do
     |> Repo.all()
   end
 
-  def find_tags(query, offset: offset, limit: limit) do
+  def find_projects(_query, _opts), do: []
+
+  def find_tags(query, offset: offset, limit: limit) when is_binary(query) do
     terms = Regex.split(~r/[\s\.-_]/, String.downcase(query))
 
     Tag
@@ -35,6 +37,8 @@ defmodule Adoptoposs.Search do
     |> order_by(:name)
     |> Repo.all()
   end
+
+  def find_tags(_query, _opts), do: []
 
   defp where_all_terms_match(query, terms, fun) do
     Enum.reduce(terms, query, fun)

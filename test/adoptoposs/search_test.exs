@@ -37,6 +37,12 @@ defmodule Adoptoposs.SearchTest do
       assert [] == projects
     end
 
+    test "find_projects/2 with a not binary query returns empty list" do
+      assert [] == Search.find_projects(nil, offset: 0, limit: 1)
+      assert [] == Search.find_projects([], offset: 0, limit: 1)
+      assert [] == Search.find_projects(%{}, offset: 0, limit: 1)
+    end
+
     test "find_tags/2 returns the matching tags" do
       tag_1 = insert(:tag, name: "Java", type: Tag.Language.type())
       tag_2 = insert(:tag, name: "JavaScript", type: Tag.Language.type())
@@ -56,6 +62,12 @@ defmodule Adoptoposs.SearchTest do
 
       tags = Search.find_tags(query, offset: 2, limit: 1)
       assert [] == tags
+    end
+
+    test "find_tags/2 with a not binary query returns empty list" do
+      assert [] == Search.find_tags(nil, offset: 0, limit: 1)
+      assert [] == Search.find_tags([], offset: 0, limit: 1)
+      assert [] == Search.find_tags(%{}, offset: 0, limit: 1)
     end
   end
 end
