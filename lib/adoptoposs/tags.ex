@@ -247,16 +247,26 @@ defmodule Adoptoposs.Tags do
   ## Examples
 
       iex> list_recommended_tags(user, token)
-      [%Tag{}, ...]
+      {:ok, [%Tag{}, ...]}
+
+      # for a user with revoked API access:
+      iex> list_recommended_tags(user, token)
+      {:error, %{message: "…", status_code: 401}}
 
   """
   def list_recommended_tags(%User{} = user, api_token) do
-    {_page_info, repos} = Network.user_repos(api_token, user.provider, 25)
-    names = repos |> Enum.map(&String.downcase(&1.language.name))
+    with {:ok, result} <- Network.user_repos(api_token, user.provider, 25) do
+      {_page_info, repos} = result
+      names = repos |> Enum.map(&String.downcase(&1.language.name))
 
-    Tag
-    |> where([t], t.type == ^Tag.Language.type())
-    |> where([t], fragment("lower(?)", t.name) in ^names)
-    |> Repo.all()
+      {:ok,
+       Tag
+       |> where([t], t.type == ^Tag.Language.type())
+       |> where([t], fragment("lower(?)", t.name) in ^names)
+       |> Repo.all()}
+    else
+      error ->
+        error
+    end
   end
 end

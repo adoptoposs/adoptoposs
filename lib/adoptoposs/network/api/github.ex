@@ -9,22 +9,19 @@ defmodule Adoptoposs.Network.Api.Github do
   @impl Api
   def organizations(token, limit, after_cursor) do
     organizations_query(limit, after_cursor)
-    |> send_request(token)
-    |> compile_organizations()
+    |> compile_data(token, &compile_organizations/1)
   end
 
   @impl Api
   def repos(token, organization, limit, after_cursor) do
     repos_query(organization, limit, after_cursor)
-    |> send_request(token)
-    |> compile_repos()
+    |> compile_data(token, &compile_repos/1)
   end
 
   @impl Api
   def user_repos(token, limit, after_cursor) do
     user_repos_query(limit, after_cursor)
-    |> send_request(token)
-    |> compile_user_repos()
+    |> compile_data(token, &compile_user_repos/1)
   end
 
   defp organizations_query(limit, after_cursor) do
@@ -133,16 +130,27 @@ defmodule Adoptoposs.Network.Api.Github do
     "first: #{limit}, after: \\\"#{after_cursor}\\\""
   end
 
+  defp compile_data(query, token, compile) do
+    case send_request(query, token) do
+      {:ok, data} ->
+        {:ok, compile.(data)}
+
+      error ->
+        error
+    end
+  end
+
   defp send_request(graphql_query, auth_token) do
     headers = [Authorization: "bearer #{auth_token}"]
     query = cleanup_query(graphql_query)
 
     case HTTPoison.post(@api_uri, ~s({"query": "#{query}"}), headers) do
       {:ok, %HTTPoison.Response{status_code: 200, body: body}} ->
-        Jason.decode!(body, keys: :atoms)
+        {:ok, Jason.decode!(body, keys: :atoms)}
 
-      _ ->
-        %{}
+      {:ok, %HTTPoison.Response{status_code: status_code, body: body}} ->
+        data = Jason.decode!(body, keys: :atoms)
+        {:error, put_in(data, [:status_code], status_code)}
     end
   end
 

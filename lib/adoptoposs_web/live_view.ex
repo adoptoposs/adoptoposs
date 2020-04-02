@@ -6,7 +6,12 @@ defmodule AdoptopossWeb.LiveView do
   defmacro __using__(_opts) do
     quote do
       use Phoenix.LiveView, layout: {AdoptopossWeb.LayoutView, "live.html"}
-      alias AdoptopossWeb.Endpoint
+      alias AdoptopossWeb.{Endpoint, Router}
+
+      defp handle_auth_failure(socket) do
+        logout_path = Router.Helpers.auth_path(Endpoint, :delete)
+        redirect(socket, to: logout_path)
+      end
 
       defp assign_user(socket, %{"user_id" => user_id}) do
         assign(socket, user_id: user_id)

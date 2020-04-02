@@ -36,7 +36,7 @@
     class: "nav-link" %>
 
   <%= link "Log out",
-    to: Routes.auth_path(@conn, :delete, @current_user.provider),
+    to: Routes.auth_path(@conn, :delete),
     class: "nav-link" %>
 
   <div class="flex justify-end md:inline-block">

@@ -70,7 +70,7 @@ defmodule AdoptopossWeb.LandingPageLiveTest do
   end
 
   defp insert_tags(provider) do
-    {_page_info, repos} = Network.user_repos("token", provider, 2)
+    {:ok, {_page_info, repos}} = Network.user_repos("token", provider, 2)
     repos = repos |> Enum.uniq_by(& &1.language.name)
 
     for repo <- repos do

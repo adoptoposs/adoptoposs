@@ -28,7 +28,7 @@ defmodule AdoptopossWeb.RepoLiveTest do
 
   @tag login_as: "user123"
   test "submitting a repo", %{conn: conn, user: user} do
-    {_page_info, [repo | _] = repos} = Adoptoposs.Network.user_repos("token", "github", 2)
+    {:ok, {_page_info, [repo | _] = repos}} = Adoptoposs.Network.user_repos("token", "github", 2)
     tags = repos |> Enum.uniq_by(& &1.language.name) |> Enum.map(& &1.language)
 
     for tag <- tags do

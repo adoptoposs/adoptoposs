@@ -7,17 +7,17 @@ defmodule Adoptoposs.Network.Api.GithubInMemory do
 
   @impl Api
   def organizations(_token, limit, _after_cursor) do
-    {build(:page_info), build_list(limit, :organization)}
+    {:ok, {build(:page_info), build_list(limit, :organization)}}
   end
 
   @impl Api
   def repos(_token, organization, limit, _after_cursor) do
-    {build(:page_info), build_repos(organization, limit)}
+    {:ok, {build(:page_info), build_repos(organization, limit)}}
   end
 
   @impl Api
   def user_repos(_token, limit, _after_cursor) do
-    {build(:page_info), build_repos("user", limit)}
+    {:ok, {build(:page_info), build_repos("user", limit)}}
   end
 
   defp build_repos(organization, count) do
