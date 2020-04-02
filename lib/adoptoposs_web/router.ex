@@ -49,6 +49,7 @@ defmodule AdoptopossWeb.Router do
   scope "/", AdoptopossWeb do
     pipe_through [:browser, :require_login]
 
+    get "/logout", AuthController, :delete
     get "/settings/repos", RepoController, :index
     live "/settings/repos/:organization_id", RepoLive
     live "/settings/projects", ProjectLive.Index
@@ -58,10 +59,8 @@ defmodule AdoptopossWeb.Router do
 
   scope "/auth", AdoptopossWeb do
     pipe_through :browser
-
     get "/:provider", AuthController, :request
     get "/:provider/callback", AuthController, :callback
-    get "/:provider/logout", AuthController, :delete
   end
 
   # Other scopes may use custom stacks.
