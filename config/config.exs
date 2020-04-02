@@ -39,7 +39,7 @@ config :phoenix,
   template_engines: [leex: Phoenix.LiveView.Engine]
 
 # Authentication
-github_api_scopes = Enum.join(~w(user public_repo read:org), ",")
+github_api_scopes = Enum.join(~w(read:user user:email read:org), ",")
 
 config :ueberauth, Ueberauth,
   providers: [
