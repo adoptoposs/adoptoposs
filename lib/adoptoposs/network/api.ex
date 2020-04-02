@@ -7,17 +7,19 @@ defprotocol Adoptoposs.Network.Api do
   It returns a result tuple containing the `PageInfo` and a list of `Organization`s.
   """
   @callback organizations(String.t(), integer(), String.t()) ::
-              {PageInfo.t(), list(Organization.t())}
+              {atom(), {PageInfo.t(), list(Organization.t())}}
 
   @doc """
   Get paginated repos for a given organisation.
   It returns a result tuple containing the `PageInfo` and a list of `Repository`s.
   """
-  @callback repos(String.t(), String.t(), integer(), String.t()) :: list(Repository.t())
+  @callback repos(String.t(), String.t(), integer(), String.t()) ::
+              {atom(), {PageInfo.t(), list(Repository.t())}}
 
   @doc """
   Get paginated repos for a given user.
   It returns a result tuple containing the `PageInfo` and a list of `Repository`s.
   """
-  @callback user_repos(String.t(), integer(), String.t()) :: list(Repository.t())
+  @callback user_repos(String.t(), integer(), String.t()) ::
+              {atom(), {PageInfo.t(), list(Repository.t())}}
 end

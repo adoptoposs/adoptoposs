@@ -103,12 +103,16 @@ defmodule AdoptopossWeb.LandingPageLive do
   defp put_tag_subsriptions(socket, user) do
     if Enum.empty?(user.tag_subscriptions) do
       token = verify_value(socket.assigns.token, user.provider)
-      tags = Tags.list_recommended_tags(user, token)
 
-      assign(socket,
-        tag_subscriptions: [],
-        suggested_tags: tags
-      )
+      with {:ok, tags} <- Tags.list_recommended_tags(user, token) do
+        assign(socket,
+          tag_subscriptions: [],
+          suggested_tags: tags
+        )
+      else
+        {:error, _} ->
+          handle_auth_failure(socket)
+      end
     else
       assign(socket,
         tag_subscriptions: user.tag_subscriptions,

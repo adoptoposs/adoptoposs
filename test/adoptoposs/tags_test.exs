@@ -61,7 +61,7 @@ defmodule Adoptoposs.TagsTest do
 
     test "list_recommended_tags/2 returns all tags that match the languages of a user's repos" do
       user = build(:user, provider: "github")
-      {_page_info, repos} = Network.user_repos("token", user.provider, 3)
+      {:ok, {_page_info, repos}} = Network.user_repos("token", user.provider, 3)
 
       repos = repos |> Enum.uniq_by(& &1.language.name)
 
@@ -72,7 +72,7 @@ defmodule Adoptoposs.TagsTest do
       insert(:tag)
       insert(:tag, type: Tag.Language.type())
 
-      tags = Tags.list_recommended_tags(user, "token")
+      {:ok, tags} = Tags.list_recommended_tags(user, "token")
 
       assert Enum.count(tags) == Enum.count(repos)
 

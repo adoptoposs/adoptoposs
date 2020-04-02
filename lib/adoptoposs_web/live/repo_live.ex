@@ -47,21 +47,32 @@ defmodule AdoptopossWeb.RepoLive do
 
   defp put_assigns(socket, %{"token" => token}, user) do
     provider = user.provider
-    {orga_page_info, organizations} = Network.organizations(token, provider, @orga_limit)
 
-    organization = %Organization{id: user.username, name: user.name, avatar_url: user.avatar_url}
-    organizations = [organization | organizations]
+    with {:ok, result} <- Network.organizations(token, provider, @orga_limit) do
+      {orga_page_info, organizations} = result
 
-    projects = Submissions.list_projects(user)
+      organization = %Organization{
+        id: user.username,
+        name: user.name,
+        avatar_url: user.avatar_url
+      }
 
-    assign(socket, %{
-      page: 1,
-      provider: provider,
-      username: user.username,
-      projects: projects,
-      organizations: organizations,
-      orga_page_info: orga_page_info
-    })
+      organizations = [organization | organizations]
+
+      projects = Submissions.list_projects(user)
+
+      assign(socket, %{
+        page: 1,
+        provider: provider,
+        username: user.username,
+        projects: projects,
+        organizations: organizations,
+        orga_page_info: orga_page_info
+      })
+    else
+      {:error, _} ->
+        handle_auth_failure(socket)
+    end
   end
 
   defp update_selected(socket, organization_id) do
@@ -84,19 +95,28 @@ defmodule AdoptopossWeb.RepoLive do
   defp load_repos(%{assigns: %{username: id}} = socket, id, after_cursor) do
     %{token: token, provider: provider} = socket.assigns
     token = verify_value(token, provider)
-    {page_info, repos} = Network.user_repos(token, provider, @repo_limit, after_cursor)
 
-    update_repos(socket, repos, page_info)
+    with {:ok, result} <- Network.user_repos(token, provider, @repo_limit, after_cursor) do
+      {page_info, repos} = result
+      update_repos(socket, repos, page_info)
+    else
+      {:error, _} ->
+        handle_auth_failure(socket)
+    end
   end
 
   defp load_repos(socket, organisation_id, after_cursor) do
     %{token: token, provider: provider} = socket.assigns
     token = verify_value(token, provider)
 
-    {page_info, repos} =
-      Network.repos(token, provider, organisation_id, @repo_limit, after_cursor)
-
-    update_repos(socket, repos, page_info)
+    with {:ok, result} <-
+           Network.repos(token, provider, organisation_id, @repo_limit, after_cursor) do
+      {page_info, repos} = result
+      update_repos(socket, repos, page_info)
+    else
+      {:error, _} ->
+        handle_auth_failure(socket)
+    end
   end
 
   defp update_repos(socket, repos, page_info) do
