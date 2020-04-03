@@ -67,6 +67,33 @@ defmodule Adoptoposs.Submissions do
   end
 
   @doc """
+  Gets a single project by its uuid.
+
+  Returns nil if the Project does not exist.
+
+  ## Examples
+
+      iex> get_project_by_uuid(user, "61900487-e6e3-4a3b-881f-e3fe5e2ca5f1")
+      %Project{}
+
+      iex> get_project_by_uuid(user, "no-existing")
+      nil
+
+  """
+  def get_project_by_uuid(uuid, opts \\ []) do
+    with {:ok, value} <- Ecto.UUID.cast(uuid) do
+      from(p in Project,
+        where: p.uuid == ^value,
+        preload: ^(opts[:preload] || [])
+      )
+      |> Repo.one()
+    else
+      :error ->
+        nil
+    end
+  end
+
+  @doc """
   Gets a single project.
 
   Return nil if the Project does not exist for the given user.
