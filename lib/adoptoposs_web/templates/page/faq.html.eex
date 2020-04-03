@@ -40,7 +40,7 @@
         Please consider looking for a co-maintainer if you are the <i>only maintainer</i> for your project right now.
         </br>
         You can read about the benefits of having co-maintainers
-        <%= link "here", to: "https://medium.com/p/74c1cd5df5d5" %>.
+        <%= link "here", to: "https://medium.com/p/74c1cd5df5d5?source=friends_link&sk=80b575161642c3ba17d6d4213de8578a" %>.
       </p>
     <% end %>
 
