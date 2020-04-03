@@ -19,7 +19,7 @@ potential co-maintainers.
 
 If you like to learn more about the reasons behind
 building Adoptoposs you can read the
-[announcement post](https://medium.com/p/74c1cd5df5d5) on Medium.
+[announcement post](https://medium.com/p/74c1cd5df5d5?source=friends_link&sk=80b575161642c3ba17d6d4213de8578a) on Medium.
 
 # Contributing
 
