@@ -23,7 +23,7 @@
 
   <ul id="projects" class="mt-6">
     <%= for project <- @projects do %>
-      <li id="project-<%= project.id %>" class="flex flex-wrap w-full shadow hover:shadow-md mb-4 border border-gray-400 rounded">
+      <li id="project-<%= project.id %>" class="list-item flex flex-wrap w-full shadow hover:shadow-md mb-4 border border-gray-400 rounded">
         <div class="flex flex-col md:flex-row md:justify-between w-full">
           <div class="flex flex-col flex-1 items-start justify-between px-4 md:px-6 pt-4 pb-2 md:pt-6 md:pb-4 bg-white rounded-tl rounded-tr md:rounded-bl md:rounded-tr-none">
             <%= render AdoptopossWeb.SharedView, "project_repo.html", project: project %>
@@ -60,36 +60,42 @@
 
               <div class="whitespace-pre-wrap text-gray-700 my-2 md:mb-4"><%= project.description %></div>
 
-              <div class="flex justify-between items-end">
-                <div class="mt-2 mb-4">
-                  <%= if Enum.count(project.interests) == 0 do %>
-                    <div class="flex flex-row items-center text-gray-500" title="No messages yet">
-                      <span>
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" class="fill-current h-6 w-6">
-                          <path d="M18 2a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4c0-1.1.9-2 2-2h16zm-4.37 9.1L20 16v-2l-5.12-3.9L20 6V4l-10 8L0 4v2l5.12 4.1L0 14v2l6.37-4.9L10 14l3.63-2.9z"/>
-                        </svg>
-                      </span>
-                      <span class="ml-2 text-md font-medium">
-                        <%= Enum.count(project.interests) %>
-                      </span>
+              <div class="mt-2">
+                <div class="flex justify-between items-end">
+                  <div class="flex flex-row items-center">
+                    <div class="mr-4">
+                      <%= render AdoptopossWeb.ProjectView, "sharing.html", project: project %>
                     </div>
-                  <% else %>
-                    <%= live_redirect to: Routes.live_path(@socket, AdoptopossWeb.ProjectLive.Show, project.id), class: "flex flex-row items-center text-gray-600", title: "#{Enum.count(project.interests)} people contacted you" do %>
-                      <span>
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" class="fill-current h-6 w-6">
-                          <path d="M18 2a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4c0-1.1.9-2 2-2h16zm-4.37 9.1L20 16v-2l-5.12-3.9L20 6V4l-10 8L0 4v2l5.12 4.1L0 14v2l6.37-4.9L10 14l3.63-2.9z"/>
-                        </svg>
-                      </span>
 
-                      <span class="ml-2 text-md font-medium">
-                        <%= Enum.count(project.interests) %>
-                      </span>
+                    <%= if Enum.count(project.interests) == 0 do %>
+                      <div class="flex flex-row items-center text-gray-500" title="No messages yet">
+                        <span>
+                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" class="fill-current h-6 w-6">
+                            <path d="M18 2a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4c0-1.1.9-2 2-2h16zm-4.37 9.1L20 16v-2l-5.12-3.9L20 6V4l-10 8L0 4v2l5.12 4.1L0 14v2l6.37-4.9L10 14l3.63-2.9z"/>
+                          </svg>
+                        </span>
+                        <span class="ml-2 text-md font-medium">
+                          <%= Enum.count(project.interests) %>
+                        </span>
+                      </div>
+                    <% else %>
+                      <%= live_redirect to: Routes.live_path(@socket, AdoptopossWeb.ProjectLive.Show, project.id), class: "flex flex-row items-center text-gray-600", title: "#{Enum.count(project.interests)} people contacted you" do %>
+                        <span>
+                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" class="fill-current h-6 w-6">
+                            <path d="M18 2a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4c0-1.1.9-2 2-2h16zm-4.37 9.1L20 16v-2l-5.12-3.9L20 6V4l-10 8L0 4v2l5.12 4.1L0 14v2l6.37-4.9L10 14l3.63-2.9z"/>
+                          </svg>
+                        </span>
+
+                        <span class="ml-2 text-md font-medium">
+                          <%= Enum.count(project.interests) %>
+                        </span>
+                      <% end %>
                     <% end %>
-                  <% end %>
-                </div>
+                  </div>
 
-                <div class="flex justify-end">
-                  <%= submit "edit", id: "btn-edit-#{project.id}", phx_click: "edit", phx_value_id: project.id %>
+                  <div class="flex justify-end">
+                    <%= submit "edit", id: "btn-edit-#{project.id}", phx_click: "edit", phx_value_id: project.id %>
+                  </div>
                 </div>
               </div>
             <% end %>

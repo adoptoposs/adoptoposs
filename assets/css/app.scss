@@ -144,9 +144,13 @@ nav .nav-link {
 }
 
 .icon-button {
-  @apply flex items-center justify-center;
+  @apply inline-flex items-center justify-center;
   @apply cursor-pointer p-2 rounded rounded-full;
   @apply text-white bg-red-400;
+
+  &.hidden {
+    @apply hidden;
+  }
 
   svg {
     @apply h-6 w-6 fill-current;
@@ -187,6 +191,15 @@ a, button, input[type="button"] {
     &:not(.disabled) {
       @apply text-gray-200 bg-gray-600;
     }
+
+    &.subtle {
+      @apply text-gray-500 bg-transparent;
+      @apply h-5 w-5 py-2 px-0;
+
+      &:focus, &:hover {
+        @apply bg-gray-600 bg-transparent;
+      }
+    }
   }
 
   &:focus, &:hover {
@@ -198,7 +211,15 @@ a, button, input[type="button"] {
           @apply text-white bg-red-400;
         }
       }
-  }
+
+      &.subtle {
+        @apply text-gray-600 bg-transparent;
+
+        &:focus, &:hover {
+          @apply text-red-400 bg-transparent;
+        }
+      }
+    }
   }
 }
 
@@ -271,5 +292,17 @@ a, button, input[type="button"] {
   pre, code, p {
     font-family: $font-family-primary, sans-serif;
     @apply break-normal whitespace-normal;
+  }
+}
+
+.toggle {
+  &.toggled {
+    .toggle-trigger {
+      &::before {
+        @apply cursor-default bg-transparent;
+        @apply fixed block top-0 right-0 bottom-0 left-0;
+        content: " ";
+      }
+    }
   }
 }
