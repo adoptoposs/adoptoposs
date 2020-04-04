@@ -41,3 +41,8 @@ if (mobileMenuToggle) {
     }
   });
 }
+
+
+function toggle() {
+  console.log("toggle check!");
+}
