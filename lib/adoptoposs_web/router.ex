@@ -43,6 +43,9 @@ defmodule AdoptopossWeb.Router do
 
     get "/faq", PageController, :faq
     get "/privacy", PageController, :privacy
+
+    get "/p/:uuid", SharingController, :index
+    live "/projects/:uuid", SharingLive
   end
 
   # Routes that require authentication:
@@ -53,7 +56,7 @@ defmodule AdoptopossWeb.Router do
     get "/settings/repos", RepoController, :index
     live "/settings/repos/:organization_id", RepoLive
     live "/settings/projects", ProjectLive.Index
-    live "/projects/:id", ProjectLive.Show
+    live "/projects/:id/messages", ProjectLive.Show
     live "/settings", SettingsLive
   end
 
