@@ -16,6 +16,7 @@ defmodule Adoptoposs.JobsTest do
       date: date
     } do
       assert :ok = Bodyguard.permit(Jobs, :send_emails_monthly, date, 2)
+      assert :ok = Bodyguard.permit(Jobs, :send_emails_monthly, date, "2")
     end
 
     test "send_emails_monthly is forbidden if not the first permitted weekday of the month", %{
@@ -38,6 +39,7 @@ defmodule Adoptoposs.JobsTest do
       date: date
     } do
       assert :ok = Bodyguard.permit(Jobs, :send_emails_weekly, date, 2)
+      assert :ok = Bodyguard.permit(Jobs, :send_emails_weekly, date, "2")
     end
 
     test "send_emails_weekly is forbidden if the given date is not on the permitted weekday", %{

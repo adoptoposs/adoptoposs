@@ -16,7 +16,13 @@ defmodule Adoptoposs.Jobs.Policy do
 
   def authorize(_, _, _), do: :error
 
-  defp matches_weekday?(date, weekday) do
+  defp matches_weekday?(date, weekday) when is_integer(weekday) do
     Timex.weekday(date) == weekday
   end
+
+  defp matches_weekday?(date, weekday) when is_binary(weekday) do
+    to_string(Timex.weekday(date)) == weekday
+  end
+
+  defp matches_weekday?(_date, _weekday), do: false
 end
