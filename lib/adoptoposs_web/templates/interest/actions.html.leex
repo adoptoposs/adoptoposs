@@ -14,9 +14,11 @@
     <div class="whitespace-pre-wrap text-gray-700 my-2"><%= @project.description %></div>
   </div>
 
-  <div class="flex flex-wrap flex-row justify-end">
+  <div class="flex flex-wrap flex-row justify-between items-center">
     <%= if @can_be_contacted do %>
       <%= if @contacted do %>
+        <%= render AdoptopossWeb.ProjectView, "sharing.html", project: @project %>
+
         <div class="icon-button disabled" title="You contacted the maintainer">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" class="mr-2">
             <path d="M18 2a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4c0-1.1.9-2 2-2h16zm-4.37 9.1L20 16v-2l-5.12-3.9L20 6V4l-10 8L0 4v2l5.12 4.1L0 14v2l6.37-4.9L10 14l3.63-2.9z"/>
@@ -37,6 +39,8 @@
               cancel_event: "cancel",
               phx_target: "##{@id}" %>
         <% else %>
+          <%= render AdoptopossWeb.ProjectView, "sharing.html", project: @project %>
+
           <div class="icon-button mb-2 md:mb-0" phx-click="attempt_contact" phx-target="#<%= @id %>" title="Contact maintainer">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
               <path d="M18 2a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4c0-1.1.9-2 2-2h16zm-4.37 9.1L20 16v-2l-5.12-3.9L20 6V4l-10 8L0 4v2l5.12 4.1L0 14v2l6.37-4.9L10 14l3.63-2.9z"/>
@@ -45,6 +49,8 @@
         <% end %>
       <% end %>
     <% else %>
+      <%= render AdoptopossWeb.ProjectView, "sharing.html", project: @project %>
+
       <%= unless @user_id do %>
         <div class="icon-button disabled" title="Log in to contact">
           <span class="text-gray-500 mr-3">Log in to contact</span>

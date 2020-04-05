@@ -10,7 +10,7 @@ We’ve found some projects on Adoptoposs for which you might be interested in h
     @<%= project.user.username %> is looking for:
       <%= project.data["description"] %>
 
-    On Adoptoposs: <%= Routes.live_url(AdoptopossWeb.Endpoint, AdoptopossWeb.SearchLive, q: language_name <> " " <> String.downcase(project.name)) %>
+    On Adoptoposs: <%= Routes.sharing_url(AdoptopossWeb.Endpoint, :index, project.uuid) %>
     <%= project.data["url"] %>
 
   <% end %>

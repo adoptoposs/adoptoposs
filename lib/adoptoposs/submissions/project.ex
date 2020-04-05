@@ -10,6 +10,7 @@ defmodule Adoptoposs.Submissions.Project do
     field :repo_id, :string
     field :repo_owner, :string
     field :description, :string
+    field :uuid, :binary_id
 
     belongs_to :language, Tags.Tag
     belongs_to :user, Accounts.User

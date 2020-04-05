@@ -23,6 +23,7 @@ defmodule Adoptoposs.Factory do
   def project_factory do
     repo_id = sequence("repo_id")
     owner = build(:contributor, login: sequence("owner"))
+    uuid = Ecto.UUID.generate()
 
     %Submissions.Project{
       name: sequence("project"),
@@ -32,7 +33,8 @@ defmodule Adoptoposs.Factory do
       user: build(:user),
       description: "Description",
       repo_id: repo_id,
-      repo_owner: owner.login
+      repo_owner: owner.login,
+      uuid: uuid
     }
   end
 
