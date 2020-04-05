@@ -16,7 +16,7 @@
           <p>
             <b>
             <%= link "#{project.data["owner"]["login"]}/#{project.name}",
-              to: Routes.live_url(AdoptopossWeb.Endpoint, AdoptopossWeb.SearchLive, q: language_name <> " " <> String.downcase(project.name)) %>
+              to: Routes.sharing_url(AdoptopossWeb.Endpoint, :index, project.uuid) %>
             </b>
             </br>
             <%= link "@#{project.user.username}", to: project.user.profile_url %> is looking for:</br>
