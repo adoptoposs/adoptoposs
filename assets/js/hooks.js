@@ -3,7 +3,7 @@ import Sharing from "./hooks/sharing";
 
 const Hooks = {
   InfiniteScroll: InfiniteScroll,
-  SharingToggle: Sharing.Toggle,
+  SharingReset: Sharing.ResetOnClose,
   SharingCopy: Sharing.CopyToClipboard,
 };
 

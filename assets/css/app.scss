@@ -296,7 +296,7 @@ a, button, input[type="button"] {
 }
 
 .toggle {
-  &.toggled {
+  &[open] {
     .toggle-trigger {
       &::before {
         @apply cursor-default bg-transparent;

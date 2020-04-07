@@ -1,7 +1,7 @@
-import Toggle from "./sharing/toggle";
 import CopyToClipboard from "./sharing/copyToClipboard";
+import ResetOnClose from "./sharing/resetOnClose";
 
 export default {
-  Toggle: Toggle,
   CopyToClipboard: CopyToClipboard,
+  ResetOnClose: ResetOnClose,
 };
