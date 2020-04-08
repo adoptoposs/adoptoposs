@@ -295,9 +295,17 @@ a, button, input[type="button"] {
   }
 }
 
-.toggle {
+details.toggle {
+  summary {
+    @apply list-none cursor-pointer;
+
+    &::-webkit-details-marker {
+      display:none;
+    }
+  }
+
   &[open] {
-    .toggle-trigger {
+    summary {
       &::before {
         @apply cursor-default bg-transparent;
         @apply fixed block top-0 right-0 bottom-0 left-0;

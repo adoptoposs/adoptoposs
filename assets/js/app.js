@@ -23,21 +23,12 @@ const csrfToken = document.querySelector("meta[name='csrf-token']").getAttribute
 const liveSocket = new LiveSocket("/live", Socket, {hooks: Hooks, params: {_csrf_token: csrfToken}});
 liveSocket.connect();
 
-const mobileMenuToggle = document.getElementById("menu-toggle");
-const menu  = document.getElementById("mobile-menu");
+for (let el of document.getElementsByClassName("close-on-link-clicked")) {
+  const links = el.getElementsByTagName("a");
 
-if (mobileMenuToggle) {
-  mobileMenuToggle.addEventListener("click", (e) => {
-    menu.classList.toggle("block");
-    menu.classList.toggle("hidden");
-
-    const links = menu.getElementsByTagName("a");
-
-    for (let link of links) {
-      link.addEventListener("click", (e) => {
-        menu.classList.add("hidden");
-        menu.classList.remove("block");
-      });
-    }
-  });
+  for (let link of links) {
+    link.addEventListener("click", e => {
+      setTimeout(() => el.removeAttribute("open"), 160);
+    });
+  }
 }
