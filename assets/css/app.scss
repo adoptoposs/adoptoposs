@@ -131,7 +131,7 @@ nav .nav-link {
   @apply block p-2 mb-1;
 
   &:hover, &:focus {
-    @apply bg-gray-300 rounded;
+    @apply bg-gray-200 rounded;
   }
 
   @screen md {
