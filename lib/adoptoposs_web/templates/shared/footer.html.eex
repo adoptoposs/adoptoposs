@@ -12,11 +12,9 @@
     </div>
   </div>
 
-  <div class="inline-flex items-center justify-center mt-4">
-    <p class="text-red-400 mb-0">
-      Made with ♡ |
-      <%= link "Phoenix LiveView", to: "https://github.com/phoenixframework/phoenix_live_view" %> |
-      <%= link "Tailwind CSS", to: "https://tailwindcss.com" %>
-    </p>
+  <div class="text-center text-red-400 mt-4 mb-0">
+    Made with ♡ |
+    <%= link "Phoenix LiveView", to: "https://github.com/phoenixframework/phoenix_live_view" %> |
+    <%= link "Tailwind CSS", to: "https://tailwindcss.com" %>
   </div>
 </section>
