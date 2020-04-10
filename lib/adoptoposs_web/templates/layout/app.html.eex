@@ -2,7 +2,6 @@
   <%= if get_flash(@conn, :error) do %>
     <p class="bg-red-400 text-white text-center font-medium p-4" role="alert"><%= get_flash(@conn, :error) %></p>
   <% end %>
-
 </section>
 
 <%= render @view_module, @view_template, assigns %>

@@ -12,7 +12,7 @@
     </svg>
   </summary>
 
-  <div class="toggle-content absolute left-0 right-0 bg-white z-20 shadow-md p-6">
+  <div class="toggle-content absolute left-0 right-0 bg-gray-100 z-20 shadow-md p-6">
     <%= live_redirect to: Routes.live_path(@conn, AdoptopossWeb.SearchLive), class: "nav-link" do %>
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" class="inline h-4 w-4 fill-current mr-2">
         <path d="M12.9 14.32a8 8 0 1 1 1.41-1.41l5.35 5.33-1.42 1.42-5.33-5.34zM8 14A6 6 0 1 0 8 2a6 6 0 0 0 0 12z"/>
@@ -28,16 +28,17 @@
       to: Routes.live_path(@conn, AdoptopossWeb.SettingsLive),
       class: "nav-link" %>
 
-    <hr class="border-red-200 mt-4">
+    <hr class="border-red-200 mt-4 mb-3">
 
-    <%= link to: Routes.auth_path(@conn, :delete), class: "nav-link" do %>
-        <div class=" flex flex-row justify-between items-center">
-          <span>Log out</span>
-          <img class="rounded-full h-10 w-10"
-            src="<%= @current_user.avatar_url %>"
-            alt="<%=@current_user.name %>">
-        </div>
-    <% end %>
+    <div class=" flex flex-row justify-between items-center">
+      <%= link "Log out",
+        to: Routes.auth_path(@conn, :delete),
+        class: "nav-link flex-grow mr-2" %>
+
+      <img class="rounded-full h-10 w-10"
+        src="<%= @current_user.avatar_url %>"
+        alt="<%=@current_user.name %>">
+    </div>
   </div>
 </details>
 

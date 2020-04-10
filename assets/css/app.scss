@@ -26,16 +26,14 @@ nav {
 }
 
 main {
-  @apply flex flex-col flex-wrap w-full;
+  @apply flex-1;
 }
 
 section {
-  @apply flex flex-col px-4 w-full max-w-6xl mx-auto
+  @apply px-4 max-w-6xl w-full mx-auto;
 }
 
 footer {
-  @apply flex flex-row flex-wrap w-full pt-4 pb-8 mt-auto;
-
   a {
     @apply text-red-400;
 
@@ -131,7 +129,7 @@ nav .nav-link {
   @apply block p-2 mb-1;
 
   &:hover, &:focus {
-    @apply bg-gray-300 rounded;
+    @apply bg-gray-200 rounded;
   }
 
   @screen md {
@@ -295,12 +293,16 @@ a, button, input[type="button"] {
   }
 }
 
+details summary {
+  @apply cursor-pointer;
+}
+
 details.toggle {
   summary {
     @apply list-none cursor-pointer;
 
     &::-webkit-details-marker {
-      display:none;
+      display: none;
     }
   }
 
