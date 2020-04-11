@@ -64,7 +64,7 @@ defmodule AdoptopossWeb.SearchLiveTest do
     project = insert(:project, user: build(:user, username: "other-user-than-logged-in"))
 
     {:ok, view, _html} = live(conn, Routes.live_path(conn, SearchLive))
-    interest_component = [view, "project-#{project.id}", "interest-#{project.id}"]
+    interest_component = [view, "#project-#{project.id}", "#interest-#{project.id}"]
 
     html = render_change(view, :search, %{q: project.name})
     assert html =~ project.name
@@ -90,7 +90,7 @@ defmodule AdoptopossWeb.SearchLiveTest do
     project = insert(:project, user: user)
 
     {:ok, view, _html} = live(conn, Routes.live_path(conn, SearchLive))
-    interest_component = [view, "project-#{project.id}", "interest-#{project.id}"]
+    interest_component = [view, "#project-#{project.id}", "#interest-#{project.id}"]
 
     html = render_change(view, :search, %{q: project.name})
     assert html =~ project.name

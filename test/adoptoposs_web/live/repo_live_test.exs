@@ -43,7 +43,7 @@ defmodule AdoptopossWeb.RepoLiveTest do
 
     refute html =~ ~r/submitted to.+your projects/i
 
-    component = [view, "repo-" <> AdoptopossWeb.RepoView.hashed(repo.id)]
+    component = [view, "#repo-" <> AdoptopossWeb.RepoView.hashed(repo.id)]
     html = render_click(component, :attempt_submit, %{})
     assert html =~ "I’m looking for"
     assert html =~ "Submit"
