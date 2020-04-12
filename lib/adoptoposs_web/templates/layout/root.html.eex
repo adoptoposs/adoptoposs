@@ -6,6 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <%= render AdoptopossWeb.SharedView, "meta_tags.html", assigns %>
 
+    <link rel="shortcut icon" href="<%= Routes.static_path(@conn, "/favicon.ico") %>" type="image/x-icon">
+    <link rel="icon" href="<%= Routes.static_path(@conn, "/favicon.ico") %>" type="image/x-icon">
+
     <link rel="stylesheet" href="<%= Routes.static_path(@conn, "/css/app.css") %>"/>
     <%= render AdoptopossWeb.SharedView, "google_analytics.html" %>
 
