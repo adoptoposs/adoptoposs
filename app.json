@@ -2,6 +2,9 @@
   "addons": [
     {
       "plan": "heroku-postgresql:hobby-dev"
+    },
+    {
+      "plan": "mailgun:starter"
     }
   ],
   "buildpacks": [
@@ -21,10 +24,6 @@
     },
     "LIVE_VIEW_SIGNING_SALT": {
       "description": "A secret key for verifying the integrity of web sockets",
-      "generator": "secret"
-    },
-    "EMAIL_API_KEY": {
-      "description": "Placeholder email api key.",
       "generator": "secret"
     }
   },
