@@ -78,7 +78,7 @@
         <%= link "Heroku", to: "https://devcenter.heroku.com/articles/gdpr" %>. Cloud service provider.
       </li>
       <li>
-        <%= link "Twilio (Sendgrid)", to: "https://www.twilio.com/gdpr" %>. Text messaging service.
+        <%= link "Mailgun", to: "https://www.mailgun.com/gdpr/" %>. Text messaging service.
       </li>
       <li>
         <%= link "New Relic", to: "https://newrelic.com/termsandconditions/privacy" %>. Performance monitoring service.

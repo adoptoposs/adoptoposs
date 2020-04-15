@@ -61,15 +61,20 @@ config :adoptoposs, :basic_auth,
 
 # Mailing
 email_api_key =
-  System.get_env("EMAIL_API_KEY") ||
+  System.get_env("MAILGUN_API_KEY") ||
+    System.get_env("EMAIL_API_KEY") ||
     raise """
-    environment variable EMAIL_API_KEY is missing.
-    See your SendGrid Account
+    environment variable MAILGUN_API_KEY and EMAIL_API_KEY is missing.
+    Please set one of them.
+    See your MailGun Account.
     """
 
+email_domain = System.get_env("MAILGUN_DOMAIN") || System.get_env("EMAIL_DOMAIN")
+
 config :adoptoposs, AdoptopossWeb.Mailer,
-  adapter: Bamboo.SendGridAdapter,
+  adapter: Bamboo.MailgunAdapter,
   api_key: email_api_key,
+  domain: email_domain,
   hackney_opts: [
     recv_timeout: :timer.minutes(1)
   ]
