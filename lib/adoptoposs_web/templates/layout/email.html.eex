@@ -8,7 +8,7 @@
       Always keep maintaining! <br/>
       - Your Adoptoposs
     </p>
-    <img src="<%= Routes.static_path(AdoptopossWeb.Endpoint, "/images/adoptoposs-logo.png")%>" alt="Adoptoposs"/>
+    <img src="<%= Routes.static_url(AdoptopossWeb.Endpoint, "/images/adoptoposs-logo.png")%>" alt="Adoptoposs"/>
   </body>
   <footer>
     <div>

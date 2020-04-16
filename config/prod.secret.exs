@@ -70,11 +70,13 @@ email_api_key =
     """
 
 email_domain = System.get_env("MAILGUN_DOMAIN") || System.get_env("EMAIL_DOMAIN")
+email_base_uri = System.get_env("MAILGUN_BASE_URI") || System.get_env("EMAIL_BASE_URI")
 
 config :adoptoposs, AdoptopossWeb.Mailer,
   adapter: Bamboo.MailgunAdapter,
   api_key: email_api_key,
   domain: email_domain,
+  base_uri: email_base_uri,
   hackney_opts: [
     recv_timeout: :timer.minutes(1)
   ]
