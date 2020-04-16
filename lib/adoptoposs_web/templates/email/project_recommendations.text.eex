@@ -1,6 +1,6 @@
 Hi <%= @user.name %>,
 
-We’ve found some projects on Adoptoposs for which you might be interested in helping with their maintanance:
+We’ve found some projects on Adoptoposs you might be interested in helping with their maintenance:
 
 <%= for {language_name, projects} <- Enum.group_by(@projects, & &1.language.name) do %>
 <%= language_name %>
