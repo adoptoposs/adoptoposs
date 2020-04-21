@@ -46,10 +46,7 @@ defmodule AdoptopossWeb.EmailTest do
 
     for project <- projects do
       assert email.html_body =~ project.name
-      assert email.html_body =~ project.data["url"]
-
       assert email.text_body =~ project.name
-      assert email.text_body =~ project.data["url"]
     end
   end
 end

@@ -1,20 +1,27 @@
-<p>
-  Hi <%= @interest.project.user.name %>,
-</p>
+<mj-section>
+  <mj-column>
+    <mj-text css-class="text">
+      Hi <%= @interest.project.user.name %>
+    </mj-text>
 
-<p>
-  you’ve got a new message for your project <b><%= @interest.project.name %></b>  on Adoptoposs:
-</p>
+    <mj-text css-class="text">
+      you’ve got a new message for your project <b><%= @interest.project.name %></b>  on Adoptoposs:
+    </mj-text>
 
-<div>
-  <hr />
-  <%= render AdoptopossWeb.InterestView, "reply.html",
-    interest: @interest,
-    project_url: @project_url %>
-  <hr />
-</div>
+    <mj-divider border-width="1px"  border-color="#ddd"></mj-divider>
+    <mj-text css-class="text" font-weight="bold" font-style="italic">
+      On <%= Timex.format!(@interest.inserted_at, "{D}/{M}/{YY} {h12}:{m} {AM}") %>, <%= link @interest.creator.name, to: @interest.creator.profile_url %> wrote:
+    </mj-text>
 
-<p>
-  You can find the original message <%= link "here", to: @project_url %>.
-  In order to get into contact you can directly reply to this email.
-</p>
+    <mj-text css-class="text" font-style="italic" padding-left="24px">
+      <em style="white-space: pre-wrap;padding-left: 24px"><%= String.trim(@interest.message) %></em>
+    </mj-text>
+
+    <mj-divider border-width="1px"  border-color="#ddd"></mj-divider>
+
+    <mj-text css-class="text">
+      You can find the original message <%= link "here", to: @project_url %>.
+      In order to get into contact you can directly reply to this email.
+    </mj-text>
+  </mj-column>
+</mj-section>

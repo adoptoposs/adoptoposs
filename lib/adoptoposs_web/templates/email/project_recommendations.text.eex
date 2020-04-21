@@ -1,20 +1,19 @@
 Hi <%= @user.name %>,
 
-We’ve found some projects on Adoptoposs you might be interested in helping with their maintenance:
+We’ve found some projects on Adoptoposs you might like to help maintain:
 
 <%= for {language_name, projects} <- Enum.group_by(@projects, & &1.language.name) do %>
 <%= language_name %>
 =============================================
   <%= for project <- projects do %>
-    <%= project.data["owner"]["login"] <> "/" <> project.name %>
-    @<%= project.user.username %> is looking for:
-      <%= project.data["description"] %>
+    ** <%= project.data["owner"]["login"] <> "/" <> project.name %>
+       @<%= project.user.username %> is looking for:
+       <%= project.description %>
 
     On Adoptoposs: <%= Routes.sharing_url(AdoptopossWeb.Endpoint, :index, project.uuid) %>
-    <%= project.data["url"] %>
 
   <% end %>
-Find more <%= language_name %> projects on Adoptoposs:
+More <%= language_name %> projects on Adoptoposs:
 <%= Routes.live_url(AdoptopossWeb.Endpoint, AdoptopossWeb.LandingPageLive, f: String.downcase(language_name)) %>
 
 ---------------------------------------------
