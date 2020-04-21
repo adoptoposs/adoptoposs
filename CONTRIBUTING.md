@@ -62,7 +62,7 @@ Here’s how to contribute:
 
 Try to add tests along with your new feature. This will ensure that your code does not break existing functionality and that your feature is working as expected.
 
-If you’ve changed any Elixir code, please run Elixir’s code formatter before commiting your changes. This will keep the code style consistent and future code diffs as small as possible.
+If you’ve changed any Elixir code, please run Elixir’s code formatter before committing your changes. This will keep the code style consistent and future code diffs as small as possible.
 
 ---------
 

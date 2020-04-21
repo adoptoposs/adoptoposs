@@ -13,8 +13,8 @@ potential co-maintainers.
 **Having a team of multiple maintainers is good for you and your project, because:**
 
 * The workload can be split up between all maintainers
-* It's easier to take decisions as a team
-* There will be no single point of failure
+* It's easier to take decisions as a team
+* There will be no single point of failure
 * It is possible to step down as a maintainer
 
 If you like to learn more about the reasons behind

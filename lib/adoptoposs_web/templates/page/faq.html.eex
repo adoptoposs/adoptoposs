@@ -17,7 +17,7 @@
       <ul class="list-disc list-inner pl-4">
         <li>Finding open source projects that need maintainers</li>
         <li>Putting up your open source project for adoption</li>
-        <li>Making the initial contact bewteen open source maintainers and people who want to become co-maintainers</li>
+        <li>Making the initial contact between open source maintainers and people who want to become co-maintainers</li>
       </ul>
     <% end %>
 
