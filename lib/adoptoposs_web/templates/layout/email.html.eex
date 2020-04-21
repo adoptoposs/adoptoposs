@@ -33,6 +33,7 @@
         font-family: Source Sans Pro, sans-serif !important;
         font-size: 16px !important;
         color: #2d3748 !important;
+        line-height: 1.3em !important;
       }
 
       .text.medium-dark, .text.medium-dark div {
@@ -55,7 +56,7 @@
     <mj-section>
       <!-- logo -->
       <mj-column>
-        <mj-image width="384px" src="<%= Routes.static_url(AdoptopossWeb.Endpoint, "/images/adoptoposs-message.png")%>" />
+        <mj-image width="384px" src="<%= email_header_image(assigns[:layout_type]) %>" />
       </mj-column>
     </mj-section>
 
@@ -79,7 +80,7 @@
     </mj-section>
 
     <!-- footer -->
-    <mj-section background-color="#f56565">
+    <mj-section background-color="<%= email_footer_background(assigns[:layout_type]) %>">
       <mj-column>
         <mj-text color="white" font-size="12px" font-family="Source Sans Pro" align="center">
           Visit <%= link AdoptopossWeb.Endpoint.host(), to: Routes.live_url(AdoptopossWeb.Endpoint, AdoptopossWeb.LandingPageLive), class: "inline" %> to find co-maintainers for your open source software project.

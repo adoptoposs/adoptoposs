@@ -13,7 +13,7 @@ defmodule AdoptopossWeb.Email do
     %{project: project, creator: creator} = interest
     project_url = live_url(Endpoint, AdoptopossWeb.ProjectLive.Show, project.id)
 
-    base_email()
+    base_email(:notification)
     |> to(project.user.email)
     |> subject("[Adoptoposs][#{project.name}] #{creator.name} wrote you a message")
     |> put_header("Reply-To", creator.email)
@@ -23,7 +23,7 @@ defmodule AdoptopossWeb.Email do
   end
 
   def project_recommendations_email(user, projects) do
-    base_email()
+    base_email(:newsletter)
     |> to(user.email)
     |> subject("[Adoptoposs] Projects you might like to help maintain")
     |> assign(:user, user)
@@ -31,11 +31,12 @@ defmodule AdoptopossWeb.Email do
     |> render_mjml(:project_recommendations)
   end
 
-  defp base_email do
+  defp base_email(layout_type) do
     new_email()
     |> from("Adoptoposs<notifications@#{System.get_env("HOST")}>")
     |> put_html_layout({AdoptopossWeb.LayoutView, "email.html"})
     |> put_text_layout({AdoptopossWeb.LayoutView, "email.text"})
+    |> assign(:layout_type, layout_type)
   end
 
   def render_mjml(email, template, assigns \\ []) do
