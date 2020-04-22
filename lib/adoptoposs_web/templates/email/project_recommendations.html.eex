@@ -1,39 +1,58 @@
-<p>
-  Hi <%= @user.name %>,
-</p>
+<mj-section>
+  <mj-column>
+    <mj-text font-size="16px" font-family="Source Sans Pro" color="#2d3748">
+      Hi <%= @user.name %>,
+    </mj-text>
 
-<p>
-  We’ve found some projects on Adoptoposs you might be interested in helping with their maintenance:
-</p>
+    <mj-text font-size="16px" font-family="Source Sans Pro" color="#2d3748">
+      We’ve found some projects on Adoptoposs you might like to help maintain:
+    </mj-text>
 
-<%= for {language_name, projects} <- Enum.group_by(@projects, & &1.language.name) do %>
-  <div>
-    <b><%= language_name %></b>
+    <%= for {language_name, projects} <- Enum.group_by(@projects, & &1.language.name) do %>
+      <mj-text font-size="28px" font-family="Oswald" color="#702459" font-weight="600" padding-top="32px" padding-bottom="24px">
+        <%= language_name %>
+      </mj-text>
 
-    <ul>
       <%= for project <- projects do %>
-        <li>
-          <p>
-            <b>
-            <%= link "#{project.data["owner"]["login"]}/#{project.name}",
-              to: Routes.sharing_url(AdoptopossWeb.Endpoint, :index, project.uuid) %>
-            </b>
-            </br>
-            <%= link "@#{project.user.username}", to: project.user.profile_url %> is looking for:</br>
-            <%= project.data["description"] %></br>
-          </p>
-          <p>
-            <%= link project.data["url"], to: project.data["url"] %>
-          </p>
-        </li>
+        <mj-table table-layout="auto" padding="0px" css-class="border" cellpadding="0" cellspacing="0">
+          <tr style="text-align:top;">
+            <td style="padding: 18px 18px 6px 18px">
+              <%= link AdoptopossWeb.SharedView.project_name(project),
+                  to: Routes.sharing_url(AdoptopossWeb.Endpoint, :index, project.uuid),
+                  class: "headline" %>
+            </td>
+          </tr>
+          <tr>
+            <td style="padding: 0px 18px 18px 18px;">
+              <div class="text bright">
+                <%= {:safe, Earmark.as_html!(project.data["description"])} %>
+              </div>
+            </td>
+          </tr>
+
+          <tr style="text-align:top;">
+            <td style="padding: 18px 18px 6px 18px;font-weight:600;background-color:#edf2f7;">
+              <div class="text medium-dark">
+                <%= link "@#{project.user.username}", to: project.user.profile_url %> is looking for:
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td style="padding: 0px 18px 18px 18px;background-color:#edf2f7;">
+              <div class="text medium-dark">
+                <%= project.description %>
+              </div>
+            </td>
+          </tr>
+        </mj-table>
+
+        <mj-divider border-width="0px"></mj-divider>
       <% end %>
-    </ul>
 
-    <p>
-      Find more
-      <%= link "#{language_name} projects",
-        to: Routes.live_url(AdoptopossWeb.Endpoint, AdoptopossWeb.LandingPageLive, f: String.downcase(language_name)) %> on Adoptoposs.
-    </p>
-  </div>
-<% end %>
-
+      <mj-text css-class="text" align="center">
+        <%= link "More #{language_name} projects…",
+          to: Routes.live_url(AdoptopossWeb.Endpoint, AdoptopossWeb.LandingPageLive, f: String.downcase(language_name)) %>
+      </mj-text>
+    <% end %>
+  </mj-column>
+</mj-section>

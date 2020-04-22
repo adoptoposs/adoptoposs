@@ -31,7 +31,7 @@ defmodule Adoptoposs.Factory do
       # encode and decode repository to get the data as it is stored in the database
       data: build(:repository, id: repo_id, owner: owner) |> Jason.encode!() |> Jason.decode!(),
       user: build(:user),
-      description: "Description",
+      description: "another co-maintainer",
       repo_id: repo_id,
       repo_owner: owner.login,
       uuid: uuid
@@ -94,7 +94,7 @@ defmodule Adoptoposs.Factory do
     %Network.Repository{
       id: sequence("id"),
       name: sequence("Repo"),
-      description: "Description",
+      description: "<div>Solving <i>all</i> the issues</div>",
       url: sequence(:url, &"https://example.com/repos/repo#{&1}"),
       owner: build(:contributor),
       language: build(:language),

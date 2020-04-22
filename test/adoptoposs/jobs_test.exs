@@ -92,14 +92,14 @@ defmodule Adoptoposs.JobsTest do
       for user <- weekly_users do
         assert_email_delivered_with(
           subject: "[Adoptoposs] Projects you might like to help maintain",
-          to: [user.email]
+          to: [nil: user.email]
         )
       end
 
       for user <- monthly_users do
         refute_email_delivered_with(
           subject: "[Adoptoposs] Projects you might like to help maintain",
-          to: [user.email]
+          to: [nil: user.email]
         )
       end
     end
@@ -122,14 +122,14 @@ defmodule Adoptoposs.JobsTest do
       for user <- monthly_users do
         assert_email_delivered_with(
           subject: "[Adoptoposs] Projects you might like to help maintain",
-          to: [user.email]
+          to: [nil: user.email]
         )
       end
 
       for user <- weekly_users do
         refute_email_delivered_with(
           subject: "[Adoptoposs] Projects you might like to help maintain",
-          to: [user.email]
+          to: [nil: user.email]
         )
       end
     end
