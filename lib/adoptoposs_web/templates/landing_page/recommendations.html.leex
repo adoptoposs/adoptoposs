@@ -33,7 +33,7 @@
     </p>
   </div>
 <% else %>
-  <div class="flex flex-row mt-4 md:mt-8 items-center">
+  <div class="flex flex-row mt-4 md:mt-8 items-start">
     <div class="flex flex-row flex-wrap flex-grow items-center">
       <%= for tag_subscription <- @tag_subscriptions do %>
         <div phx-click="filter_recommendations" phx-value-tag_subscription_id="<%= tag_subscription.id %>">
@@ -46,8 +46,10 @@
       <% end %>
     </div>
 
-    <div class="ml-2 text-center">
-      <%= live_redirect "Edit Languages", to: Routes.live_path(AdoptopossWeb.Endpoint, AdoptopossWeb.SettingsLive) %>
+    <div class="ml-2 mt-1 text-center">
+      <%= live_redirect "Edit Languages",
+        to: Routes.live_path(AdoptopossWeb.Endpoint, AdoptopossWeb.SettingsLive),
+        class: "md:whitespace-no-wrap" %>
     </div>
   </div>
 
