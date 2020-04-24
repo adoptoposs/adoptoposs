@@ -10,6 +10,8 @@ defmodule Adoptoposs.Jobs.ProjectRecommendations do
   alias AdoptopossWeb.Mailer
 
   @project_per_tag 3
+  @task_max_concurrency 25
+  @task_timeout 30_000
 
   @doc """
   Sends emails with recommended projects to all users with enabled setting.
@@ -17,7 +19,10 @@ defmodule Adoptoposs.Jobs.ProjectRecommendations do
   def send_emails(setting) do
     setting
     |> get_user_ids()
-    |> Task.async_stream(&send_email/1, max_concurrency: 25)
+    |> Task.async_stream(&send_email/1,
+      max_concurrency: @task_max_concurrency,
+      timeout: @task_timeout
+    )
     |> Enum.reduce(0, fn result, sum ->
       case result do
         {:ok, n} -> sum + n
