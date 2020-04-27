@@ -28,7 +28,7 @@ defmodule AdoptopossWeb.ProjectLiveTest do
         Routes.live_path(conn, ProjectLive.Show, 1)
       ],
       fn path ->
-        {:error, %{redirect: %{to: "/"}}} = live(conn, path)
+        {:error, {:redirect, %{to: "/"}}} = live(conn, path)
       end
     )
   end
@@ -94,8 +94,9 @@ defmodule AdoptopossWeb.ProjectLiveTest do
   } do
     project = insert(:project)
 
-    assert {:error, %{redirect: %{to: Routes.live_path(conn, ProjectLive.Index)}}} ==
+    assert {:error, {:live_redirect, %{to: path}}} =
              live(conn, Routes.live_path(conn, ProjectLive.Show, project.id))
+    assert path == Routes.live_path(conn, ProjectLive.Index)
   end
 
   @tag login_as: "user123"

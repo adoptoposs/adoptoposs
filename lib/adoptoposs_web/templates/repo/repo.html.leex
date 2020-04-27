@@ -22,7 +22,7 @@
           <%= submit "+", id: "btn-submit-#{@id}", phx_click: "attempt_submit", phx_target: "##{@id}", class: "h-12 w-12 md:h-16 md:w-16 mb-4 mt-2 md:mb-2 md:mt-0 rounded rounded-full text-3xl font-light m-0 leading-none", title: "Submit Repo" %>
         <% else %>
           <%= render AdoptopossWeb.SharedView, "form.html",
-            id: @repo.id,
+            id: "form-#{@id}",
             changeset: @changeset,
             headline: "I’m looking for…",
             message_field: :description,
