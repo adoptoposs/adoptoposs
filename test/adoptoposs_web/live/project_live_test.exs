@@ -96,6 +96,7 @@ defmodule AdoptopossWeb.ProjectLiveTest do
 
     assert {:error, {:live_redirect, %{to: path}}} =
              live(conn, Routes.live_path(conn, ProjectLive.Show, project.id))
+
     assert path == Routes.live_path(conn, ProjectLive.Index)
   end
 

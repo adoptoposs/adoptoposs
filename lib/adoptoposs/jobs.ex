@@ -32,11 +32,11 @@ defmodule Adoptoposs.Jobs do
       action = :"send_emails_#{setting}"
 
       with :ok <- Bodyguard.permit(policy, action, Timex.today(), email_weekday()),
-           count <- ProjectRecommendations.send_emails(setting) do
-        {:ok, {setting, count}}
+           emails <- ProjectRecommendations.send_emails(setting) do
+        {:ok, {setting, emails}}
       else
         {:error, :unauthorized} ->
-          {:error, {setting, 0}}
+          {:error, {setting, []}}
 
         {:error, reason} ->
           {:error, reason}
