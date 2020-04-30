@@ -11,7 +11,7 @@ defmodule AdoptopossWeb.SettingsLiveTest do
   end
 
   test "connected mount of /settings when logged out", %{conn: conn} do
-    {:error, %{redirect: %{to: "/"}}} = live(conn, Routes.live_path(conn, SettingsLive))
+    {:error, {:redirect, %{to: "/"}}} = live(conn, Routes.live_path(conn, SettingsLive))
   end
 
   @tag login_as: "user123"

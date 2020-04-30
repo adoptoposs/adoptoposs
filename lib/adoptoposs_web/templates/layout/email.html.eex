@@ -61,7 +61,7 @@
     </mj-section>
 
     <!-- content -->
-    <%= render @view_module, @view_template, assigns %>
+    <%= @inner_content %>
 
     <!-- content footer -->
     <mj-section>

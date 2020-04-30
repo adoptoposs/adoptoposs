@@ -10,7 +10,7 @@ defmodule AdoptopossWeb.RepoLiveTest do
   end
 
   test "connected mount of /settings/repos/:orga_id when logged out", %{conn: conn} do
-    assert {:error, %{redirect: %{to: "/"}}} =
+    assert {:error, {:redirect, %{to: "/"}}} =
              live(conn, Routes.live_path(conn, AdoptopossWeb.RepoLive, "orga"))
   end
 
@@ -43,12 +43,21 @@ defmodule AdoptopossWeb.RepoLiveTest do
 
     refute html =~ ~r/submitted to.+your projects/i
 
-    component = [view, "#repo-" <> AdoptopossWeb.RepoView.hashed(repo.id)]
-    html = render_click(component, :attempt_submit, %{})
+    element_id = "repo-" <> AdoptopossWeb.RepoView.hashed(repo.id)
+
+    html =
+      view
+      |> element("#btn-submit-#{element_id}", "+")
+      |> render_click()
+
     assert html =~ "I’m looking for"
     assert html =~ "Submit"
 
-    html = render_submit(component, :submit_project, %{project: %{description: "text"}})
+    html =
+      view
+      |> element("#form-#{element_id}")
+      |> render_submit(%{project: %{description: "text"}})
+
     assert html =~ ~r/submitted to.+your projects/is
   end
 end

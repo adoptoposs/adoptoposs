@@ -17,18 +17,12 @@ defmodule Adoptoposs.Jobs.ProjectRecommendations do
   Sends emails with recommended projects to all users with enabled setting.
   """
   def send_emails(setting) do
+    opts = [max_concurrency: @task_max_concurrency, timeout: @task_timeout]
+
     setting
     |> get_user_ids()
-    |> Task.async_stream(&send_email/1,
-      max_concurrency: @task_max_concurrency,
-      timeout: @task_timeout
-    )
-    |> Enum.reduce(0, fn result, sum ->
-      case result do
-        {:ok, n} -> sum + n
-        _ -> sum
-      end
-    end)
+    |> Task.async_stream(&send_email/1, opts)
+    |> Enum.reduce([], &collect_emails/2)
   end
 
   defp get_user_ids(setting) do
@@ -45,9 +39,16 @@ defmodule Adoptoposs.Jobs.ProjectRecommendations do
 
     if Enum.any?(projects) do
       Mailer.send_project_recommendations_email(user, projects)
-      1
     else
-      0
+      nil
+    end
+  end
+
+  defp collect_emails(result, emails) do
+    case result do
+      {:ok, nil} -> emails
+      {:ok, email} -> emails ++ [email]
+      _ -> emails
     end
   end
 

@@ -64,16 +64,23 @@ defmodule AdoptopossWeb.SearchLiveTest do
     project = insert(:project, user: build(:user, username: "other-user-than-logged-in"))
 
     {:ok, view, _html} = live(conn, Routes.live_path(conn, SearchLive))
-    interest_component = [view, "#project-#{project.id}", "#interest-#{project.id}"]
 
     html = render_change(view, :search, %{q: project.name})
     assert html =~ project.name
     assert html =~ ~r/contact maintainer/i
 
-    html = render_click(interest_component, :attempt_contact, %{id: project.id})
+    html =
+      view
+      |> element("#btn-interest-#{project.id}")
+      |> render_click(%{id: project.id})
+
     assert html =~ ~r/send/i
 
-    html = render_submit(interest_component, :submit, %{interest: %{message: "Hi"}})
+    html =
+      view
+      |> element("#form-interest-#{project.id}")
+      |> render_submit(%{interest: %{message: "Hi"}})
+
     assert html =~ ~r/you contacted the maintainer/i
 
     assert %Interest{} =
@@ -90,14 +97,9 @@ defmodule AdoptopossWeb.SearchLiveTest do
     project = insert(:project, user: user)
 
     {:ok, view, _html} = live(conn, Routes.live_path(conn, SearchLive))
-    interest_component = [view, "#project-#{project.id}", "#interest-#{project.id}"]
 
     html = render_change(view, :search, %{q: project.name})
     assert html =~ project.name
     refute html =~ "Contact maintainer"
-
-    render_submit(interest_component, :submit, %{interest: %{message: "Hi"}})
-    assert Adoptoposs.Repo.aggregate(Adoptoposs.Communication.Interest, :count) == 0
-    assert_no_emails_delivered()
   end
 end

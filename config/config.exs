@@ -24,7 +24,7 @@ config :adoptoposs, AdoptopossWeb.Endpoint,
     accepts: ~w(html json),
     layout: {AdoptopossWeb.LayoutView, "error.html"}
   ],
-  pubsub: [name: Adoptoposs.PubSub, adapter: Phoenix.PubSub.PG2],
+  pubsub_server: Adoptoposs.PubSub,
   live_view: [signing_salt: "r3nJpTPt6vBQikTcL+RKVfzNTFcxrm99"]
 
 # Configures Elixir's Logger

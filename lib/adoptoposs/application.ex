@@ -13,9 +13,10 @@ defmodule Adoptoposs.Application do
       # Start the endpoint when the application starts
       AdoptopossWeb.Endpoint,
       # Start scheduler for Quantum tasks
-      Adoptoposs.Scheduler
+      Adoptoposs.Scheduler,
       # Starts a worker by calling: Adoptoposs.Worker.start_link(arg)
       # {Adoptoposs.Worker, arg},
+      {Phoenix.PubSub, [name: Adoptoposs.PubSub, adapter: Phoenix.PubSub.PG2]}
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html

@@ -57,6 +57,8 @@ defmodule Adoptoposs.JobsTest do
   describe "jobs" do
     use Bamboo.Test, shared: true
 
+    @recommendations_subject "[Adoptoposs] Projects you might like to help maintain"
+
     defmock(PolicyMock, for: Bodyguard.Policy)
 
     setup do
@@ -86,19 +88,20 @@ defmodule Adoptoposs.JobsTest do
         end
       end)
 
-      assert [ok: {"weekly", 2}, error: {"monthly", 0}] =
+      assert [ok: {"weekly", emails}, error: {"monthly", []}] =
                Jobs.send_project_recommendations(PolicyMock)
 
-      for user <- weekly_users do
-        assert_email_delivered_with(
-          subject: "[Adoptoposs] Projects you might like to help maintain",
-          to: [nil: user.email]
-        )
+      assert Enum.count(emails) == Enum.count(weekly_users)
+
+      for {%{email: receiver}, index} <- Enum.with_index(weekly_users) do
+        email = emails |> Enum.at(index)
+        assert %{subject: @recommendations_subject, to: [nil: ^receiver]} = email
+        assert_delivered_email(email)
       end
 
       for user <- monthly_users do
         refute_email_delivered_with(
-          subject: "[Adoptoposs] Projects you might like to help maintain",
+          subject: @recommendations_subject,
           to: [nil: user.email]
         )
       end
@@ -116,19 +119,20 @@ defmodule Adoptoposs.JobsTest do
         end
       end)
 
-      assert [error: {"weekly", 0}, ok: {"monthly", 2}] =
+      assert [error: {"weekly", []}, ok: {"monthly", emails}] =
                Jobs.send_project_recommendations(PolicyMock)
 
-      for user <- monthly_users do
-        assert_email_delivered_with(
-          subject: "[Adoptoposs] Projects you might like to help maintain",
-          to: [nil: user.email]
-        )
+      assert Enum.count(emails) == Enum.count(monthly_users)
+
+      for {%{email: receiver}, index} <- Enum.with_index(monthly_users) do
+        email = emails |> Enum.at(index)
+        assert %{subject: @recommendations_subject, to: [nil: ^receiver]} = email
+        assert_delivered_email(email)
       end
 
       for user <- weekly_users do
         refute_email_delivered_with(
-          subject: "[Adoptoposs] Projects you might like to help maintain",
+          subject: @recommendations_subject,
           to: [nil: user.email]
         )
       end
