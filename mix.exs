@@ -45,7 +45,7 @@ defmodule Adoptoposs.MixProject do
       {:phoenix_live_reload, "~> 1.2", only: :dev},
       {:gettext, "~> 0.17"},
       {:jason, "~> 1.0"},
-      {:plug_cowboy, "~> 2.0"},
+      {:plug_cowboy, "~> 2.2"},
       {:ueberauth, "~> 0.6"},
       {:ueberauth_github, "~> 0.8"},
       {:bodyguard, "~> 2.4"},
