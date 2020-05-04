@@ -182,6 +182,7 @@ defmodule Adoptoposs.Submissions do
 
   @doc """
   Returns recommended projects of the given language for a user.
+  Only projects the user did not contact yet are considered.
 
   Supported options are `:limit` and `:preload`
 
@@ -208,7 +209,8 @@ defmodule Adoptoposs.Submissions do
             "SELECT COUNT(*) FROM interests WHERE project_id = ? AND creator_id = ?",
             p.id,
             ^user_id
-          ) == 0
+          ) == 0,
+        order_by: [desc: p.inserted_at]
     )
   end
 end
