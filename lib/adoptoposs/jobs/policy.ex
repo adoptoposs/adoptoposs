@@ -14,6 +14,18 @@ defmodule Adoptoposs.Jobs.Policy do
     matches_weekday?(date, permitted_weekday)
   end
 
+  @doc """
+  Authorizes to send biweekly emails if the given date is on the `permitted_weekday`.
+  """
+  def authorize(:send_emails_biweekly, %Date{} = date, permitted_weekday) do
+    day = date.day
+
+    case matches_weekday?(date, permitted_weekday) do
+      true when day <= 7 or day in 14..20 -> true
+      _ -> false
+    end
+  end
+
   def authorize(_, _, _), do: :error
 
   defp matches_weekday?(date, weekday) when is_integer(weekday) do

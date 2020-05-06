@@ -52,6 +52,36 @@ defmodule Adoptoposs.JobsTest do
       assert {:error, :unauthorized} = Bodyguard.permit(Jobs, :send_emails_weekly, date, 6)
       assert {:error, :unauthorized} = Bodyguard.permit(Jobs, :send_emails_weekly, date, 7)
     end
+
+    test "send_emails_biweekly is permitted for the first permitted weekday of the month", %{
+      date: date
+    } do
+      assert :ok = Bodyguard.permit(Jobs, :send_emails_biweekly, date, 2)
+      assert :ok = Bodyguard.permit(Jobs, :send_emails_biweekly, date, "2")
+    end
+
+    test "send_emails_biweekly is permitted on the permitted weekday for the second half of the month" do
+      {:ok, date} = Date.new(2222, 01, 15)
+
+      assert :ok = Bodyguard.permit(Jobs, :send_emails_biweekly, date, 2)
+      assert :ok = Bodyguard.permit(Jobs, :send_emails_biweekly, date, "2")
+    end
+
+    test "send_emails_biweekly is forbidden if the given date is not week 1 or week 3" do
+      # First authorized day within the first two weeks of the month
+      {:ok, date} = Date.new(2222, 01, 08)
+
+      assert {:error, :unauthorized} = Bodyguard.permit(Jobs, :send_emails_biweekly, date, 2)
+
+      assert {:error, :unauthorized} = Bodyguard.permit(Jobs, :send_emails_biweekly, date, "2")
+
+      # First authorized day within the first two weeks of the month
+      {:ok, date} = Date.new(2222, 01, 29)
+
+      assert {:error, :unauthorized} = Bodyguard.permit(Jobs, :send_emails_biweekly, date, 2)
+
+      assert {:error, :unauthorized} = Bodyguard.permit(Jobs, :send_emails_biweekly, date, "2")
+    end
   end
 
   describe "jobs" do
@@ -63,8 +93,12 @@ defmodule Adoptoposs.JobsTest do
 
     setup do
       weekly_users = insert_list(2, :user, settings: %{email_project_recommendations: "weekly"})
+
+      biweekly_users =
+        insert_list(2, :user, settings: %{email_project_recommendations: "biweekly"})
+
       monthly_users = insert_list(2, :user, settings: %{email_project_recommendations: "monthly"})
-      users = weekly_users ++ monthly_users
+      users = weekly_users ++ biweekly_users ++ monthly_users
 
       tag = insert(:tag, type: Tag.Language.type())
       insert(:project, language: tag)
@@ -73,22 +107,25 @@ defmodule Adoptoposs.JobsTest do
         insert(:tag_subscription, user: user, tag: tag)
       end
 
-      {:ok, %{weekly_users: weekly_users, monthly_user: monthly_users}}
+      {:ok,
+       %{weekly_users: weekly_users, biweekly_users: biweekly_users, monthly_user: monthly_users}}
     end
 
     test "send_project_recommendations/0 sends all weekly emails", %{
       weekly_users: weekly_users,
+      biweekly_users: biweekly_users,
       monthly_user: monthly_users
     } do
       expect(PolicyMock, :authorize, 3, fn action, _, _ ->
         case action do
           :send_emails_weekly -> :ok
+          :send_emails_biweekly -> :error
           :send_emails_monthly -> :error
           _ -> :error
         end
       end)
 
-      assert [ok: {"weekly", emails}, error: {"monthly", []}] =
+      assert [ok: {"weekly", emails}, error: {"biweekly", []}, error: {"monthly", []}] =
                Jobs.send_project_recommendations(PolicyMock)
 
       assert Enum.count(emails) == Enum.count(weekly_users)
@@ -97,6 +134,53 @@ defmodule Adoptoposs.JobsTest do
         email = emails |> Enum.at(index)
         assert %{subject: @recommendations_subject, to: [nil: ^receiver]} = email
         assert_delivered_email(email)
+      end
+
+      for user <- biweekly_users do
+        refute_email_delivered_with(
+          subject: @recommendations_subject,
+          to: [nil: user.email]
+        )
+      end
+
+      for user <- monthly_users do
+        refute_email_delivered_with(
+          subject: @recommendations_subject,
+          to: [nil: user.email]
+        )
+      end
+    end
+
+    test "send_project_recommendations/0 sends all biweekly emails", %{
+      weekly_users: weekly_users,
+      biweekly_users: biweekly_users,
+      monthly_user: monthly_users
+    } do
+      expect(PolicyMock, :authorize, 3, fn action, _, _ ->
+        case action do
+          :send_emails_weekly -> :error
+          :send_emails_biweekly -> :ok
+          :send_emails_monthly -> :error
+          _ -> :error
+        end
+      end)
+
+      assert [error: {"weekly", []}, ok: {"biweekly", emails}, error: {"monthly", []}] =
+               Jobs.send_project_recommendations(PolicyMock)
+
+      assert Enum.count(emails) == Enum.count(biweekly_users)
+
+      for {%{email: receiver}, index} <- Enum.with_index(biweekly_users) do
+        email = emails |> Enum.at(index)
+        assert %{subject: @recommendations_subject, to: [nil: ^receiver]} = email
+        assert_delivered_email(email)
+      end
+
+      for user <- weekly_users do
+        refute_email_delivered_with(
+          subject: @recommendations_subject,
+          to: [nil: user.email]
+        )
       end
 
       for user <- monthly_users do
@@ -109,17 +193,19 @@ defmodule Adoptoposs.JobsTest do
 
     test "send_project_recommendations/0 sends all monthly emails", %{
       weekly_users: weekly_users,
+      biweekly_users: biweekly_users,
       monthly_user: monthly_users
     } do
       expect(PolicyMock, :authorize, 3, fn action, _, _ ->
         case action do
           :send_emails_weekly -> :error
+          :send_emails_biweekly -> :error
           :send_emails_monthly -> :ok
           _ -> :error
         end
       end)
 
-      assert [error: {"weekly", []}, ok: {"monthly", emails}] =
+      assert [error: {"weekly", []}, error: {"biweekly", []}, ok: {"monthly", emails}] =
                Jobs.send_project_recommendations(PolicyMock)
 
       assert Enum.count(emails) == Enum.count(monthly_users)
@@ -131,6 +217,13 @@ defmodule Adoptoposs.JobsTest do
       end
 
       for user <- weekly_users do
+        refute_email_delivered_with(
+          subject: @recommendations_subject,
+          to: [nil: user.email]
+        )
+      end
+
+      for user <- biweekly_users do
         refute_email_delivered_with(
           subject: @recommendations_subject,
           to: [nil: user.email]
