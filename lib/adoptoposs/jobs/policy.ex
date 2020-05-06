@@ -1,10 +1,13 @@
 defmodule Adoptoposs.Jobs.Policy do
+  # first 7 days of the week
+  @first_week 7
+
   @doc """
   Authorizes to send monthly emails if the given date is the first
   `permitted_weekday` of the month.
   """
   def authorize(:send_emails_monthly, %Date{} = date, permitted_weekday) do
-    date.day <= 7 && matches_weekday?(date, permitted_weekday)
+    date.day <= @first_week && matches_weekday?(date, permitted_weekday)
   end
 
   @doc """
@@ -21,7 +24,8 @@ defmodule Adoptoposs.Jobs.Policy do
     day = date.day
 
     case matches_weekday?(date, permitted_weekday) do
-      true when day <= 7 or day in 14..20 -> true
+      true when day <= @first_week -> true
+      true when day in 14..20 -> true
       _ -> false
     end
   end
