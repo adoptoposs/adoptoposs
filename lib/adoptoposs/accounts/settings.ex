@@ -18,6 +18,7 @@ defmodule Adoptoposs.Accounts.Settings do
 
   @email_project_recommendations_values ~w(
     weekly
+    biweekly
     monthly
     off
   )
