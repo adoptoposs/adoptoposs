@@ -67,20 +67,73 @@ defmodule Adoptoposs.JobsTest do
       assert :ok = Bodyguard.permit(Jobs, :send_emails_biweekly, date, "2")
     end
 
-    test "send_emails_biweekly is forbidden if the given date is not week 1 or week 3" do
-      # First authorized day within the first two weeks of the month
+    test "send_emails_biweekly is only allowed on permitted weekday in weeks 1 and 3" do
+      # Permitted weekday, first day of week 2
       {:ok, date} = Date.new(2222, 01, 08)
 
       assert {:error, :unauthorized} = Bodyguard.permit(Jobs, :send_emails_biweekly, date, 2)
 
       assert {:error, :unauthorized} = Bodyguard.permit(Jobs, :send_emails_biweekly, date, "2")
 
-      # First authorized day within the first two weeks of the month
+      # Permitted weekday, last day of week 2
+      {:ok, date} = Date.new(2222, 01, 14)
+
+      assert {:error, :unauthorized} = Bodyguard.permit(Jobs, :send_emails_biweekly, date, 1)
+
+      assert {:error, :unauthorized} = Bodyguard.permit(Jobs, :send_emails_biweekly, date, "1")
+
+      # Permitted weekday, first day of week 4
+      {:ok, date} = Date.new(2222, 01, 22)
+
+      assert {:error, :unauthorized} = Bodyguard.permit(Jobs, :send_emails_biweekly, date, 2)
+
+      assert {:error, :unauthorized} = Bodyguard.permit(Jobs, :send_emails_biweekly, date, "2")
+
+      # Permitted weekday, last day of week 4
+      {:ok, date} = Date.new(2222, 01, 28)
+
+      assert {:error, :unauthorized} = Bodyguard.permit(Jobs, :send_emails_biweekly, date, 1)
+
+      assert {:error, :unauthorized} = Bodyguard.permit(Jobs, :send_emails_biweekly, date, "1")
+
+      # Permitted weekday in week 5
       {:ok, date} = Date.new(2222, 01, 29)
 
       assert {:error, :unauthorized} = Bodyguard.permit(Jobs, :send_emails_biweekly, date, 2)
 
       assert {:error, :unauthorized} = Bodyguard.permit(Jobs, :send_emails_biweekly, date, "2")
+    end
+
+    test "send_emails_biweekly is forbidden in a weeks 1 and 3 if given date is not permitted weekday",
+         %{date: date} do
+      # Week 1
+      assert {:error, :unauthorized} = Bodyguard.permit(Jobs, :send_emails_biweekly, date, 1)
+      assert {:error, :unauthorized} = Bodyguard.permit(Jobs, :send_emails_biweekly, date, 3)
+      assert {:error, :unauthorized} = Bodyguard.permit(Jobs, :send_emails_biweekly, date, 4)
+      assert {:error, :unauthorized} = Bodyguard.permit(Jobs, :send_emails_biweekly, date, 5)
+      assert {:error, :unauthorized} = Bodyguard.permit(Jobs, :send_emails_biweekly, date, 6)
+      assert {:error, :unauthorized} = Bodyguard.permit(Jobs, :send_emails_biweekly, date, 7)
+
+      # Week 2
+      {:ok, week2_date} = Date.new(222, 01, 15)
+
+      assert {:error, :unauthorized} =
+               Bodyguard.permit(Jobs, :send_emails_biweekly, week2_date, 1)
+
+      assert {:error, :unauthorized} =
+               Bodyguard.permit(Jobs, :send_emails_biweekly, week2_date, 3)
+
+      assert {:error, :unauthorized} =
+               Bodyguard.permit(Jobs, :send_emails_biweekly, week2_date, 4)
+
+      assert {:error, :unauthorized} =
+               Bodyguard.permit(Jobs, :send_emails_biweekly, week2_date, 5)
+
+      assert {:error, :unauthorized} =
+               Bodyguard.permit(Jobs, :send_emails_biweekly, week2_date, 6)
+
+      assert {:error, :unauthorized} =
+               Bodyguard.permit(Jobs, :send_emails_biweekly, week2_date, 7)
     end
   end
 
