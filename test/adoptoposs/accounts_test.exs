@@ -12,7 +12,7 @@ defmodule Adoptoposs.AccountsTest do
     end
 
     test "email_project_recommendations/0 return all allowed values" do
-      assert Settings.email_project_recommendations_values() == ~w(weekly monthly off)
+      assert Settings.email_project_recommendations_values() == ~w(weekly biweekly monthly off)
     end
   end
 
