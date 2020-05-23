@@ -42,6 +42,7 @@ defmodule Adoptoposs.Submissions do
   def list_projects(limit: limit) do
     Project
     |> limit(^limit)
+    |> where(status: ^:published)
     |> order_by(desc: :id)
     |> preload([:user, :language, :interests])
     |> Repo.all()

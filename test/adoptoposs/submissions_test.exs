@@ -67,6 +67,14 @@ defmodule Adoptoposs.SubmissionsTest do
       assert %Tag{} = project.language
     end
 
+    test "list_projects/1 excludes not published projects from results" do
+      project = insert(:project)
+      insert(:project, status: :draft)
+
+      projects = Submissions.list_projects(limit: 2)
+      assert projects |> Enum.map(& &1.id) == [project.id]
+    end
+
     test "list_projects/1 returns a user's projects" do
       project = insert(:project)
       projects = Submissions.list_projects(project.user)
