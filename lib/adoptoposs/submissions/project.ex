@@ -42,6 +42,13 @@ defmodule Adoptoposs.Submissions.Project do
     |> validate_required([:description])
   end
 
+  @doc false
+  def status_changeset(project, attrs \\ %{}) do
+    project
+    |> cast(attrs, [:status])
+    |> validate_required([:status])
+  end
+
   defp merge_attrs(attrs, repository) do
     Map.merge(attrs, %{
       repo_id: repository.id,
