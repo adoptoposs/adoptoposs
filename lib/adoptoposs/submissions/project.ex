@@ -11,6 +11,7 @@ defmodule Adoptoposs.Submissions.Project do
     field :repo_owner, :string
     field :description, :string
     field :uuid, :binary_id
+    field :status, ProjectStatus
 
     belongs_to :language, Tags.Tag
     belongs_to :user, Accounts.User
