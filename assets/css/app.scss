@@ -87,7 +87,7 @@ p {
 
 button {
   @apply rounded-sm py-2 px-4 my-2;
-  @apply bg-white border border-red-500 text-red-500 text-sm uppercase tracking-wider font-semibold;
+  @apply bg-white border border-red-500 text-red-400 text-sm uppercase tracking-wider font-semibold;
 
   &:focus, &:hover {
     @apply bg-red-500 text-white border-white
@@ -191,13 +191,17 @@ a, button, input[type="button"] {
     }
 
     &.subtle {
-      @apply text-gray-500 bg-transparent;
+      @apply text-gray-500 bg-transparent border-transparent;
       @apply h-5 w-5 py-2 px-0;
 
       &:focus, &:hover {
         @apply bg-gray-600 bg-transparent;
       }
     }
+  }
+
+  .emphasize {
+    @apply text-red-400;
   }
 
   &:focus, &:hover {
@@ -216,6 +220,30 @@ a, button, input[type="button"] {
         &:focus, &:hover {
           @apply text-red-400 bg-transparent;
         }
+      }
+    }
+
+    .emphasize {
+      @apply text-red-500;
+
+      &:focus, &:hover {
+        @apply text-red-400;
+      }
+    }
+
+    input[type="reset"] {
+      @apply border-gray-500 text-gray-600;
+
+      &:focus, &:hover {
+        @apply bg-gray-400 text-white border-white
+      }
+    }
+
+    button {
+      @apply text-red-500;
+
+      &:focus, &:hover {
+        @apply bg-red-500 text-white border-white
       }
     }
   }

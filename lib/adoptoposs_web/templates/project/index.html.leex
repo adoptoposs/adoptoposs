@@ -28,15 +28,43 @@
           <div class="flex flex-col flex-1 items-start justify-between px-4 md:px-6 pt-4 pb-2 md:pt-6 md:pb-4 bg-white rounded-tl rounded-tr md:rounded-bl md:rounded-tr-none">
             <%= render AdoptopossWeb.SharedView, "project_repo.html", project: project %>
 
-            <div class="flex flex-row w-full mt-2 justify-end items-center">
+            <div class="flex flex-row w-full mt-6 justify-end items-center">
               <%= if @remove_id == to_string(project.id) do %>
                 <span class="text-red-500 mr-4 font-semibold leading-tight">
                   Are you sure?
                 </span>
-                <%= submit "Yes, remove", id: "btn-attempt-remove-#{project.id}", phx_click: "remove", phx_value_id: project.id, class: "mr-2 flex-shrink-0" %>
-                <%= reset "Cancel", id: "btn-cancel-remove-#{project.id}", phx_click: "cancel_remove" %>
+                <%= submit "Yes, remove", id: "btn-attempt-remove-#{project.id}", phx_click: "remove", phx_value_id: project.id, class: "mr-2 flex-shrink-0", title: "Confirm remove" %>
+                <%= reset "Cancel", id: "btn-cancel-remove-#{project.id}", phx_click: "cancel_remove", title: "Cancel remove" %>
               <% else %>
-                <%= reset "Remove", id: "btn-remove-#{project.id}", phx_click: "attempt_remove", phx_value_id: project.id %>
+                <%= case project.status do %>
+                  <% :published -> %>
+                    <div class="flex flex-row w-full justify-between items-center">
+                      <span class="inline-flex items-center text-gray-600">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" class="w-5 h-5 fill-current mr-2">
+                          <path d="M.2 10a11 11 0 0 1 19.6 0A11 11 0 0 1 .2 10zm9.8 4a4 4 0 1 0 0-8 4 4 0 0 0 0 8zm0-2a2 2 0 1 1 0-4 2 2 0 0 1 0 4z"/>
+                        </svg>
+                        Open for messages
+                      </span>
+                      <%= reset "Unpublish", id: "btn-unpublish-#{project.id}", phx_click: "unpublish", phx_value_id: project.id, title: "Unpublish project" %>
+                    </div>
+                  <% :draft -> %>
+                    <div class="flex flex-row w-full justify-between items-center">
+                      <span class="inline-flex items-center text-gray-600">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" class="w-5 h-5 fill-current mr-2">
+                          <path d="M12.81 4.36l-1.77 1.78a4 4 0 0 0-4.9 4.9l-2.76 2.75C2.06 12.79.96 11.49.2 10a11 11 0 0 1 12.6-5.64zm3.8 1.85c1.33 1 2.43 2.3 3.2 3.79a11 11 0 0 1-12.62 5.64l1.77-1.78a4 4 0 0 0 4.9-4.9l2.76-2.75zm-.25-3.99l1.42 1.42L3.64 17.78l-1.42-1.42L16.36 2.22z"/>
+                        </svg>
+                        Invisible
+                      </span>
+
+                      <%= submit "Publish", id: "btn-publish-#{project.id}", phx_click: "publish", phx_value_id: project.id, class: "mr-1", title: "Publish project" %>
+                    </div>
+                <% end %>
+
+                <button type="reset" title="Remove project" id="btn-remove-<%= project.id %>" phx-click="attempt_remove" phx-value-id="<%= project.id %>" class="ml-4 icon-button subtle">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" class="w-4 h-4 fill-current">
+                    <path d="M6 2l2-2h4l2 2h4v2H2V2h4zM3 6h14l-1 14H4L3 6zm5 2v10h1V8H8zm3 0v10h1V8h-1z"/>
+                  </svg>
+                </button>
               <% end %>
             </div>
           </div>
@@ -61,7 +89,7 @@
               <div class="whitespace-pre-wrap text-gray-700 my-2 md:mb-4"><%= project.description %></div>
 
               <div class="mt-2">
-                <div class="flex justify-between items-end">
+                <div class="flex justify-between items-center">
                   <div class="flex flex-row items-center">
                     <div class="mr-4">
                       <%= render AdoptopossWeb.ProjectView, "sharing.html", project: project %>
@@ -79,7 +107,7 @@
                         </span>
                       </div>
                     <% else %>
-                      <%= live_redirect to: Routes.live_path(@socket, AdoptopossWeb.ProjectLive.Show, project.id), class: "flex flex-row items-center text-gray-600", title: "#{Enum.count(project.interests)} people contacted you" do %>
+                      <%= live_redirect to: Routes.live_path(@socket, AdoptopossWeb.ProjectLive.Show, project.id), class: "flex flex-row items-center emphasize", title: "#{Enum.count(project.interests)} people contacted you" do %>
                         <span>
                           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" class="fill-current h-6 w-6">
                             <path d="M18 2a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4c0-1.1.9-2 2-2h16zm-4.37 9.1L20 16v-2l-5.12-3.9L20 6V4l-10 8L0 4v2l5.12 4.1L0 14v2l6.37-4.9L10 14l3.63-2.9z"/>
