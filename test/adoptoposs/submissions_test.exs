@@ -205,6 +205,9 @@ defmodule Adoptoposs.SubmissionsTest do
       # Contacted projects should not be in the results.
       insert(:interest, project: build(:project, language: language), creator: user)
 
+      # Not published projects should not be in the results.
+      insert(:project, language: language, status: :draft)
+
       projects = insert_list(2, :project, language: language)
       recommendations = Submissions.list_recommended_projects(user, language)
 

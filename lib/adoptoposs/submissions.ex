@@ -201,7 +201,7 @@ defmodule Adoptoposs.Submissions do
 
   @doc """
   Returns recommended projects of the given language for a user.
-  Only projects the user did not contact yet are considered.
+  Only published projects which the user did not contact yet are considered.
 
   Supported options are `:limit` and `:preload`
 
@@ -221,6 +221,7 @@ defmodule Adoptoposs.Submissions do
       from p in Project,
         preload: ^(opts[:preload] || []),
         limit: ^opts[:limit],
+        where: p.status == ^:published,
         where: p.language_id == ^tag_id,
         where: p.user_id != ^user_id,
         where:
