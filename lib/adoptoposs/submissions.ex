@@ -10,6 +10,7 @@ defmodule Adoptoposs.Submissions do
   alias Adoptoposs.Accounts.User
   alias Adoptoposs.Tags.Tag
   alias Adoptoposs.Submissions.{Project, Policy}
+  alias Adoptoposs.Communication.Interest
 
   defdelegate authorize(action, user, params), to: Policy
 
@@ -110,8 +111,13 @@ defmodule Adoptoposs.Submissions do
   def get_user_project(%User{} = user, id) do
     user
     |> Ecto.assoc(:projects)
-    |> preload(:user)
-    |> preload(interests: [:creator])
+    |> preload(
+      interests:
+        ^from(i in Interest,
+          preload: [:creator],
+          order_by: [desc: i.inserted_at]
+        )
+    )
     |> Repo.get(id)
   end
 

@@ -8,7 +8,7 @@ defmodule Adoptoposs.Submissions.Policy do
       when action in [:show_project, :update_project, :delete_project],
       do: :ok
 
-  def authorize(action, %User{}, %Project{})
+  def authorize(action, %User{}, _project)
       when action in [:show_project, :update_project, :delete_project],
       do: :error
 end

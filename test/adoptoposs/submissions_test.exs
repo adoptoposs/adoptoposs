@@ -49,6 +49,14 @@ defmodule Adoptoposs.SubmissionsTest do
 
       assert {:error, :unauthorized} = Bodyguard.permit(Submissions, :show_project, user, project)
     end
+
+    test "project actions are forbidden for a nil project" do
+      user = build(:user, id: 1)
+
+      assert {:error, :unauthorized} = Bodyguard.permit(Submissions, :show_project, user, nil)
+      assert {:error, :unauthorized} = Bodyguard.permit(Submissions, :update_project, user, nil)
+      assert {:error, :unauthorized} = Bodyguard.permit(Submissions, :delete_project, user, nil)
+    end
   end
 
   describe "project" do
