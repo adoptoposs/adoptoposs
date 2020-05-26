@@ -153,18 +153,18 @@ defmodule Adoptoposs.Submissions do
   end
 
   @doc """
-  Sets the status of a project.
+  Updates the status of a project.
 
   ## Examples
 
-      iex> set_project_status(project, :published)
+      iex> update_project_status(project, :published)
       {:ok, %Project{}}
 
       iex> update_project(project, :not_allowed_status)
       {:error, %Ecto.Changeset{}}
 
   """
-  def set_project_status(%Project{} = project, status) do
+  def update_project_status(%Project{} = project, status) do
     project
     |> Project.status_changeset(%{status: status})
     |> Repo.update()

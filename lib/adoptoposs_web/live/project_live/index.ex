@@ -40,13 +40,13 @@ defmodule AdoptopossWeb.ProjectLive.Index do
 
   def handle_event("publish", %{"id" => id}, socket) do
     update_project(id, socket, fn project ->
-      Submissions.set_project_status(project, :published)
+      Submissions.update_project_status(project, :published)
     end)
   end
 
   def handle_event("unpublish", %{"id" => id}, socket) do
     update_project(id, socket, fn project ->
-      Submissions.set_project_status(project, :draft)
+      Submissions.update_project_status(project, :draft)
     end)
   end
 

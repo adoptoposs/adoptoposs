@@ -166,18 +166,18 @@ defmodule Adoptoposs.SubmissionsTest do
       assert project.id == Submissions.get_user_project(project.user, project.id).id
     end
 
-    test "set_project_status/2 updates the project's status" do
+    test "update_project_status/2 updates the project's status" do
       project = insert(:project, status: :draft)
 
       assert {:ok, %Project{status: :published}} =
-               Submissions.set_project_status(project, :published)
+               Submissions.update_project_status(project, :published)
 
-      assert {:ok, %Project{status: :draft}} = Submissions.set_project_status(project, :draft)
+      assert {:ok, %Project{status: :draft}} = Submissions.update_project_status(project, :draft)
     end
 
-    test "set_project_status/2 fails for an invalid project status" do
+    test "update_project_status/2 fails for an invalid project status" do
       project = insert(:project)
-      assert {:error, _} = Submissions.set_project_status(project, :some_invalid_status)
+      assert {:error, _} = Submissions.update_project_status(project, :some_invalid_status)
     end
 
     test "delete_project/1 deletes the passed project" do
