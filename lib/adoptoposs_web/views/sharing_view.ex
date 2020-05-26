@@ -17,7 +17,7 @@ defmodule AdoptopossWeb.SharingView do
   end
 
   def description(_assigns) do
-    "Adoptoposs helps maintainers of open source software to finding co-maintainers or people to take over their project."
+    "Adoptoposs helps maintainers of open source software to find co-maintainers or people to take over their project."
   end
 
   def image(%{project: project}) when not is_nil(project) do
