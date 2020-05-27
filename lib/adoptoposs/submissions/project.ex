@@ -11,6 +11,7 @@ defmodule Adoptoposs.Submissions.Project do
     field :repo_owner, :string
     field :description, :string
     field :uuid, :binary_id
+    field :status, ProjectStatus
 
     belongs_to :language, Tags.Tag
     belongs_to :user, Accounts.User
@@ -39,6 +40,13 @@ defmodule Adoptoposs.Submissions.Project do
     project
     |> cast(attrs, [:description])
     |> validate_required([:description])
+  end
+
+  @doc false
+  def status_changeset(project, attrs \\ %{}) do
+    project
+    |> cast(attrs, [:status])
+    |> validate_required([:status])
   end
 
   defp merge_attrs(attrs, repository) do

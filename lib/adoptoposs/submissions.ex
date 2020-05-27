@@ -43,6 +43,7 @@ defmodule Adoptoposs.Submissions do
   def list_projects(limit: limit) do
     Project
     |> limit(^limit)
+    |> where(status: ^:published)
     |> order_by(desc: :id)
     |> preload([:user, :language, :interests])
     |> Repo.all()
@@ -158,6 +159,24 @@ defmodule Adoptoposs.Submissions do
   end
 
   @doc """
+  Updates the status of a project.
+
+  ## Examples
+
+      iex> update_project_status(project, :published)
+      {:ok, %Project{}}
+
+      iex> update_project(project, :not_allowed_status)
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def update_project_status(%Project{} = project, status) do
+    project
+    |> Project.status_changeset(%{status: status})
+    |> Repo.update()
+  end
+
+  @doc """
   Deletes a project.
 
   ## Examples
@@ -188,7 +207,7 @@ defmodule Adoptoposs.Submissions do
 
   @doc """
   Returns recommended projects of the given language for a user.
-  Only projects the user did not contact yet are considered.
+  Only published projects which the user did not contact yet are considered.
 
   Supported options are `:limit` and `:preload`
 
@@ -208,6 +227,7 @@ defmodule Adoptoposs.Submissions do
       from p in Project,
         preload: ^(opts[:preload] || []),
         limit: ^opts[:limit],
+        where: p.status == ^:published,
         where: p.language_id == ^tag_id,
         where: p.user_id != ^user_id,
         where:

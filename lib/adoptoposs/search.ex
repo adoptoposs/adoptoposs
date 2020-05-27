@@ -15,6 +15,7 @@ defmodule Adoptoposs.Search do
 
     Project
     |> join(:left, [p], t in assoc(p, :language))
+    |> where(status: ^:published)
     |> where_all_terms_match(terms, &matches_project/2)
     |> offset(^offset)
     |> limit(^limit)

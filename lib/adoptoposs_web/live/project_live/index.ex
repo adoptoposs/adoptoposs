@@ -33,17 +33,21 @@ defmodule AdoptopossWeb.ProjectLive.Index do
   end
 
   def handle_event("update", %{"project" => %{"description" => description}}, socket) do
-    user = Accounts.get_user!(socket.assigns.user_id)
-    project = Submissions.get_project!(socket.assigns.edit_id)
+    update_project(socket.assigns.edit_id, socket, fn project ->
+      Submissions.update_project(project, %{description: description})
+    end)
+  end
 
-    with :ok <- Bodyguard.permit(Submissions, :update_project, user, project),
-         {:ok, _project} <- Submissions.update_project(project, %{description: description}) do
-      projects = Submissions.list_projects(user)
-      {:noreply, assign(socket, projects: projects, edit_id: nil)}
-    else
-      {:error, changeset} ->
-        {:noreply, assign(socket, changeset: changeset)}
-    end
+  def handle_event("publish", %{"id" => id}, socket) do
+    update_project(id, socket, fn project ->
+      Submissions.update_project_status(project, :published)
+    end)
+  end
+
+  def handle_event("unpublish", %{"id" => id}, socket) do
+    update_project(id, socket, fn project ->
+      Submissions.update_project_status(project, :draft)
+    end)
   end
 
   def handle_event("attempt_remove", %{"id" => id}, socket) do
@@ -75,5 +79,19 @@ defmodule AdoptopossWeb.ProjectLive.Index do
       |> Submissions.list_projects()
 
     assign(socket, projects: projects)
+  end
+
+  defp update_project(project_id, socket, callback) do
+    user = Accounts.get_user!(socket.assigns.user_id)
+    project = Submissions.get_project!(project_id)
+
+    with :ok <- Bodyguard.permit(Submissions, :update_project, user, project),
+         {:ok, _project} <- callback.(project) do
+      projects = Submissions.list_projects(user)
+      {:noreply, assign(socket, projects: projects, edit_id: nil)}
+    else
+      {:error, changeset} ->
+        {:noreply, assign(socket, changeset: changeset)}
+    end
   end
 end

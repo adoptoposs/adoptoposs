@@ -75,6 +75,14 @@ defmodule Adoptoposs.SubmissionsTest do
       assert %Tag{} = project.language
     end
 
+    test "list_projects/1 excludes not published projects from results" do
+      project = insert(:project)
+      insert(:project, status: :draft)
+
+      projects = Submissions.list_projects(limit: 2)
+      assert projects |> Enum.map(& &1.id) == [project.id]
+    end
+
     test "list_projects/1 returns a user's projects" do
       project = insert(:project)
       projects = Submissions.list_projects(project.user)
@@ -166,6 +174,20 @@ defmodule Adoptoposs.SubmissionsTest do
       assert project.id == Submissions.get_user_project(project.user, project.id).id
     end
 
+    test "update_project_status/2 updates the project's status" do
+      project = insert(:project, status: :draft)
+
+      assert {:ok, %Project{status: :published}} =
+               Submissions.update_project_status(project, :published)
+
+      assert {:ok, %Project{status: :draft}} = Submissions.update_project_status(project, :draft)
+    end
+
+    test "update_project_status/2 fails for an invalid project status" do
+      project = insert(:project)
+      assert {:error, _} = Submissions.update_project_status(project, :some_invalid_status)
+    end
+
     test "delete_project/1 deletes the passed project" do
       project = insert(:project)
       assert {:ok, %Project{}} = Submissions.delete_project(project)
@@ -190,6 +212,9 @@ defmodule Adoptoposs.SubmissionsTest do
 
       # Contacted projects should not be in the results.
       insert(:interest, project: build(:project, language: language), creator: user)
+
+      # Not published projects should not be in the results.
+      insert(:project, language: language, status: :draft)
 
       projects = insert_list(2, :project, language: language)
       recommendations = Submissions.list_recommended_projects(user, language)

@@ -43,6 +43,15 @@ defmodule Adoptoposs.SearchTest do
       assert [] == Search.find_projects(%{}, offset: 0, limit: 1)
     end
 
+    test "find_projects/2 excludes not published projects from results" do
+      name = "Elixir"
+      project = insert(:project, name: name, status: :published)
+      insert(:project, name: name, status: :draft)
+
+      projects = Search.find_projects(name, offset: 0, limit: 2)
+      assert [project.id] == projects |> Enum.map(& &1.id)
+    end
+
     test "find_tags/2 returns the matching tags" do
       tag_1 = insert(:tag, name: "Java", type: Tag.Language.type())
       tag_2 = insert(:tag, name: "JavaScript", type: Tag.Language.type())

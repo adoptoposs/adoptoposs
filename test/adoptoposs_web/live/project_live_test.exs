@@ -128,6 +128,32 @@ defmodule AdoptopossWeb.ProjectLiveTest do
   end
 
   @tag login_as: "user123"
+  test "unpublishing a project", %{conn: conn, user: user} do
+    project = insert(:project, user: user, status: :published)
+
+    {:ok, view, html} = live(conn, Routes.live_path(conn, ProjectLive.Index))
+    assert html =~ project.name
+    assert html =~ ~r/unpublish/i
+
+    html = render_click(view, :unpublish, %{id: project.id})
+    assert html =~ ~r/publish/i
+    refute html =~ ~r/unpublish/i
+  end
+
+  @tag login_as: "user123"
+  test "publishing a project", %{conn: conn, user: user} do
+    project = insert(:project, user: user, status: :draft)
+
+    {:ok, view, html} = live(conn, Routes.live_path(conn, ProjectLive.Index))
+    assert html =~ project.name
+    assert html =~ ~r/publish/i
+    refute html =~ ~r/unpublish/i
+
+    html = render_click(view, :publish, %{id: project.id})
+    assert html =~ ~r/unpublish/i
+  end
+
+  @tag login_as: "user123"
   test "removing a project", %{conn: conn, user: user} do
     project = insert(:project, user: user)
 

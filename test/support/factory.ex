@@ -34,7 +34,8 @@ defmodule Adoptoposs.Factory do
       description: "another co-maintainer",
       repo_id: repo_id,
       repo_owner: owner.login,
-      uuid: uuid
+      uuid: uuid,
+      status: :published
     }
   end
 
