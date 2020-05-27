@@ -102,5 +102,4 @@ config :adoptoposs, :basic_auth,
   password: System.get_env("BASIC_AUTH_PASSWORD")
 
 # Mailing
-config :adoptoposs, AdoptopossWeb.Mailer,
-  adapter: Bamboo.LocalAdapter
+config :adoptoposs, AdoptopossWeb.Mailer, adapter: Bamboo.LocalAdapter

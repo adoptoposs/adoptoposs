@@ -13,9 +13,12 @@ usage:
 	@echo "  * yarn             - Install missing node dependencies"
 	@echo "  * db-setup         - Create & migrate the development database"
 	@echo "  * db-migrate       - Migrate the development database"
+	@echo "  * setup-test       - Initiate everything needed for running the tests, e.g. in CI"
 	@echo "  * db-setup-test    - Create & migrate the test database"
 	@echo "  * shell            - Fire up a shell inside of your container"
 	@echo "  * iex              - Fire up a iex console inside of your container"
+	@echo "  * format           - Run the Elixir code formatter"
+	@echo "  * check-formatted  - Check whether all Elixir code is formatted"
 	@echo "  * up               - Run the development server"
 	@echo "  * down             - Remove containers and tear down the setup"
 	@echo "  * stop             - Stop the development server"
@@ -46,6 +49,10 @@ shell:
 	$(call dc-run, ash)
 iex:
 	$(call dc-run, iex -S mix)
+format:
+	$(call dc-run, mix format)
+check-formatted:
+	$(call dc-run, mix format --check-formatted)
 up:
 	$(call dc, up)
 down:
@@ -56,4 +63,3 @@ test:
 	$(call dc-run, mix test)
 test-watch:
 	$(call dc-run, mix test.watch)
-

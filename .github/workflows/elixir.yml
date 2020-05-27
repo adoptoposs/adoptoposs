@@ -8,13 +8,43 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v2
-    - name: Setup test environment
-      run: make setup-test
+
+    - name: Cache hex deps
+      id: mix-cache
+      uses: actions/cache@v2
+      with:
+        path: |
+          deps
+          _build
+          !_build/*/lib/adoptoposs
+        key: ${{ runner.os }}-mix-${{ hashFiles(format('{0}{1}', github.workspace, '/mix.lock')) }}
+
+    - name: Cache yarn
+      id: yarn-cache
+      uses: actions/cache@v2
+      with:
+        path: "**/node_modules"
+        key: ${{ runner.os }}-yarn-${{ hashFiles(format('{0}{1}', github.workspace, '/**/yarn.lock')) }}
+
+    - name: Setup environment
+      run: |
+        make dev-config
+        make build
+
+    - name: Install hex dependencies
+      if: steps.mix-cache.outputs.cache-hit != 'true'
+      run: make hex-deps
+
+    - name: Install yarn
+      if: steps.yarn-cache.outputs.cache-hit != 'true'
+      run: make yarn
+
     - name: Run tests
       run: make test
 
+    - name: Check code formatting
+      run: make check-formatted
