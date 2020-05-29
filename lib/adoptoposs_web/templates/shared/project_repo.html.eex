@@ -1,5 +1,5 @@
 <div class="flex w-full flex-col justify-between">
-  <h2 class="text-lg mt-0 leading-tight mb-2">
+  <h2 class="text-xl mt-0 leading-tight mb-2">
     <%= link project_name(@project),
       to: project_url(@project),
       class: "text-pink-900 break-all",
