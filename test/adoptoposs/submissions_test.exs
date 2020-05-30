@@ -109,6 +109,16 @@ defmodule Adoptoposs.SubmissionsTest do
       assert Submissions.get_project_by_uuid(project.uuid).id == project.id
     end
 
+    test "get_project_by_uuid/1 allows passing query options" do
+      draft_project = insert(:project, status: :draft)
+      opts = [where: [status: :published]]
+      refute Submissions.get_project_by_uuid(draft_project.uuid, opts)
+
+      opts = [preload: :interests]
+      project = Submissions.get_project_by_uuid(draft_project.uuid, opts)
+      assert project.interests == []
+    end
+
     test "get_project_by_uuid/1 returns nil when the project does not exist" do
       assert is_nil(Submissions.get_project_by_uuid("no-exiting"))
     end

@@ -84,10 +84,8 @@ defmodule Adoptoposs.Submissions do
   """
   def get_project_by_uuid(uuid, opts \\ []) do
     with {:ok, value} <- Ecto.UUID.cast(uuid) do
-      from(p in Project,
-        where: p.uuid == ^value,
-        preload: ^(opts[:preload] || [])
-      )
+      from(p in Project, preload: ^(opts[:preload] || []), where: ^(opts[:where] || []))
+      |> where(uuid: ^value)
       |> Repo.one()
     else
       :error ->
