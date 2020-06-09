@@ -75,19 +75,18 @@ defmodule Adoptoposs.Submissions do
 
   ## Examples
 
-      iex> get_project_by_uuid(user, "61900487-e6e3-4a3b-881f-e3fe5e2ca5f1")
+      iex> get_published_project_by_uuid(user, "61900487-e6e3-4a3b-881f-e3fe5e2ca5f1")
       %Project{}
 
-      iex> get_project_by_uuid(user, "no-existing")
+      iex> get_published_project_by_uuid(user, "not-existing")
       nil
 
   """
-  def get_project_by_uuid(uuid, opts \\ []) do
+  def get_published_project_by_uuid(uuid, opts \\ []) do
     with {:ok, value} <- Ecto.UUID.cast(uuid) do
-      from(p in Project,
-        where: p.uuid == ^value,
-        preload: ^(opts[:preload] || [])
-      )
+      from(p in Project, preload: ^(opts[:preload] || []))
+      |> where(status: ^:published)
+      |> where(uuid: ^value)
       |> Repo.one()
     else
       :error ->
