@@ -104,23 +104,25 @@ defmodule Adoptoposs.SubmissionsTest do
       end
     end
 
-    test "get_project_by_uuid/1 returns the project with the given uuid" do
+    test "get_published_project_by_uuid/2 returns the project with the given uuid" do
       project = insert(:project)
-      assert Submissions.get_project_by_uuid(project.uuid).id == project.id
+      assert Submissions.get_published_project_by_uuid(project.uuid).id == project.id
     end
 
-    test "get_project_by_uuid/1 allows passing query options" do
+    test "get_published_project_by_uuid/2 returns only published projects" do
       draft_project = insert(:project, status: :draft)
-      opts = [where: [status: :published]]
-      refute Submissions.get_project_by_uuid(draft_project.uuid, opts)
+      refute Submissions.get_published_project_by_uuid(draft_project.uuid)
+    end
 
+    test "get_published_project_by_uuid/2 allows passing preload options" do
+      %Project{uuid: uuid} = insert(:project)
       opts = [preload: :interests]
-      project = Submissions.get_project_by_uuid(draft_project.uuid, opts)
+      project = Submissions.get_published_project_by_uuid(uuid, opts)
       assert project.interests == []
     end
 
-    test "get_project_by_uuid/1 returns nil when the project does not exist" do
-      assert is_nil(Submissions.get_project_by_uuid("no-exiting"))
+    test "get_published_project_by_uuid/2 returns nil when the project does not exist" do
+      assert is_nil(Submissions.get_published_project_by_uuid("no-exiting"))
     end
 
     test "get_user_project/2 returns the project with given id" do

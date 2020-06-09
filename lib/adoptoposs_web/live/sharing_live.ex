@@ -16,12 +16,8 @@ defmodule AdoptopossWeb.SharingLive do
   end
 
   defp assign_project(socket, uuid) do
-    options = [
-      where: [status: :published],
-      preload: [:user, :language, interests: [:creator]]
-    ]
-
-    project = Submissions.get_project_by_uuid(uuid, options)
+    options = [preload: [:user, :language, interests: [:creator]]]
+    project = Submissions.get_published_project_by_uuid(uuid, options)
     assign(socket, project: project)
   end
 end
