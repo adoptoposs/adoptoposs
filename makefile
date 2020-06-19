@@ -32,7 +32,7 @@ setup: dev-config build hex-deps yarn db-setup db-setup-test
 setup-test: dev-config build hex-deps yarn db-setup-test
 
 dev-config:
-	cp -u config/dev.exs.sample config/dev.exs
+	rsync --ignore-existing config/dev.exs.sample config/dev.exs
 build:
 	$(call dc, build)
 hex-deps:
