@@ -60,9 +60,25 @@ Here’s how to contribute:
 * Push to the branch (git push origin feature/my-new-feature)
 * Create a new Pull Request
 
-Try to add tests along with your new feature. This will ensure that your code does not break existing functionality and that your feature is working as expected.
+Try to add tests along with your new feature. This will ensure that your code does not break existing functionality and that your feature is working as expected. You can run the tests with:
 
-If you’ve changed any Elixir code, please run Elixir’s code formatter before committing your changes. This will keep the code style consistent and future code diffs as small as possible.
+```bash
+make test
+```
+
+To watch file changes and rerun the test suite automatically, you can use:
+
+```bash
+make test-watch
+```
+
+If you’ve changed any Elixir code, please run Elixir’s code formatter before committing your changes:
+
+```bash
+make format
+```
+
+This will keep the code style consistent and future code diffs as small as possible.
 
 ---------
 
