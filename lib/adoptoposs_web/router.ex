@@ -46,6 +46,8 @@ defmodule AdoptopossWeb.Router do
 
     get "/p/:uuid", SharingController, :index
     live "/projects/:uuid", SharingLive
+
+    live "/explore", ExploreLive
   end
 
   # Routes that require authentication:

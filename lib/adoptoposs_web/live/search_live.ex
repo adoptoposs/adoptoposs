@@ -47,7 +47,7 @@ defmodule AdoptopossWeb.SearchLive do
 
   defp search(socket, query) do
     offset = (socket.assigns.page - 1) * @per_page
-    projects = Search.find_projects(query, offset: offset, limit: @per_page)
+    %{results: projects} = Search.find_projects(query, offset: offset, limit: @per_page)
 
     assign(socket, query: query, projects: projects)
   end

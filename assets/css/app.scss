@@ -175,11 +175,52 @@ a, button, input[type="button"] {
     }
 
     &.subtle {
-      @apply leading-none bg-transparent;
+      @apply inline leading-none bg-transparent;
 
       &:focus, &:hover {
         @apply bg-transparent text-red-500 border-red-300;
       }
+    }
+
+    &.inline {
+      @apply border-none leading-none bg-transparent;
+      @apply p-0 mx-2 my-0;
+
+      &:focus, &:hover {
+        @apply bg-transparent text-red-500;
+      }
+    }
+
+    &.light {
+      @apply bg-transparent border border-white text-white;
+
+      &:focus, &:hover {
+        @apply bg-white text-red-500 border-red-300;
+      }
+    }
+
+    &.medium {
+      @apply bg-transparent border border-red-400 text-red-400;
+
+      &:focus, &:hover {
+        @apply bg-red-500 text-white border-red-400;
+      }
+    }
+
+    &.dark {
+      @apply bg-transparent border border-gray-600 text-gray-700;
+
+      &:focus, &:hover {
+        @apply bg-gray-700 text-white border-white;
+      }
+    }
+
+    &.indented {
+      margin: 0 0 0 -3em;
+    }
+
+    &.indented-sm {
+      margin: 0 0 0 -2.25em;
     }
   }
 }

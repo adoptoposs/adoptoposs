@@ -46,8 +46,8 @@ defmodule AdoptopossWeb.SearchLiveTest do
 
     {:ok, view, _html} = live(conn, path)
     html = render_change(view, :search, %{q: language.name})
-    assert html =~ project_2.name
-    assert html =~ project_1.name
+    refute html =~ project_2.name
+    refute html =~ project_1.name
   end
 
   test "contacting a project when logged out", %{conn: conn} do

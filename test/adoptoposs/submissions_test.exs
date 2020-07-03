@@ -64,9 +64,12 @@ defmodule Adoptoposs.SubmissionsTest do
     alias Adoptoposs.Network.Repository
     alias Adoptoposs.Tags.Tag
 
-    test "list_projects/1 returns the latest N projects" do
-      insert(:project)
-      other_project = insert(:project)
+    test "list_projects/1 returns the latest (inserted) N projects" do
+      now = DateTime.utc_now()
+      back_then = Timex.shift(now, minutes: -1)
+
+      insert(:project, inserted_at: back_then)
+      other_project = insert(:project, inserted_at: now)
 
       projects = Submissions.list_projects(limit: 1)
       assert projects |> Enum.map(& &1.id) == [other_project.id]
@@ -80,6 +83,36 @@ defmodule Adoptoposs.SubmissionsTest do
       insert(:project, status: :draft)
 
       projects = Submissions.list_projects(limit: 2)
+      assert projects |> Enum.map(& &1.id) == [project.id]
+    end
+
+    test "list_projects/1 returns the latest (inserted) N projects with offset" do
+      now = DateTime.utc_now()
+      recently = Timex.shift(now, minutes: -1)
+      back_then = Timex.shift(now, minutes: -2)
+
+      insert(:project, inserted_at: back_then)
+      other_project = insert(:project, inserted_at: recently)
+      insert_list(2, :project, inserted_at: now)
+
+      %{results: projects, total_count: 4} = Submissions.list_projects(offset: 2, limit: 1)
+      assert projects |> Enum.map(& &1.id) == [other_project.id]
+
+      [project | _] = projects
+      assert %Tag{} = project.language
+    end
+
+    test "list_projects/1 with limit & offset excludes not published results" do
+      now = DateTime.utc_now()
+      recently = Timex.shift(now, minutes: -1)
+      back_then = Timex.shift(now, minutes: -2)
+
+      insert(:project, inserted_at: back_then)
+      project = insert(:project, inserted_at: recently)
+      insert_list(2, :project, inserted_at: now)
+      insert(:project, status: :draft, inserted_at: now)
+
+      %{results: projects, total_count: 4} = Submissions.list_projects(offset: 2, limit: 1)
       assert projects |> Enum.map(& &1.id) == [project.id]
     end
 

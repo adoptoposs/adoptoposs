@@ -9,7 +9,10 @@ defmodule AdoptopossWeb.SharedViewTest do
     test "returns the full organization/project name when passing a Project" do
       organization = "organization-name"
       project_name = "project-name"
-      project = build(:project, data: %{"owner" => %{"login" => organization}}, name: project_name)
+
+      project =
+        build(:project, data: %{"owner" => %{"login" => organization}}, name: project_name)
+
       assert SharedView.project_name(project) == "#{organization}/#{project_name}"
     end
 
