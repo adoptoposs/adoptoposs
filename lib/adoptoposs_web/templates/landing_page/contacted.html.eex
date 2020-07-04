@@ -6,7 +6,7 @@
       You did not contact any maintainer yet.
     </p>
     <%= live_redirect "Explore Projects",
-      to: Routes.live_path(AdoptopossWeb.Endpoint, AdoptopossWeb.SearchLive),
+      to: Routes.live_path(AdoptopossWeb.Endpoint, AdoptopossWeb.ExploreLive),
       class: "button-link mb-4" %>
     <p>
       Messages you sent will appear here.

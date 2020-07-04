@@ -42,11 +42,11 @@ defmodule AdoptopossWeb.LandingPageLiveTest do
   end
 
   @tag login_as: "user123"
-  test "following suggested languages", %{conn: conn, user: user} do
+  test "adding suggested languages", %{conn: conn, user: user} do
     insert_tags(user.provider)
     {:ok, view, html} = live(conn, Routes.live_path(conn, LandingPageLive))
 
-    assert html =~ "Follow All"
+    assert html =~ "Add these languages"
     assert Enum.count(Tags.list_user_tag_subscriptions(user)) == 0
 
     html = render_click(view, :follow_suggested_tags, %{})
