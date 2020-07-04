@@ -1,13 +1,13 @@
 <div class="pt-12 pb-16">
   <section>
     <h1 class="text-center text-6xl font-semibold uppercase">
-      Adoptop<acronym title="Open Source Software">oss</acronym>.
+      Adoptoposs
     </h1>
 
     <%= if @project do %>
       <p class="text-gray-600 text-center text-2xl md:text-4xl leading-tight">
-        Contact <span class="underline">@<%= @project.user.username %></span> to join </br>
-        <span class="underline"><%= AdoptopossWeb.SharedView.project_name(@project) %></span>!
+        Contact <span class="">@<%= @project.user.username %></span> to join </br>
+        <span class=""><%= AdoptopossWeb.SharedView.project_name(@project) %></span>!
       </p>
     <% end %>
   </section>
@@ -25,20 +25,19 @@
     <% end %>
 
     <div class="mt-6 text-center text-lg">
-      <%= live_redirect "Explore More…",
-        to: Routes.live_path(@socket, AdoptopossWeb.SearchLive, q: (if @project, do: @project.language.name, else: "")),
-        class: "text-red-400 hover:underline focus:underline" %>
+      <%= live_redirect "Explore more projects",
+        to: Routes.live_path(@socket, AdoptopossWeb.ExploreLive)%>
     </div>
 
     <%= unless @user_id do %>
       <div class="flex flex-row items-center my-6 md:my-8 mt-12 md:mt-16">
-        <hr class="flex-grow border-gray-300">
+        <hr class="flex-grow border-red-300">
         <div class="self-center">
-          <%= live_redirect "Login with GitHub",
+          <%= live_redirect "Log in with GitHub",
             to: Routes.auth_path(@socket, :request, "github"),
             class: "button-link mx-3" %>
         </div>
-        <hr class="flex-grow border-gray-300">
+        <hr class="flex-grow border-red-300">
       </div>
     <% end %>
   </section>
