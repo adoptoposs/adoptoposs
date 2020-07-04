@@ -9,7 +9,7 @@ defmodule AdoptopossWeb.LandingPageLiveTest do
     conn = get(conn, Routes.live_path(conn, LandingPageLive))
 
     html = html_response(conn, 200)
-    assert html =~ ~r/Adoptop.+oss/
+    assert html =~ "Find new (co-)maintainers"
     refute html =~ "Your Dashboard"
   end
 
@@ -17,7 +17,7 @@ defmodule AdoptopossWeb.LandingPageLiveTest do
     conn = get(conn, Routes.live_path(conn, LandingPageLive, f: "something"))
 
     html = html_response(conn, 200)
-    assert html =~ ~r/Adoptop.+oss/
+    assert html =~ "Find new (co-)maintainers"
     refute html =~ "Your Dashboard"
   end
 
@@ -27,12 +27,12 @@ defmodule AdoptopossWeb.LandingPageLiveTest do
 
     html = html_response(conn, 200)
     assert html =~ "Your Dashboard"
-    refute html =~ ~r/Adoptop.+oss/
+    refute html =~ "Find new (co-)maintainers"
   end
 
   test "connected mount when logged out", %{conn: conn} do
     {:ok, _view, html} = live(conn, Routes.live_path(conn, LandingPageLive))
-    assert html =~ ~r/Adoptop.+oss/
+    assert html =~ "Find new (co-)maintainers"
   end
 
   @tag login_as: "user123"
