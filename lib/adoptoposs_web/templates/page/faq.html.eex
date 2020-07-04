@@ -62,8 +62,8 @@
     <% end %>
 
     <%= faq "Where can I see my submitted repos?" do %>
-      Your submitted repositories are listed on your <%= live_redirect "projects page", to: Routes.live_path(@conn, AdoptopossWeb.ProjectLive.Index) %> and visible for everyone in the
-      <%= live_redirect "public search", to: Routes.live_path(@conn, AdoptopossWeb.SearchLive) %>.
+      Your submitted repositories are listed on your <%= live_redirect "projects page", to: Routes.live_path(@conn, AdoptopossWeb.ProjectLive.Index) %> and visible for everyone on the
+      <%= live_redirect "public explore page", to: Routes.live_path(@conn, AdoptopossWeb.ExploreLive) %>.
     <% end %>
 
     <%= faq "Can I submit repos from other services than GitHub?" do %>
@@ -76,7 +76,7 @@
     <%= faq "How can I become a maintainer for a project on Adoptoposs?" do %>
       <p>
         Projects that are looking for maintainers are visible on the
-        <%= live_redirect "search page", to: Routes.live_path(@conn, AdoptopossWeb.SearchLive) %>
+        <%= live_redirect "explore page", to: Routes.live_path(@conn, AdoptopossWeb.ExploreLive) %>
         or your personal
         <%= if @current_user do %>
           <%= live_redirect "dashboard", to: Routes.live_path(@conn, AdoptopossWeb.LandingPageLive) %>
@@ -99,12 +99,12 @@
     <%= faq "How can I find interesting projects?" do %>
       <p>
         You will find projects on our
-        <%= live_redirect "search page", to: Routes.live_path(@conn, AdoptopossWeb.SearchLive) %>.
-        You can search for programming languages, organizations, and project names.
+        <%= live_redirect "explore page", to: Routes.live_path(@conn, AdoptopossWeb.ExploreLive) %>.
+        You can search for project names, organizations, and parts of the maintainer’s description. You can filter all projects by selecting the languages you are interested in.
       </p>
 
       <p>
-        If you follow any programming languages you will see project recommendations on your personal
+        If you added favorite programming languages you will see project recommendations on your personal
         <%= if @current_user do %>
           <%= live_redirect "dashboard", to: Routes.live_path(@conn, AdoptopossWeb.LandingPageLive) %>
         <% else %>
