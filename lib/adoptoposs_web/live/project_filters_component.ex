@@ -7,6 +7,7 @@ defmodule AdoptopossWeb.ProjectFiltersComponent do
   @top_tags_count 10
   @tag_search_limit 12
 
+  @impl true
   def render(assigns) do
     ExploreView.render("filters.html", assigns)
   end
@@ -20,22 +21,26 @@ defmodule AdoptopossWeb.ProjectFiltersComponent do
      |> assign(selected_filters: [], selected_custom_tags: [], filter_selection_open: false)}
   end
 
+  @impl true
   def update(assigns, socket) do
     {:ok, update_assigns(socket, assigns)}
   end
 
+  @impl true
   def handle_event("add_filter", %{"tag_id" => tag_id}, %{assigns: assigns} = socket) do
     filters = [to_string(tag_id) | assigns.filters] |> Enum.uniq()
     apply_filters(filters)
     {:noreply, socket}
   end
 
+  @impl true
   def handle_event("remove_filter", %{"tag_id" => tag_id}, %{assigns: assigns} = socket) do
     filters = List.delete(assigns.filters, to_string(tag_id))
     apply_filters(filters)
     {:noreply, socket}
   end
 
+  @impl true
   def handle_event("select_filter", %{"tag_id" => tag_id}, %{assigns: assigns} = socket) do
     selected_filters = [to_string(tag_id) | assigns.selected_filters] |> Enum.uniq()
     tag = Enum.find(assigns.tag_results, &(to_string(elem(&1, 0).id) == tag_id))
@@ -60,6 +65,7 @@ defmodule AdoptopossWeb.ProjectFiltersComponent do
      )}
   end
 
+  @impl true
   def handle_event("unselect_filter", %{"tag_id" => tag_id}, %{assigns: assigns} = socket) do
     custom_tags = (assigns.selected_custom_tags ++ assigns.custom_tags) |> Enum.uniq()
     tag = Enum.find(custom_tags, &(to_string(elem(&1, 0).id) == tag_id))
@@ -76,11 +82,13 @@ defmodule AdoptopossWeb.ProjectFiltersComponent do
      )}
   end
 
+  @impl true
   def handle_event("apply_filters", _, %{assigns: assigns} = socket) do
     apply_filters(assigns.selected_filters)
     {:noreply, assign(socket, tag_query: nil, tag_results: [])}
   end
 
+  @impl true
   def handle_event("search", %{"q" => query}, %{assigns: assigns} = socket) do
     query = String.trim(query)
     previous_query = assigns.tag_query
@@ -99,7 +107,7 @@ defmodule AdoptopossWeb.ProjectFiltersComponent do
   end
 
   @impl true
-  def handle_event("clear_search", _, %{assigns: assigns} = socket) do
+  def handle_event("clear_search", _, socket) do
     {:noreply, assign(socket, tag_query: nil, tag_results: [])}
   end
 

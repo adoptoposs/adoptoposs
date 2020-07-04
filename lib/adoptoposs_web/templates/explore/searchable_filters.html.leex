@@ -37,11 +37,11 @@
     </form>
 
     <%= unless @query in [nil, ""] do %>
-        <button class="button-link inline indented-sm w-5 h-5" phx-click="clear_search" phx-target="#<%= @phx_target %>">
-          <span class="text-xl">&times;</span>
-        </button>
-      <% end %>
-    </div>
+      <button class="button-link inline indented-sm w-5 h-5" phx-click="clear_search" phx-target="#<%= @phx_target %>">
+        <span class="text-xl">&times;</span>
+      </button>
+    <% end %>
+  </div>
 
   <div class="flex flex-row flex-wrap mt-4 md:mt-4">
     <%= if @query && Enum.empty?(@search_results) do %>
