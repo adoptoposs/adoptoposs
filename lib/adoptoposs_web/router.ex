@@ -39,7 +39,6 @@ defmodule AdoptopossWeb.Router do
     pipe_through :browser
 
     live "/", LandingPageLive
-    live "/search", SearchLive
 
     get "/faq", PageController, :faq
     get "/privacy", PageController, :privacy
