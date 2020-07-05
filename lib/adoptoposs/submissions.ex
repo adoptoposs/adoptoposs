@@ -26,13 +26,13 @@ defmodule Adoptoposs.Submissions do
   def list_projects(%User{id: id}) do
     Project
     |> where(user_id: ^id)
-    |> order_by(desc: :id)
+    |> order_by(desc: :inserted_at)
     |> preload([:user, :language, :interests])
     |> Repo.all()
   end
 
   @doc """
-  Returns the list of projects.
+  Returns a list of projects.
 
   ## Examples
 
@@ -42,11 +42,36 @@ defmodule Adoptoposs.Submissions do
   """
   def list_projects(limit: limit) do
     Project
+    |> where(status: ^:published)
     |> limit(^limit)
     |> where(status: ^:published)
-    |> order_by(desc: :id)
+    |> order_by(desc: :inserted_at)
     |> preload([:user, :language, :interests])
     |> Repo.all()
+  end
+
+  @doc """
+  Returns a map of projects results by offset & limit.
+
+  ## Examples
+
+      iex> list_projects(offset: 4, limit: 2)
+      %{results: [%Project{}, ...], total_count: 10}
+
+  """
+  def list_projects(offset: offset, limit: limit) do
+    query = Project |> where(status: ^:published)
+
+    projects =
+      Project
+      |> limit(^limit)
+      |> offset(^offset)
+      |> where(status: ^:published)
+      |> order_by(desc: :inserted_at)
+      |> preload([:user, :language, :interests])
+      |> Repo.all()
+
+    %{results: projects, total_count: query |> Repo.aggregate(:count)}
   end
 
   @doc """

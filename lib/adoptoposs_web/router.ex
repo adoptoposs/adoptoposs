@@ -39,13 +39,14 @@ defmodule AdoptopossWeb.Router do
     pipe_through :browser
 
     live "/", LandingPageLive
-    live "/search", SearchLive
 
     get "/faq", PageController, :faq
     get "/privacy", PageController, :privacy
 
     get "/p/:uuid", SharingController, :index
     live "/projects/:uuid", SharingLive
+
+    live "/explore", ExploreLive
   end
 
   # Routes that require authentication:

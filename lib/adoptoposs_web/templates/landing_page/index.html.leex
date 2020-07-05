@@ -1,21 +1,45 @@
-<div class="pt-12 pb-16 bg-red-500">
+<div class="bg-red-500 pt-12 pb-16 md:pb-20">
   <section>
     <h1 class="text-center text-5xl sm:text-6xl font-semibold uppercase">
-      Adoptop<acronym title="Open Source Software">oss</acronym>.
+      Adoptoposs
     </h1>
     <p class="text-white text-center text-2xl md:text-4xl leading-tight">
-      Connecting people to keep<br/>
-      <b class="underline">open source software</b> projects maintained –</br>
-      by <b class="underline">multiple maintainers</b>.
+      Find new (co-)maintainers for your
+      <br>
+      open source software project.
+    </p>
+
+    <div class="flex flex-row items-center px-4 mt-16 md:px-0 md:mt-20">
+      <hr class="flex-grow border-gray-100">
+      <div class="self-center">
+        <%= live_redirect "Explore Projects",
+          to: Routes.live_path(@socket, AdoptopossWeb.ExploreLive),
+          class: "button-link light mx-3" %>
+      </div>
+      <hr class="flex-grow border-gray-100">
+    </div>
+  </section>
+</div>
+
+<div class="bg-gray-900 px-4 md:px-0 pb-8 pt-6">
+  <section>
+    <p class="text-lg md:text-xl md:w-1/2 m-auto self-center text-center text-red-400">
+      <%= link "Read more",
+        to: "https://medium.com/p/74c1cd5df5d5?source=friends_link&sk=80b575161642c3ba17d6d4213de8578a",
+        class: "text-red-400 underline hover:text-red-300" %> about the benefits of working in a team of co-maintainers on your OSS project!
     </p>
   </section>
 </div>
 
-<div class="py-12 md:py-32">
+<div class="py-12 md:pb-32 md:pt-24">
   <section>
     <h1 class="text-center text-gray-800">
       How It Works
     </h1>
+
+    <p class="text-center text-xl md:text-2xl mb-20">
+      On Adoptoposs we connect people to keep open source software projects maintained<br> – by multiple maintainers.
+    </p>
 
     <div class="mt-4 grid grid-flow-row md:grid-cols-3 gap-6 md:gap-8">
       <div class="flex flex-col items-center">
@@ -49,6 +73,16 @@
         <div></div>
       </div>
     </div>
+
+    <div class="flex flex-row items-center px-4 mb-4 mt-12 md:px-0 md:mb-0 md:mt-20">
+      <hr class="flex-grow border-gray-600">
+      <div class="self-center">
+        <%= live_redirect "Explore Projects",
+          to: Routes.live_path(@socket, AdoptopossWeb.ExploreLive),
+          class: "button-link dark mx-3 gray-600" %>
+      </div>
+      <hr class="flex-grow border-gray-600">
+    </div>
   </section>
 </div>
 
@@ -71,10 +105,10 @@
       <% end %>
     </div>
 
-    <div class="mt-6 text-center text-lg">
+    <div class="mt-12 text-center self-center">
       <%= live_redirect "Explore More…",
-        to: Routes.live_path(@socket, AdoptopossWeb.SearchLive),
-        class: "text-red-400 hover:underline focus:underline" %>
+        to: Routes.live_path(@socket, AdoptopossWeb.ExploreLive),
+        class: "button-link medium mx-3" %>
     </div>
   </section>
 </div>
@@ -103,7 +137,7 @@
   <section class="text-lg md:text-xl text-white">
     <div class="flex flex-col items-center text-center">
       <p class="italic md:w-3/5">
-        Adoptoposs claims that open source software can be better maintained and maintainers will be healthier when following this rather simple rule:
+        Adoptoposs claims that open source software can be better maintained and maintainers will be healthier when following one important rule:
       </p>
 
       <p class="italic text-3xl md:w-3/5 md:pt-8 font-semibold">
@@ -114,7 +148,7 @@
   </section>
 </div>
 
-<div class="py-8 md:py-12 pb-0">
+<div class="py-8 md:py-12">
   <section class="text-lg md:text-xl pt-4 md:pt-6">
     <p>
       When a project gains popularity, original creators and maintainers will need help. Adoptoposs offers them a platform to find co-maintainers or put their projects up for adoption. It allows to make the initial contact between maintainers and future co-maintainers.
@@ -124,19 +158,14 @@
       Ready for helping with open source maintenance?
     </p>
 
-    <div class="flex flex-row items-center my-6 md:my-8">
+    <div class="flex flex-row items-center mt-12">
       <hr class="flex-grow border-red-300">
       <div class="self-center">
-        <%= live_redirect "Login with GitHub",
+        <%= live_redirect "Log in with GitHub",
           to: Routes.auth_path(@socket, :request, "github"),
           class: "button-link mx-3" %>
       </div>
       <hr class="flex-grow border-red-300">
     </div>
-
-    <p class="italic text-base md:text-lg mt-4 md:mt-8 md:w-2/3 m-auto self-center text-center">
-      If you want to learn more about why having co-maintainers with full access on your OSS project brings a lot of stability and benefits, read about it in
-      <%= link "this post", to: "https://medium.com/p/74c1cd5df5d5?source=friends_link&sk=80b575161642c3ba17d6d4213de8578a" %>.
-    </p>
   </section>
 </div>

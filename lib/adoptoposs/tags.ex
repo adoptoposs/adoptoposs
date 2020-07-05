@@ -6,8 +6,7 @@ defmodule Adoptoposs.Tags do
   import Ecto.Query, warn: false
   alias Adoptoposs.Repo
 
-  alias Adoptoposs.Accounts.User
-  alias Adoptoposs.Network
+  alias Adoptoposs.{Accounts.User, Network, Submissions.Project}
   alias Adoptoposs.Tags.{Tag, TagSubscription, Policy}
 
   defdelegate authorize(action, user, params), to: Policy
@@ -24,6 +23,27 @@ defmodule Adoptoposs.Tags do
   def list_language_tags do
     Tag
     |> where(type: ^Tag.Language.type())
+    |> Repo.all()
+  end
+
+  @doc """
+  Returns a list tuples of all published project’s distinct tags and their
+  project count.
+
+  ## Examples
+
+      iex> list_published_project_tags()
+      [{%Tag{}, 10} {%Tag{}, 7}, ...]
+
+  """
+  def list_published_project_tags do
+    from(p in Project,
+      left_join: l in assoc(p, :language),
+      where: p.status == ^:published,
+      select: {l, fragment("COUNT(?)", p.id)},
+      order_by: [desc: fragment("COUNT(?)", p.id), asc: l.name],
+      group_by: l.id
+    )
     |> Repo.all()
   end
 

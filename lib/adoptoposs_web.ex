@@ -74,7 +74,7 @@ defmodule AdoptopossWeb do
 
   def live_component do
     quote do
-      use Phoenix.LiveComponent
+      use AdoptopossWeb.LiveComponent
       alias AdoptopossWeb.Router.Helpers, as: Routes
     end
   end

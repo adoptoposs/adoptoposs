@@ -1,13 +1,13 @@
 <div class="flex flex-row items-center">
-  <%= live_redirect to: Routes.live_path(@conn, AdoptopossWeb.SearchLive), class: "flex items-center p-2 mr-4" do %>
+  <%= live_redirect to: Routes.live_path(@conn, AdoptopossWeb.ExploreLive), class: "flex items-center p-2 mr-4" do %>
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" class="inline h-4 w-4 fill-current sm:mr-2">
       <path d="M12.9 14.32a8 8 0 1 1 1.41-1.41l5.35 5.33-1.42 1.42-5.33-5.34zM8 14A6 6 0 1 0 8 2a6 6 0 0 0 0 12z"/>
     </svg>
-    <span class="hidden sm:inline">Search</span>
+    <span class="hidden sm:inline">Explore</span>
   <% end %>
 
   <div class="inline-block">
-    <%= live_redirect "Login with GitHub",
+    <%= live_redirect "Log in with GitHub",
       to: Routes.auth_path(@conn, :request, "github"),
       class: "button-link subtle" %>
   </div>

@@ -28,41 +28,41 @@ defmodule AdoptopossWeb.SettingsLiveTest do
 
   describe "tag subscriptions" do
     @tag login_as: "user123"
-    test "following a tag", %{conn: conn} do
+    test "adding a tag", %{conn: conn} do
       tag = insert(:tag, type: "language")
       {:ok, view, _html} = live(conn, Routes.live_path(conn, SettingsLive))
 
       html = render_change(view, :search_tags, %{q: tag.name})
-      assert html =~ "Follow #{tag.name}"
-      refute html =~ "Unfollow #{tag.name}"
+      assert html =~ "Add #{tag.name}"
+      refute html =~ "Remove #{tag.name}"
 
-      html = render_click(view, :follow_tag, %{tag_id: tag.id})
-      assert html =~ "Unfollow #{tag.name}"
+      html = render_click(view, :add_tag, %{tag_id: tag.id})
+      assert html =~ "Remove #{tag.name}"
     end
 
     @tag login_as: "user123"
-    test "following a tag when already following", %{conn: conn, user: user} do
+    test "adding a tag when already added", %{conn: conn, user: user} do
       tag = insert(:tag, type: "language")
       insert(:tag_subscription, user: user, tag: tag)
 
       {:ok, view, html} = live(conn, Routes.live_path(conn, SettingsLive))
-      assert html =~ "Unfollow #{tag.name}"
+      assert html =~ "Remove #{tag.name}"
 
       html = render_change(view, :search_tags, %{q: tag.name})
-      refute html =~ "Follow #{tag.name}"
+      refute html =~ "Add #{tag.name}"
 
-      html = render_click(view, :follow_tag, %{tag_id: tag.id})
-      assert html =~ "Unfollow #{tag.name}"
+      html = render_click(view, :add_tag, %{tag_id: tag.id})
+      assert html =~ "Remove #{tag.name}"
     end
 
     @tag login_as: "user123"
-    test "unfollowing a tag", %{conn: conn, user: user} do
+    test "removing a tag", %{conn: conn, user: user} do
       tag_subscription = insert(:tag_subscription, user: user)
 
       {:ok, view, html} = live(conn, Routes.live_path(conn, SettingsLive))
-      assert html =~ "Unfollow #{tag_subscription.tag.name}"
+      assert html =~ "Remove #{tag_subscription.tag.name}"
 
-      html = render_click(view, :unfollow_tag, %{tag_subscription_id: tag_subscription.id})
+      html = render_click(view, :remove_tag, %{tag_subscription_id: tag_subscription.id})
       refute html =~ tag_subscription.tag.name
     end
   end

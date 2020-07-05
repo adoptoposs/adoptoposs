@@ -59,6 +59,20 @@ defmodule Adoptoposs.TagsTest do
       assert Tags.list_language_tags() == [tag]
     end
 
+    test "list_published_project_tags/0 returns distinct tags of published projects" do
+      tag_1 = insert(:tag, type: Tag.Language.type())
+      tag_2 = insert(:tag, type: Tag.Language.type(), name: "b")
+      tag_3 = insert(:tag, type: Tag.Language.type(), name: "a")
+      insert(:tag, type: Tag.Language.type())
+
+      insert_list(2, :project, language: tag_1)
+      insert(:project, language: tag_2)
+      insert(:project, language: tag_3)
+      insert(:project, language: tag_3, status: :draft)
+
+      assert Tags.list_published_project_tags() == [{tag_1, 2}, {tag_3, 1}, {tag_2, 1}]
+    end
+
     test "list_recommended_tags/2 returns all tags that match the languages of a user's repos" do
       user = build(:user, provider: "github")
       {:ok, {_page_info, repos}} = Network.user_repos("token", user.provider, 3)
