@@ -121,7 +121,6 @@ defmodule AdoptopossWeb.ExploreLive do
         end)
         |> sort_tags_by_projects_existence_and_name()
 
-
       assign(socket,
         subscribed_tags: tags,
         suggested_tags: []
@@ -137,7 +136,7 @@ defmodule AdoptopossWeb.ExploreLive do
     tags
     |> Enum.split_with(&(elem(&1, 1) > 0))
     |> Tuple.to_list()
-    |> Enum.map(& Enum.sort_by(&1, fn f -> elem(f, 0).name end))
+    |> Enum.map(&Enum.sort_by(&1, fn f -> elem(f, 0).name end))
     |> List.flatten()
   end
 
