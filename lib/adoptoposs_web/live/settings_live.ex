@@ -47,7 +47,7 @@ defmodule AdoptopossWeb.SettingsLive do
   end
 
   @impl true
-  def handle_event("follow_tag", %{"tag_id" => id}, socket) do
+  def handle_event("add_tag", %{"tag_id" => id}, socket) do
     user = Accounts.get_user!(socket.assigns.user_id)
     tag = Tags.get_tag!(id)
     attrs = %{user_id: user.id, tag_id: tag.id}
@@ -65,7 +65,7 @@ defmodule AdoptopossWeb.SettingsLive do
   end
 
   @impl true
-  def handle_event("follow_suggested_tags", _params, %{assigns: assigns} = socket) do
+  def handle_event("add_suggested_tags", _params, %{assigns: assigns} = socket) do
     user = Accounts.get_user!(assigns.user_id)
     tags = assigns.suggested_tags
     attrs = tags |> Enum.map(&%{user_id: user.id, tag_id: &1.id})
@@ -75,7 +75,7 @@ defmodule AdoptopossWeb.SettingsLive do
   end
 
   @impl true
-  def handle_event("unfollow_tag", %{"tag_subscription_id" => id}, socket) do
+  def handle_event("remove_tag", %{"tag_subscription_id" => id}, socket) do
     user = Accounts.get_user!(socket.assigns.user_id)
     tag_subscription = Tags.get_tag_subscription!(id)
 
