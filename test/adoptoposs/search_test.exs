@@ -41,6 +41,33 @@ defmodule Adoptoposs.SearchTest do
       assert [] == projects
     end
 
+    test "find_projects/2 returns the matching projects when tag filters are applied" do
+      elixir = insert(:tag, type: Tag.Language.type(), name: "Elixir")
+      ruby = insert(:tag, type: Tag.Language.type(), name: "Ruby")
+      js = insert(:tag, type: Tag.Language.type(), name: "JavaScript")
+
+      project_1 = insert(:project, name: "Pixi", language: elixir)
+      project_2 = insert(:project, repo_owner: "FIXIT", language: ruby)
+      project_3 = insert(:project, repo_owner: "sth else", language: ruby)
+      project_4 = insert(:project, description: "FixIt", language: js)
+
+      query = "ixi"
+
+      opts = [offset: 0, limit: 3, filters: [elixir.id, ruby.id]]
+      %{results: projects, total_count: 2} = Search.find_projects(query, opts)
+      assert [project_1.id, project_2.id] == projects |> Enum.map(& &1.id)
+
+      %{results: projects, total_count: 3} = Search.find_projects("", opts)
+      assert [project_1.id, project_2.id, project_3.id] == projects |> Enum.map(& &1.id)
+
+      opts = [offset: 0, limit: 3, filters: [-1]]
+      assert %{results: [], total_count: 0} == Search.find_projects(query, opts)
+
+      opts = [offset: 0, limit: 3, filters: []]
+      %{results: projects, total_count: 3} = Search.find_projects(query, opts)
+      assert [project_1.id, project_2.id, project_4.id] == projects |> Enum.map(& &1.id)
+    end
+
     test "find_projects/2 with a not binary query returns empty list" do
       empty_results = %{results: [], total_count: 0}
       assert empty_results == Search.find_projects(nil, offset: 0, limit: 1)
