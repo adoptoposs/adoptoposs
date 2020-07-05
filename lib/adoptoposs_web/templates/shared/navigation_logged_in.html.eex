@@ -1,7 +1,7 @@
 <div class="md:hidden inline-block">
   <%= live_redirect "Submit Repo",
     to: Routes.live_path(@conn, AdoptopossWeb.RepoLive, @current_user.username),
-    class: "text-md px-4 py-2 leading-none border border-red-300 rounded" %>
+    class: "self-center text-md px-4 py-2 leading-none border border-red-300 rounded" %>
 </div>
 
 <details class="toggle close-on-link-clicked block md:hidden self-end">
@@ -53,7 +53,7 @@
 
     <%= live_redirect "Submit Repo",
       to: Routes.live_path(@conn, AdoptopossWeb.RepoLive, @current_user.username),
-      class: "md:flex button-link subtle mr-4" %>
+      class: "md:flex self-center button-link subtle mr-4" %>
   </div>
 
   <div class="flex justify-end md:inline-block hidden md:visible">
