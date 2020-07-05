@@ -119,6 +119,8 @@ defmodule AdoptopossWeb.ExploreLive do
           tag = tag_subscription.tag
           assigns.tags |> Enum.find(&match?({^tag, _}, &1)) || {tag, 0}
         end)
+        |> sort_tags_by_projects_existence_and_name()
+
 
       assign(socket,
         subscribed_tags: tags,
@@ -129,6 +131,14 @@ defmodule AdoptopossWeb.ExploreLive do
 
   defp assign_subscribed_tags(socket, _user) do
     assign(socket, subscribed_tags: [], suggested_tags: [])
+  end
+
+  defp sort_tags_by_projects_existence_and_name(tags) do
+    tags
+    |> Enum.split_with(&(elem(&1, 1) > 0))
+    |> Tuple.to_list()
+    |> Enum.map(& Enum.sort_by(&1, fn f -> elem(f, 0).name end))
+    |> List.flatten()
   end
 
   defp search(socket, query: query, filters: filters) do
