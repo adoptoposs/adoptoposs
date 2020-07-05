@@ -29,14 +29,14 @@ defmodule AdoptopossWeb.SettingsLive do
     query = String.trim(query)
     previous_query = assigns.query
 
-    cond do
-      query == previous_query ->
+    case query do
+      ^previous_query ->
         {:noreply, assign(socket, query: query)}
 
-      query == "" ->
+      "" ->
         {:noreply, assign(socket, query: nil, tag_results: [])}
 
-      true ->
+      _ ->
         {:noreply, search_tags(socket, query)}
     end
   end

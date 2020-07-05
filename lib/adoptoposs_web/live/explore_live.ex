@@ -40,16 +40,25 @@ defmodule AdoptopossWeb.ExploreLive do
 
   @impl true
   def handle_event("search", %{"q" => query}, %{assigns: assigns} = socket) do
-    {:noreply, set_params(socket, q: query, f: assigns.filters)}
+    query = String.trim(query)
+    previous_query = assigns.query
+
+    if query == previous_query do
+      {:noreply, assign(socket, query: query)}
+    else
+      {:noreply, set_params(socket, q: query, f: assigns.filters)}
+    end
   end
 
   @impl true
   def handle_event("load_more", _, %{assigns: assigns} = socket) do
+    %{query: query, filters: filters, page: page} = assigns
+
     {:noreply,
      socket
-     |> assign(page: assigns.page + 1)
+     |> assign(page: page + 1)
      |> update_with_append()
-     |> search(query: assigns.query, filters: assigns.filters)}
+     |> search(query: query, filters: filters)}
   end
 
   @impl true

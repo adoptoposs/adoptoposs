@@ -94,14 +94,14 @@ defmodule AdoptopossWeb.ProjectFiltersComponent do
     previous_query = assigns.tag_query
     socket = assign(socket, filter_selection_open: true)
 
-    cond do
-      query == previous_query ->
+    case query do
+      ^previous_query ->
         {:noreply, assign(socket, tag_query: query)}
 
-      query == "" ->
+      "" ->
         {:noreply, assign(socket, tag_query: nil, tag_results: [])}
 
-      true ->
+      _ ->
         {:noreply, search_tags(socket, query)}
     end
   end
