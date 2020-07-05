@@ -5,8 +5,8 @@
   <div class="w-full md:w-2/3">
     <div class="flex items-center">
       <form class="inline-flex w-full" phx-submit="search" phx-change="search">
-        <input type="search"
-          class="flex-grow border border-red-500 rounded-full h-16 pl-8 pr-12 text-red-600 my-2 max-w-full"
+        <input type="text"
+          class="search flex-grow h-16 pl-8 pr-12 my-2 max-w-full"
           id="search"
           name="q"
           value="<%= @query %>"

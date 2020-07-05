@@ -26,9 +26,9 @@
       phx-submit="<%= @search_event %>"
       phx-change="<%= @search_event %>"
       phx-target="#<%= @phx_target %>">
-      <input type="search"
-        class="flex-grow border border-red-500 rounded-full h-12 pl-6 pr-10 text-red-600"
-        id="search"
+      <input type="text"
+        class="search flex-grow border h-12 pl-6 pr-10"
+        id="tag_search"
         name="q"
         value="<%= @query %>"
         autocomplete="off"

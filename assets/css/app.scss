@@ -113,6 +113,15 @@ input[type="reset"] {
   }
 }
 
+input[type="text"].search,  {
+  @apply outline-none;
+  @apply border border-red-500 rounded-full text-red-600;
+
+  &:focus {
+    box-shadow: 0 0 0 2px rgba(245, 101, 101, 0.25);
+  }
+}
+
 a {
   @apply text-red-600;
 

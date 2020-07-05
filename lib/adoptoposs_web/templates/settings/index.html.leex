@@ -68,8 +68,8 @@
 
         <div class="flex items-center mt-4">
           <form class="inline-flex w-full" phx-submit="search_tags" phx-change="search_tags">
-            <input type="search"
-              class="flex-grow border border-red-500 rounded-full h-12 px-6 text-red-600"
+            <input type="text"
+              class="search flex-grow h-12 px-6"
               id="search"
               name="q"
               value="<%= @query %>"
@@ -89,7 +89,7 @@
         <div id="tags-search" class="flex flex-row flex-wrap mt-4 md:mt-6">
           <%= if @query && Enum.empty?(@tag_results) do %>
             <p class="text-pink-900">
-              No language found for <span class="text-red-500">"<%= @query %>"</span> :(
+              No language found for <span class="text-red-500 break-all">"<%= @query %>"</span> :(
             </p>
           <% else %>
             <%= for result <- @tag_results do %>
