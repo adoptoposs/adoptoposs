@@ -117,7 +117,7 @@ defmodule AdoptopossWeb.ProjectFiltersComponent do
     top_tags = Enum.take(tags, @top_tags_count)
     top_tag_filters = Enum.map(top_tags, &to_string(elem(&1, 0).id))
     subscribed_tag_filters = Enum.map(subscribed_tags, &to_string(elem(&1, 0).id))
-    custom_filters = (filters -- top_tag_filters) -- subscribed_tag_filters
+    custom_filters = filters -- (top_tag_filters ++ subscribed_tag_filters)
     custom_tags = Enum.filter(tags, &(to_string(elem(&1, 0).id) in custom_filters))
 
     new_assigns = %{
