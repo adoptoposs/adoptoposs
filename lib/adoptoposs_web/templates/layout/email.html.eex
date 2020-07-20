@@ -67,7 +67,7 @@
     <mj-section>
       <mj-column>
         <mj-text css-class="text">
-          Thanks for helping open source software. ♡</br>
+          Thanks for helping open source software. ♡<br/>
           Always keep maintaining!
         </mj-text>
 
