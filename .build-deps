@@ -4,3 +4,7 @@ nodejs
 yarn
 inotify-tools
 bash
+gcc
+musl-dev
+rust
+cargo

@@ -1,7 +1,7 @@
-FROM elixir:1.10.1-alpine as dev
+FROM elixir:1.10.4-alpine as dev
 
 COPY .build-deps /
-RUN cat .build-deps | xargs apk add
+RUN cat .build-deps | xargs apk add --no-cache
 
 WORKDIR /app
 
