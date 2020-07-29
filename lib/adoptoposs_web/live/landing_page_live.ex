@@ -88,6 +88,7 @@ defmodule AdoptopossWeb.LandingPageLive do
   defp put_assigns(socket, %User{} = user) do
     socket
     |> put_interests(user)
+    |> put_project_interests(user)
     |> put_tag_subsriptions(user)
     |> put_recommendations(user, nil)
   end
@@ -98,6 +99,12 @@ defmodule AdoptopossWeb.LandingPageLive do
 
   defp put_interests(socket, user) do
     assign(socket, interests: Communication.list_user_interests(user))
+  end
+
+  defp put_project_interests(socket, user) do
+    project_interests = Submissions.list_user_project_interests(user)
+
+    assign(socket, project_interests: project_interests)
   end
 
   defp put_tag_subsriptions(socket, user) do

@@ -263,4 +263,18 @@ defmodule Adoptoposs.Submissions do
         order_by: [desc: p.inserted_at]
     )
   end
+
+  @doc """
+  Returns the list of interests of a user's projects.
+
+  ## Examples
+
+      iex> list_user_project_interests(user)
+      [%Interest{}, ...]
+  """
+  def list_user_project_interests(user) do
+    list_projects(user)
+    |> Enum.map(fn p -> p.id end)
+    |> Adoptoposs.Communication.list_project_interests()
+  end
 end
