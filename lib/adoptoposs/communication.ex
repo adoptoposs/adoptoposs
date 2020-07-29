@@ -52,6 +52,9 @@ defmodule Adoptoposs.Communication do
       iex> list_project_interests(1)
       [%Interest{}, ...]
 
+      iex> list_project_interests([1,2,3])
+      [%Interest{}, ...]
+
   """
   def list_project_interests(%Project{} = project) do
     project
@@ -66,6 +69,15 @@ defmodule Adoptoposs.Communication do
     |> where(project_id: ^project_id)
     |> preload(:creator)
     |> preload(project: :user)
+    |> Repo.all()
+  end
+
+  def list_project_interests(project_ids) when is_list(project_ids) do
+    Interest
+    |> where([i], i.project_id in ^project_ids)
+    |> preload(:creator)
+    |> preload(project: :user)
+    |> order_by(desc: :inserted_at)
     |> Repo.all()
   end
 
