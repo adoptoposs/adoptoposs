@@ -56,7 +56,7 @@ defmodule Adoptoposs.MixProject do
       {:yaml_elixir, "~> 2.4"},
       {:bamboo, "~> 1.4"},
       {:navigation_history, "~> 0.3"},
-      {:quantum, "~> 2.4"},
+      {:quantum, "~> 3.0"},
       {:new_relic_phoenix, "~> 0.2.1"},
       {:ecto_enum, "~> 1.4"},
       {:mix_test_watch, "~> 1.0", only: :dev, runtime: false},

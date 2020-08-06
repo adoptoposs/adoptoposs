@@ -1,3 +1,3 @@
 defmodule Adoptoposs.Scheduler do
-  use Quantum.Scheduler, otp_app: :adoptoposs
+  use Quantum, otp_app: :adoptoposs
 end
