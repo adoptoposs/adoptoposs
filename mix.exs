@@ -76,6 +76,7 @@ defmodule Adoptoposs.MixProject do
   defp aliases do
     [
       "fetch.languages": ["run priv/repo/fetch_languages.exs"],
+      "update.github_repos": ["run priv/repo/update_repo_data.exs --provider github"],
       "ecto.setup": ["ecto.create", "ecto.migrate", "fetch.languages", "run priv/repo/seeds.exs"],
       "ecto.reset": ["ecto.drop", "ecto.setup"],
       test: ["ecto.create --quiet", "ecto.migrate", "test"]
