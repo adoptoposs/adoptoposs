@@ -14,30 +14,35 @@ defmodule Adoptoposs.SearchTest do
       project_1 = insert(:project, name: "Pixi")
       project_2 = insert(:project, repo_owner: "FIXIT")
       project_3 = insert(:project, description: "FixIt")
+      project_4 = insert(:project, repo_description: "Fixit")
 
       insert(:project, language: build(:tag, name: "Ruby"))
       insert(:project, language: build(:tag, name: "JavaScript"))
 
       query = "IXi"
 
-      %{results: projects, total_count: 3} = Search.find_projects(query, offset: 0, limit: 3)
+      %{results: projects, total_count: 4} = Search.find_projects(query, offset: 0, limit: 4)
 
       for project <- projects do
         assert %Tag{} = project.language
       end
 
-      assert [project_1.id, project_2.id, project_3.id] == projects |> Enum.map(& &1.id)
+      assert [project_1.id, project_2.id, project_3.id, project_4.id] ==
+               projects |> Enum.map(& &1.id)
 
-      %{results: projects, total_count: 3} = Search.find_projects(query, offset: 0, limit: 1)
+      %{results: projects, total_count: 4} = Search.find_projects(query, offset: 0, limit: 1)
       assert [project_1.id] == projects |> Enum.map(& &1.id)
 
-      %{results: projects, total_count: 3} = Search.find_projects(query, offset: 1, limit: 1)
+      %{results: projects, total_count: 4} = Search.find_projects(query, offset: 1, limit: 1)
       assert [project_2.id] == projects |> Enum.map(& &1.id)
 
-      %{results: projects, total_count: 3} = Search.find_projects(query, offset: 2, limit: 1)
+      %{results: projects, total_count: 4} = Search.find_projects(query, offset: 2, limit: 1)
       assert [project_3.id] == projects |> Enum.map(& &1.id)
 
-      %{results: projects, total_count: 3} = Search.find_projects(query, offset: 3, limit: 1)
+      %{results: projects, total_count: 4} = Search.find_projects(query, offset: 3, limit: 1)
+      assert [project_4.id] == projects |> Enum.map(& &1.id)
+
+      %{results: projects, total_count: 4} = Search.find_projects(query, offset: 4, limit: 1)
       assert [] == projects
     end
 
