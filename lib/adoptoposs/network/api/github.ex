@@ -4,12 +4,22 @@ defmodule Adoptoposs.Network.Api.Github do
 
   @behaviour Api
 
+  @provider "github"
   @api_uri "https://api.github.com/graphql"
+
+  @impl Api
+  def provider, do: @provider
 
   @impl Api
   def organizations(token, limit, after_cursor) do
     organizations_query(limit, after_cursor)
     |> compile_data(token, &compile_organizations/1)
+  end
+
+  @impl Api
+  def repos(token, ids) do
+    repos_query(ids)
+    |> compile_data(token, &compile_repos/1)
   end
 
   @impl Api
@@ -67,7 +77,7 @@ defmodule Adoptoposs.Network.Api.Github do
                 id
                 name
                 viewerCanAdminister
-                descriptionHTML
+                description
                 url
                 primaryLanguage {
                   name
@@ -80,6 +90,33 @@ defmodule Adoptoposs.Network.Api.Github do
                 }
               }
             }
+          }
+        }
+      }
+    }
+    """
+  end
+
+  defp repos_query(ids) do
+    params = ids_params(ids)
+
+    ~s"""
+    {
+      nodes(#{params}) {
+        ... on Repository {
+          id
+          name
+          viewerCanAdminister
+          description
+          url
+          primaryLanguage {
+            name
+            color
+          }
+          owner {
+            login
+            avatarUrl
+            url
           }
         }
       }
@@ -103,7 +140,7 @@ defmodule Adoptoposs.Network.Api.Github do
               id
               name
               viewerCanAdminister
-              descriptionHTML
+              description
               url
               primaryLanguage {
                 name
@@ -128,6 +165,11 @@ defmodule Adoptoposs.Network.Api.Github do
 
   defp pagination_params(limit, after_cursor) do
     "first: #{limit}, after: \\\"#{after_cursor}\\\""
+  end
+
+  defp ids_params(ids) do
+    ids_list = ids |> Enum.map(&"\\\"#{&1}\\\"") |> Enum.join(", ")
+    "ids: [#{ids_list}]"
   end
 
   defp compile_data(query, token, compile) do
@@ -186,6 +228,12 @@ defmodule Adoptoposs.Network.Api.Github do
     {page_info, repositories}
   end
 
+  defp compile_repos(%{data: %{nodes: repos}}) do
+    repos
+    |> Enum.reject(&is_nil/1)
+    |> Enum.map(&build_repository/1)
+  end
+
   defp compile_repos(_data), do: []
 
   defp compile_user_repos(%{data: %{viewer: %{repositories: repos}}}) do
@@ -214,7 +262,7 @@ defmodule Adoptoposs.Network.Api.Github do
 
   defp build_organization(_data), do: nil
 
-  defp build_repository(%{id: id, name: name, descriptionHTML: description, url: url} = data) do
+  defp build_repository(%{id: id, name: name, description: description, url: url} = data) do
     %Repository{
       id: id,
       name: name,

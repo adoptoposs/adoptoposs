@@ -6,8 +6,16 @@ defmodule Adoptoposs.Network.Api.GithubInMemory do
   @behaviour Api
 
   @impl Api
+  def provider, do: Api.Github.provider()
+
+  @impl Api
   def organizations(_token, limit, _after_cursor) do
     {:ok, {build(:page_info), build_list(limit, :organization)}}
+  end
+
+  @impl Api
+  def repos(_token, ids) do
+    {:ok, ids |> Enum.map(&build(:repository, id: to_string(&1)))}
   end
 
   @impl Api

@@ -23,17 +23,19 @@ defmodule Adoptoposs.Factory do
   def project_factory do
     repo_id = sequence("repo_id")
     owner = build(:contributor, login: sequence("owner"))
+    repo = build(:repository, id: repo_id, owner: owner)
     uuid = Ecto.UUID.generate()
 
     %Submissions.Project{
       name: sequence("project"),
       language: build(:tag),
       # encode and decode repository to get the data as it is stored in the database
-      data: build(:repository, id: repo_id, owner: owner) |> Jason.encode!() |> Jason.decode!(),
+      data: repo |> Jason.encode!() |> Jason.decode!(),
       user: build(:user),
       description: "another co-maintainer",
       repo_id: repo_id,
       repo_owner: owner.login,
+      repo_description: repo.description,
       uuid: uuid,
       status: :published
     }
@@ -95,7 +97,7 @@ defmodule Adoptoposs.Factory do
     %Network.Repository{
       id: sequence("id"),
       name: sequence("Repo"),
-      description: "<div>Solving <i>all</i> the issues</div>",
+      description: "Solving all the issues",
       url: sequence(:url, &"https://example.com/repos/repo#{&1}"),
       owner: build(:contributor),
       language: build(:language),

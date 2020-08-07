@@ -7,7 +7,7 @@
   </h2>
 
   <div class="markdown text-gray-600">
-    <%= {:safe, Earmark.as_html!(String.trim(project_description(@project)))} %>
+    <%= {:safe, Earmark.as_html!(project_description(@project))} %>
   </div>
 
   <div class="flex flex-row justify-between items-center mt-2 md:mt-4">
