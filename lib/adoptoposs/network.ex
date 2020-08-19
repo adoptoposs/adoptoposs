@@ -18,6 +18,13 @@ defmodule Adoptoposs.Network do
   end
 
   @doc """
+  Fetch repositories with the given ids from the given provider.
+  """
+  def repos(token, provider, ids) do
+    api(provider).repos(token, ids)
+  end
+
+  @doc """
   Fetch a user's public repositories from the given provider.
   """
   def user_repos(token, provider, limit, after_cursor \\ "")

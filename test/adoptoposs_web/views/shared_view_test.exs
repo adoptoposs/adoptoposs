@@ -37,6 +37,20 @@ defmodule AdoptopossWeb.SharedViewTest do
     end
   end
 
+  describe "project_description/1" do
+    test "returns the project description when passing a Project" do
+      description = "some project description"
+      project = build(:project, repo_description: description)
+      assert SharedView.project_description(project) == description
+    end
+
+    test "returns the repository description when passing a Repository" do
+      description = "some repository description"
+      repository = build(:repository, description: description)
+      assert SharedView.project_description(repository) == description
+    end
+  end
+
   describe "count/2" do
     test "returns number with passed word if number == 1" do
       assert SharedView.count("thing", count: 1) == "1 thing"

@@ -190,13 +190,31 @@ defmodule Adoptoposs.Submissions do
       iex> update_project_status(project, :published)
       {:ok, %Project{}}
 
-      iex> update_project(project, :not_allowed_status)
+      iex> update_project_status(project, :not_allowed_status)
       {:error, %Ecto.Changeset{}}
 
   """
   def update_project_status(%Project{} = project, status) do
     project
     |> Project.status_changeset(%{status: status})
+    |> Repo.update()
+  end
+
+  @doc """
+  Updates the repo data of a project.
+
+  ## Examples
+
+      iex> update_project_data(project, repository)
+      {:ok, %Project{}}
+
+      iex> update_project_data(project, repository_with_missing_data)
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def update_project_data(%Project{} = project, %Repository{} = repository, attrs \\ %{}) do
+    project
+    |> Project.update_data_changeset(repository, attrs)
     |> Repo.update()
   end
 

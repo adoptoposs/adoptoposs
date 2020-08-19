@@ -15,8 +15,8 @@ defmodule AdoptopossWeb.SharedView do
   def project_url(%Project{} = project), do: project.data["url"]
   def project_url(%Repository{} = project), do: project.url
 
-  def project_description(%Project{} = project), do: project.data["description"]
-  def project_description(%Repository{} = project), do: project.description
+  def project_description(%Project{} = project), do: String.trim(project.repo_description)
+  def project_description(%Repository{} = project), do: String.trim(project.description)
 
   def count(word, count: count) when count < 1, do: "no #{word}s"
   def count(word, count: count) when count == 1, do: "#{count} #{word}"

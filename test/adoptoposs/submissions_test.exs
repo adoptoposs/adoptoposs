@@ -233,6 +233,29 @@ defmodule Adoptoposs.SubmissionsTest do
       assert {:error, _} = Submissions.update_project_status(project, :some_invalid_status)
     end
 
+    test "update_project_data/3 updates the project’s repo data" do
+      project = insert(:project)
+      repository = build(:repository)
+      language = insert(:tag)
+      attrs = %{language_id: language.id}
+
+      assert {:ok, %Project{} = updated_project} =
+               Submissions.update_project_data(project, repository, attrs)
+
+      assert updated_project.name == repository.name
+      assert updated_project.repo_id == repository.id
+      assert updated_project.repo_description == repository.description
+      assert updated_project.language_id == language.id
+      assert updated_project.data == repository |> Map.from_struct()
+    end
+
+    test "update_project_data/3 fails for invalid repo data" do
+      project = insert(:project)
+      repository = build(:repository)
+      attrs = %{language_id: nil}
+      assert {:error, _} = Submissions.update_project_data(project, repository, attrs)
+    end
+
     test "delete_project/1 deletes the passed project" do
       project = insert(:project)
       assert {:ok, %Project{}} = Submissions.delete_project(project)

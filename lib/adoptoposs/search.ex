@@ -71,6 +71,7 @@ defmodule Adoptoposs.Search do
       where:
         ilike(project.name, ^"%#{term}%") or
           ilike(project.repo_owner, ^"%#{term}%") or
+          ilike(project.repo_description, ^"%#{term}%") or
           ilike(project.description, ^"%#{term}%")
   end
 
