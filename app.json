@@ -9,6 +9,9 @@
   ],
   "buildpacks": [
     {
+      "url": "https://github.com/emk/heroku-buildpack-rust.git"
+    },
+    {
       "url": "https://github.com/HashNuke/heroku-buildpack-elixir"
     },
     {

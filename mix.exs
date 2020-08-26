@@ -35,15 +35,15 @@ defmodule Adoptoposs.MixProject do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
-      {:phoenix, "~> 1.5.3"},
+      {:phoenix, "~> 1.5.4"},
       {:phoenix_pubsub, "~> 2.0"},
       {:phoenix_ecto, "~> 4.1"},
       {:ecto_sql, "~> 3.3"},
       {:postgrex, ">= 0.0.0"},
       {:phoenix_html, "~> 2.13"},
-      {:phoenix_live_view, "~> 0.13.3"},
+      {:phoenix_live_view, "~> 0.14.4"},
       {:phoenix_live_reload, "~> 1.2", only: :dev},
-      {:gettext, "~> 0.17"},
+      {:gettext, "~> 0.18"},
       {:jason, "~> 1.0"},
       {:plug_cowboy, "~> 2.2"},
       {:ueberauth, "~> 0.6"},
@@ -55,15 +55,16 @@ defmodule Adoptoposs.MixProject do
       {:basic_auth, "~> 2.2.4"},
       {:yaml_elixir, "~> 2.4"},
       {:bamboo, "~> 1.4"},
+      {:mjml, "~> 0.1.0"},
       {:navigation_history, "~> 0.3"},
       {:quantum, "~> 3.0"},
-      {:new_relic_phoenix, "~> 0.2.1"},
+      {:new_relic_phoenix, "~> 0.3"},
       {:ecto_enum, "~> 1.4"},
       {:mix_test_watch, "~> 1.0", only: :dev, runtime: false},
-      {:faker, "~> 0.13", only: [:dev, :test]},
+      {:faker, "~> 0.14", only: [:dev, :test]},
       {:ex_machina, "~> 2.3", only: [:dev, :test]},
       {:floki, ">= 0.0.0", only: :test},
-      {:hammox, "~> 0.2.2", only: :test}
+      {:hammox, "~> 0.2.5", only: :test}
     ]
   end
 

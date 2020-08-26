@@ -7,7 +7,6 @@ defmodule AdoptopossWeb.Email do
 
   import AdoptopossWeb.Router.Helpers
   alias AdoptopossWeb.Endpoint
-  alias Adoptoposs.Mjml
 
   def interest_received_email(interest) do
     %{project: project, creator: creator} = interest
@@ -41,6 +40,7 @@ defmodule AdoptopossWeb.Email do
 
   def render_mjml(email, template, assigns \\ []) do
     result = render(email, template, assigns)
-    Map.put(result, :html_body, Mjml.render(Map.get(result, :html_body)))
+    {:ok, html_body} = Mjml.to_html(Map.get(result, :html_body))
+    Map.put(result, :html_body, html_body)
   end
 end

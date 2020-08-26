@@ -1,0 +1,2 @@
+# See https://github.com/emk/heroku-buildpack-rust#combining-with-other-buildpacks
+RUST_SKIP_BUILD=1
