@@ -68,30 +68,34 @@ defmodule AdoptopossWeb.ExploreLiveTest do
     assert html =~ project_3.name
 
     filter_section_id = "filters-sidebar-top-ten"
+    language_toggle_1_id = "##{filter_section_id}-btn-toggle-#{language_1.id}"
+    language_toggle_2_id = "##{filter_section_id}-btn-toggle-#{language_2.id}"
+
+    assert view |> has_element?(language_toggle_1_id)
+    assert view |> has_element?(language_toggle_2_id)
 
     # apply first language filter
     view
-    |> element("##{filter_section_id}-btn-toggle-#{language_1.id}")
+    |> element(language_toggle_1_id)
     |> render_click()
 
     assert_patched(view, Routes.live_path(conn, ExploreLive, q: nil, f: [language_1.id]))
 
-    html = view |> render()
+    html = render(view)
     assert html =~ project_1.name
     refute html =~ project_2.name
     refute html =~ project_3.name
 
     # apply second language filter
     view
-    |> element("##{filter_section_id}-btn-toggle-#{language_2.id}")
+    |> element(language_toggle_2_id)
     |> render_click()
 
-    assert_patched(
-      view,
-      Routes.live_path(conn, ExploreLive, q: nil, f: [language_2.id, language_1.id])
-    )
+    html = render(view)
 
-    html = view |> render()
+    filters = [language_2.id, language_1.id]
+    assert_patched(view, Routes.live_path(conn, ExploreLive, q: nil, f: filters))
+
     assert html =~ project_1.name
     assert html =~ project_2.name
     refute html =~ project_3.name
@@ -101,9 +105,11 @@ defmodule AdoptopossWeb.ExploreLiveTest do
     |> element("##{filter_section_id}-btn-toggle-#{language_1.id}")
     |> render_click()
 
-    assert_patched(view, Routes.live_path(conn, ExploreLive, q: nil, f: [language_2.id]))
+    html = render(view)
 
-    html = view |> render()
+    filters = [language_2.id]
+    assert_patched(view, Routes.live_path(conn, ExploreLive, q: nil, f: filters))
+
     refute html =~ project_1.name
     assert html =~ project_2.name
     refute html =~ project_3.name
@@ -113,9 +119,9 @@ defmodule AdoptopossWeb.ExploreLiveTest do
     |> element("##{filter_section_id}-btn-toggle-#{language_2.id}")
     |> render_click()
 
+    html = render(view)
     assert_patched(view, Routes.live_path(conn, ExploreLive, q: nil, f: []))
 
-    html = view |> render()
     assert html =~ project_1.name
     assert html =~ project_2.name
     assert html =~ project_3.name
@@ -173,9 +179,10 @@ defmodule AdoptopossWeb.ExploreLiveTest do
 
     # remove filter
     view
-    |> element("##{btn_remove_id}")
+    |> element(btn_remove_id)
     |> render_click()
 
+    render(view)
     assert_patched(view, Routes.live_path(conn, ExploreLive, q: nil, f: []))
 
     # load more to see all created projects
