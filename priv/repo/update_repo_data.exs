@@ -26,9 +26,9 @@ defmodule Adoptoposs.UpdateReposityData do
     repo_ids = project_data |> Enum.map(&List.last(&1))
 
     with {:ok, repositories} <- Network.repos(token, provider, repo_ids) do
-      project_ids
-      |> Enum.with_index()
-      |> Enum.map(fn {id, index} -> update_data(id, repositories |> Enum.at(index)) end)
+      Enum.map(project_data, fn [project_id, repo_id] ->
+        update_data(project_id, repositories |> Enum.find(&(&1.id == repo_id)))
+      end)
     else
       {:error, error} ->
         IO.inspect(error)
@@ -39,6 +39,8 @@ defmodule Adoptoposs.UpdateReposityData do
     project = Submissions.get_project!(project_id)
 
     if project.repo_id == repository.id do
+      IO.puts("updating project #{project.id} (repo #{repository.id})")
+
       %{id: language_id} = Tags.get_tag_by_name!(repository.language.name)
       Submissions.update_project_data(project, repository, %{language_id: language_id})
 
@@ -65,11 +67,11 @@ end
 # Takes provider and API token as command line arguments,
 # so that it can be run as:
 #
-#    $ mix run run priv/repo/update_repo_data.exs github <api-token>
+#    $ mix run run priv/repo/update_repo_data.exs --provider github --token <api-token>
 #
 # or with the mix alias:
 #
-#    $ mix update.github_repos <api-token>
+#    $ mix update.github_repos --token <api-token>
 #
 {[provider: provider, token: token], [], []} = OptionParser.parse(System.argv(), strict: [provider: :string, token: :string])
 Adoptoposs.UpdateReposityData.run(provider: provider, token: token)
