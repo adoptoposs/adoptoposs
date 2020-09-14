@@ -4,6 +4,7 @@ defmodule Adoptoposs.UpdateReposityData do
   from the respective provider.
   """
 
+  require Logger
   import Ecto.Query, only: [from: 2]
   alias Adoptoposs.{Repo, Submissions, Submissions.Project, Network, Tags}
 
@@ -22,7 +23,6 @@ defmodule Adoptoposs.UpdateReposityData do
   end
 
   defp run_batch(project_data, provider: provider, token: token) do
-    project_ids = project_data |> Enum.map(&List.first(&1))
     repo_ids = project_data |> Enum.map(&List.last(&1))
 
     with {:ok, repositories} <- Network.repos(token, provider, repo_ids) do
@@ -31,7 +31,7 @@ defmodule Adoptoposs.UpdateReposityData do
       end)
     else
       {:error, error} ->
-        IO.inspect(error)
+        Logger.error(error)
     end
   end
 
@@ -39,7 +39,7 @@ defmodule Adoptoposs.UpdateReposityData do
     project = Submissions.get_project!(project_id)
 
     if project.repo_id == repository.id do
-      IO.puts("updating project #{project.id} (repo #{repository.id})")
+      Logger.info("updating project #{project.id} (repo #{repository.id})")
 
       %{id: language_id} = Tags.get_tag_by_name!(repository.language.name)
       Submissions.update_project_data(project, repository, %{language_id: language_id})
