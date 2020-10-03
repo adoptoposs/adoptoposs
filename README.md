@@ -28,6 +28,8 @@ Please check our [CONTRIBUTING.md](https://github.com/adoptoposs/adoptoposs/blob
 
 This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to our [CODE_OF_CONDUCT.md](https://github.com/adoptoposs/adoptoposs/blob/master/CODE_OF_CONDUCT.md).
 
+If you have contributed to this project, don't forget to add your name to the [Contributors list](CONTRIBUTORS.md).
+
 # Copyright and License
 
 Copyright (c) 2020, Paul Götze
