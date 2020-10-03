@@ -1,6 +1,6 @@
 # Contributors
 
-This project is the result of the dedicated efforts of many people. It is because of their generous contributions that open-source project like this one are alive.
+This project is the result of the dedicated efforts of many people. It is because of their generous contributions that open-source projects like this one are alive.
 
 This is the place to recognize their work.
 ___
@@ -10,7 +10,7 @@ ___
 	- [Twitter](https://twitter.com/paulgoetze)
 - **Enitan Williams**: Contributor.
 	- [GitHub](https://github.com/akhanaton)
-- **Florian Kraft**: Contributor.
+- **Florian Kraft**: Co-maintainer.
 	- [GitHub](https://github.com/floriank)
 	- [Twitter](https://twitter.com/Carhillion)
 - **Sky Chin**: Contributor.
