@@ -83,3 +83,5 @@ This will keep the code style consistent and future code diffs as small as possi
 ---------
 
 As a contributor, please keep in mind this project is free and open source software. Maintainers are not paid to work on it, so there might be times were the maintainers seem unresponsive. If you have that feeling, please be patient and be assured, that all team members try their best to review your contribution and reply to you as soon as their time allows.
+
+Once you have submitted your contribution, do not forget to add your name to the [Contributors list](CONTRIBUTORS.md)
