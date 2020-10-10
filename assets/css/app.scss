@@ -392,5 +392,8 @@ details.toggle {
         content: " ";
       }
     }
+    .toggle-content {
+      z-index: 1;
+    }
   }
 }
