@@ -49,6 +49,16 @@ defmodule AdoptopossWeb.SharedViewTest do
       repository = build(:repository, description: description)
       assert SharedView.project_description(repository) == description
     end
+
+    test "returns an empty string when passing a Project without repo_description" do
+      project = build(:project, repo_description: nil)
+      assert SharedView.project_description(project) == ""
+    end
+
+    test "returns an empty string when passing a Repository without description" do
+      repository = build(:repository, description: nil)
+      assert SharedView.project_description(repository) == ""
+    end
   end
 
   describe "count/2" do
