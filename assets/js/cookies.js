@@ -1,7 +1,8 @@
 const displayCookies = () => {
   const cookiesBanner = document.getElementById("cookies-banner");
+  const cookiesExpiration = Date.parse(localStorage.getItem("cookies-expiration"));
 
-  if (sessionStorage.getItem("cookies-accept")) {
+  if (!Number.isNaN(cookiesExpiration) && cookiesExpiration > Date.now()) {
     cookiesBanner.remove();
   } else {
     cookiesBanner.classList.remove("hidden");
@@ -9,7 +10,10 @@ const displayCookies = () => {
     const closeCookiesBanner = document.getElementById("close-cookies-banner");
     closeCookiesBanner.addEventListener("click", () => {
       cookiesBanner.remove();
-      sessionStorage.setItem("cookies-accept", true);
+
+      const date = new Date();
+      date.setMonth(date.getMonth() + 6);
+      localStorage.setItem("cookies-expiration", date.toISOString());
     });
   }
 }
