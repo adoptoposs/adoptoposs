@@ -30,5 +30,7 @@
     <footer class="bg-gray-900 text-red-400 py-6 md:py-10">
       <%= render AdoptopossWeb.SharedView, "footer.html", assigns %>
     </footer>
+
+      <%= render AdoptopossWeb.SharedView, "cookies-banner.html", assigns %>
   </body>
 </html>
