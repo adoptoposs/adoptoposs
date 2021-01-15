@@ -8,11 +8,13 @@ defmodule AdoptopossWeb.RepoLive do
   @orga_limit 25
   @repo_limit 10
 
+  @impl true
   def render(assigns) do
     Phoenix.View.render(RepoView, "index.html", assigns)
   end
 
-  def mount(_params, %{"user_id" => user_id} = session, socket) do
+  @impl true
+  def mount_logged_in(_params, %{"user_id" => user_id} = session, socket) do
     user = Accounts.get_user!(user_id)
 
     {:ok,
@@ -23,10 +25,12 @@ defmodule AdoptopossWeb.RepoLive do
      |> update_with_append(), temporary_assigns: [repositories: []]}
   end
 
+  @impl true
   def handle_event("organization_selected", %{"id" => id}, socket) do
     {:noreply, push_patch(socket, to: Routes.live_path(socket, __MODULE__, id))}
   end
 
+  @impl true
   def handle_event("load_more", _, %{assigns: assigns} = socket) do
     %{has_next_page: has_next_page, end_cursor: after_cursor} = assigns.repo_page_info
 
@@ -41,6 +45,7 @@ defmodule AdoptopossWeb.RepoLive do
     end
   end
 
+  @impl true
   def handle_params(%{"organization_id" => id}, _uri, socket) do
     {:noreply, update_selected(socket, id)}
   end

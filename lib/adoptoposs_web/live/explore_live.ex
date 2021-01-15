@@ -12,7 +12,7 @@ defmodule AdoptopossWeb.ExploreLive do
   end
 
   @impl true
-  def mount(_params, %{"user_id" => user_id} = session, socket) when not is_nil(user_id) do
+  def mount_logged_in(_params, %{"user_id" => user_id} = session, socket) do
     user = Accounts.get_user!(user_id, preload: [tag_subscriptions: [:tag]])
 
     {:ok,
@@ -22,7 +22,7 @@ defmodule AdoptopossWeb.ExploreLive do
   end
 
   @impl true
-  def mount(_params, session, socket) do
+  def mount_logged_out(_params, session, socket) do
     {:ok, assign_defaults(socket, session), temporary_assigns: [projects: []]}
   end
 

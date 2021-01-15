@@ -18,11 +18,13 @@ defmodule AdoptopossWeb.LandingPageLive do
   @doc """
   Renders the logged out landing page template.
   """
+  @impl true
   def render(assigns) do
     Phoenix.View.render(LandingPageView, "index.html", assigns)
   end
 
-  def mount(_params, %{"user_id" => user_id} = session, socket) when not is_nil(user_id) do
+  @impl true
+  def mount_logged_in(_params, %{"user_id" => user_id} = session, socket) do
     user = Accounts.get_user!(user_id, preload: [tag_subscriptions: [:tag]])
 
     {:ok,
@@ -32,10 +34,12 @@ defmodule AdoptopossWeb.LandingPageLive do
      |> put_assigns(user)}
   end
 
-  def mount(_params, _session, socket) do
+  @impl true
+  def mount_logged_out(_params, _session, socket) do
     {:ok, put_projects(socket)}
   end
 
+  @impl true
   def handle_params(%{"f" => tag_name}, _uri, %{assigns: %{user_id: user_id}} = socket) do
     user = %User{id: user_id}
     tag_subscriptions = socket.assigns[:tag_subscriptions]
@@ -44,21 +48,25 @@ defmodule AdoptopossWeb.LandingPageLive do
     socket |> apply_tag_filter(user, tag)
   end
 
+  @impl true
   def handle_params(_params, _uri, %{assigns: %{tag_subscriptions: tag_subscriptions}} = socket) do
     user = %User{id: socket.assigns.user_id}
     tag = first_tag(tag_subscriptions)
     {:noreply, socket |> put_recommendations(user, tag)}
   end
 
+  @impl true
   def handle_params(_params, _uri, socket) do
     {:noreply, socket}
   end
 
+  @impl true
   def handle_event("filter_recommendations", %{"tag_subscription_id" => id}, socket) do
     tag = find_tag(socket.assigns.tag_subscriptions, id)
     {:noreply, socket |> push_tag_filter(tag)}
   end
 
+  @impl true
   def handle_event("follow_suggested_tags", _params, %{assigns: assigns} = socket) do
     user = Accounts.get_user!(assigns.user_id)
     tags = assigns.suggested_tags
@@ -88,7 +96,6 @@ defmodule AdoptopossWeb.LandingPageLive do
   defp put_assigns(socket, %User{} = user) do
     socket
     |> put_interests(user)
-    |> put_project_interests(user)
     |> put_tag_subsriptions(user)
     |> put_recommendations(user, nil)
   end
@@ -99,12 +106,6 @@ defmodule AdoptopossWeb.LandingPageLive do
 
   defp put_interests(socket, user) do
     assign(socket, interests: Communication.list_user_interests(user))
-  end
-
-  defp put_project_interests(socket, user) do
-    project_interests = Submissions.list_user_project_interests(user)
-
-    assign(socket, project_interests: project_interests)
   end
 
   defp put_tag_subsriptions(socket, user) do

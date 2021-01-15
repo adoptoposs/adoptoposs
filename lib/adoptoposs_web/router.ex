@@ -24,6 +24,7 @@ defmodule AdoptopossWeb.Router do
     plug :put_secure_browser_headers
     plug NavigationHistory.Tracker, excluded_paths: ["/", ~r{/auth/.*}]
     plug Plugs.CurrentUser
+    plug Plugs.PutNotificationCount
   end
 
   pipeline :api do
