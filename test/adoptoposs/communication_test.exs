@@ -80,5 +80,29 @@ defmodule Adoptoposs.CommunicationTest do
       interest = insert(:interest)
       assert %Ecto.Changeset{} = Communication.change_interest(interest)
     end
+
+    test "list_user_project_interests/1 returns the user's interests grouped by projects" do
+      user = insert(:user)
+      projects = insert_list(2, :project, user: user)
+      interest = insert(:interest, project: projects |> Enum.at(0))
+      interests = insert_list(2, :interest, project: projects |> Enum.at(1))
+      insert(:interest)
+
+      assert %{
+               (projects |> Enum.at(1)) => interests,
+               (projects |> Enum.at(0)) => [interest]
+             } == Communication.list_user_project_interests(user.id)
+
+      assert %{} == Communication.list_user_project_interests(-1)
+    end
+
+    test "count_notifications/1 returns the number of project interests for the given user" do
+      project = insert(:project)
+      interests = insert_list(2, :interest, project: project)
+      insert(:interest)
+
+      assert Communication.count_notifications(project.user_id) == Enum.count(interests)
+      assert Communication.count_notifications(-1) == 0
+    end
   end
 end
