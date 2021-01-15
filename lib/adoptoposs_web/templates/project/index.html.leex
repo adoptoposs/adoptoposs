@@ -40,8 +40,9 @@
                   <% :published -> %>
                     <div class="flex flex-row w-full justify-between items-center">
                       <span class="inline-flex items-center text-gray-600">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" class="w-5 h-5 fill-current mr-2">
-                          <path d="M.2 10a11 11 0 0 1 19.6 0A11 11 0 0 1 .2 10zm9.8 4a4 4 0 1 0 0-8 4 4 0 0 0 0 8zm0-2a2 2 0 1 1 0-4 2 2 0 0 1 0 4z"/>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="inline w-5 h-5 fill-current mr-2" viewBox="0 0 512 512">
+                          <circle cx="256" cy="256" r="64"/>
+                          <path d="M394.82 141.18C351.1 111.2 304.31 96 255.76 96c-43.69 0-86.28 13-126.59 38.48C88.52 160.23 48.67 207 16 256c26.42 44 62.56 89.24 100.2 115.18C159.38 400.92 206.33 416 255.76 416c49 0 95.85-15.07 139.3-44.79C433.31 345 469.71 299.82 496 256c-26.38-43.43-62.9-88.56-101.18-114.82zM256 352a96 96 0 1196-96 96.11 96.11 0 01-96 96z"/>
                         </svg>
                         Open for messages
                       </span>
@@ -50,8 +51,9 @@
                   <% :draft -> %>
                     <div class="flex flex-row w-full justify-between items-center">
                       <span class="inline-flex items-center text-gray-600">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" class="w-5 h-5 fill-current mr-2">
-                          <path d="M12.81 4.36l-1.77 1.78a4 4 0 0 0-4.9 4.9l-2.76 2.75C2.06 12.79.96 11.49.2 10a11 11 0 0 1 12.6-5.64zm3.8 1.85c1.33 1 2.43 2.3 3.2 3.79a11 11 0 0 1-12.62 5.64l1.77-1.78a4 4 0 0 0 4.9-4.9l2.76-2.75zm-.25-3.99l1.42 1.42L3.64 17.78l-1.42-1.42L16.36 2.22z"/>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 fill-current mr-2" viewBox="0 0 512 512">
+                          <path d="M63.998 86.004l21.998-21.998L448 426.01l-21.998 21.998zM259.34 192.09l60.57 60.57a64.07 64.07 0 00-60.57-60.57zM252.66 319.91l-60.57-60.57a64.07 64.07 0 0060.57 60.57z"/>
+                          <path d="M256 352a96 96 0 01-92.6-121.34l-69.07-69.08C66.12 187.42 39.24 221.14 16 256c26.42 44 62.56 89.24 100.2 115.18C159.38 400.92 206.33 416 255.76 416A233.47 233.47 0 00335 402.2l-53.61-53.6A95.84 95.84 0 01256 352zM256 160a96 96 0 0192.6 121.34L419.26 352c29.15-26.25 56.07-61.56 76.74-96-26.38-43.43-62.9-88.56-101.18-114.82C351.1 111.2 304.31 96 255.76 96a222.92 222.92 0 00-78.21 14.29l53.11 53.11A95.84 95.84 0 01256 160z"/>
                         </svg>
                         Invisible
                       </span>
@@ -61,9 +63,7 @@
                 <% end %>
 
                 <button type="reset" title="Remove project" id="btn-remove-<%= project.id %>" phx-click="attempt_remove" phx-value-id="<%= project.id %>" class="ml-4 icon-button subtle">
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" class="w-4 h-4 fill-current">
-                    <path d="M6 2l2-2h4l2 2h4v2H2V2h4zM3 6h14l-1 14H4L3 6zm5 2v10h1V8H8zm3 0v10h1V8h-1z"/>
-                  </svg>
+                  <svg xmlns="http://www.w3.org/2000/svg" class="fill-current" viewBox="0 0 512 512"><path d="M296 64h-80a7.91 7.91 0 00-8 8v24h96V72a7.91 7.91 0 00-8-8z" fill="none"/><path d="M432 96h-96V72a40 40 0 00-40-40h-80a40 40 0 00-40 40v24H80a16 16 0 000 32h17l19 304.92c1.42 26.85 22 47.08 48 47.08h184c26.13 0 46.3-19.78 48-47l19-305h17a16 16 0 000-32zM192.57 416H192a16 16 0 01-16-15.43l-8-224a16 16 0 1132-1.14l8 224A16 16 0 01192.57 416zM272 400a16 16 0 01-32 0V176a16 16 0 0132 0zm32-304h-96V72a7.91 7.91 0 018-8h80a7.91 7.91 0 018 8zm32 304.57A16 16 0 01320 416h-.58A16 16 0 01304 399.43l8-224a16 16 0 1132 1.14z"/></svg>
                 </button>
               <% end %>
             </div>
@@ -98,8 +98,8 @@
                     <%= if Enum.count(project.interests) == 0 do %>
                       <div class="flex flex-row items-center text-gray-500" title="No messages yet">
                         <span>
-                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" class="fill-current h-6 w-6">
-                            <path d="M18 2a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4c0-1.1.9-2 2-2h16zm-4.37 9.1L20 16v-2l-5.12-3.9L20 6V4l-10 8L0 4v2l5.12 4.1L0 14v2l6.37-4.9L10 14l3.63-2.9z"/>
+                          <svg xmlns="http://www.w3.org/2000/svg" class="inline w-6 h-6 fill-current" viewBox="0 0 512 512">
+                            <path d="M424 80H88a56.06 56.06 0 00-56 56v240a56.06 56.06 0 0056 56h336a56.06 56.06 0 0056-56V136a56.06 56.06 0 00-56-56zm-14.18 92.63l-144 112a16 16 0 01-19.64 0l-144-112a16 16 0 1119.64-25.26L256 251.73l134.18-104.36a16 16 0 0119.64 25.26z"/>
                           </svg>
                         </span>
                         <span class="ml-2 text-md font-medium">
@@ -109,8 +109,8 @@
                     <% else %>
                       <%= live_redirect to: Routes.live_path(@socket, AdoptopossWeb.MessagesLive.Interests) <> "/#p-#{project.uuid}", class: "flex flex-row items-center emphasize", title: "#{Enum.count(project.interests)} people contacted you" do %>
                         <span>
-                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" class="fill-current h-6 w-6">
-                            <path d="M18 2a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4c0-1.1.9-2 2-2h16zm-4.37 9.1L20 16v-2l-5.12-3.9L20 6V4l-10 8L0 4v2l5.12 4.1L0 14v2l6.37-4.9L10 14l3.63-2.9z"/>
+                          <svg xmlns="http://www.w3.org/2000/svg" class="inline w-6 h-6 fill-current" viewBox="0 0 512 512">
+                            <path d="M424 80H88a56.06 56.06 0 00-56 56v240a56.06 56.06 0 0056 56h336a56.06 56.06 0 0056-56V136a56.06 56.06 0 00-56-56zm-14.18 92.63l-144 112a16 16 0 01-19.64 0l-144-112a16 16 0 1119.64-25.26L256 251.73l134.18-104.36a16 16 0 0119.64 25.26z"/>
                           </svg>
                         </span>
 

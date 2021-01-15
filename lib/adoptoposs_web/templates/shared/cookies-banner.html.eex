@@ -1,6 +1,6 @@
 <div class="w-full fixed bottom-0 bg-gray-900 flex items-center justify-center py-4 cookies-box hidden" id="cookies-banner">
   <p class="text-white text-center m-0">By using this website you agree to our <a href="/privacy">Cookie Policy</a>.</p>
-  <a id="close-cookies-banner" class="absolute w-auto right-0 h-3 w-3 cursor-pointer">
-    <svg class="h-4 w-4 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M10 8.586L2.929 1.515 1.515 2.929 8.586 10l-7.071 7.071 1.414 1.414L10 11.414l7.071 7.071 1.414-1.414L11.414 10l7.071-7.071-1.414-1.414L10 8.586z"/></svg>
+  <a id="close-cookies-banner" class="absolute w-auto right-0 top-0 cursor-pointer text-3xl p-2">
+    &times;
   </a>
 </div>

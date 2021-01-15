@@ -242,7 +242,7 @@ a, button, input[type="button"] {
 
     &.subtle {
       @apply text-gray-500 bg-transparent border-transparent;
-      @apply h-5 w-5 py-2 px-0;
+      @apply w-5 py-2 my-0 px-0;
 
       &:focus, &:hover {
         @apply bg-gray-600 bg-transparent;
@@ -285,7 +285,7 @@ a, button, input[type="button"] {
       @apply border-gray-500 text-gray-600;
 
       &:focus, &:hover {
-        @apply bg-gray-400 text-white border-white
+        @apply bg-gray-500 text-white border-white
       }
     }
 

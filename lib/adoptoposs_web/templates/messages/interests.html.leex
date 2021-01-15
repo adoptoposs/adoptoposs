@@ -28,7 +28,7 @@
           </p>
           <p>
             Hint: Share your
-            <%= live_redirect "submitted projects", to: Routes.live_path(@socket, AdoptopossWeb.ProjectLive.Index) %> to let more people know you're looking for help.
+            <%= live_redirect "submitted projects", to: Routes.live_path(@socket, AdoptopossWeb.ProjectLive.Index) %> to let more people know you’re looking for help.
           </p>
         </div>
       <% else %>
@@ -82,7 +82,9 @@
                           <> "&body=#{AdoptopossWeb.InterestView.email_body(interest)}",
                           class: "icon-button md:ml-2",
                           title: "Reply via email" do %>
-                          <svg xmlns='http://www.w3.org/2000/svg' class='ionicon' viewBox='0 0 512 512'><title>Arrow Undo</title><path d='M464 440l-28.12-32.11c-22.48-25.65-43.33-45.45-72.08-58.7-26.61-12.26-60-18.65-104.27-19.84V432L48 252 259.53 72v103.21c72.88 3 127.18 27.08 161.56 71.75C449.56 284 464 335.19 464 399.26z'/></svg>
+                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                            <path d="M464 440l-28.12-32.11c-22.48-25.65-43.33-45.45-72.08-58.7-26.61-12.26-60-18.65-104.27-19.84V432L48 252 259.53 72v103.21c72.88 3 127.18 27.08 161.56 71.75C449.56 284 464 335.19 464 399.26z"/>
+                          </svg>
                         <% end %>
                       </div>
                     </div>
@@ -101,9 +103,9 @@
 
     <div class="hidden md:flex md:flex-col w-1/4 ml-8 border rounded border-gray-400">
       <div class="flex items-center w-full font-semibold cursor-default px-4 p-3 rounded bg-white text-red-600">
-        <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512' class="inline fill-current h-5">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="inline fill-current h-5">
           <title>Chevron Back</title>
-          <path fill='none' stroke='currentColor' stroke-linecap='round' stroke-linejoin='round' stroke-width='48' d='M328 112L184 256l144 144'/>
+          <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="48" d="M328 112L184 256l144 144"/>
         </svg>
         <div class="w-full ml-2">
           Interests in your Projects
