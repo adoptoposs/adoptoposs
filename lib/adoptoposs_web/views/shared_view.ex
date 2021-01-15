@@ -21,11 +21,4 @@ defmodule AdoptopossWeb.SharedView do
   def count(word, count: count) when count < 1, do: "no #{word}s"
   def count(word, count: count) when count == 1, do: "#{count} #{word}"
   def count(word, count: count) when count > 1, do: "#{count} #{word}s"
-
-  def format_relative_time(date_time) do
-    {:ok, relative_time} =
-      Timex.Format.DateTime.Formatters.Relative.format(date_time, "{relative}")
-
-    relative_time
-  end
 end

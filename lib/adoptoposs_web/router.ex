@@ -60,6 +60,8 @@ defmodule AdoptopossWeb.Router do
     live "/settings/projects", ProjectLive.Index
     live "/projects/:id/messages", ProjectLive.Show
     live "/settings", SettingsLive
+    live "/messages/interests", MessagesLive.Interests
+    live "/messages/contacted", MessagesLive.Contacted
   end
 
   scope "/auth", AdoptopossWeb do

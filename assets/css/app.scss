@@ -176,8 +176,8 @@ nav .nav-link {
 a, button, input[type="button"] {
   &.button-link {
     @apply rounded px-4 py-2;
-    @apply normal-case text-base font-normal leading-tight tracking-normal;
-    @apply bg-white border border-red-300  text-red-600;
+    @apply normal-case text-base font-semibold leading-tight tracking-normal;
+    @apply bg-white border-2 border-red-300 text-red-600;
 
     &:focus, &:hover {
       @apply bg-red-500 text-white border-white;
@@ -201,7 +201,7 @@ a, button, input[type="button"] {
     }
 
     &.light {
-      @apply bg-transparent border border-white text-white;
+      @apply bg-transparent border-2 border-white text-white;
 
       &:focus, &:hover {
         @apply bg-white text-red-500 border-red-300;
@@ -209,7 +209,7 @@ a, button, input[type="button"] {
     }
 
     &.medium {
-      @apply bg-transparent border border-red-400 text-red-400;
+      @apply bg-transparent border-2 border-red-400 text-red-400;
 
       &:focus, &:hover {
         @apply bg-red-500 text-white border-red-400;
@@ -217,7 +217,7 @@ a, button, input[type="button"] {
     }
 
     &.dark {
-      @apply bg-transparent border border-gray-600 text-gray-700;
+      @apply bg-transparent border-2 border-gray-600 text-gray-700;
 
       &:focus, &:hover {
         @apply bg-gray-700 text-white border-white;
@@ -403,4 +403,40 @@ details.toggle {
   a {
     right: 2rem;
   }
+}
+
+.focused-anchor {
+  -webkit-animation: color-fade 1.5s;
+  -moz-animation: color-fade 1.5s;
+  -o-animation: color-fade 1.5s;
+  -ms-animation: color-fade 1.5s;
+  animation: color-fade 1.5s;
+}
+
+$focused-bg-color: lighten(#F56565, 10%);
+
+@-webkit-keyframes color-fade {
+  0% { background-color: inherit; }
+  20% { background-color: $focused-bg-color; }
+  100% { background-color: inherit; }
+}
+@-moz-keyframes color-fade {
+  0% { background-color: inherit; }
+  20% { background-color: $focused-bg-color; }
+  100% { background-color: inherit; }
+}
+@-ms-keyframes color-fade {
+  0% { background-color: inherit; }
+  20% { background-color: $focused-bg-color; }
+  100% { background-color: inherit; }
+}
+@-o-keyframes color-fade {
+  0% { background-color: inherit; }
+  20% { background-color: $focused-bg-color; }
+  100% { background-color: inherit; }
+}
+@keyframes color-fade {
+  0% { background-color: inherit; }
+  20% { background-color: $focused-bg-color; }
+  100% { background-color: inherit; }
 }
