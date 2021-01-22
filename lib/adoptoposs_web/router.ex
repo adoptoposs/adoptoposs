@@ -57,8 +57,7 @@ defmodule AdoptopossWeb.Router do
     get "/logout", AuthController, :delete
     get "/settings/repos", RepoController, :index
     live "/settings/repos/:organization_id", RepoLive
-    live "/settings/projects", ProjectLive.Index
-    live "/projects/:id/messages", ProjectLive.Show
+    live "/settings/projects", ProjectLive
     live "/settings", SettingsLive
     live "/messages/interests", MessagesLive.Interests
     live "/messages/contacted", MessagesLive.Contacted

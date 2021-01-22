@@ -62,7 +62,7 @@
     <% end %>
 
     <%= faq "Where can I see my submitted repos?" do %>
-      Your submitted repositories are listed on your <%= live_redirect "projects page", to: Routes.live_path(@conn, AdoptopossWeb.ProjectLive.Index) %> and visible for everyone on the
+      Your submitted repositories are listed on your <%= live_redirect "projects page", to: Routes.live_path(@conn, AdoptopossWeb.ProjectLive) %> and visible for everyone on the
       <%= live_redirect "public explore page", to: Routes.live_path(@conn, AdoptopossWeb.ExploreLive) %>.
     <% end %>
 

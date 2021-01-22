@@ -4,6 +4,6 @@ you’ve got a new message for your project "<%= @interest.project.name %>"  on 
 
 <%= render AdoptopossWeb.InterestView, "reply", interest: @interest %>
 
-You can find the original message here: <%= @project_url %>.
+You can find the original message here: <%= @message_url %>.
 
 In order to get into contact with <%= @interest.creator.name%> you can directly reply to this email.

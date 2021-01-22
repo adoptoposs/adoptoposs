@@ -43,7 +43,7 @@
     <% end %>
 
     <%= live_redirect "Your Projects",
-      to: Routes.live_path(@conn, AdoptopossWeb.ProjectLive.Index),
+      to: Routes.live_path(@conn, AdoptopossWeb.ProjectLive),
       class: "nav-link" %>
 
     <%= live_redirect "Settings",
@@ -115,7 +115,7 @@
       <div class="relative">
         <div class="toggle-content absolute right-0 left-auto py-2 mt-2 rounded border border-red-300 bg-gray-100 shadow-md w-max-content font-semibold">
           <%= live_redirect "Your Projects",
-            to: Routes.live_path(@conn, AdoptopossWeb.ProjectLive.Index),
+            to: Routes.live_path(@conn, AdoptopossWeb.ProjectLive),
             class: "block px-8 py-2 text-right" %>
 
           <%= live_redirect "Settings",
