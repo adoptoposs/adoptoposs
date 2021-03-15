@@ -4,7 +4,7 @@ Thanks for considering to contribute to Adoptoposs. ❤
 
 Bug reports, feature suggestions, and pull requests for any open issues are very welcome. Issues can be reported on GitHub: https://github.com/adoptoposs/adoptoposs/issues/new.
 
-Please read and follow our [Code of Conduct](https://github.com/adoptoposs/adoptoposs/blob/master/CODE_OF_CONDUCT.md).
+Please read and follow our [Code of Conduct](https://github.com/adoptoposs/adoptoposs/blob/main/CODE_OF_CONDUCT.md).
 
 ## Development setup
 
@@ -50,7 +50,7 @@ For development we use the [git branching model](http://nvie.com/posts/a-success
 The `staging` branch always represents the current development state. 
 So, this is the one you would branch off from when adding your changes.
 
-The `master` branch represents the production state that is deployed to https://adotoposs.org.
+The `main` branch represents the production state that is deployed to https://adotoposs.org.
 
 Here’s how to contribute:
 

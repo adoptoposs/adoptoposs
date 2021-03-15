@@ -4,7 +4,7 @@
 
 Finding co-maintainers for your open source software project. 
 
-<img src="https://github.com/adoptoposs/adoptoposs/blob/master/assets/static/images/adoptoposs-logo.png" width="204">
+<img src="https://github.com/adoptoposs/adoptoposs/blob/main/assets/static/images/adoptoposs-logo.png" width="204">
 
 Adoptoposs offers a platform to put your open source
 projects up for adoption and make initial contact with
@@ -24,9 +24,9 @@ building Adoptoposs you can read the
 # Contributing
 
 We encourage you to contribute to Adoptoposs. 
-Please check our [CONTRIBUTING.md](https://github.com/adoptoposs/adoptoposs/blob/master/CONTRIBUTING.md) guides for more information. 
+Please check our [CONTRIBUTING.md](https://github.com/adoptoposs/adoptoposs/blob/main/CONTRIBUTING.md) guides for more information. 
 
-This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to our [CODE_OF_CONDUCT.md](https://github.com/adoptoposs/adoptoposs/blob/master/CODE_OF_CONDUCT.md).
+This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to our [CODE_OF_CONDUCT.md](https://github.com/adoptoposs/adoptoposs/blob/main/CODE_OF_CONDUCT.md).
 
 If you have contributed to this project, don't forget to add your name to the [Contributors list](CONTRIBUTORS.md).
 
@@ -34,6 +34,6 @@ If you have contributed to this project, don't forget to add your name to the [C
 
 Copyright (c) 2020, Paul Götze
 
-Adoptoposs is licensed under the [MIT License](https://github.com/adoptoposs/adoptoposs/blob/master/LICENSE.md).
+Adoptoposs is licensed under the [MIT License](https://github.com/adoptoposs/adoptoposs/blob/main/LICENSE.md).
 
 Adoptoposs uses icon assets from the [Ionicons iconset](https://ionicons.com/) released under the MIT License.
