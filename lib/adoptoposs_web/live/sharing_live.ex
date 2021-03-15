@@ -4,11 +4,21 @@ defmodule AdoptopossWeb.SharingLive do
   alias Adoptoposs.Submissions
   alias AdoptopossWeb.SharingView
 
+  @impl true
   def render(assigns) do
     Phoenix.View.render(SharingView, "project.html", assigns)
   end
 
-  def mount(%{"uuid" => uuid}, session, socket) do
+  @impl true
+  def mount_logged_in(%{"uuid" => uuid}, session, socket) do
+    {:ok,
+     socket
+     |> assign_user(session)
+     |> assign_project(uuid)}
+  end
+
+  @impl true
+  def mount_logged_out(%{"uuid" => uuid}, session, socket) do
     {:ok,
      socket
      |> assign_user(session)

@@ -11,7 +11,7 @@ import css from "../css/app.scss"
 //
 import "phoenix_html";
 import {Socket} from "phoenix";
-import {LiveSocket} from "phoenix_live_view";
+import {LiveSocket, Browser} from "phoenix_live_view";
 
 // Import local files
 //
@@ -35,3 +35,12 @@ for (let el of document.getElementsByClassName("close-on-link-clicked")) {
     });
   }
 }
+
+window.addEventListener("phx:page-loading-stop", (info) => {
+  const el = Browser.getHashTargetEl(window.location.hash);
+
+  if (el) {
+    el.scrollIntoView();
+    el.classList.add("focused-anchor");
+  }
+});

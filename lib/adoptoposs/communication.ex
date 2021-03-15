@@ -52,6 +52,9 @@ defmodule Adoptoposs.Communication do
       iex> list_project_interests(1)
       [%Interest{}, ...]
 
+      iex> list_project_interests([1,2,3])
+      [%Interest{}, ...]
+
   """
   def list_project_interests(%Project{} = project) do
     project
@@ -67,6 +70,52 @@ defmodule Adoptoposs.Communication do
     |> preload(:creator)
     |> preload(project: :user)
     |> Repo.all()
+  end
+
+  def list_project_interests(project_ids) when is_list(project_ids) do
+    Interest
+    |> where([i], i.project_id in ^project_ids)
+    |> preload(:creator)
+    |> preload(project: :user)
+    |> order_by(desc: :inserted_at)
+    |> Repo.all()
+  end
+
+  @doc """
+  Returns the map of a user's projects with their list of interests.
+
+  ## Examples
+
+      iex> list_user_project_interests(user_id)
+      %{%Project{} => [%Interest{}, ...], ...}
+  """
+  def list_user_project_interests(user_id) do
+    Interest
+    |> join(:inner, [i], p in Project, on: p.id == i.project_id)
+    |> where([i, p], p.user_id == ^user_id)
+    |> preload([i, p], [:creator, project: [:user, :language]])
+    |> order_by([i], desc: i.inserted_at)
+    |> Repo.all()
+    |> Enum.group_by(& &1.project)
+  end
+
+  @doc """
+  Returns the total number of interests the given user has for their submitted projects.
+
+  ## Examples
+
+      iex> count_notifications(user_id)
+      5
+  """
+  def count_notifications(user_id) do
+    interest_count =
+      Interest
+      |> join(:inner, [i], p in Project, on: p.id == i.project_id)
+      |> where([i, p], p.user_id == ^user_id)
+      |> preload([i, p], [:creator, project: :user])
+      |> Repo.aggregate(:count)
+
+    interest_count
   end
 
   @doc """

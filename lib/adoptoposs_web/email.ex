@@ -10,14 +10,16 @@ defmodule AdoptopossWeb.Email do
 
   def interest_received_email(interest) do
     %{project: project, creator: creator} = interest
-    project_url = live_url(Endpoint, AdoptopossWeb.ProjectLive.Show, project.id)
+
+    message_url =
+      live_url(Endpoint, AdoptopossWeb.MessagesLive.Interests) <> "/#p-#{project.uuid}"
 
     base_email(:notification)
     |> to(project.user.email)
     |> subject("[Adoptoposs][#{project.name}] #{creator.name} wrote you a message")
     |> put_header("Reply-To", creator.email)
     |> assign(:interest, interest)
-    |> assign(:project_url, project_url)
+    |> assign(:message_url, message_url)
     |> render_mjml(:interest_received)
   end
 

@@ -12,7 +12,7 @@ defmodule AdoptopossWeb.SettingsLive do
   end
 
   @impl true
-  def mount(_params, %{"user_id" => user_id} = session, socket) do
+  def mount_logged_in(_params, %{"user_id" => user_id} = session, socket) do
     user = Accounts.get_user!(user_id, preload: [tag_subscriptions: [:tag]])
 
     {:ok,

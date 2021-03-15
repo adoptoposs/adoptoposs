@@ -13,14 +13,14 @@
       On <%= Timex.format!(@interest.inserted_at, "{D}/{M}/{YY} {h12}:{m} {AM}") %>, <%= link @interest.creator.name, to: @interest.creator.profile_url %> wrote:
     </mj-text>
 
-    <mj-text css-class="text" font-style="italic" padding-left="24px">
-      <em style="white-space: pre-wrap;padding-left: 24px"><%= String.trim(@interest.message) %></em>
+    <mj-text css-class="text" font-style="italic" padding-left="45px">
+      <em style="white-space: pre-wrap;"><%= String.trim(@interest.message) %></em>
     </mj-text>
 
     <mj-divider border-width="1px"  border-color="#ddd"></mj-divider>
 
     <mj-text css-class="text">
-      You can find the original message <%= link "here", to: @project_url %>.
+      You can find the original message <%= link "here", to: @message_url %>.
       In order to get into contact you can directly reply to this email.
     </mj-text>
   </mj-column>

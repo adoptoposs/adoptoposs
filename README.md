@@ -36,4 +36,4 @@ Copyright (c) 2020, Paul Götze
 
 Adoptoposs is licensed under the [MIT License](https://github.com/adoptoposs/adoptoposs/blob/master/LICENSE.md).
 
-Adoptoposs uses icon assets from the [Zondicons iconset](https://www.zondicons.com/) by Steve Schoger – [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).
+Adoptoposs uses icon assets from the [Ionicons iconset](https://ionicons.com/) released under the MIT License.

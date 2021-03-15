@@ -4,19 +4,23 @@ defmodule AdoptopossWeb.RepoComponent do
   alias Adoptoposs.{Submissions, Tags}
   alias Adoptoposs.Submissions.Project
 
+  @impl true
   def render(assigns) do
     AdoptopossWeb.RepoView.render("repo.html", assigns)
   end
 
+  @impl true
   def handle_event("attempt_submit", _, %{assigns: assigns} = socket) do
     changeset = Submissions.change_project(%Project{})
     {:noreply, assign(socket, to_be_submitted: assigns.repo.id, changeset: changeset)}
   end
 
+  @impl true
   def handle_event("cancel_submit", _, socket) do
     {:noreply, assign(socket, to_be_submitted: nil)}
   end
 
+  @impl true
   def handle_event("submit_project", %{"project" => %{"description" => description}}, socket) do
     %{repo: repository, user_id: user_id} = socket.assigns
     tag = Tags.get_tag_by_name!(repository.language.name)
