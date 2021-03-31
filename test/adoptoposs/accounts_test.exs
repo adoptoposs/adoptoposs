@@ -67,50 +67,78 @@ defmodule Adoptoposs.AccountsTest do
     test "upsert_user!/2 for missing user creates the user" do
       auth = build(:auth)
 
-      assert {:ok, %User{} = user} = Accounts.upsert_user(auth)
+      %{
+        uid: uid,
+        provider: provider,
+        info: %{
+          email: email,
+          name: name,
+          nickname: nickname,
+          urls: %{avatar_url: avatar_url, html_url: html_url}
+        }
+      } = auth
 
-      assert user = %User{
-               uid: auth.uid,
-               provider: auth.provider,
-               email: auth.info.email,
-               name: auth.info.name,
-               username: auth.info.nickname,
-               avatar_url: auth.info.urls.avatar_url,
-               profile_url: auth.info.urls.html_url
-             }
+      assert {:ok,
+              %User{
+                uid: ^uid,
+                provider: ^provider,
+                email: ^email,
+                name: ^name,
+                username: ^nickname,
+                avatar_url: ^avatar_url,
+                profile_url: ^html_url
+              }} = Accounts.upsert_user(auth)
     end
 
     test "upsert_user!/2 for available user updates the user" do
-      user = insert(:user)
-      auth = build(:auth, uid: user.uid, provider: user.provider)
+      %User{id: id, uid: uid, provider: provider} = insert(:user)
+      auth = build(:auth, uid: uid, provider: provider)
 
-      assert {:ok, %User{} = updated_user} = Accounts.upsert_user(auth)
+      %{
+        info: %{
+          email: email,
+          name: name,
+          nickname: nickname,
+          urls: %{avatar_url: avatar_url, html_url: html_url}
+        }
+      } = auth
 
-      assert updated_user = %User{
-               id: user.id,
-               uid: auth.uid,
-               provider: auth.provider,
-               email: auth.info.email,
-               name: auth.info.name,
-               username: auth.info.nickname,
-               avatar_url: auth.info.urls.avatar_url,
-               profile_url: auth.info.urls.html_url
-             }
+      assert {:ok,
+              %User{
+                id: ^id,
+                uid: ^uid,
+                provider: ^provider,
+                email: ^email,
+                name: ^name,
+                username: ^nickname,
+                avatar_url: ^avatar_url,
+                profile_url: ^html_url
+              }} = Accounts.upsert_user(auth)
     end
 
     test "upsert_user!/2 with valid data creates a user" do
       attrs = build(:user) |> Map.from_struct()
-      assert {:ok, %User{} = user} = Accounts.create_user(attrs)
 
-      assert user = %User{
-               uid: attrs.uid,
-               provider: attrs.provider,
-               email: attrs.email,
-               name: attrs.name,
-               username: attrs.username,
-               avatar_url: attrs.avatar_url,
-               profile_url: attrs.profile_url
-             }
+      %{
+        uid: uid,
+        provider: provider,
+        email: email,
+        name: name,
+        username: username,
+        avatar_url: avatar_url,
+        profile_url: profile_url
+      } = attrs
+
+      assert {:ok,
+              %User{
+                uid: ^uid,
+                provider: ^provider,
+                email: ^email,
+                name: ^name,
+                username: ^username,
+                avatar_url: ^avatar_url,
+                profile_url: ^profile_url
+              }} = Accounts.create_user(attrs)
     end
 
     test "create_user/1 with invalid data returns error changeset" do
@@ -119,21 +147,30 @@ defmodule Adoptoposs.AccountsTest do
     end
 
     test "update_user/2 with valid data updates the user" do
-      user = insert(:user)
+      user = %User{id: id} = insert(:user)
       attrs = build(:user) |> Map.from_struct()
 
-      assert {:ok, %User{} = updated_user} = Accounts.update_user(user, attrs)
+      %{
+        uid: uid,
+        provider: provider,
+        email: email,
+        name: name,
+        username: username,
+        avatar_url: avatar_url,
+        profile_url: profile_url
+      } = attrs
 
-      assert updated_user = %User{
-               id: user.id,
-               uid: attrs.uid,
-               provider: attrs.provider,
-               email: attrs.email,
-               name: attrs.name,
-               username: attrs.username,
-               avatar_url: attrs.avatar_url,
-               profile_url: attrs.profile_url
-             }
+      assert {:ok,
+              %User{
+                id: ^id,
+                uid: ^uid,
+                provider: ^provider,
+                email: ^email,
+                name: ^name,
+                username: ^username,
+                avatar_url: ^avatar_url,
+                profile_url: ^profile_url
+              }} = Accounts.update_user(user, attrs)
     end
 
     test "update_user/2 with invalid data returns error changeset" do
@@ -181,7 +218,7 @@ defmodule Adoptoposs.AccountsTest do
       user = insert(:user, settings: %{})
       attrs = %{email_when_contacted: "invalid"}
 
-      assert {:error, changeset} = Accounts.update_settings(user, attrs)
+      assert {:error, _changeset} = Accounts.update_settings(user, attrs)
     end
   end
 end

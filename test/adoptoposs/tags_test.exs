@@ -157,8 +157,9 @@ defmodule Adoptoposs.TagsTest do
         %{name: "Elixir", type: "language", color: "#6e4a7e"}
       ]
 
-      tags = Tags.upsert_tags(data)
-      assert data = tags |> Enum.map(fn {:ok, tag} -> Map.from_struct(tag) end)
+      tags = Tags.upsert_tags(data) |> Enum.map(fn {:ok, tag} -> tag end)
+
+      assert tags |> Enum.map(&Map.take(&1, [:name, :type, :color])) == data
     end
 
     test "list_user_tag_subscriptions/1 returns all tag subscriptions for a user" do
@@ -198,18 +199,17 @@ defmodule Adoptoposs.TagsTest do
       insert(:tag_subscription, user: user, tag: tag)
       attrs = %{user_id: user.id, tag_id: tag.id}
 
-      assert {:error, changeset} = Tags.create_tag_subscription(attrs)
-
-      assert changeset = %{
-               errors: [
-                 tag_subscriptions:
-                   {"has already been taken",
-                    [
-                      constraint: :unique,
-                      constraint_name: "tag_subscriptions_user_id_tag_id_index"
-                    ]}
-               ]
-             }
+      assert {:error,
+              %{
+                errors: [
+                  tag_subscriptions:
+                    {"has already been taken",
+                     [
+                       constraint: :unique,
+                       constraint_name: "tag_subscriptions_user_id_tag_id_index"
+                     ]}
+                ]
+              }} = Tags.create_tag_subscription(attrs)
     end
 
     test "delete_tag_subscription/2 removes a tag subscription" do

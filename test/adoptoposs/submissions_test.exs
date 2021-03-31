@@ -177,14 +177,13 @@ defmodule Adoptoposs.SubmissionsTest do
       description = "description"
       attrs = %{user_id: user_id, description: description, language_id: tag_id}
 
-      assert {:ok, project} = Submissions.create_project(repository, attrs)
-
-      assert project = %Project{
-               description: description,
-               user_id: user_id,
-               repo_id: repo_id,
-               language_id: tag_id
-             }
+      assert {:ok,
+              %Project{
+                description: ^description,
+                user_id: ^user_id,
+                repo_id: ^repo_id,
+                language_id: ^tag_id
+              }} = Submissions.create_project(repository, attrs)
     end
 
     test "create_project/2 with invalid data returns error changeset" do

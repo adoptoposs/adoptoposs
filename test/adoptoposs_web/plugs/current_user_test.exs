@@ -1,7 +1,8 @@
 defmodule AdoptoppossWeb.Plugs.CurrentUserTest do
   use AdoptopossWeb.ConnCase
 
-  alias Adoptoposs.Accounts.User
+  import Adoptoposs.Factory
+
   alias AdoptopossWeb.Plugs.CurrentUser
 
   test "assigns nil as current_user to conn if not present in session" do
@@ -14,13 +15,13 @@ defmodule AdoptoppossWeb.Plugs.CurrentUserTest do
   end
 
   test "assigns the current_user to conn if present in session" do
-    user = %User{}
+    user = insert(:user)
 
     conn =
       build_conn()
-      |> init_test_session(current_user: user)
+      |> init_test_session(%{user_id: user.id})
       |> CurrentUser.call(%{})
 
-    assert %{current_user: user} = conn.assigns
+    assert %{current_user: ^user} = conn.assigns
   end
 end
