@@ -53,11 +53,13 @@ defmodule Adoptoposs.CommunicationTest do
     end
 
     test "create_interest/1 with valid data creates a interest" do
-      creator = insert(:user)
-      project = insert(:project)
-      attrs = %{creator_id: creator.id, project_id: project.id, message: "Hi!"}
+      %{id: creator_id} = insert(:user)
+      %{id: project_id} = insert(:project)
+      message = "Hi!"
+      attrs = %{creator_id: creator_id, project_id: project_id, message: message}
 
-      assert {:ok, %Interest{} = interest} = Communication.create_interest(attrs)
+      assert {:ok, %Interest{creator_id: ^creator_id, project_id: ^project_id, message: ^message}} =
+               Communication.create_interest(attrs)
     end
 
     test "create_interest/1 with invalid data returns error changeset" do
