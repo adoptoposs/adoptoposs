@@ -13,7 +13,8 @@ defmodule AdoptopossWeb.Endpoint do
 
   socket "/live", Phoenix.LiveView.Socket,
     websocket: [
-      connect_info: [session: @session_options]
+      connect_info: [session: @session_options],
+      compress: true
     ]
 
   socket "/socket", AdoptopossWeb.UserSocket,
