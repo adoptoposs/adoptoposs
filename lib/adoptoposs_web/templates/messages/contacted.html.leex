@@ -36,8 +36,8 @@
       <% else %>
         <ul class="grid grid-flow-row gap-4">
           <%= for interest <- @interests do %>
-            <li class="list-item bg-red-200">
-              <div id="interest-<%= interest.id %>" class="list-item shadow hover:shadow-md rounded border border-gray-400">
+            <li class="bg-red-200">
+              <div id="interest-<%= interest.id %>" class="card-item shadow hover:shadow-md rounded border border-gray-400">
                 <div class="flex md:flex-row flex-col justify-between w-full">
                   <div class="flex flex-col flex-1 items-start p-4 md:p-6 bg-white overflow-auto rounded-tl rounded-tr md:rounded-bl md:rounded-tr-none">
                     <%= render AdoptopossWeb.SharedView, "project_repo.html", project: interest.project %>

@@ -13,8 +13,13 @@ html, body {
 
 body {
   @apply antialiased;
-  @apply flex flex-col;
+  @apply flex flex-col min-h-screen;
   @apply bg-gray-100 text-gray-800;
+
+  /* hide phoenix live reload iframe */
+  iframe[hidden] {
+    display: none;
+  }
 }
 
 header {
@@ -26,7 +31,7 @@ nav {
 }
 
 main {
-  @apply flex-1;
+  @apply flex-grow;
 }
 
 section {
@@ -82,7 +87,7 @@ select.h1 {
 }
 
 p {
-  @apply mb-4
+  @apply mb-4;
 }
 
 button {
@@ -90,7 +95,7 @@ button {
   @apply bg-white border border-red-500 text-red-400 text-sm uppercase tracking-wider font-semibold;
 
   &:focus, &:hover {
-    @apply bg-red-500 text-white border-white
+    @apply bg-red-500 text-white border-white;
   }
 
   &.plain {
@@ -109,7 +114,7 @@ input[type="reset"] {
   @apply cursor-pointer;
 
   &:focus, &:hover {
-    @apply bg-gray-400 text-white border-white
+    @apply bg-gray-400 text-white border-white;
   }
 }
 
@@ -156,7 +161,7 @@ nav .nav-link {
   @apply text-white bg-red-400;
 
   &.hidden {
-    @apply hidden;
+    display: none;
   }
 
   svg {
@@ -234,7 +239,7 @@ a, button, input[type="button"] {
   }
 }
 
-.list-item {
+.card-item {
   .icon-button {
     &:not(.disabled) {
       @apply text-gray-200 bg-gray-600;
@@ -285,7 +290,7 @@ a, button, input[type="button"] {
       @apply border-gray-500 text-gray-600;
 
       &:focus, &:hover {
-        @apply bg-gray-500 text-white border-white
+        @apply bg-gray-500 text-white border-white;
       }
     }
 
@@ -293,7 +298,7 @@ a, button, input[type="button"] {
       @apply text-red-500;
 
       &:focus, &:hover {
-        @apply bg-red-500 text-white border-white
+        @apply bg-red-500 text-white border-white;
       }
     }
   }
@@ -381,6 +386,11 @@ details.toggle {
 
     &::-webkit-details-marker {
       display: none;
+    }
+
+    /* force set transparent bg to prevent focus bg color */
+    &.toggle-trigger {
+      background-color: transparent !important;
     }
   }
 

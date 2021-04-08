@@ -1,4 +1,4 @@
-<div class="flex flex-row flex-no-wrap min-width-0 items-center font-semibold cursor-default <%= assigns[:class] %>" title="<%= if assigns[:title], do: assigns[:title] %>">
+<div class="flex flex-row flex-nowrap min-width-0 items-center font-semibold cursor-default <%= assigns[:class] %>" title="<%= if assigns[:title], do: assigns[:title] %>">
   <div class="w-3 h-3 rounded rounded-full bg-gray-500"
     style="background-color: <%= @color %>;">
   </div>
