@@ -36,35 +36,33 @@
       <% else %>
         <ul class="grid grid-flow-row gap-4">
           <%= for interest <- @interests do %>
-            <li class="list-item bg-red-200">
-              <div id="interest-<%= interest.id %>" class="list-item shadow hover:shadow-md rounded border border-gray-400">
-                <div class="flex md:flex-row flex-col justify-between w-full">
-                  <div class="flex flex-col flex-1 items-start p-4 md:p-6 bg-white overflow-auto rounded-tl rounded-tr md:rounded-bl md:rounded-tr-none">
-                    <%= render AdoptopossWeb.SharedView, "project_repo.html", project: interest.project %>
-                  </div>
+            <li id="interest-<%= interest.id %>" class="card-item shadow hover:shadow-md rounded border border-gray-400">
+              <div class="flex md:flex-row flex-col justify-between w-full">
+                <div class="flex flex-col flex-1 items-start p-4 md:p-6 bg-white overflow-auto rounded-tl rounded-tr md:rounded-bl md:rounded-tr-none">
+                  <%= render AdoptopossWeb.SharedView, "project_repo.html", project: interest.project %>
+                </div>
 
-                  <div class="flex flex-col flex-1 flex-grow px-4 md:px-6 pt-4 md:pt-6 md:pb-2 bg-gray-200 rounded-br rounded-bl md:rounded-tr md:rounded-bl-none">
-                    <div class="flex flex-row justify-between flex-wrap">
-                      <div class="text-gray-700 font-semibold">
-                        <span>You contacted</span>
-                        <%= link to: interest.project.user.profile_url,
-                          title: "@#{interest.project.user.username}" do %>
-                          <%= interest.project.user.username %>
-                        <% end %>
-                      </div>
-                      <div class="flex flex-row justify-between items-center">
-                        <div class="text-gray-600 text-sm">
-                          <%= Timex.from_now(interest.inserted_at) %>
-                        </div>
+                <div class="flex flex-col flex-1 flex-grow px-4 md:px-6 pt-4 md:pt-6 md:pb-2 bg-gray-200 rounded-br rounded-bl md:rounded-tr md:rounded-bl-none">
+                  <div class="flex flex-row justify-between flex-wrap">
+                    <div class="text-gray-700 font-semibold">
+                      <span>You contacted</span>
+                      <%= link to: interest.project.user.profile_url,
+                        title: "@#{interest.project.user.username}" do %>
+                        <%= interest.project.user.username %>
+                      <% end %>
+                    </div>
+                    <div class="flex flex-row justify-between items-center">
+                      <div class="text-gray-600 text-sm">
+                        <%= Timex.from_now(interest.inserted_at) %>
                       </div>
                     </div>
+                  </div>
 
-                    <div class="flex flex-row items-center mt-3 md:mt-4">
-                      <%= img_tag interest.creator.avatar_url,
-                      class: "self-start h-8 w-8 rounded rounded-full" %>
+                  <div class="flex flex-row items-center mt-3 md:mt-4">
+                    <%= img_tag interest.creator.avatar_url,
+                    class: "self-start h-8 w-8 rounded rounded-full" %>
 
-                      <div class="ml-2 md:ml-4 whitespace-pre-wrap italic text-pink-900"><%= String.trim(interest.message) %>
-                      </div>
+                    <div class="ml-2 md:ml-4 whitespace-pre-wrap italic text-pink-900"><%= String.trim(interest.message) %>
                     </div>
                   </div>
                 </div>
