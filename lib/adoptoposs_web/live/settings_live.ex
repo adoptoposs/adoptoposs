@@ -20,6 +20,7 @@ defmodule AdoptopossWeb.SettingsLive do
      |> assign_user(session)
      |> assign_token(session, user.provider)
      |> assign_settings(user)
+     |> assign_email(user)
      |> assign_tag_subscriptions(user)
      |> assign(query: nil, tag_results: [])}
   end
@@ -99,13 +100,30 @@ defmodule AdoptopossWeb.SettingsLive do
       {:ok, updated_user} ->
         {:noreply, assign_settings(socket, updated_user)}
 
-      {:error, _changeset} ->
-        {:noreply, assign(socket, settings: Accounts.change_settings(user))}
+      {:error, changeset} ->
+        {:noreply, assign(socket, settings_changeset: changeset)}
+    end
+  end
+
+  @impl true
+  def handle_event("update_email", %{"user" => %{"email" => email}}, socket) do
+    user = Accounts.get_user!(socket.assigns.user_id)
+
+    case Accounts.update_email(user, email) do
+      {:ok, updated_user} ->
+        {:noreply, assign_email(socket, updated_user)}
+
+      {:error, changeset} ->
+        {:noreply, assign(socket, email_changeset: changeset)}
     end
   end
 
   defp assign_settings(socket, user) do
-    assign(socket, settings: Accounts.change_settings(user))
+    assign(socket, settings_changeset: Accounts.change_settings(user))
+  end
+
+  defp assign_email(socket, user) do
+    assign(socket, email_changeset: Accounts.change_email(user))
   end
 
   defp assign_tag_subscriptions(

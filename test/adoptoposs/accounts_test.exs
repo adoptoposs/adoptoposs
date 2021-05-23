@@ -146,6 +146,11 @@ defmodule Adoptoposs.AccountsTest do
       assert {:error, %Ecto.Changeset{}} = Accounts.create_user(attrs)
     end
 
+    test "change_user/1 returns a user changeset" do
+      user = build(:user)
+      assert %Ecto.Changeset{data: ^user} = Accounts.change_user(user)
+    end
+
     test "update_user/2 with valid data updates the user" do
       user = %User{id: id} = insert(:user)
       attrs = build(:user) |> Map.from_struct()
@@ -186,9 +191,9 @@ defmodule Adoptoposs.AccountsTest do
       assert_raise Ecto.NoResultsError, fn -> Accounts.get_user!(user.id) end
     end
 
-    test "change_user/1 returns a user changeset" do
-      user = insert(:user)
-      assert %Ecto.Changeset{} = Accounts.change_user(user)
+    test "change_settings/1 returns a user changeset" do
+      user = build(:user)
+      assert %Ecto.Changeset{data: ^user} = Accounts.change_settings(user)
     end
 
     test "update_settings/2 with valid data updates a user's settings" do
@@ -219,6 +224,30 @@ defmodule Adoptoposs.AccountsTest do
       attrs = %{email_when_contacted: "invalid"}
 
       assert {:error, _changeset} = Accounts.update_settings(user, attrs)
+    end
+
+    test "change_email/1 returns a user changeset" do
+      user = build(:user)
+      assert %Ecto.Changeset{data: ^user} = Accounts.change_email(user)
+    end
+
+    test "update_email/2 updates a user's email" do
+      user = %User{id: id} = insert(:user)
+      email = "new-#{user.email}"
+
+      assert {:ok, %User{id: ^id, email: ^email}} = Accounts.update_email(user, email)
+    end
+
+    test "update_email/2 with invalid email returns error changeset" do
+      user = insert(:user)
+      invalid_email = "invalid-email"
+
+      assert {:error, %Ecto.Changeset{errors: [{:email, {"is not valid", []}}]}} =
+               Accounts.update_email(user, invalid_email)
+
+      assert {:error,
+              %Ecto.Changeset{errors: [{:email, {"can't be blank", [validation: :required]}}]}} =
+               Accounts.update_email(user, "")
     end
   end
 end

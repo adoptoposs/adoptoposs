@@ -1,12 +1,12 @@
 <section>
   <h1>Settings</h1>
 
-  <h2>Your Favorite Languages</h2>
+  <h2>Favorite Languages</h2>
 
   <div class="mt-4 p-4 md:p-6 rounded bg-white border border-gray-200">
     <div class="md:grid md:grid-flow-col md:grid-cols-2 md:gap-8">
       <div class="flex flex-col flex-wrap">
-        <p class="">
+        <p>
           <i class="fa-solid fa-circle-info mr-1.5"></i>
           Programming languages you add here will appear as quick filters on the <.link navigate={
             ~p"/explore"
@@ -173,17 +173,51 @@
   </div>
 
   <div class="mt-6">
+    <h2>Email</h2>
+
+    <div class="mt-4 p-4 md:p-6 rounded bg-white border border-gray-300">
+      <p>
+        <i class="fa-solid fa-circle-info mr-1.5"></i>
+        All notifications will be sent to this email address. <br />
+        Project maintainers will see this email address if you contacted them.
+      </p>
+
+      <div class="w-full">
+        <.form
+          :let={f}
+          for={@email_changeset}
+          action="#"
+          phx_submit="update_email"
+          class="md:grid md:grid-flow-col md:grid-cols-2 md:gap-4 items-start"
+        >
+          <div>
+            <%= text_input(f, :email,
+              class: "search w-full h-12 px-6",
+              placeholder: "your-email@example.com"
+            ) %>
+            <%= error_tag(f, :email, tag: :div, class: "pl-2 pt-2 text-red-500") %>
+          </div>
+
+          <div class="flex flex-col items-end md:items-start mt-0">
+            <%= submit("Save", class: "inline-block md:m-1") %>
+          </div>
+        </.form>
+      </div>
+    </div>
+  </div>
+
+  <div class="mt-6">
     <h2>Notifications</h2>
 
     <%= render(AdoptopossWeb.SettingsView, "settings_radio_panel.html",
-      settings: @settings,
+      settings: @settings_changeset,
       key: :email_project_recommendations,
       title: "Project Recommendations",
       description: "Send me a regular email with interesting projects in my favorite languages:"
     ) %>
 
     <%= render(AdoptopossWeb.SettingsView, "settings_radio_panel.html",
-      settings: @settings,
+      settings: @settings_changeset,
       key: :email_when_contacted,
       title: "Interests in My Project",
       description:

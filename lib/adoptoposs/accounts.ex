@@ -104,10 +104,10 @@ defmodule Adoptoposs.Accounts do
 
   ## Examples
 
-      iex> upsert_user!(%{field: value})
+      iex> upsert_user(%{field: value})
       {:ok, %User{}}
 
-      iex> upsert_user!(%{field: bad_value})
+      iex> upsert_user(%{field: bad_value})
       {:error, %Ecto.Changeset{}}
 
   """
@@ -143,20 +143,72 @@ defmodule Adoptoposs.Accounts do
   ## Examples
 
       iex> change_user(user)
-      %Ecto.Changeset{source: %User{}}
+      %Ecto.Changeset{data: %User{}}
 
   """
   def change_user(%User{} = user) do
     User.update_changeset(user, %{})
   end
 
+  @doc """
+  Returns an `%Ecto.Changeset{}` for tracking user settings changes.
+
+  ## Examples
+
+      iex> change_settings(user)
+      %Ecto.Changeset{data: %User{}}
+
+  """
   def change_settings(%User{} = user) do
     User.settings_changeset(user, %{})
   end
 
+  @doc """
+  Updates a user's settings.
+
+  ## Examples
+
+      iex> update_settings(user, attrs)
+      {:ok, %User{}}
+
+      iex> update_settings(user, invalid_attrs)
+      {:error, %Ecto.Changeset{}}
+
+  """
   def update_settings(%User{} = user, attrs) do
     user
     |> User.settings_changeset(attrs)
+    |> Repo.update()
+  end
+
+  @doc """
+  Returns an `%Ecto.Changeset{}` for tracking user email changes.
+
+  ## Examples
+
+      iex> change_email(user)
+      %Ecto.Changeset{data: %User{}}
+
+  """
+  def change_email(%User{} = user) do
+    User.email_changeset(user, %{})
+  end
+
+  @doc """
+  Updates a user's email.
+
+  ## Examples
+
+      iex> update_email(user, email)
+      {:ok, %User{}}
+
+      iex> update_email(user, email)
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def update_email(%User{} = user, email) do
+    user
+    |> User.email_changeset(%{email: email})
     |> Repo.update()
   end
 end

@@ -65,6 +65,7 @@ defmodule Adoptoposs.MixProject do
       {:navigation_history, "~> 0.4"},
       {:quantum, "~> 3.5.0"},
       {:honeybadger, "~> 0.19"},
+      {:email_checker, "~> 0.1.4"},
       {:mix_test_watch, "~> 1.0", only: :dev, runtime: false},
       {:faker, "~> 0.17", only: [:dev, :test]},
       {:ex_machina, "~> 2.7", only: [:dev, :test]},

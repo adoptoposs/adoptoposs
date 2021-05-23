@@ -10,7 +10,7 @@ defmodule AdoptopossWeb.ErrorHelpers do
   """
   def error_tag(form, field, opts \\ []) do
     Enum.map(Keyword.get_values(form.errors, field), fn error ->
-      content_tag(:span, "#{field} " <> translate_error(error), class: opts[:class])
+      content_tag(opts[:tag] || :span, "#{field} " <> translate_error(error), class: opts[:class])
     end)
   end
 

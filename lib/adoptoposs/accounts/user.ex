@@ -46,4 +46,22 @@ defmodule Adoptoposs.Accounts.User do
     |> change()
     |> put_embed(:settings, Accounts.Settings.changeset(user.settings, attrs))
   end
+
+  @doc false
+  def email_changeset(user, attrs) do
+    user
+    |> cast(attrs, [:email])
+    |> validate_required([:email])
+    |> validate_email_format(:email)
+  end
+
+  defp validate_email_format(changeset, field) do
+    validate_change(changeset, field, fn field, value ->
+      if EmailChecker.valid?(value) do
+        []
+      else
+        [{field, "is not valid"}]
+      end
+    end)
+  end
 end

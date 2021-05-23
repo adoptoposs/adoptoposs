@@ -81,7 +81,7 @@ defmodule AdoptopossWeb.SettingsLiveTest do
 
         settings = %{email_when_contacted: "not-valid"}
         html = render_change(view, :update_settings, %{user: %{settings: settings}})
-        assert radio_button_checked?(html, value)
+        refute radio_button_checked?(html, value)
       end
     end
 
@@ -99,7 +99,7 @@ defmodule AdoptopossWeb.SettingsLiveTest do
 
         settings = %{email_project_recommendations: "not-valid"}
         html = render_change(view, :update_settings, %{user: %{settings: settings}})
-        assert radio_button_checked?(html, value)
+        refute radio_button_checked?(html, value)
       end
     end
 
