@@ -58,7 +58,7 @@ defmodule Adoptoposs.MixProject do
       {:mjml, "~> 0.3.0"},
       {:navigation_history, "~> 0.4"},
       {:quantum, "~> 3.0"},
-      {:new_relic_phoenix, "~> 0.4"},
+      {:new_relic_agent, "~> 1.0"},
       {:ecto_enum, "~> 1.4"},
       {:mix_test_watch, "~> 1.0", only: :dev, runtime: false},
       {:faker, "~> 0.16", only: [:dev, :test]},
