@@ -1,5 +1,3 @@
-version: "3.7"
-
 services:
   dev:
     build:
@@ -11,20 +9,19 @@ services:
     volumes:
       - .:/app
     ports:
-      - "4000:4000"
+      - 4000:4000
     depends_on:
       - db
 
   db:
-    image: "postgres:12.6-alpine" # as used in production deployment
+    image: postgres:13.5-alpine # as used in production deployment
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
     ports:
-      - '54321:5432'
+      - 54321:5432
     volumes:
-      - 'db_data:/var/lib/postgresql/data'
+      - db_data:/var/lib/postgresql/data
 
 volumes:
   db_data:
-
