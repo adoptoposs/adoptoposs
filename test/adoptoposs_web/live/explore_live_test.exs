@@ -224,8 +224,8 @@ defmodule AdoptopossWeb.ExploreLiveTest do
     |> element(btn_toggle_1_id)
     |> render_click()
 
-    assert_patched(view, Routes.live_path(conn, ExploreLive, q: nil, f: [language_1.id]))
     html = render(view)
+    assert_patched(view, Routes.live_path(conn, ExploreLive, q: nil, f: [language_1.id]))
 
     assert html =~ project_1.name
     refute html =~ project_2.name
@@ -235,8 +235,8 @@ defmodule AdoptopossWeb.ExploreLiveTest do
     |> element(btn_toggle_1_id)
     |> render_click()
 
-    assert_patched(view, Routes.live_path(conn, ExploreLive, q: nil, f: []))
     html = render(view)
+    assert_patched(view, Routes.live_path(conn, ExploreLive, q: nil, f: []))
 
     assert html =~ project_1.name
     assert html =~ project_2.name
