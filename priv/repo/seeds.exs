@@ -45,7 +45,7 @@ defmodule Adoptoposs.Seeds do
 
       insert(:user,
         uid: username,
-        name: Faker.Name.name(),
+        name: Faker.Person.name(),
         username: username,
         provider: "github",
         email: Faker.Internet.safe_email(),
