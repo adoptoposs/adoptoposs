@@ -73,18 +73,16 @@ defmodule AdoptopossWeb.SettingsLiveTest do
       {:ok, view, html} = live(conn, Routes.live_path(conn, SettingsLive))
 
       valid_values = Settings.email_when_contacted_values()
-      assert html =~ "value=\"#{List.first(valid_values)}\" checked"
+      assert radio_button_checked?(html, List.first(valid_values))
 
       for value <- valid_values do
         settings = %{email_when_contacted: value}
         html = render_change(view, :update_settings, %{user: %{settings: settings}})
-
-        assert html =~ "value=\"#{value}\" checked"
+        assert radio_button_checked?(html, value)
 
         settings = %{email_when_contacted: "not-valid"}
         html = render_change(view, :update_settings, %{user: %{settings: settings}})
-
-        assert html =~ "value=\"#{value}\" checked"
+        assert radio_button_checked?(html, value)
       end
     end
 
@@ -93,19 +91,24 @@ defmodule AdoptopossWeb.SettingsLiveTest do
       {:ok, view, html} = live(conn, Routes.live_path(conn, SettingsLive))
 
       valid_values = Settings.email_project_recommendations_values()
-      assert html =~ "value=\"#{List.first(valid_values)}\" checked"
+      assert radio_button_checked?(html, List.first(valid_values))
 
       for value <- valid_values do
         settings = %{email_project_recommendations: value}
         html = render_change(view, :update_settings, %{user: %{settings: settings}})
-
-        assert html =~ "value=\"#{value}\" checked"
+        assert radio_button_checked?(html, value)
 
         settings = %{email_project_recommendations: "not-valid"}
         html = render_change(view, :update_settings, %{user: %{settings: settings}})
-
-        assert html =~ "value=\"#{value}\" checked"
+        assert radio_button_checked?(html, value)
       end
+    end
+
+    defp radio_button_checked?(html, value) do
+      html
+      |> Floki.parse_document!()
+      |> Floki.find("input[value=\"#{value}\"]")
+      |> Floki.attribute("checked") == ["checked"]
     end
   end
 end
