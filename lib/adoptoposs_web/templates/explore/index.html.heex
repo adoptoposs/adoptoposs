@@ -9,7 +9,7 @@
           class="search flex-grow h-16 pl-8 pr-12 my-2 max-w-full"
           id="search"
           name="q"
-          value="<%= @query %>"
+          value={@query}
           autocomplete="off"
           autofocus
           placeholder="Search projects"
@@ -59,9 +59,9 @@
     <% else %>
       <div id="projects"
          class="grid grid-flow-row gap-4"
-         phx-update="<%= @update %>"
+         phx-update={@update}
          phx-hook="InfiniteScroll"
-         data-page="<%= @page %>">
+         data-page={@page}>
         <%= for project <- @projects do %>
           <%= live_component @socket, AdoptopossWeb.ProjectComponent,
             id: "project-#{project.id}",

@@ -13,9 +13,9 @@
 
           <select name="id" class="h1 block appearance-none w-full bg-gray-200 py-2 pr-12 leading-tight focus:outline-none text-4xl font-semibold text-pink-900 cursor-pointer">
             <%= for organization <- @organizations do %>
-              <option value="<%= organization.id %>"
-                phx-value_id="<%= organization.id %>"
-                <%= selected_attr(@organization, organization) %>>
+              <option value={organization.id}
+                phx-value_id={organization.id}
+                selected={selected_attr(@organization.id, organization.id)}>
                 <%= organization.name %>
               </option>
             <% end %>
@@ -23,7 +23,7 @@
         </div>
       </form>
       <div class="h-8 w-8 md:h-12 md:w-12 bg-gray-200 bg-contain"
-        style="background-image: url(<%= @organization.avatar_url %>); background-blend-mode: multiply;">
+        style={"background-image: url(#{@organization.avatar_url}); background-blend-mode: multiply;"}>
       </div>
     </div>
   </section>
@@ -31,10 +31,10 @@
 
 <section>
   <div class="flex flex-wrap flex-row">
-    <div id="repos-<%= @organization.id %>"
-         phx-update="<%= @update %>"
+    <div id={"repos-#{@organization.id}"}
+         phx-update={@update}
          phx-hook="InfiniteScroll"
-         data-page=<%= @page %>
+         data-page={@page}
          class="flex flex-col w-full">
 
       <%= if Enum.empty?(@repositories) do %>

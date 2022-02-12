@@ -3,11 +3,11 @@
     <%= for {tag, project_count} <- @tags do %>
       <div class="mr-2 mb-2">
         <button
-          id="<%= @id %>-btn-remove-<%= tag.id %>"
+          id={"#{@id}-btn-remove-#{tag.id}"}
           class="plain p-0"
-          phx-click="<%= @remove_event %>"
-          phx-value-tag_id="<%= tag.id %>"
-          phx-target="#<%= @phx_target %>">
+          phx-click={@remove_event}
+          phx-value-tag_id={tag.id}
+          phx-target={"##{@phx_target}"}>
           <%= render AdoptopossWeb.SharedView, "language_tag.html",
             name: tag.name,
             color: tag.color,
@@ -21,23 +21,23 @@
 
   <div class="flex items-center mt-2">
     <form
-      id="<%= @id %>-form"
+      id={"#{@id}-form"}
       class="inline-flex w-full"
-      phx-submit="<%= @search_event %>"
-      phx-change="<%= @search_event %>"
-      phx-target="#<%= @phx_target %>">
+      phx-submit={@search_event}
+      phx-change={@search_event}
+      phx-target={"##{@phx_target}"}>
       <input type="text"
         class="search flex-grow border h-12 pl-6 pr-10"
         id="tag_search"
         name="q"
-        value="<%= @query %>"
+        value={@query}
         autocomplete="off"
         placeholder="Search for languages"
         phx-debounce="200" />
     </form>
 
     <%= unless @query in [nil, ""] do %>
-      <button class="button-link inline indented-sm w-5 h-5" phx-click="clear_search" phx-target="#<%= @phx_target %>">
+      <button class="button-link inline indented-sm w-5 h-5" phx-click="clear_search" phx-target={"##{@phx_target}"}>
         <span class="text-xl">&times;</span>
       </button>
     <% end %>
@@ -53,11 +53,11 @@
         <div class="mr-2 mb-2">
           <%= if project_count > 0  && to_string(tag.id) not in @filters do %>
             <button
-              id="<%= @id %>-btn-add-<%= tag.id %>"
+              id={"#{@id}-btn-add-#{tag.id}"}
               class="plain p-0"
-              phx-click="<%= @add_event %>"
-              phx-value-tag_id="<%= tag.id %>"
-              phx-target="#<%= @phx_target %>">
+              phx-click={@add_event}
+              phx-value-tag_id={tag.id}
+              phx-target={"##{@phx_target}"}>
               <%= render AdoptopossWeb.SharedView, "language_tag.html",
                 name: tag.name,
                 color: tag.color,

@@ -58,8 +58,8 @@
         class: "nav-link flex-grow mr-2" %>
 
       <img class="rounded-full h-10 w-10"
-        src="<%= @current_user.avatar_url %>"
-        alt="<%=@current_user.name %>">
+        src={@current_user.avatar_url}
+        alt={@current_user.name}>
     </div>
   </div>
 </details>
@@ -108,8 +108,8 @@
     <details class="toggle close-on-link-clicked">
       <summary class="toggle-trigger focus:outline-none focus:border focus:border-red-400">
         <img class="rounded-full h-10 w-10"
-          src="<%= @current_user.avatar_url %>"
-          alt="<%=@current_user.name %>">
+          src={@current_user.avatar_url}
+          alt={@current_user.name}>
       </summary>
 
       <div class="relative">

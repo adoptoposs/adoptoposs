@@ -34,7 +34,7 @@
       <% else %>
         <ul class="grid grid-flow-row gap-4">
           <%= for {project, interests} <- @interests do %>
-            <li id="p-<%= project.uuid %>" class="card-item flex flex-col bg-white rounded shadow hover:shadow-md border border-gray-400">
+            <li id={"p-#{project.uuid}"} class="card-item flex flex-col bg-white rounded shadow hover:shadow-md border border-gray-400">
               <div class="p-4 md:p-6">
                 <%= render AdoptopossWeb.SharedView, "project_repo.html",
                     project: project %>
@@ -115,9 +115,6 @@
       <%= live_redirect "Contacted Maintainers",
             to: Routes.live_path(AdoptopossWeb.Endpoint, AdoptopossWeb.MessagesLive.Contacted),
             class: "flex items-center w-full pl-10 font-semibold cursor-default p-3 rounded cursor-pointer bg-white hover:bg-gray-200 focus:bg-gray-300 text-gray-700 hover:text-gray-800 focus:text-gray-800" %>
-        </div>
-      </div>
     </div>
   </div>
 </section>
-

@@ -27,7 +27,7 @@
       phx_disable_with: "…" %>
 
     <p>
-      <%= live_redirect "Add your favorite languages", to: Routes.live_path(AdoptopossWeb.Endpoint, AdoptopossWeb.SettingsLive) %> in your settings.</br>
+      <%= live_redirect "Add your favorite languages", to: Routes.live_path(AdoptopossWeb.Endpoint, AdoptopossWeb.SettingsLive) %> in your settings.<br>
       Related projects will appear here.
     </p>
   </div>
@@ -35,7 +35,7 @@
   <div class="flex flex-row mt-4 md:mt-8 items-start">
     <div class="flex flex-row flex-wrap flex-grow items-center">
       <%= for tag_subscription <- @tag_subscriptions do %>
-        <div phx-click="filter_recommendations" phx-value-tag_subscription_id="<%= tag_subscription.id %>">
+        <div phx-click="filter_recommendations" phx-value-tag_subscription_id={ tag_subscription.id}>
           <% tag = tag_subscription.tag%>
           <%= render AdoptopossWeb.SharedView, "language_tag.html",
             name: tag.name,

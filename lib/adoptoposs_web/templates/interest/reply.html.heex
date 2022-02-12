@@ -2,6 +2,6 @@
   On <%= Timex.format!(@interest.inserted_at, "{D}/{M}/{YY} {h12}:{m} {AM}") %>, <%= link @interest.creator.name, to: @interest.creator.profile_url %> wrote:
 </p>
 
-<blockquote cite="<%= @project_url %>">
+<blockquote cite={@project_url}>
   <em style="white-space: pre-wrap;"><%= String.trim(@interest.message) %></em>
 </blockquote>

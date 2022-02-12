@@ -1,6 +1,6 @@
-<div id="<%= @id %>">
+<div id={@id}>
   <%= if assigns[:dropdown] do %>
-    <details class="w-full mt-2" <%= if @filter_selection_open, do: "open" %>>
+    <details class="w-full mt-2" open={if @filter_selection_open, do: "open"}>
       <summary class="pl-1 mt-2 text-left text-red-500 hover:text-red-500 border-gray-300 w-full">
         <div class="inline">
           <div class="inline-flex items-center">
@@ -76,7 +76,7 @@
           </div>
 
         <div class="flex justify-center p-2 py-0">
-          <button class="block mt-0" phx-click="apply_filters" phx-target="#<%= @id %>">
+          <button class="block mt-0" phx-click="apply_filters" phx-target={"##{@id}"}>
             Apply filters
           </button>
         </div>

@@ -1,4 +1,4 @@
-<%= f = form_for @changeset, "#", [id: @id, phx_submit: @submit_event, class: "flex flex-col w-full #{assigns[:class]}", phx_target: @phx_target] %>
+<.form let={f} for={@changeset} action="#" id={@id} phx_submit={@submit_event} class={"flex flex-col w-full #{assigns[:class]}"} phx_target={@phx_target}>
   <label class="text-gray-700">
     <%= @headline %>
   </label>
@@ -16,4 +16,4 @@
       <%= reset "Cancel", id: "btn-cancel-#{@id}", phx_click: @cancel_event, phx_target: @phx_target %>
     </div>
   </div>
-</form>
+</.form>

@@ -4,11 +4,11 @@
       <div class="mr-2 mb-2">
         <%= if project_count > 0 do %>
           <button
-            id="<%= @id %>-btn-toggle-<%= tag.id %>"
+            id={"#{@id}-btn-toggle-#{tag.id}"}
             class="plain p-0"
-            phx-click="<%= if to_string(tag.id) in @filters, do: @remove_event, else: @add_event %>"
-            phx-value-tag_id="<%= tag.id %>"
-            phx-target="#<%= @phx_target %>">
+            phx-click={if to_string(tag.id) in @filters, do: @remove_event, else: @add_event}
+            phx-value-tag_id={tag.id}
+            phx-target={"##{@phx_target}"}>
             <%= render AdoptopossWeb.SharedView, "language_tag.html",
               name: tag.name,
               color: tag.color,

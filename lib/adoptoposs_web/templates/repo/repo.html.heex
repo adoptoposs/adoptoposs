@@ -1,10 +1,10 @@
-<div id="<%= @id %>" class="flex flex-wrap w-full mb-4 border border-gray-400 <%= if @submitted, do: "border-gray-400", else: "shadow hover:shadow-md" %> rounded">
+<div id={@id} class={"flex flex-wrap w-full mb-4 border border-gray-400 #{if @submitted, do: "border-gray-400", else: "shadow hover:shadow-md"} rounded"}>
   <div class="flex flex-col md:flex-row justify-between w-full">
-    <div class="flex flex-col md:flex-1 items-start p-4 md:p-6 rounded-tl rounded-tr md:rounded-bl md:rounded-tr-none overflow-auto <%= if @submitted, do: "bg-gray-100", else: "bg-white" %>">
+    <div class="flex flex-col md:flex-1 items-start p-4 md:p-6 rounded-tl rounded-tr md:rounded-bl md:rounded-tr-none overflow-auto #{if @submitted, do: "bg-gray-100", else: "bg-white"}">
       <%= render AdoptopossWeb.SharedView, "project_repo.html", project: @repo %>
     </div>
 
-    <div class="flex flex-row justify-end items-center md:flex-1 px-4 md:px-6 md:pt-6 md:pb-4 rounded-br rounded-bl md:rounded-bl-none md:rounded-tr <%= if @submitted || @to_be_submitted, do: "bg-gray-200", else: "bg-white" %>">
+    <div class={"flex flex-row justify-end items-center md:flex-1 px-4 md:px-6 md:pt-6 md:pb-4 rounded-br rounded-bl md:rounded-bl-none md:rounded-tr #{if @submitted || @to_be_submitted, do: "bg-gray-200", else: "bg-white"}"}>
       <%= if @submitted do %>
         <span class="text-gray-600 mr-4 md:mb-2">
           Submitted to

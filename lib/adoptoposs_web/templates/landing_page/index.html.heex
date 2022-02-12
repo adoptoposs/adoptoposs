@@ -43,7 +43,7 @@
 
     <div class="mt-4 grid grid-flow-row md:grid-cols-3 gap-6 md:gap-8">
       <div class="flex flex-col items-center">
-        <img src="<%= Routes.static_path(@socket, "/images/adoptoposs-submit.png")%>" class="mb-4 md:mb-6 h-48 md:h-auto">
+        <img src={Routes.static_path(@socket, "/images/adoptoposs-submit.png")} class="mb-4 md:mb-6 h-48 md:h-auto">
         <h2 class="text-center mb-2">Submit Your Repo</h2>
         <p class="text-lg text-hyphen md:text-xl max-w-sm mx-auto">
           You are looking for a co-maintainer?
@@ -54,7 +54,7 @@
       </div>
 
       <div class="flex flex-col items-center">
-        <img src="<%= Routes.static_path(@socket, "/images/adoptoposs-contact.png")%>" class="mb-4 md:mb-6 h-48 md:h-auto">
+        <img src={Routes.static_path(@socket, "/images/adoptoposs-contact.png")} class="mb-4 md:mb-6 h-48 md:h-auto">
         <h2 class="text-center text-gray-800 mb-2">Contact Maintainers</h2>
         <p class="text-lg text-hyphen md:text-xl max-w-sm mx-auto">
           You want to help with <acronym title="Open Source Software">OSS</acronym> maintenance?
@@ -64,7 +64,7 @@
       </div>
 
       <div class="flex flex-col items-center">
-        <img src="<%= Routes.static_path(@socket, "/images/adoptoposs-message.png")%>" class="mb-4 md:mb-6 h-48 md:h-auto">
+        <img src={Routes.static_path(@socket, "/images/adoptoposs-message.png")} class="mb-4 md:mb-6 h-48 md:h-auto">
         <h2 class="text-center text-red-500 mb-2">Explore Projects</h2>
         <p class="text-lg text-hyphen md:text-xl max-w-sm mx-auto">
           Not sure where to help?

@@ -24,15 +24,15 @@
           <div id="tag-subscriptions" class="flex flex-row flex-wrap mt-2">
             <%= for tag_subscription <- @tag_subscriptions do %>
               <% tag = tag_subscription.tag %>
-              <div id="tag-<%= tag.id %>" class="flex flex-row items-center bg-white text-pink-900 border border-gray-400 font-semibold mr-2 mb-2 rounded hover:bg-red-500 hover:text-white hover:border-white">
-                <div class="w-3 h-3 rounded rounded-full ml-3" style="background-color: <%= tag.color %>;"></div>
-                <div class="pl-2" title="<%= tag.name %>">
+              <div id={"tag-#{tag.id}"} class="flex flex-row items-center bg-white text-pink-900 border border-gray-400 font-semibold mr-2 mb-2 rounded hover:bg-red-500 hover:text-white hover:border-white">
+                <div class="w-3 h-3 rounded rounded-full ml-3" style="background-color: #{tag.color};"></div>
+                <div class="pl-2" title={tag.name}>
                   <span class=""><%= tag.name %></span>
 
                   <form phx-submit="remove_tag"
-                    title="Remove <%= tag.name %>"
+                    title={"Remove #{tag.name}"}
                     class="inline-block cursor-pointer">
-                    <input type="hidden" name="tag_subscription_id" value="<%= tag_subscription.id %>" phx-value_tag_subscription_id="<%= tag_subscription.id %>">
+                    <input type="hidden" name="tag_subscription_id" value={ tag_subscription.id} phx-value_tag_subscription_id={ tag_subscription.id}>
                     <%= submit class: "plain p-1 pr-3" do %>&times;<% end %>
                   </form>
                 </div>
@@ -79,7 +79,7 @@
               class="search flex-grow h-12 px-6"
               id="search"
               name="q"
-              value="<%= @query %>"
+              value={@query}
               autocomplete="off"
               autofocus
               placeholder="Search for programming languages..."
@@ -101,7 +101,7 @@
           <% else %>
             <%= for result <- @tag_results do %>
               <%= if result in Enum.map(@tag_subscriptions, &(&1.tag)) do %>
-                <div id="tag-result-<%= result.id %>" class="flex flex-row flex-wrap items-center bg-gray-200 text-gray-500 border border-gray-400 font-semibold mr-2 mb-2 rounded cursor-default py-1"  title="<%= result.name %>">
+                <div id={"tag-result-#{result.id}"} class="flex flex-row flex-wrap items-center bg-gray-200 text-gray-500 border border-gray-400 font-semibold mr-2 mb-2 rounded cursor-default py-1"  title={result.name}>
                   <div class="w-3 h-3 rounded rounded-full ml-3 bg-gray-500"></div>
 
                   <div class="ml-2"><%= result.name %></div>
@@ -114,14 +114,14 @@
                 </div>
               <% else %>
                 <div class="flex flex-row items-center bg-white text-pink-900 border border-gray-400 font-semibold mr-2 mb-2 rounded hover:bg-red-500 hover:text-white hover:border-white cursor-pointer"
-                  title="Add <%= result.name %>">
+                  title={"Add #{result.name}"}>
                   <form phx-submit="add_tag"
-                    title="Add <%= result.name %>"
+                    title={"Add #{result.name}"}
                     class="flex flex-row flex-wrap items-center cursor-pointer">
-                    <input type="hidden" name="tag_id" value="<%= result.id %>" phx-value_tag_id="<%= result.id %>">
+                    <input type="hidden" name="tag_id" value={result.id} phx-value_tag_id={result.id}>
 
                     <%= submit class: "plain flex flex-row items-center font-semibold text-md py-1 pl-0 pr-2 focus:bg-red-500 focus:text-white" do %>
-                      <div class="w-3 h-3 rounded rounded-full ml-3" style="background-color: <%= result.color %>;">
+                      <div class="w-3 h-3 rounded rounded-full ml-3" style={"background-color: #{result.color};"}>
                       </div>
 
                       <div class="ml-2"><%= result.name %></div>
