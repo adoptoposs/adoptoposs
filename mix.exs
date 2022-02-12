@@ -35,13 +35,13 @@ defmodule Adoptoposs.MixProject do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
-      {:phoenix, "~> 1.5.8"},
+      {:phoenix, "~> 1.6.0"},
       {:phoenix_pubsub, "~> 2.0"},
-      {:phoenix_ecto, "~> 4.2"},
-      {:ecto_sql, "~> 3.5"},
+      {:phoenix_ecto, "~> 4.4"},
+      {:ecto_sql, "~> 3.7"},
       {:postgrex, ">= 0.0.0"},
-      {:phoenix_html, "~> 2.14"},
-      {:phoenix_live_view, "~> 0.15.4"},
+      {:phoenix_html, "~> 3.0"},
+      {:phoenix_live_view, "~> 0.16"},
       {:phoenix_live_reload, "~> 1.3", only: :dev},
       {:gettext, "~> 0.18"},
       {:jason, "~> 1.0"},
