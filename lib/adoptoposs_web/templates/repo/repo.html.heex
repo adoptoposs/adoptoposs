@@ -1,6 +1,6 @@
 <div id={@id} class={"flex flex-wrap w-full mb-4 border border-gray-400 #{if @submitted, do: "border-gray-400", else: "shadow hover:shadow-md"} rounded"}>
   <div class="flex flex-col md:flex-row justify-between w-full">
-    <div class="flex flex-col md:flex-1 items-start p-4 md:p-6 rounded-tl rounded-tr md:rounded-bl md:rounded-tr-none overflow-auto #{if @submitted, do: "bg-gray-100", else: "bg-white"}">
+    <div class={"flex flex-col md:flex-1 items-start p-4 md:p-6 rounded-tl rounded-tr md:rounded-bl md:rounded-tr-none overflow-auto #{if @submitted, do: "bg-gray-100", else: "bg-white"}"}>
       <%= render AdoptopossWeb.SharedView, "project_repo.html", project: @repo %>
     </div>
 
