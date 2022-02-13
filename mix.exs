@@ -35,17 +35,23 @@ defmodule Adoptoposs.MixProject do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
-      {:phoenix, "~> 1.6.0"},
-      {:phoenix_pubsub, "~> 2.0"},
+      {:phoenix, "~> 1.6.6"},
       {:phoenix_ecto, "~> 4.4"},
       {:ecto_sql, "~> 3.7"},
       {:postgrex, ">= 0.0.0"},
       {:phoenix_html, "~> 3.0"},
-      {:phoenix_live_view, "~> 0.16"},
       {:phoenix_live_reload, "~> 1.3", only: :dev},
+      {:phoenix_live_view, "~> 0.16"},
+      {:floki, ">= 0.30.0", only: :test},
+      {:phoenix_live_dashboard, "~> 0.6"},
+      {:telemetry_metrics, "~> 0.6"},
+      {:telemetry_poller, "~> 1.0"},
       {:gettext, "~> 0.18"},
-      {:jason, "~> 1.0"},
-      {:plug_cowboy, "~> 2.4"},
+      {:jason, "~> 1.2"},
+      {:plug_cowboy, "~> 2.5"},
+      # ---------------------------
+      # additional packages:
+      # ---------------------------
       {:ueberauth, "~> 0.6"},
       {:ueberauth_github, "~> 0.8"},
       {:bodyguard, "~> 2.4"},
@@ -57,13 +63,12 @@ defmodule Adoptoposs.MixProject do
       {:bamboo, "~> 1.7"},
       {:mjml, "~> 1.1.2"},
       {:navigation_history, "~> 0.4"},
-      {:quantum, "~> 3.0"},
-      {:new_relic_agent, "~> 1.0"},
+      {:quantum, "~> 3.4.0"},
+      {:new_relic_agent, "~> 1.27.7"},
       {:ecto_enum, "~> 1.4"},
       {:mix_test_watch, "~> 1.0", only: :dev, runtime: false},
       {:faker, "~> 0.17", only: [:dev, :test]},
       {:ex_machina, "~> 2.7", only: [:dev, :test]},
-      {:floki, ">= 0.0.0", only: :test},
       {:hammox, "~> 0.5.0", only: :test}
     ]
   end
@@ -78,9 +83,11 @@ defmodule Adoptoposs.MixProject do
     [
       "fetch.languages": ["run priv/repo/fetch_languages.exs"],
       "update.github_repos": ["run priv/repo/update_repo_data.exs --provider github"],
+      setup: ["deps.get", "ecto.setup", "cmd --cd assets yarn install"],
       "ecto.setup": ["ecto.create", "ecto.migrate", "fetch.languages", "run priv/repo/seeds.exs"],
       "ecto.reset": ["ecto.drop", "ecto.setup"],
-      test: ["ecto.create --quiet", "ecto.migrate", "test"]
+      test: ["ecto.create --quiet", "ecto.migrate --quiet", "test"],
+      "assets.deploy": ["cmd --cd assets node build.js --deploy", "phx.digest"]
     ]
   end
 end

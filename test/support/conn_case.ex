@@ -20,6 +20,7 @@ defmodule AdoptopossWeb.ConnCase do
       # Import conveniences for testing with connections
       import Plug.Conn
       import Phoenix.ConnTest
+      import AdoptopossWeb.ConnCase
       import Adoptoposs.Factory
 
       alias AdoptopossWeb.Router.Helpers, as: Routes
@@ -47,12 +48,8 @@ defmodule AdoptopossWeb.ConnCase do
   end
 
   setup tags do
-    :ok = Ecto.Adapters.SQL.Sandbox.checkout(Adoptoposs.Repo)
-
-    unless tags[:async] do
-      Ecto.Adapters.SQL.Sandbox.mode(Adoptoposs.Repo, {:shared, self()})
-    end
-
+    pid = Ecto.Adapters.SQL.Sandbox.start_owner!(Adoptoposs.Repo, shared: not tags[:async])
+    on_exit(fn -> Ecto.Adapters.SQL.Sandbox.stop_owner(pid) end)
     {:ok, conn: Phoenix.ConnTest.build_conn()}
   end
 end

@@ -19,6 +19,7 @@ defmodule AdoptopossWeb.ChannelCase do
     quote do
       # Import conveniences for testing with channels
       use Phoenix.ChannelTest
+      import AdoptopossWeb.ChannelCase
 
       # The default endpoint for testing
       @endpoint AdoptopossWeb.Endpoint
@@ -26,12 +27,8 @@ defmodule AdoptopossWeb.ChannelCase do
   end
 
   setup tags do
-    :ok = Ecto.Adapters.SQL.Sandbox.checkout(Adoptoposs.Repo)
-
-    unless tags[:async] do
-      Ecto.Adapters.SQL.Sandbox.mode(Adoptoposs.Repo, {:shared, self()})
-    end
-
+    pid = Ecto.Adapters.SQL.Sandbox.start_owner!(Adoptoposs.Repo, shared: not tags[:async])
+    on_exit(fn -> Ecto.Adapters.SQL.Sandbox.stop_owner(pid) end)
     :ok
   end
 end
