@@ -48,12 +48,12 @@
         </div>
       <% else %>
         <%= for repo <- @repositories do %>
-          <%= live_component @socket, AdoptopossWeb.RepoComponent,
-            id: "repo-#{hashed(repo.id)}",
-            user_id: @user_id,
-            repo: repo,
-            submitted: repo.id in @submitted_repos,
-            to_be_submitted: repo.id == @to_be_submitted %>
+          <.live_component module={AdoptopossWeb.RepoComponent}
+            id={"repo-#{hashed(repo.id)}"}
+            user_id={@user_id}
+            repo={repo}
+            submitted={repo.id in @submitted_repos}
+            to_be_submitted={repo.id == @to_be_submitted} />
         <% end %>
       <% end %>
     </div>

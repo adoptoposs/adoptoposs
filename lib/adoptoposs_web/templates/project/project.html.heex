@@ -5,13 +5,13 @@
     </div>
 
     <div class="flex flex-col flex-1 flex-grow px-4 md:px-6 pt-4 md:pt-6 pb-2 md:pb-4 bg-gray-200 rounded-br rounded-bl md:rounded-tr md:rounded-bl-none">
-      <%= live_component @socket, AdoptopossWeb.InterestComponent,
-        id: "interest-#{@project.id}",
-        project: @project,
-        project_id: @project.id,
-        user_id: @user_id,
-        can_be_contacted: AdoptopossWeb.ProjectView.can_be_contacted?(@project, @user_id),
-        contacted: AdoptopossWeb.ProjectView.contacted?(@project, @user_id) %>
+      <.live_component module={AdoptopossWeb.InterestComponent}
+        id={"interest-#{@project.id}"}
+        project={@project}
+        project_id={@project.id}
+        user_id={@user_id}
+        can_be_contacted={AdoptopossWeb.ProjectView.can_be_contacted?(@project, @user_id)}
+        contacted={AdoptopossWeb.ProjectView.contacted?(@project, @user_id)} />
     </div>
   </div>
 </div>

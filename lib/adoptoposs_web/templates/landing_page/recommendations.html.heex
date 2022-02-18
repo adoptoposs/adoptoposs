@@ -69,10 +69,10 @@
   <% else %>
     <div id="recommendations" class="mt-4 md:mt-8 grid grid-flow-row gap-4 mb-4">
       <%= for project <- @recommendations do %>
-        <%= live_component @socket, AdoptopossWeb.ProjectComponent,
-            id: "recommendation-#{project.id}",
-            project: project,
-            user_id: @user_id %>
+        <.live_component module={AdoptopossWeb.ProjectComponent}
+          id={"recommendation-#{project.id}"}
+          project={project}
+          user_id={@user_id} />
       <% end %>
     </div>
 

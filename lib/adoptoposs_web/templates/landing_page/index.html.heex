@@ -98,10 +98,10 @@
 
     <div id="projects" class="mt-6 md:mt-10 grid grid-flow-row gap-4">
       <%= for project <- @projects do %>
-        <%= live_component @socket, AdoptopossWeb.ProjectComponent,
-            id: "project-#{project.id}",
-            project: project,
-            user_id: nil %>
+        <.live_component module={AdoptopossWeb.ProjectComponent}
+          id={"project-#{project.id}"}
+          project={project}
+          user_id={nil} />
       <% end %>
     </div>
 

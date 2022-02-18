@@ -14,10 +14,10 @@
 
   <section class="mt-6 md:mt-12">
     <%= if @project do %>
-      <%= live_component @socket, AdoptopossWeb.ProjectComponent,
-        id: "project-#{@project.id}",
-        project: @project,
-        user_id: @user_id %>
+      <.live_component module={AdoptopossWeb.ProjectComponent}
+        id={"project-#{@project.id}"}
+        project={@project}
+        user_id={@user_id} />
     <% else %>
       <div class="text-center text-xl md:text-2xl h-48">
         <p>The project is not available anymore or the link is invalid.</p>
