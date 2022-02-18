@@ -36,8 +36,19 @@ const liveSocket = new LiveSocket("/live", Socket, {hooks: Hooks, params: {_csrf
 
 // Show progress bar on live navigation and form submits
 topbar.config({barColors: { 0: "#F56565" }, shadowColor: "rgba(0, 0, 0, .3)" });
-window.addEventListener("phx:page-loading-start", info => topbar.show());
-window.addEventListener("phx:page-loading-stop", info => topbar.hide());
+
+let topBarScheduled = undefined;
+window.addEventListener("phx:page-loading-start", () => {
+  if(!topBarScheduled) {
+    // only show topbar if page load takes longer than 120 ms
+    topBarScheduled = setTimeout(() => topbar.show(), 120);
+  };
+});
+window.addEventListener("phx:page-loading-stop", () => {
+  clearTimeout(topBarScheduled);
+  topBarScheduled = undefined;
+  topbar.hide();
+});
 
 // connect if there are any LiveViews on the page
 liveSocket.connect();
