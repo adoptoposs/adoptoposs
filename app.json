@@ -29,8 +29,5 @@
       "description": "A secret key for verifying the integrity of web sockets",
       "generator": "secret"
     }
-  },
-  "scripts": {
-    "postdeploy": "bin/postdeploy"
   }
 }

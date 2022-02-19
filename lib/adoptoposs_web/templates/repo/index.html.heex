@@ -1,0 +1,61 @@
+<div class="py-4 md:pt-8 md:pb-12 mb-4 md:mb-12 bg-gray-200">
+  <section class="flex flex-wrap flex-col md:flex-row justify-center items-center">
+    <h1 class="m-0 md:my-2 md:mr-1">
+      Submit Repo from
+    </h1>
+
+    <div class="flex flex-wrap flex-row justify-center items-center">
+      <form phx-change="organization_selected">
+        <div class="inline-block relative w-full">
+          <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+            <svg class="fill-current h-6 w-6 md:h-8 md:w-8 text-pink-900" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
+          </div>
+
+          <select name="id" class="h1 block appearance-none w-full bg-gray-200 py-2 pr-12 leading-tight focus:outline-none text-4xl font-semibold text-pink-900 cursor-pointer">
+            <%= for organization <- @organizations do %>
+              <option value={organization.id}
+                phx-value_id={organization.id}
+                selected={selected_attr(@organization.id, organization.id)}>
+                <%= organization.name %>
+              </option>
+            <% end %>
+          </select>
+        </div>
+      </form>
+      <div class="h-8 w-8 md:h-12 md:w-12 bg-gray-200 bg-contain"
+        style={"background-image: url(#{@organization.avatar_url}); background-blend-mode: multiply;"}>
+      </div>
+    </div>
+  </section>
+</div>
+
+<section>
+  <div class="flex flex-wrap flex-row">
+    <div id={"repos-#{@organization.id}"}
+         phx-update={@update}
+         phx-hook="InfiniteScroll"
+         data-page={@page}
+         class="flex flex-col w-full">
+
+      <%= if Enum.empty?(@repositories) do %>
+        <div class="flex flex-col w-full p-8 justify-center items-center text-gray-600 md:text-lg text-center bg-white border border-gray-300 rounded">
+          <p class="text-lg md:text-2xl text-gray-600 text-center mb-4 md:mb-8">
+            We could not find any repos for <span class="text-red-500"><%= @organization.name %></span> yet.
+          </p>
+          <p>
+            Head over to your <%= link "GitHub account", to: "https://github.com/organizations/#{@organization.id}/repositories/new" %> to create one and it will appear here.
+          </p>
+        </div>
+      <% else %>
+        <%= for repo <- @repositories do %>
+          <.live_component module={AdoptopossWeb.RepoComponent}
+            id={"repo-#{hashed(repo.id)}"}
+            user_id={@user_id}
+            repo={repo}
+            submitted={repo.id in @submitted_repos}
+            to_be_submitted={repo.id == @to_be_submitted} />
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+</section>

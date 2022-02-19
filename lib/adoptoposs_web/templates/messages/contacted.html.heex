@@ -1,0 +1,93 @@
+<section>
+  <h1>Messages</h1>
+
+  <h2>Contacted Maintainers</h2>
+
+  <div class="flex md:hidden flex-col pb-4 bg-gray-100 sticky top-0">
+    <%= live_redirect "Interests in your Projects",
+        to: Routes.live_path(AdoptopossWeb.Endpoint, AdoptopossWeb.MessagesLive.Interests),
+        class: "flex items-center w-full font-semibold cursor-default pl-8 pt-3 pb-2 rounded cursor-pointer focus:bg-gray-300 text-gray-700 hover:text-gray-800 focus:text-gray-800" %>
+
+    <div class="flex items-center w-full font-semibold cursor-default pl-1 pt-1 pb-2 rounded bg-gray-100 text-red-600">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="inline fill-current h-5">
+        <title>Chevron Down</title>
+        <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="48" d="M112 184l144 144 144-144"/>
+      </svg>
+      <div class="w-full ml-2">
+        Contacted Maintainers
+      </div>
+    </div>
+  </div>
+
+  <div class="flex flex-row items-start md:mt-6">
+    <div class="w-full md:w-3/4">
+      <%= if Enum.empty?(@interests) do %>
+        <div class="flex flex-col w-full p-8 justify-center items-center text-gray-600 md:text-lg text-center bg-white border border-gray-300 rounded">
+          <p class="text-lg md:text-2xl text-gray-600 text-center mb-4 md:mb-8">
+            You did not contact any maintainer yet.
+          </p>
+          <%= live_redirect "Explore Projects",
+            to: Routes.live_path(AdoptopossWeb.Endpoint, AdoptopossWeb.ExploreLive),
+            class: "button-link mb-4" %>
+          <p>
+            Messages you sent will appear here.
+          </p>
+        </div>
+      <% else %>
+        <ul class="grid grid-flow-row gap-4">
+          <%= for interest <- @interests do %>
+            <li id={"interest-#{interest.id}"} class="card-item shadow hover:shadow-md rounded border border-gray-400">
+              <div class="flex md:flex-row flex-col justify-between w-full">
+                <div class="flex flex-col flex-1 items-start p-4 md:p-6 bg-white overflow-auto rounded-tl rounded-tr md:rounded-bl md:rounded-tr-none">
+                  <%= render AdoptopossWeb.SharedView, "project_repo.html", project: interest.project %>
+                </div>
+
+                <div class="flex flex-col flex-1 flex-grow px-4 md:px-6 pt-4 md:pt-6 md:pb-2 bg-gray-200 rounded-br rounded-bl md:rounded-tr md:rounded-bl-none">
+                  <div class="flex flex-row justify-between flex-wrap">
+                    <div class="text-gray-700 font-semibold">
+                      <span>You contacted</span>
+                      <%= link to: interest.project.user.profile_url,
+                        title: "@#{interest.project.user.username}" do %>
+                        <%= interest.project.user.username %>
+                      <% end %>
+                    </div>
+                    <div class="flex flex-row justify-between items-center">
+                      <div class="text-gray-600 text-sm">
+                        <%= Timex.from_now(interest.inserted_at) %>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="flex flex-row items-center mt-3 md:mt-4">
+                    <%= img_tag interest.creator.avatar_url,
+                    class: "self-start h-8 w-8 rounded rounded-full" %>
+
+                    <div class="ml-2 md:ml-4 whitespace-pre-wrap italic text-pink-900"><%= String.trim(interest.message) %>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </li>
+          <% end %>
+        </ul>
+      <% end %>
+    </div>
+
+    <div class="hidden md:flex md:flex-col w-1/4 ml-8 border rounded border-gray-400">
+      <%= live_redirect "Interests in your Projects",
+        to: Routes.live_path(AdoptopossWeb.Endpoint, AdoptopossWeb.MessagesLive.Interests),
+        class: "flex items-center w-full pl-10 font-semibold cursor-default p-3 rounded cursor-pointer bg-white hover:bg-gray-200 focus:bg-gray-300 text-gray-700 hover:text-gray-800 focus:text-gray-800" %>
+
+      <div class="flex items-center w-full font-semibold cursor-default px-4 p-3 rounded bg-white text-red-600">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="inline fill-current h-5">
+          <title>Chevron Back</title>
+          <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="48" d="M328 112L184 256l144 144"/>
+        </svg>
+        <div class="w-full ml-2">
+          Contacted Maintainers
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+

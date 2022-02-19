@@ -79,9 +79,9 @@ defmodule AdoptopossWeb.ExploreLiveTest do
     |> element(language_toggle_1_id)
     |> render_click()
 
+    html = render(view)
     assert_patched(view, Routes.live_path(conn, ExploreLive, q: nil, f: [language_1.id]))
 
-    html = render(view)
     assert html =~ project_1.name
     refute html =~ project_2.name
     refute html =~ project_3.name

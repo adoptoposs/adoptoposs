@@ -1,0 +1,18 @@
+<div class="flex flex-row flex-wrap">
+  <%= for {tag, project_count} <- @tags do %>
+    <div class="mr-2 mb-2">
+      <button
+        id={"#{@id}-btn-toggle-#{tag.id}"}
+        class="plain p-0"
+        phx-click={if to_string(tag.id) in @filters, do: @remove_event, else: @add_event}}
+        phx-value-tag_id={tag.id}
+        phx-target={"##{@phx_target}"}>
+        <%= render AdoptopossWeb.SharedView, "language_tag.html",
+          name: tag.name,
+          color: tag.color,
+          title: AdoptopossWeb.SharedView.count("project", count: project_count),
+          class: "p-3 py-1 border rounded cursor-pointer #{if to_string(tag.id) in @filters, do: "text-white bg-red-500 border-white hover:text-white hover:bg-red-500 hover:border-white", else: "border-gray-400 hover:bg-gray-300"}" %>
+      </button>
+    </div>
+  <% end %>
+</div>

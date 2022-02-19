@@ -1,0 +1,66 @@
+<div id={@id} class="flex flex-col justify-between h-full">
+  <div>
+    <div class="text-gray-700 font-semibold">
+      <%= if @project.user_id == @user_id  do %>
+        <span class="text-gray-700 text-md">You are looking for:</span>
+      <% else %>
+        <a href={@project.user.profile_url} title={"@#{@project.user.username}"} class="font-semibold">
+          @<%= @project.user.username %>
+        </a>
+        <span class="text-gray-700 text-md">is looking for:</span>
+      <% end %>
+    </div>
+
+    <div class="whitespace-pre-wrap text-gray-700 my-2"><%= @project.description %></div>
+  </div>
+
+  <div class="flex flex-wrap flex-row justify-between items-center">
+    <%= if @can_be_contacted do %>
+      <%= if @contacted do %>
+        <%= render AdoptopossWeb.ProjectView, "sharing.html", project: @project %>
+
+        <div class="icon-button disabled" title="You contacted the maintainer">
+          <svg xmlns="http://www.w3.org/2000/svg" class="mr-1" viewBox="0 0 512 512">
+            <path fill="none" stroke="currentColor" stroke-linecap="square" stroke-miterlimit="10" stroke-width="44" d="M416 128L192 384l-96-96"/>
+          </svg>
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+            <path d="M424 80H88a56.06 56.06 0 00-56 56v240a56.06 56.06 0 0056 56h336a56.06 56.06 0 0056-56V136a56.06 56.06 0 00-56-56zm-14.18 92.63l-144 112a16 16 0 01-19.64 0l-144-112a16 16 0 1119.64-25.26L256 251.73l134.18-104.36a16 16 0 0119.64 25.26z"/>
+          </svg>
+        </div>
+      <% else %>
+        <%= if @to_be_contacted do %>
+          <%= render AdoptopossWeb.SharedView, "form.html",
+              id: "form-#{@id}",
+              changeset: @changeset,
+              headline: "Say Hi, to show you want to help:",
+              message: "",
+              submit_text: "Send",
+              submit_event: "submit",
+              cancel_event: "cancel",
+              phx_target: "##{@id}" %>
+        <% else %>
+          <%= render AdoptopossWeb.ProjectView, "sharing.html", project: @project %>
+
+          <div id={"btn-#{@id}"} class="icon-button mb-2 md:mb-0" phx-click="attempt_contact" phx-target={"##{@id}"} title="Contact maintainer">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+              <path d="M464 80H48a16 16 0 00-16 16v320a16 16 0 0016 16h416a16 16 0 0016-16V96a16 16 0 00-16-16zM265.82 284.63a16 16 0 01-19.64 0L89.55 162.81l19.64-25.26L256 251.73l146.81-114.18 19.64 25.26z"/>
+            </svg>
+          </div>
+        <% end %>
+      <% end %>
+    <% else %>
+      <%= render AdoptopossWeb.ProjectView, "sharing.html", project: @project %>
+
+      <%= unless @user_id do %>
+        <div class="icon-button disabled" title="Log in to contact">
+          <span class="text-gray-500 mr-3">Log in to contact</span>
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+              <path d="M464 80H48a16 16 0 00-16 16v320a16 16 0 0016 16h416a16 16 0 0016-16V96a16 16 0 00-16-16zM265.82 284.63a16 16 0 01-19.64 0L89.55 162.81l19.64-25.26L256 251.73l146.81-114.18 19.64 25.26z"/>
+            </svg>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+</div>
+
+

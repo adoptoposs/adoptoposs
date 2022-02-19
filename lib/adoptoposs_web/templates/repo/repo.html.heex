@@ -1,0 +1,39 @@
+<div id={@id} class={"flex flex-wrap w-full mb-4 border border-gray-400 #{if @submitted, do: "border-gray-400", else: "shadow hover:shadow-md"} rounded"}>
+  <div class="flex flex-col md:flex-row justify-between w-full">
+    <div class={"flex flex-col md:flex-1 items-start p-4 md:p-6 rounded-tl rounded-tr md:rounded-bl md:rounded-tr-none overflow-auto #{if @submitted, do: "bg-gray-100", else: "bg-white"}"}>
+      <%= render AdoptopossWeb.SharedView, "project_repo.html", project: @repo %>
+    </div>
+
+    <div class={"flex flex-row justify-end items-center md:flex-1 px-4 md:px-6 md:pt-6 md:pb-4 rounded-br rounded-bl md:rounded-bl-none md:rounded-tr #{if @submitted || @to_be_submitted, do: "bg-gray-200", else: "bg-white"}"}>
+      <%= if @submitted do %>
+        <span class="text-gray-600 mr-4 md:mb-2">
+          Submitted to
+          <%= live_redirect "Your Projects",
+            to: Routes.live_path(AdoptopossWeb.Endpoint, AdoptopossWeb.ProjectLive),
+            class: "text-gray-600 hover:text-gray-700 hover:underline" %>
+        </span>
+        <span class="flex items-center justify-center h-12 w-12 md:h-16 md:w-16 my-4 md:mb-2 md:mt-0 rounded rounded-full border text-center text-green-700 bg-green-200">
+          <svg xmlns='http://www.w3.org/2000/svg' class='h-5 w-5 md:h-6 md:w-6 fill-current' viewBox='0 0 512 512'>
+            <path fill='none' stroke='currentColor' stroke-linecap='round' stroke-linejoin='round' stroke-width='32' d='M416 128L192 384l-96-96'/>
+          </svg>
+        </span>
+      <% else %>
+        <%= if !@to_be_submitted do %>
+          <%= submit "+", id: "btn-submit-#{@id}", phx_click: "attempt_submit", phx_target: "##{@id}", class: "h-12 w-12 md:h-16 md:w-16 mb-4 mt-2 md:mb-2 md:mt-0 rounded rounded-full text-3xl font-light m-0 leading-none", title: "Submit Repo" %>
+        <% else %>
+          <%= render AdoptopossWeb.SharedView, "form.html",
+            id: "form-#{@id}",
+            changeset: @changeset,
+            headline: "I’m looking for…",
+            message_field: :description,
+            message: "",
+            submit_text: "Submit",
+            submit_event: "submit_project",
+            cancel_event: "cancel_submit",
+            phx_target: "##{@id}",
+            class: "pt-4 pb-2 md:py-0" %>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+</div>
