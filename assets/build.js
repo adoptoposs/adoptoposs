@@ -35,6 +35,7 @@ let opts = {
   bundle: true,
   target: 'es2017',
   outdir: '../priv/static/assets',
+  external: ['/fonts/*', '/images/*'],
   logLevel: 'info',
   loader,
   plugins
