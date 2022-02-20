@@ -1,10 +1,29 @@
 @import "tailwindcss/base";
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
-@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro|Oswald&display=swap');
 
 $font-family-primary: "Source Sans Pro";
 $font-family-secondary: "Oswald";
+
+@font-face {
+  font-family: $font-family-primary;
+  src: url(/fonts/SourceSansPro-Regular.ttf);
+  font-weight: 400;
+  display: swap;
+}
+
+@font-face {
+  font-family: $font-family-primary;
+  src: url(/fonts/SourceSansPro-SemiBold.ttf);
+  font-weight: 600;
+  display: swap;
+}
+
+@font-face {
+  font-family: $font-family-secondary;
+  src: url(/fonts/Oswald-Regular.ttf);
+  display: swap;
+}
 
 html, body {
   @apply h-full;
