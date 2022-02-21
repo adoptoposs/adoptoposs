@@ -4,7 +4,7 @@
 
 Finding co-maintainers for your open source software project. 
 
-<img src="https://github.com/adoptoposs/adoptoposs/blob/main/assets/static/images/adoptoposs-logo.png" width="204">
+<img src="https://github.com/adoptoposs/adoptoposs/blob/main/priv/static/images/adoptoposs-logo.png" width="204">
 
 Adoptoposs offers a platform to put your open source
 projects up for adoption and make initial contact with
