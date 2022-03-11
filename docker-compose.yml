@@ -3,9 +3,10 @@ services:
     build:
       context: .
       target: dev
+      dockerfile: Dockerfile-dev
     stdin_open: true
     tty: true
-    command: ./bin/start_dev_server
+    command: mix phx.server
     volumes:
       - .:/app
     ports:

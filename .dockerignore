@@ -1,11 +1,25 @@
-.git
-.gitignore
-npm-debug.log
-node_modules
+.dockerignore
 Dockerfile*
 docker-compose*
-README.md
-LICENSE
-*.sample
-deps
 
+# there are valid reasons to keep the .git, namely so that you can get the
+# current commit hash
+#.git
+*.log
+tmp
+
+# Mix artifacts
+_build
+deps
+*.ez
+*.sample
+releases
+
+# Generated on crash by the VM
+erl_crash.dump
+
+# Static artifacts
+npm-debug.log
+node_modules
+*.md
+LICENSE
