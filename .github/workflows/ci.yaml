@@ -1,4 +1,4 @@
-name: Elixir CI
+name: CI
 
 on:
   push:
@@ -7,7 +7,7 @@ on:
     branches: [ main, staging ]
 
 jobs:
-  build:
+  test:
     runs-on: ubuntu-latest
 
     steps:
@@ -43,8 +43,15 @@ jobs:
       if: steps.yarn-cache.outputs.cache-hit != 'true'
       run: make yarn
 
+    - name: Check code formatting
+      run: make check-formatted
+
     - name: Run tests
       run: make test
 
-    - name: Check code formatting
-      run: make check-formatted
+  deploy:
+    needs: test
+    if: github.ref == 'refs/heads/main'
+    uses: ./.github/workflows/deployment.yaml
+    secrets:
+      FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
