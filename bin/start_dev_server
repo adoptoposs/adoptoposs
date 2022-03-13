@@ -1,5 +1,0 @@
-#!/bin/ash
-
-set -e
-
-MIX_ENV=dev mix phx.server

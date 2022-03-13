@@ -25,7 +25,7 @@ config :adoptoposs, AdoptopossWeb.Endpoint,
     layout: {AdoptopossWeb.LayoutView, "error.html"}
   ],
   pubsub_server: Adoptoposs.PubSub,
-  live_view: [signing_salt: "r3nJpTPt6vBQikTcL+RKVfzNTFcxrm99"]
+  live_view: [signing_salt: "KuP8oZYB"]
 
 # Configures Elixir's Logger
 config :logger, :console,

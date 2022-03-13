@@ -7,11 +7,6 @@ import Config
 # any compile-time configuration in here, as it won't be applied.
 # The block below contains prod specific runtime configuration.
 
-# Start the phoenix server if environment is set and running in a release
-if System.get_env("PHX_SERVER") && System.get_env("RELEASE_NAME") do
-  config :adoptoposs, Adoptoposs.Endpoint, server: true
-end
-
 if config_env() == :prod do
   database_url =
     System.get_env("DATABASE_URL") ||
@@ -23,7 +18,7 @@ if config_env() == :prod do
   maybe_ipv6 = if System.get_env("ECTO_IPV6"), do: [:inet6], else: []
 
   config :adoptoposs, Adoptoposs.Repo,
-    ssl: true,
+    # ssl: true,
     url: database_url,
     pool_size: String.to_integer(System.get_env("POOL_SIZE") || "10"),
     socket_options: maybe_ipv6
@@ -40,17 +35,19 @@ if config_env() == :prod do
       You can generate one by calling: mix phx.gen.secret
       """
 
-  host = System.get_env("PHX_HOST") || "adoptoposs.org"
-  port = String.to_integer(System.get_env("PORT") || "4000")
-
   live_view_signing_salt =
     System.get_env("LIVE_VIEW_SIGNING_SALT") ||
       raise """
       environment variable LIVE_VIEW_SIGNING_SALT is missing.
-      You can generate one by calling: mix phx.gen.secret 32
+      You can generate one by calling: mix phx.gen.secret
       """
 
-  config :adoptoposs, Adoptoposs.Endpoint,
+  host = System.get_env("PHX_HOST") || "adoptoposs.org"
+  port = String.to_integer(System.get_env("PORT") || "4000")
+  start_server = System.get_env("PHX_SERVER") == "true"
+
+  config :adoptoposs, AdoptopossWeb.Endpoint,
+    server: start_server,
     url: [host: host, port: 443],
     http: [
       # Enable IPv6 and bind on all interfaces.
@@ -61,7 +58,9 @@ if config_env() == :prod do
       port: port
     ],
     secret_key_base: secret_key_base,
-    live_view: [signing_salt: live_view_signing_salt]
+    live_view: [
+      signing_salt: live_view_signing_salt
+    ]
 
   github_client_id =
     System.get_env("GITHUB_CLIENT_ID") ||
@@ -89,16 +88,15 @@ if config_env() == :prod do
 
   # Mailing
   email_api_key =
-    System.get_env("MAILGUN_API_KEY") ||
-      System.get_env("EMAIL_API_KEY") ||
+    System.get_env("EMAIL_API_KEY") ||
       raise """
       environment variable MAILGUN_API_KEY and EMAIL_API_KEY is missing.
       Please set one of them.
       See your MailGun Account.
       """
 
-  email_domain = System.get_env("MAILGUN_DOMAIN") || System.get_env("EMAIL_DOMAIN")
-  email_base_uri = System.get_env("MAILGUN_BASE_URI") || System.get_env("EMAIL_BASE_URI")
+  email_domain = System.get_env("EMAIL_DOMAIN")
+  email_base_uri = System.get_env("EMAIL_BASE_URI")
 
   config :adoptoposs, AdoptopossWeb.Mailer,
     adapter: Bamboo.MailgunAdapter,
@@ -109,10 +107,15 @@ if config_env() == :prod do
       recv_timeout: :timer.minutes(1)
     ]
 
-  # Performance monitoring
-  config :new_relic_agent,
-    app_name: System.get_env("NEW_RELIC_APP_NAME") || "Adoptoposs",
-    license_key: System.get_env("NEW_RELIC_LICENSE_KEY")
+  # Job Scheduling
+  config :adoptoposs, Adoptoposs.Scheduler,
+    jobs: [
+      project_recommendations: [
+        # default: every day, 4pm UTC
+        schedule: System.get_env("CRONTAB_PROJECT_RECOMMENDATIONS") || "0 16 * * *",
+        task: {Adoptoposs.Jobs, :send_project_recommendations, []}
+      ]
+    ]
 
   # ## Using releases
   #

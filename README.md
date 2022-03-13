@@ -1,6 +1,6 @@
 # Adoptoposs
 
-[![Build Status](https://github.com/adoptoposs/adoptoposs/workflows/Elixir%20CI/badge.svg)](https://github.com/adoptoposs/adoptoposs/workflows/Elixir%20CI/badge.svg)
+[![Build Status](https://github.com/adoptoposs/adoptoposs/workflows/CI/badge.svg)](https://github.com/adoptoposs/adoptoposs/workflows/Elixir%20CI/badge.svg)
 
 Finding co-maintainers for your open source software project. 
 
