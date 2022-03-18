@@ -61,7 +61,7 @@ defmodule Adoptoposs.MixProject do
       {:basic_auth, "~> 2.2.5"},
       {:yaml_elixir, "~> 2.6"},
       {:bamboo, "~> 1.7"},
-      {:mjml, "~> 1.1.2"},
+      {:mjml, "~> 1.3.0"},
       {:navigation_history, "~> 0.4"},
       {:quantum, "~> 3.4.0"},
       {:ecto_enum, "~> 1.4"},
