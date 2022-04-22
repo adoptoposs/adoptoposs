@@ -48,7 +48,7 @@ if config_env() == :prod do
 
   config :adoptoposs, AdoptopossWeb.Endpoint,
     server: start_server,
-    url: [host: host, port: 443],
+    url: [scheme: "https", host: host, port: 443],
     http: [
       # Enable IPv6 and bind on all interfaces.
       # Set it to  {0, 0, 0, 0, 0, 0, 0, 1} for local network only access.
@@ -90,7 +90,7 @@ if config_env() == :prod do
   email_api_key =
     System.get_env("EMAIL_API_KEY") ||
       raise """
-      environment variable MAILGUN_API_KEY and EMAIL_API_KEY is missing.
+      environment variable EMAIL_API_KEY is missing.
       Please set one of them.
       See your MailGun Account.
       """
