@@ -34,7 +34,7 @@ defmodule AdoptopossWeb.Email do
 
   defp base_email(layout_type) do
     new_email()
-    |> from("Adoptoposs<notifications@#{System.get_env("HOST")}>")
+    |> from("Adoptoposs<notifications@#{Endpoint.host()}>")
     |> put_html_layout({AdoptopossWeb.LayoutView, "email.html"})
     |> put_text_layout({AdoptopossWeb.LayoutView, "email.text"})
     |> assign(:layout_type, layout_type)
