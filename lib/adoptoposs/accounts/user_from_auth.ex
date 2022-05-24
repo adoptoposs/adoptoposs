@@ -16,10 +16,14 @@ defmodule Adoptoposs.Accounts.UserFromAuth do
 
   defp name_from_auth(%Auth{info: %{name: name}}) when name != nil, do: name
 
-  defp name_from_auth(%Auth{info: info}) do
-    [info.first_name, info.last_name]
-    |> Enum.filter(&(&1 != nil and &1 != ""))
-    |> Enum.join(" ")
+  defp name_from_auth(%Auth{info: info} = auth) do
+    if is_nil(info.first_name) && is_nil(info.last_name) do
+      username_from_auth(auth)
+    else
+      [info.first_name, info.last_name]
+      |> Enum.filter(&(&1 != nil and &1 != ""))
+      |> Enum.join(" ")
+    end
   end
 
   defp username_from_auth(%Auth{info: %{nickname: nickname}}), do: nickname
