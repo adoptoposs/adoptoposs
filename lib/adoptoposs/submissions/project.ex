@@ -4,6 +4,8 @@ defmodule Adoptoposs.Submissions.Project do
 
   alias Adoptoposs.{Network, Accounts, Communication, Tags}
 
+  @statuses ~w(published draft)a
+
   schema "projects" do
     field :name, :string
     field :data, :map
@@ -12,7 +14,7 @@ defmodule Adoptoposs.Submissions.Project do
     field :repo_description, :string
     field :description, :string
     field :uuid, :binary_id
-    field :status, ProjectStatus
+    field :status, Ecto.Enum, values: @statuses
 
     belongs_to :language, Tags.Tag
     belongs_to :user, Accounts.User
