@@ -64,7 +64,6 @@ defmodule Adoptoposs.MixProject do
       {:mjml, "~> 1.3.2"},
       {:navigation_history, "~> 0.4"},
       {:quantum, "~> 3.4.0"},
-      {:ecto_enum, "~> 1.4"},
       {:mix_test_watch, "~> 1.0", only: :dev, runtime: false},
       {:faker, "~> 0.17", only: [:dev, :test]},
       {:ex_machina, "~> 2.7", only: [:dev, :test]},
