@@ -60,7 +60,7 @@ defmodule Adoptoposs.MixProject do
       {:earmark, "~> 1.4"},
       {:basic_auth, "~> 2.2.5"},
       {:yaml_elixir, "~> 2.6"},
-      {:bamboo, "~> 1.7"},
+      {:bamboo, "~> 2.2"},
       {:mjml, "~> 1.3.2"},
       {:navigation_history, "~> 0.4"},
       {:quantum, "~> 3.5.0"},
