@@ -67,7 +67,7 @@ defmodule Adoptoposs.MixProject do
       {:mix_test_watch, "~> 1.0", only: :dev, runtime: false},
       {:faker, "~> 0.17", only: [:dev, :test]},
       {:ex_machina, "~> 2.7", only: [:dev, :test]},
-      {:hammox, "~> 0.5.0", only: :test}
+      {:hammox, "~> 0.6.1", only: :test}
     ]
   end
 
