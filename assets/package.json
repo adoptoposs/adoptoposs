@@ -12,7 +12,7 @@
   "devDependencies": {
     "esbuild": "^0.14.53",
     "esbuild-sass-plugin": "^2.3.1",
-    "autoprefixer": "^10.4.2",
+    "autoprefixer": "^10.4.8",
     "postcss": "^8.4.14",
     "tailwindcss": "^2.2.19",
     "topbar": "^1.0.1"
