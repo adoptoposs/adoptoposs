@@ -15,7 +15,7 @@ jobs:
 
     - name: Cache hex deps
       id: mix-cache
-      uses: actions/cache@v2
+      uses: actions/cache@v3
       with:
         path: |
           deps
@@ -25,7 +25,7 @@ jobs:
 
     - name: Cache yarn
       id: yarn-cache
-      uses: actions/cache@v2
+      uses: actions/cache@v3
       with:
         path: "**/node_modules"
         key: ${{ runner.os }}-yarn-${{ hashFiles(format('{0}{1}', github.workspace, '/**/yarn.lock')) }}
