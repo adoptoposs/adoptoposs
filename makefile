@@ -1,5 +1,5 @@
-dc=docker-compose -f docker-compose.yml $(1)
-dc-run=$(call dc, run --rm dev $(1))
+dc=docker compose $(1)
+dc-run=$(call dc, run --rm app $(1))
 mix-dev=$(call dc-run, mix do $(1) MIX_ENV=dev)
 mix-test=$(call dc-run, mix do $(1) MIX_ENV=test)
 comma:= ,
@@ -38,7 +38,7 @@ build:
 hex-deps:
 	$(call mix-dev, deps.get)
 yarn:
-	$(call dc, run --rm -w /app/assets/ dev yarn)
+	$(call dc, run --rm -w /app/assets/ app yarn)
 db-setup:
 	$(call mix-dev, ecto.setup)
 db-migrate:
@@ -46,7 +46,7 @@ db-migrate:
 db-setup-test:
 	$(call mix-test, ecto.create ${comma} ecto.migrate)
 shell:
-	$(call dc-run, ash)
+	$(call dc-run, /bin/bash)
 iex:
 	$(call dc-run, iex -S mix)
 format:

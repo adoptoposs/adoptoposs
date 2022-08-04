@@ -1,0 +1,56 @@
+ARG ELIXIR_VERSION=1.13.4
+ARG OTP_VERSION=25.0.3
+ARG DEBIAN_VERSION=bullseye-20210902-slim
+
+ARG BUILDER_IMAGE="hexpm/elixir:${ELIXIR_VERSION}-erlang-${OTP_VERSION}-debian-${DEBIAN_VERSION}"
+FROM ${BUILDER_IMAGE} as dev-build
+
+# install build dependencies
+RUN apt-get update -y && apt-get install -y build-essential curl git inotify-tools \
+  && apt-get clean && rm -f /var/lib/apt/lists/*_*
+
+# install yarn
+RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - \
+  && echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list \
+  && apt-get update -y && apt-get install yarn -y
+
+# set host user (for config see compose.yaml)
+ARG UID
+ENV UID $UID
+ARG GID
+ENV GID $GID
+ARG USER
+ENV USER $USER
+
+RUN groupadd -g $GID $USER && \
+    useradd -u $UID -g $USER -m $USER && \
+    usermod -p "*" $USER && \
+    usermod -aG sudo $USER
+
+USER $USER
+
+# prepare build dir
+WORKDIR /app
+
+# install hex + rebar
+RUN mix local.hex --force && \
+    mix local.rebar --force
+
+COPY mix* ./
+
+RUN mix do \
+    local.hex --force, \
+    local.rebar --force
+
+# install and compile hex and npm dependencies
+FROM dev-build as ci
+
+RUN mix do \
+    deps.get, \
+    deps.compile, \
+    compile
+
+COPY assets/package.json assets/yarn.lock /app/assets/
+RUN cd assets && yarn install
+
+COPY . ./

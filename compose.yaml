@@ -1,9 +1,13 @@
 services:
-  dev:
+  app:
     build:
       context: .
-      target: dev
-      dockerfile: Dockerfile-dev
+      target: dev-build
+      dockerfile: Dockerfile.dev
+      args:
+        USER: docker
+        UID: 1000
+        GID: 1000
     stdin_open: true
     tty: true
     command: mix phx.server
