@@ -4,26 +4,38 @@
 # https://hub.docker.com/r/hexpm/elixir/tags?page=1&name=ubuntu
 # https://hub.docker.com/_/ubuntu?tab=tags
 #
-ARG BUILDER_IMAGE="hexpm/elixir:1.13.3-erlang-24.2-debian-bullseye-20210902-slim"
-ARG RUNNER_IMAGE="debian:bullseye-20210902-slim"
+#
+# This file is based on these images:
+#
+#   - https://hub.docker.com/r/hexpm/elixir/tags - for the build image
+#   - https://hub.docker.com/_/debian?tab=tags&page=1&name=bullseye-20210902-slim - for the release image
+#   - https://pkgs.org/ - resource for finding needed packages
+#   - Ex: hexpm/elixir:1.13.4-erlang-25.0.3-debian-bullseye-20210902-slim
+#
+ARG ELIXIR_VERSION=1.13.4
+ARG OTP_VERSION=25.0.3
+ARG DEBIAN_VERSION=bullseye-20210902-slim
+
+ARG BUILDER_IMAGE="hexpm/elixir:${ELIXIR_VERSION}-erlang-${OTP_VERSION}-debian-${DEBIAN_VERSION}"
+ARG RUNNER_IMAGE="debian:${DEBIAN_VERSION}"
 
 FROM ${BUILDER_IMAGE} as builder
 
 # install build dependencies
 RUN apt-get update -y && apt-get install -y build-essential curl git \
-    && apt-get clean && rm -f /var/lib/apt/lists/*_*
+  && apt-get clean && rm -f /var/lib/apt/lists/*_*
 
 # install yarn
 RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - \
-    && echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list \
-    && apt-get update -y && apt-get install yarn -y
+  && echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list \
+  && apt-get update -y && apt-get install yarn -y
 
 # prepare build dir
 WORKDIR /app
 
 # install hex + rebar
 RUN mix local.hex --force && \
-    mix local.rebar --force
+  mix local.rebar --force
 
 # set build ENV
 ENV MIX_ENV="prod"
@@ -41,19 +53,15 @@ RUN mix deps.compile
 
 COPY priv priv
 
-# Compile the release
 COPY lib lib
 
-# note: if your project uses a tool like https://purgecss.com/,
-# which customizes asset compilation based on what it finds in
-# your Elixir templates, you will need to move the asset compilation
-# step down so that `lib` is available.
 COPY assets assets
 
 # compile assets
 RUN cd assets && yarn install
 RUN mix assets.deploy
 
+# Compile the release
 RUN mix compile
 
 # Changes to config/runtime.exs don't require recompiling the code
@@ -79,12 +87,16 @@ ENV LC_ALL en_US.UTF-8
 WORKDIR "/app"
 RUN chown nobody /app
 
+# set runner ENV
+ENV MIX_ENV="prod"
+
 # Only copy the final release from the build stage
-COPY --from=builder --chown=nobody:root /app/_build/prod/rel/adoptoposs ./
+COPY --from=builder --chown=nobody:root /app/_build/${MIX_ENV}/rel/adoptoposs ./
 
 USER nobody
 
-# set runtime ENV
-ENV ECTO_IPV6 true
+CMD ["/app/bin/server"]
 
-CMD /app/bin/server
+# Appended by flyctl
+ENV ECTO_IPV6 true
+ENV ERL_AFLAGS "-proto_dist inet6_tcp"
