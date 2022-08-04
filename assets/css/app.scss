@@ -1,28 +1,84 @@
-@import "tailwindcss/base";
-@import "tailwindcss/components";
-@import "tailwindcss/utilities";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 $font-family-primary: "Source Sans Pro";
 $font-family-secondary: "Oswald";
 
-@font-face {
-  font-family: $font-family-primary;
-  src: url(/fonts/SourceSansPro-Regular.ttf);
-  font-weight: 400;
-  display: swap;
-}
+@layer base {
+  @font-face {
+    font-family: $font-family-primary;
+    src: url(/fonts/SourceSansPro-Regular.ttf);
+    font-weight: 400;
+    display: swap;
+  }
 
-@font-face {
-  font-family: $font-family-primary;
-  src: url(/fonts/SourceSansPro-SemiBold.ttf);
-  font-weight: 600;
-  display: swap;
-}
+  @font-face {
+    font-family: $font-family-primary;
+    src: url(/fonts/SourceSansPro-SemiBold.ttf);
+    font-weight: 600;
+    display: swap;
+  }
 
-@font-face {
-  font-family: $font-family-secondary;
-  src: url(/fonts/Oswald-Regular.ttf);
-  display: swap;
+  @font-face {
+    font-family: $font-family-secondary;
+    src: url(/fonts/Oswald-Regular.ttf);
+    display: swap;
+  }
+
+  h1, h2, h3, h4, h5 {
+    @apply text-pink-900 font-semibold;
+  }
+
+  h1 {
+    @apply text-2xl my-2;
+    font-family: $font-family-secondary, sans-serif;
+
+    @screen md {
+      @apply text-4xl my-4;
+    }
+  }
+
+  h2 {
+    @apply text-xl mt-2;
+
+    @screen md {
+      @apply text-2xl mt-4;
+    }
+  }
+
+  h3 {
+    @apply text-base;
+
+    @screen md {
+      @apply text-lg;
+    }
+  }
+
+  p {
+    @apply mb-4;
+  }
+
+  button, [type="submit"] {
+    @apply bg-white border border-red-500 rounded-sm py-2 px-4 my-2;
+    @apply text-red-400 text-sm uppercase tracking-wider font-semibold;
+
+    &:focus, &:hover {
+      @apply bg-red-500 text-white border-white;
+    }
+  }
+
+  a {
+    @apply text-red-600;
+
+    &:focus, &:hover {
+      @apply text-red-400;
+    }
+  }
+
+  label {
+    @apply font-semibold;
+  }
 }
 
 html, body {
@@ -67,35 +123,6 @@ footer {
   }
 }
 
-h1, h2, h3, h4, h5 {
-  @apply text-pink-900 font-semibold;
-}
-
-h1 {
-  @apply text-2xl my-2;
-  font-family: $font-family-secondary, sans-serif;
-
-  @screen md {
-    @apply text-4xl my-4;
-  }
-}
-
-h2 {
-  @apply text-xl mt-2;
-
-  @screen md {
-    @apply text-2xl mt-4;
-  }
-}
-
-h3 {
-  @apply text-base;
-
-  @screen md {
-    @apply text-lg;
-  }
-}
-
 select.h1 {
   @apply text-2xl;
   font-family: $font-family-secondary, sans-serif;
@@ -105,26 +132,13 @@ select.h1 {
   }
 }
 
-p {
-  @apply mb-4;
-}
-
-button {
-  @apply rounded-sm py-2 px-4 my-2;
-  @apply bg-white border border-red-500 text-red-400 text-sm uppercase tracking-wider font-semibold;
-
-  &:focus, &:hover {
-    @apply bg-red-500 text-white border-white;
-  }
-
-  &.plain {
-    @apply tracking-normal text-base;
-    border: inherit;
-    background-color: inherit;
-    color: inherit;
-    margin: 0;
-    text-transform: none;
-  }
+button.plain {
+  @apply tracking-normal text-base;
+  border: inherit;
+  background-color: inherit;
+  color: inherit;
+  margin: 0;
+  text-transform: none;
 }
 
 input[type="reset"] {
@@ -144,18 +158,6 @@ input[type="text"].search,  {
   &:focus {
     box-shadow: 0 0 0 2px rgba(245, 101, 101, 0.25);
   }
-}
-
-a {
-  @apply text-red-600;
-
-  &:focus, &:hover {
-    @apply text-red-400;
-  }
-}
-
-label {
-  @apply font-semibold;
 }
 
 nav .nav-link {
@@ -208,7 +210,7 @@ a, button, input[type="button"] {
     }
 
     &.subtle {
-      @apply inline leading-none bg-transparent;
+      @apply leading-none bg-transparent;
 
       &:focus, &:hover {
         @apply bg-transparent text-red-500 border-red-300;

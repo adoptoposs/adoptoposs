@@ -33,7 +33,7 @@
                 <span class="text-red-500 mr-4 font-semibold leading-tight">
                   Are you sure?
                 </span>
-                <%= submit "Yes, remove", id: "btn-attempt-remove-#{project.id}", phx_click: "remove", phx_value_id: project.id, class: "mr-2 flex-shrink-0", title: "Confirm remove" %>
+                <%= submit "Yes, remove", id: "btn-attempt-remove-#{project.id}", phx_click: "remove", phx_value_id: project.id, class: "mr-2 shrink-0", title: "Confirm remove" %>
                 <%= reset "Cancel", id: "btn-cancel-remove-#{project.id}", phx_click: "cancel_remove", title: "Cancel remove" %>
               <% else %>
                 <%= case project.status do %>
