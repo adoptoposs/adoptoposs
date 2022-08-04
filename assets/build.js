@@ -23,7 +23,7 @@ const plugins = [
       const { css } = await postcss(
         autoprefixer,
         tailwindcss('./tailwind.config.js')
-      ).process(source, { from: './assets/css/app.scss' });
+      ).process(source, { from: 'css/app.scss' });
 
       return css;
     }
