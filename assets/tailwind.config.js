@@ -1,9 +1,8 @@
 module.exports = {
-  purge: [
+  content: [
     './js/**/*.js',
     '../lib/*_web/**/*.*ex'
   ],
-  darkMode: false, // or 'media' or 'class'
   theme: {
     extend: {
       fontWeight: ['hover', 'focus']
@@ -18,8 +17,8 @@ module.exports = {
       transparent: 'transparent',
       current: 'currentColor',
 
-      black: '#000',
-      white: '#fff',
+      'black': '#000000',
+      'white': '#ffffff',
 
       gray: {
         100: '#f7fafc',
