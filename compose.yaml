@@ -5,9 +5,9 @@ services:
       target: dev-build
       dockerfile: Dockerfile.dev
       args:
-        USER: docker
-        UID: 1000
-        GID: 1000
+        DOCKER_USER: ${DOCKER_USER:-root}
+        USER_ID: ${USER_ID:-0}
+        GROUP_ID: ${GROUP_ID:-0}
     stdin_open: true
     tty: true
     command: mix phx.server

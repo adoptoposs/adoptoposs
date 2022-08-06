@@ -14,20 +14,24 @@ RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - \
   && echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list \
   && apt-get update -y && apt-get install yarn -y
 
-# set host user (for config see compose.yaml)
-ARG UID
-ENV UID $UID
-ARG GID
-ENV GID $GID
-ARG USER
-ENV USER $USER
+# set host user if configured in .env, also see conpose.yaml
+ARG DOCKER_USER
+ENV DOCKER_USER $DOCKER_USER
+ARG USER_ID
+ENV USER_ID $USER_ID
+ARG GROUP_ID
+ENV GROUP_ID $GROUP_ID
 
-RUN groupadd -g $GID $USER && \
-    useradd -u $UID -g $USER -m $USER && \
-    usermod -p "*" $USER && \
-    usermod -aG sudo $USER
+RUN echo "current user: $DOCKER_USER"
 
-USER $USER
+RUN if [ ${USER_ID:-0} -ne 0 ] && [ ${GROUP_ID:-0} -ne 0 ] && [ ${DOCKER_USER:-root} != root ]; then \
+    groupadd -g $GROUP_ID $DOCKER_USER && \
+    useradd -u $USER_ID -g $DOCKER_USER -m $DOCKER_USER && \
+    usermod -p "*" $DOCKER_USER && \
+    usermod -aG sudo $DOCKER_USER \
+;fi
+
+USER $DOCKER_USER
 
 # prepare build dir
 WORKDIR /app
