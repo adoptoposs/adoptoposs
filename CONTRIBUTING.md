@@ -22,7 +22,38 @@ Checkout the Adoptoposs repository with
 $ git clone git@github.com:adoptoposs/adoptoposs.git
 ```
 
-Then step into the project and run the setup make task. This will build the docker container, create a development config, install all dependencies and setup development & test databases:
+-----
+
+**For Linux users only:**
+
+> ℹ️ If you are on a Windows or Mac system, you can simply ignore
+> this step and move on to the `make setup` step.
+
+On Linux all directories and files that are generated from within the docker
+container will be _root-owned_ by default. This will prevent you from editing
+files that were created by e.g. the `mix phx.gen` generators in your code editor
+without being asked for the root password.
+Similarily the _\_build/_, _deps/_, and _assets/node\_modules/_ directories will be root-owned.
+
+In order to prevent this you can set the docker user that should be used in the
+container (together with its user id and group id) by using a _.env_ file.
+
+For a default .env file, please copy the content from _.env.sample_ into a `.env` file.
+
+For your convenience you can do this by running:
+
+```bash
+cd adoptoposs && make dev-env
+```
+
+For further info on the problem and the implemented solution, see
+https://jtreminio.com/blog/running-docker-containers-as-current-host-user/.
+
+-----
+
+Next, step into the project directory (if you didn't yet) and run the setup make task.
+This will build the docker container, create a development config, install all
+dependencies and setup development & test databases:
 
 ```
 $ cd adoptoposs && make setup

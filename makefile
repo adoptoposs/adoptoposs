@@ -8,6 +8,7 @@ usage:
 	@echo "Available targets:"
 	@echo "  * setup            - Initiate everything (build images, install dependencies, create + migrate db)"
 	@echo "  * dev-config       - Copy dev config from config/dev.exs.sample"
+	@echo "  * dev-config       - Copy dev config from config/dev.exs.sample"
 	@echo "  * build            - Build image"
 	@echo "  * hex-deps         - Install missing hex dependencies"
 	@echo "  * yarn             - Install missing node dependencies"
@@ -33,6 +34,8 @@ setup-test: dev-config build hex-deps yarn db-setup-test
 
 dev-config:
 	rsync --ignore-existing config/dev.exs.sample config/dev.exs
+dev-env:
+	rsync --ignore-existing .env.sample .env
 build:
 	$(call dc, build)
 hex-deps:
