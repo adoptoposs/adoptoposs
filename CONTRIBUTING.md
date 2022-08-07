@@ -78,15 +78,15 @@ $ make usage
 
 For development we use the [git branching model](http://nvie.com/posts/a-successful-git-branching-model) described by [nvie](https://github.com/nvie).
 
-The `staging` branch always represents the current development state. 
-So, this is the one you would branch off from when adding your changes.
+The `develop` branch always represents the current development state.
+So, this is the branch you would branch off from when adding your changes.
 
 The `main` branch represents the production state that is deployed to https://adotoposs.org.
 
 Here’s how to contribute:
 
 * Fork it (https://github.com/adoptoposs/adoptoposs/fork)
-* Create your feature branch (git checkout -b feature/my-new-feature staging)
+* Create your feature branch (git checkout -b feature/my-new-feature develop)
 * Commit your changes (git commit -am 'Add some feature')
 * Push to the branch (git push origin feature/my-new-feature)
 * Create a new Pull Request
