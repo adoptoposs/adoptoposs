@@ -42,5 +42,5 @@ npm-debug.log
 # log files
 *.log
 
-# .env files
-.env*
+# .env file
+.env
