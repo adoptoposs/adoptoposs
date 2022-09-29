@@ -41,19 +41,19 @@
         </div>
 
         <p class="mb-0">
-          <.link naviagte={Routes.live_path(AdoptopossWeb.Endpoint, AdoptopossWeb.SettingsLive)}>Add your favorite languages</.link> in your settings.
+          <.link navigate={Routes.live_path(AdoptopossWeb.Endpoint, AdoptopossWeb.SettingsLive)}>Add your favorite languages</.link> in your settings.
           They will appear here as quick filters.
         </p>
       <% else %>
         <p class="mb-0">
           ℹ You can follow your favorite languages in
-          <.link naviagte={Routes.live_path(AdoptopossWeb.Endpoint, AdoptopossWeb.SettingsLive)}>your settings</.link>.
+          <.link navigate={Routes.live_path(AdoptopossWeb.Endpoint, AdoptopossWeb.SettingsLive)}>your settings</.link>.
           They will appear here as quick filters.
         </p>
       <% end %>
     <% else %>
       <.link
-        naviagte={Routes.auth_path(AdoptopossWeb.Endpoint, :request, "github")}
+        navigate={Routes.auth_path(AdoptopossWeb.Endpoint, :request, "github")}
         class="button-link text-center mb-2">
         Log in with GitHub
       </.link>
