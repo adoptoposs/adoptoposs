@@ -86,13 +86,13 @@ defmodule AdoptopossWeb do
 
   defp view_helpers do
     quote do
-      # Use all HTML functionality (forms, tags, etc)
+      # Use all HTML functionality (forms, tags, etc.)
       use Phoenix.HTML
 
-      # Import LiveView and .heex helpers (live_render, live_patch, <.form>, etc)
-      import Phoenix.LiveView.Helpers
+      # Import Component functions and .heex helpers (<.link> <.form>, etc.)
+      import Phoenix.Component
 
-      # Import basic rendering functionality (render, render_layout, etc)
+      # Import basic rendering functionality (render, render_layout, etc.)
       import Phoenix.View
 
       import AdoptopossWeb.ErrorHelpers

@@ -1,8 +1,10 @@
 <nav role="navigation" class="flex flex-row flex-wrap justify-between items-center">
   <div class="flex items-center shrink-0 mr-2 sm:mr-6">
-    <%= live_redirect to: Routes.live_path(@conn, AdoptopossWeb.LandingPageLive), class: "font-semibold text-xl tracking-tight" do %>
+    <.link
+      navigate={Routes.live_path(@conn, AdoptopossWeb.LandingPageLive)}
+      class="font-semibold text-xl tracking-tight">
       <img src={Routes.static_path(@conn, "/images/adoptoposs-logo.png")} alt="Adoptoposs" class="h-10"/>
-    <% end %>
+    </.link>
   </div>
 
   <%= if @current_user do %>

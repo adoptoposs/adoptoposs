@@ -27,7 +27,7 @@
       phx_disable_with: "…" %>
 
     <p>
-      <%= live_redirect "Add your favorite languages", to: Routes.live_path(AdoptopossWeb.Endpoint, AdoptopossWeb.SettingsLive) %> in your settings.<br>
+      <.link navigate={Routes.live_path(AdoptopossWeb.Endpoint, AdoptopossWeb.SettingsLive)}>Add your favorite languages</.link> in your settings.<br>
       Related projects will appear here.
     </p>
   </div>
@@ -46,9 +46,11 @@
     </div>
 
     <div class="ml-2 mt-1 text-center">
-      <%= live_redirect "Edit Languages",
-        to: Routes.live_path(AdoptopossWeb.Endpoint, AdoptopossWeb.SettingsLive),
-        class: "md:whitespace-nowrap" %>
+      <.link
+        navigate={Routes.live_path(AdoptopossWeb.Endpoint, AdoptopossWeb.SettingsLive)}
+        class="md:whitespace-nowrap">
+        Edit Languages
+      </.link>
     </div>
   </div>
 
@@ -63,13 +65,14 @@
       </p>
       <p>
         Subscribe to
-        <%= live_redirect "email notifications", to: Routes.live_path(@socket, AdoptopossWeb.SettingsLive) %> and we’ll let you know if new ones come in.
+        <.link navigate={Routes.live_path(@socket, AdoptopossWeb.SettingsLive)}>email notifications</.link> and we’ll let you know if new ones come in.
       </p>
     </div>
   <% else %>
     <div id="recommendations" class="mt-4 md:mt-8 grid grid-flow-row gap-4 mb-4">
       <%= for project <- @recommendations do %>
-        <.live_component module={AdoptopossWeb.ProjectComponent}
+        <.live_component
+          module={AdoptopossWeb.ProjectComponent}
           id={"recommendation-#{project.id}"}
           project={project}
           user_id={@user_id} />
@@ -77,7 +80,9 @@
     </div>
 
     <div class="text-center mt-6">
-      <%= live_redirect "Explore More…", to: Routes.live_path(@socket, AdoptopossWeb.ExploreLive, f: [@tag_filter]) %>
+      <.link navigate={Routes.live_path(@socket, AdoptopossWeb.ExploreLive, f: [@tag_filter])}>
+        Explore More…
+      </.link>
     </div>
   <% end %>
 <% end %>

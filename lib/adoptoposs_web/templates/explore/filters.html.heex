@@ -27,7 +27,9 @@
 
           <%= if @user_id do %>
             <span class="float-right">
-              <%= live_redirect "Edit", to: Routes.live_path(AdoptopossWeb.Endpoint, AdoptopossWeb.SettingsLive) %>
+              <.link navigate={Routes.live_path(AdoptopossWeb.Endpoint, AdoptopossWeb.SettingsLive)}>
+                Edit
+              </.link>
             </span>
           <% end %>
         </div>
@@ -96,8 +98,9 @@
         Your favorite languages
         <%= if @user_id do %>
           <span class="float-right">
-            <%= live_redirect "Edit",
-              to: Routes.live_path(AdoptopossWeb.Endpoint, AdoptopossWeb.SettingsLive) %>
+            <.link naviagte={Routes.live_path(AdoptopossWeb.Endpoint, AdoptopossWeb.SettingsLive)}>
+              Edit
+            </.link>
           </span>
         <% end %>
       </p>

@@ -1,8 +1,10 @@
 <!-- hidden on mobile -->
 <div class="md:hidden inline-block">
-  <%= live_redirect "Submit Repo",
-    to: Routes.live_path(@conn, AdoptopossWeb.RepoLive, @current_user.username),
-    class: "self-center text-md px-4 py-2 leading-none border border-red-300 rounded font-semibold" %>
+  <.link
+    navigate={Routes.live_path(@conn, AdoptopossWeb.RepoLive, @current_user.username)}
+    class="self-center text-md px-4 py-2 leading-none border border-red-300 rounded font-semibold">
+    Submit Repo
+  </.link>
 </div>
 
 <details class="toggle close-on-link-clicked block md:hidden self-end">
@@ -14,7 +16,9 @@
   </summary>
 
   <div class="toggle-content absolute left-0 right-0 bg-gray-100 z-20 shadow-md p-6">
-    <%= live_redirect to: Routes.live_path(@conn, AdoptopossWeb.MessagesLive.Interests), class: "flex items-center p-2 mr-4" do %>
+    <.link
+      navigate={Routes.live_path(@conn, AdoptopossWeb.MessagesLive.Interests)}
+      class="flex items-center p-2 mr-4">
         <span class="flex relative items-center">
           <%= if @notification_count > 0 do %>
             <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512' class="inline w-6 h-6 fill-current mr-2">
@@ -33,29 +37,29 @@
           <% end %>
         </span>
         <span class="inline">Messages</span>
-    <% end %>
+    </.link>
 
-    <%= live_redirect to: Routes.live_path(@conn, AdoptopossWeb.ExploreLive), class: "flex items-center p-2" do %>
+    <.link navigate={Routes.live_path(@conn, AdoptopossWeb.ExploreLive)} class="flex items-center p-2">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" class="inline h-4 w-4 fill-current mr-4">
         <path d="M12.9 14.32a8 8 0 1 1 1.41-1.41l5.35 5.33-1.42 1.42-5.33-5.34zM8 14A6 6 0 1 0 8 2a6 6 0 0 0 0 12z"/>
       </svg>
       <span class="inline">Explore</span>
-    <% end %>
+    </.link>
 
-    <%= live_redirect "Your Projects",
-      to: Routes.live_path(@conn, AdoptopossWeb.ProjectLive),
-      class: "nav-link" %>
+    <.link navigate={Routes.live_path(@conn, AdoptopossWeb.ProjectLive)} class="nav-link">
+      Your Projects
+    </.link>
 
-    <%= live_redirect "Settings",
-      to: Routes.live_path(@conn, AdoptopossWeb.SettingsLive),
-      class: "nav-link" %>
+    <.link navigate={Routes.live_path(@conn, AdoptopossWeb.SettingsLive)} class="nav-link">
+      Settings
+    </.link>
 
     <hr class="border-red-200 mt-4 mb-3">
 
     <div class=" flex flex-row justify-between items-center">
-      <%= link "Log out",
-        to: Routes.auth_path(@conn, :delete),
-        class: "nav-link flex-grow mr-2" %>
+      <.link navigate={Routes.auth_path(@conn, :delete)} class="nav-link flex-grow mr-2">
+        Log out
+      </.link>
 
       <img class="rounded-full h-10 w-10"
         src={@current_user.avatar_url}
@@ -66,7 +70,7 @@
 
 <div id="menu" class="hidden w-full text-md md:flex-grow justify-end md:flex md:flex-row md:items-end md:w-auto md:items-center mt-4 md:mt-0">
   <div class="hidden md:inline-flex">
-    <%= live_redirect to: Routes.live_path(@conn, AdoptopossWeb.MessagesLive.Interests), class: "flex items-center p-2 mr-4 font-semibold" do %>
+    <.link navigate={Routes.live_path(@conn, AdoptopossWeb.MessagesLive.Interests)} class="flex items-center p-2 mr-4 font-semibold">
         <span class="flex relative items-center">
           <%= if @notification_count > 0 do %>
             <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512' class="inline w-6 h-6 fill-current mr-2">
@@ -87,20 +91,22 @@
         <span class="inline">
           Messages
         </span>
-    <% end %>
+    </.link>
 
-    <%= live_redirect to: Routes.live_path(@conn, AdoptopossWeb.ExploreLive), class: "flex items-center p-2 mr-4" do %>
+    <.link navigate={Routes.live_path(@conn, AdoptopossWeb.ExploreLive)} class="flex items-center p-2 mr-4">
       <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512' class="inline h-6 w-6 fill-current mr-2">
         <title>Search</title>
         <path d='M221.09 64a157.09 157.09 0 10157.09 157.09A157.1 157.1 0 00221.09 64z' fill='none' stroke='currentColor' stroke-miterlimit='10' stroke-width='32'/>
         <path fill='none' stroke='currentColor' stroke-linecap='round' stroke-miterlimit='10' stroke-width='32' d='M338.29 338.29L448 448'/>
       </svg>
       <span class="inline font-semibold">Explore</span>
-    <% end %>
+    </.link>
 
-    <%= live_redirect "Submit Repo",
-      to: Routes.live_path(@conn, AdoptopossWeb.RepoLive, @current_user.username),
-      class: "flex self-center button-link subtle mr-4" %>
+    <.link
+      navigate={Routes.live_path(@conn, AdoptopossWeb.RepoLive, @current_user.username)}
+      class="flex self-center button-link subtle mr-4">
+      Submit Repo
+    </.link>
   </div>
 
   <!-- User account menu -->
@@ -114,19 +120,23 @@
 
       <div class="relative">
         <div class="toggle-content absolute right-0 left-auto py-2 mt-2 rounded border border-red-300 bg-gray-100 shadow-md w-max-content font-semibold">
-          <%= live_redirect "Your Projects",
-            to: Routes.live_path(@conn, AdoptopossWeb.ProjectLive),
-            class: "block px-8 py-2 text-right" %>
+          <.link
+            navigate={Routes.live_path(@conn, AdoptopossWeb.ProjectLive)}
+            class="block px-8 py-2 text-right">
+            Your Projects
+          </.link>
 
-          <%= live_redirect "Settings",
-            to: Routes.live_path(@conn, AdoptopossWeb.SettingsLive),
-            class: "block px-8 py-2 text-right" %>
+          <.link
+            navigate={Routes.live_path(@conn, AdoptopossWeb.SettingsLive)}
+            class="block px-8 py-2 text-right">
+            Settings
+          </.link>
 
           <hr class="border-red-200 border mt-2 mb-1">
 
-          <%= link "Log out",
-            to: Routes.auth_path(@conn, :delete),
-            class: "block px-8 py-2 text-right" %>
+          <.link navigate={Routes.auth_path(@conn, :delete)} class="block px-8 py-2 text-right">
+            Log out
+          </.link>
         </div>
       </div>
     </details>
