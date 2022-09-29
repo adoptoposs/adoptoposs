@@ -4,9 +4,9 @@
       <%= if @project.user_id == @user_id  do %>
         <span class="text-gray-700 text-md">You are looking for:</span>
       <% else %>
-        <a href={@project.user.profile_url} title={"@#{@project.user.username}"} class="font-semibold">
+        <.link href={@project.user.profile_url} title={"@#{@project.user.username}"} class="font-semibold">
           @<%= @project.user.username %>
-        </a>
+        </.link>
         <span class="text-gray-700 text-md">is looking for:</span>
       <% end %>
     </div>

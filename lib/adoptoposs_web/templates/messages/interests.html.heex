@@ -14,9 +14,11 @@
       </div>
     </div>
 
-    <%= live_redirect "Contacted Maintainers",
-          to: Routes.live_path(AdoptopossWeb.Endpoint, AdoptopossWeb.MessagesLive.Contacted),
-          class: "flex items-center w-full font-semibold cursor-default pl-8 pt-1 pb-2 rounded cursor-pointer focus:bg-gray-300 text-gray-700 hover:text-gray-800 focus:text-gray-800" %>
+    <.link
+      navigate={Routes.live_path(AdoptopossWeb.Endpoint, AdoptopossWeb.MessagesLive.Contacted)}
+      class="flex items-center w-full font-semibold cursor-default pl-8 pt-1 pb-2 rounded cursor-pointer focus:bg-gray-300 text-gray-700 hover:text-gray-800 focus:text-gray-800">
+      Contacted Maintainers
+    </.link>
   </div>
 
   <div class="flex flex-row items-start md:mt-6">
@@ -28,7 +30,7 @@
           </p>
           <p>
             Hint: Share your
-            <%= live_redirect "submitted projects", to: Routes.live_path(@socket, AdoptopossWeb.ProjectLive) %> to let more people know you’re looking for help.
+            <.link navigate={Routes.live_path(@socket, AdoptopossWeb.ProjectLive)}>submitted projects</.link> to let more people know you’re looking for help.
           </p>
         </div>
       <% else %>
@@ -112,9 +114,11 @@
         </div>
       </div>
 
-      <%= live_redirect "Contacted Maintainers",
-            to: Routes.live_path(AdoptopossWeb.Endpoint, AdoptopossWeb.MessagesLive.Contacted),
-            class: "flex items-center w-full pl-10 font-semibold cursor-default p-3 rounded cursor-pointer bg-white hover:bg-gray-200 focus:bg-gray-300 text-gray-700 hover:text-gray-800 focus:text-gray-800" %>
+      <.link
+        navigate={Routes.live_path(AdoptopossWeb.Endpoint, AdoptopossWeb.MessagesLive.Contacted)}
+        class="flex items-center w-full pl-10 font-semibold cursor-default p-3 rounded cursor-pointer bg-white hover:bg-gray-200 focus:bg-gray-300 text-gray-700 hover:text-gray-800 focus:text-gray-800">
+        Contacted Maintainers
+      </.link>
     </div>
   </div>
 </section>
