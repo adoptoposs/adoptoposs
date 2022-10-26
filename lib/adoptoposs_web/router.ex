@@ -3,14 +3,7 @@ defmodule AdoptopossWeb.Router do
   alias AdoptopossWeb.Plugs
 
   pipeline :browser do
-    # Setup HTTP basic auth only if the user & password is set:
-    @username Application.get_env(:adoptoposs, :basic_auth)[:username]
-    @password Application.get_env(:adoptoposs, :basic_auth)[:password]
-
-    if @username && @password do
-      plug BasicAuth, use_config: {:adoptoposs, :basic_auth}
-    end
-
+    plug Plugs.BasicAuth
     plug :accepts, ["html"]
     plug :fetch_session
     plug :fetch_live_flash

@@ -62,6 +62,7 @@ if config_env() == :prod do
       signing_salt: live_view_signing_salt
     ]
 
+  ## OAuth config
   github_client_id =
     System.get_env("GITHUB_CLIENT_ID") ||
       raise """
@@ -82,8 +83,7 @@ if config_env() == :prod do
 
   # Basic Auth
   config :adoptoposs, :basic_auth,
-    realm: "Only Team members",
-    username: System.get_env("BASIC_AUTH_USER"),
+    username: System.get_env("BASIC_AUTH_USERNAME"),
     password: System.get_env("BASIC_AUTH_PASSWORD")
 
   # Mailing
