@@ -12,15 +12,15 @@ defmodule AdoptopossWeb.Plugs.RequireLogin do
   def init(opts), do: opts
 
   @doc """
-  Pass through if user is logged in.
+  Passes through if user is logged in.
+  Redirects to landing page if user is logged out.
   """
+  def call(conn, opts)
+
   def call(%Plug.Conn{assigns: %{current_user: %User{}}} = conn, _opts) do
     conn
   end
 
-  @doc """
-  Redirect to login if user is logged out.
-  """
   def call(conn, _opts) do
     conn
     |> put_flash(:error, "You need to log in to visit this page.")
