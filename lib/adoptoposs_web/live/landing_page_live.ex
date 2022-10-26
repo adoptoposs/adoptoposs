@@ -8,16 +8,11 @@ defmodule AdoptopossWeb.LandingPageLive do
   @recommendations_limit 5
   @latest_projects_limit 5
 
-  @doc """
-  Renders the logged-in user's dashbard template.
-  """
+  @impl true
   def render(%{user_id: user_id} = assigns) when not is_nil(user_id) do
     Phoenix.View.render(LandingPageView, "dashboard.html", assigns)
   end
 
-  @doc """
-  Renders the logged out landing page template.
-  """
   @impl true
   def render(assigns) do
     Phoenix.View.render(LandingPageView, "index.html", assigns)

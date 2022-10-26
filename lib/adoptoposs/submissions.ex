@@ -15,14 +15,31 @@ defmodule Adoptoposs.Submissions do
   defdelegate authorize(action, user, params), to: Policy
 
   @doc """
-  Returns the list of a user's projects.
+  Returns the list of a user's projects when a %User{} is passed.
 
   ## Examples
 
       iex> list_projects(%User{})
       [%Project{}, ...]
 
+  Return the given number of projects (of all users) when a `limit:`
+  option is passed.
+
+  ## Examples
+
+      iex> list_projects(limit: 2]
+      [%Project{}, %Project{}]
+
+  Returns a map of projects results by offset & limit.
+
+  ## Examples
+
+      iex> list_projects(offset: 4, limit: 2)
+      %{results: [%Project{}, ...], total_count: 10}
+
   """
+  def list_projects(user_or_limit_opt)
+
   def list_projects(%User{id: id}) do
     Project
     |> where(user_id: ^id)
@@ -31,15 +48,6 @@ defmodule Adoptoposs.Submissions do
     |> Repo.all()
   end
 
-  @doc """
-  Returns a list of projects.
-
-  ## Examples
-
-      iex> list_projects(limit: 2)
-      [%Project{}, ...]
-
-  """
   def list_projects(limit: limit) do
     Project
     |> where(status: ^:published)
@@ -50,15 +58,6 @@ defmodule Adoptoposs.Submissions do
     |> Repo.all()
   end
 
-  @doc """
-  Returns a map of projects results by offset & limit.
-
-  ## Examples
-
-      iex> list_projects(offset: 4, limit: 2)
-      %{results: [%Project{}, ...], total_count: 10}
-
-  """
   def list_projects(offset: offset, limit: limit) do
     query = Project |> where(status: ^:published)
 
