@@ -58,7 +58,6 @@ defmodule Adoptoposs.MixProject do
       {:httpoison, "~> 1.8"},
       {:timex, "~> 3.7"},
       {:earmark, "~> 1.4"},
-      {:basic_auth, "~> 2.2.5"},
       {:yaml_elixir, "~> 2.6"},
       {:bamboo, "~> 2.2"},
       {:bamboo_phoenix, "~> 1.0"},
