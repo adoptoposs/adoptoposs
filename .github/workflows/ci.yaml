@@ -2,7 +2,7 @@ name: CI
 
 on:
   push:
-    branches: [ main, develop ]
+    branches: [ main, develop, testing ]
   pull_request:
     branches: [ main, develop ]
 
@@ -49,9 +49,16 @@ jobs:
     - name: Run tests
       run: make test
 
-  deploy:
+  deploy-develop:
+    needs: test
+    if: (github.ref == 'refs/heads/develop') || (github.ref == 'refs/heads/testing')
+    uses: ./.github/workflows/deployment-staging.yaml
+    secrets:
+      FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
+
+  deploy-main:
     needs: test
     if: github.ref == 'refs/heads/main'
-    uses: ./.github/workflows/deployment.yaml
+    uses: ./.github/workflows/deployment-production.yaml
     secrets:
       FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}

@@ -8,12 +8,12 @@ on:
 
 jobs:
   deploy:
-      name: production
+      name: staging
       runs-on: ubuntu-latest
 
       steps:
         - uses: actions/checkout@v3
         - uses: superfly/flyctl-actions/setup-flyctl@master
-        - run: flyctl deploy --remote-only
+        - run: flyctl deploy --app adoptoposs-staging --config ./fly.staging.toml --remote-only
           env:
             FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
