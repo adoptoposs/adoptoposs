@@ -25,7 +25,7 @@ defmodule AdoptopossWeb.LiveView do
 
   defmacro __using__(_opts) do
     quote do
-      use Phoenix.LiveView, layout: {AdoptopossWeb.LayoutView, "live.html"}
+      use Phoenix.LiveView, layout: {AdoptopossWeb.LayoutView, :live}
       use AdoptopossWeb.LiveHelpers
 
       alias Adoptoposs.Accounts.User
