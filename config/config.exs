@@ -28,6 +28,9 @@ config :adoptoposs, AdoptopossWeb.Endpoint,
   live_view: [signing_salt: "KuP8oZYB"]
 
 # Configures Elixir's Logger
+config :logger,
+  backends: [:console, Honeybadger.Logger]
+
 config :logger, :console,
   format: "$time $metadata[$level] $message\n",
   metadata: [:request_id]
@@ -42,6 +45,11 @@ config :ueberauth, Ueberauth,
   providers: [
     github: {Ueberauth.Strategy.Github, [default_scope: github_api_scopes]}
   ]
+
+# Error Monitoring
+config :honeybadger,
+  filter: Honeybadger.Filter.Default,
+  filter_keys: [:password, :token, :secret_key_base]
 
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.

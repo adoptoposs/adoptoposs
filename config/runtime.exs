@@ -117,6 +117,25 @@ if config_env() == :prod do
       ]
     ]
 
+  # Error Monitoring with Honeybadger
+  honeybadger_api_key =
+    System.get_env("HONEYBADGER_API_KEY") ||
+      raise """
+      environment variable HONEYBADGER_API_KEY is missing.
+      """
+
+  honeybadger_env_name =
+    System.get_env("HONEYBADGER_ENV_NAME") ||
+      raise """
+      environment variable HONEYBADGER_ENV_NAME is missing.
+      """
+
+  config :honeybadger,
+    api_key: honeybadger_api_key,
+    environment_name: honeybadger_env_name,
+    exclude_envs: [:dev, :test],
+    ecto_repos: [Adoptoposs.Repo]
+
   # ## Using releases
   #
   # If you are doing OTP releases, you need to instruct Phoenix

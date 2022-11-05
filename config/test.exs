@@ -32,3 +32,6 @@ config :bamboo, :refute_timeout, 10
 
 # Initialize plugs at runtime for faster test compilation
 config :phoenix, :plug_init_mode, :runtime
+
+# Error Monitoring
+config :honeybadger, environment_name: :test
