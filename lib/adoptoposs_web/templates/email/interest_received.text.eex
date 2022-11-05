@@ -2,7 +2,7 @@ Hi <%= @interest.project.user.name %>,
 
 you’ve got a new message for your project "<%= @interest.project.name %>"  on Adoptoposs:
 
-<%= render AdoptopossWeb.InterestView, "reply", interest: @interest %>
+<%= render AdoptopossWeb.InterestView, "reply.text", interest: @interest %>
 
 You can find the original message here: <%= @message_url %>.
 

@@ -17,7 +17,7 @@ defmodule AdoptopossWeb.InterestView do
   """
   def email_body(%Interest{} = interest) do
     __MODULE__
-    |> render("reply", interest: interest)
+    |> render("reply.text", interest: interest)
     |> URI.encode()
   end
 end

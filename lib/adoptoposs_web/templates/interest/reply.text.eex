@@ -2,7 +2,5 @@
 
 On <%= Timex.format!(@interest.inserted_at, "{D}/{M}/{YY} {h12}:{m} {AM}") %>, <%= @interest.creator.name %> wrote:
 >
-<%= for line <- String.split(@interest.message, ~r/\R/) do %>
-> <%= line %>
-<% end %>
+<%= for line <- String.split(@interest.message, ~r/\R/) do %>> <%= line %><% end %>
 >
