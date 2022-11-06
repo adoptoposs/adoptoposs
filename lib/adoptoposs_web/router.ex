@@ -1,5 +1,7 @@
 defmodule AdoptopossWeb.Router do
   use AdoptopossWeb, :router
+  use Honeybadger.Plug
+
   alias AdoptopossWeb.Plugs
 
   pipeline :browser do

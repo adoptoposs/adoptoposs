@@ -97,3 +97,6 @@ config :adoptoposs, :basic_auth,
 
 # Mailing
 config :adoptoposs, AdoptopossWeb.Mailer, adapter: Bamboo.LocalAdapter
+
+# Error Monitoring
+config :honeybadger, environment_name: :dev
