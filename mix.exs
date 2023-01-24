@@ -55,7 +55,7 @@ defmodule Adoptoposs.MixProject do
       {:ueberauth, "~> 0.6"},
       {:ueberauth_github, "~> 0.8"},
       {:bodyguard, "~> 2.4"},
-      {:httpoison, "~> 1.8"},
+      {:httpoison, "~> 2.0"},
       {:timex, "~> 3.7"},
       {:earmark, "~> 1.4"},
       {:yaml_elixir, "~> 2.6"},
