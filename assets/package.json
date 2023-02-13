@@ -10,7 +10,7 @@
     "phoenix_live_view": "file:../deps/phoenix_live_view"
   },
   "devDependencies": {
-    "esbuild": "^0.17.5",
+    "esbuild": "^0.17.8",
     "esbuild-sass-plugin": "^2.4.5",
     "autoprefixer": "^10.4.13",
     "postcss": "^8.4.21",
