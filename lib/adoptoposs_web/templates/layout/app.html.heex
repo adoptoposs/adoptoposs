@@ -1,6 +1,9 @@
 <section>
   <%= if Phoenix.Flash.get(@flash, :error) do %>
-    <p class="text-red-500 text-center font-font-semibold p-4 rounded border border-red-400" role="alert">
+    <p
+      class="text-red-500 text-center font-font-semibold p-4 rounded border border-red-400"
+      role="alert"
+    >
       <%= Phoenix.Flash.get(@flash, :error) %>
     </p>
   <% end %>

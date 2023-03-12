@@ -2,14 +2,19 @@
   <div class="flex items-center shrink-0 mr-2 sm:mr-6">
     <.link
       navigate={Routes.live_path(@conn, AdoptopossWeb.LandingPageLive)}
-      class="font-semibold text-xl tracking-tight">
-      <img src={Routes.static_path(@conn, "/images/adoptoposs-logo.png")} alt="Adoptoposs" class="h-10"/>
+      class="font-semibold text-xl tracking-tight"
+    >
+      <img
+        src={Routes.static_path(@conn, "/images/adoptoposs-logo.png")}
+        alt="Adoptoposs"
+        class="h-10"
+      />
     </.link>
   </div>
 
   <%= if @current_user do %>
-    <%= render AdoptopossWeb.SharedView, "navigation_logged_in.html", assigns %>
+    <%= render(AdoptopossWeb.SharedView, "navigation_logged_in.html", assigns) %>
   <% else %>
-    <%= render AdoptopossWeb.SharedView, "navigation_logged_out.html", assigns %>
+    <%= render(AdoptopossWeb.SharedView, "navigation_logged_out.html", assigns) %>
   <% end %>
 </nav>

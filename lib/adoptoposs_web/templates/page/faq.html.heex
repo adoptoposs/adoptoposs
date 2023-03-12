@@ -17,13 +17,15 @@
       <ul class="list-disc list-inner pl-4">
         <li>Finding open source projects that need maintainers</li>
         <li>Putting up your open source project for adoption</li>
-        <li>Making the initial contact between open source maintainers and people who want to become co-maintainers</li>
+        <li>
+          Making the initial contact between open source maintainers and people who want to become co-maintainers
+        </li>
       </ul>
     <% end %>
 
     <%= faq "Why is it named \"Adoptoposs\"?" do %>
       The name comes from the platform’s purpose: <b>adopt</b>ing <b>o</b>pen <b>s</b>ource <b>s</b>oftware.
-      <br>
+      <br />
       Connecting these by some reasonable letters, it gives us "Adoptoposs" (and allows us to have a cute adoptoposs as mascot 😉)
     <% end %>
   </div>
@@ -37,23 +39,30 @@
       </p>
 
       <p>
-        Please consider looking for a co-maintainer if you are the <i>only maintainer</i> for your project right now.
-        <br>
+        Please consider looking for a co-maintainer if you are the <i>only maintainer</i>
+        for your project right now. <br />
         You can read about the benefits of having co-maintainers
-        <.link href="https://medium.com/p/74c1cd5df5d5?source=friends_link&sk=80b575161642c3ba17d6d4213de8578a">here</.link>.
+        <.link href="https://medium.com/p/74c1cd5df5d5?source=friends_link&sk=80b575161642c3ba17d6d4213de8578a">
+          here
+        </.link>.
       </p>
     <% end %>
 
     <%= faq "How can I submit my repo?"  do %>
       <ul class="list-disc list-inner pl-4">
         <li>
-          You can submit a repo on your <.link navigate={Routes.repo_path(@conn, :index)}>repo page</.link>.
+          You can submit a repo on your
+          <.link navigate={Routes.repo_path(@conn, :index)}>repo page</.link>.
         </li>
         <li>
           Select the GitHub organization of your repo at the top of the page.
         </li>
         <li>
-          Click the <span class="border border-red-400 px-2 mx-1 text-red-400 rounded rounded-full leading-none m-0">+</span> button of the repo you want to submit.
+          Click the
+          <span class="border border-red-400 px-2 mx-1 text-red-400 rounded rounded-full leading-none m-0">
+            +
+          </span>
+          button of the repo you want to submit.
         </li>
         <li>
           Enter a short text explaining who you are looking for and click submit.
@@ -62,15 +71,19 @@
     <% end %>
 
     <%= faq "Where can I see my submitted repos?" do %>
-      Your submitted repositories are listed on your <.link navigate={Routes.live_path(@conn, AdoptopossWeb.ProjectLive)}>projects page</.link> and visible for everyone on the
-      <.link navigate={Routes.live_path(@conn, AdoptopossWeb.ExploreLive)}>public explore page</.link>.
+      Your submitted repositories are listed on your
+      <.link navigate={Routes.live_path(@conn, AdoptopossWeb.ProjectLive)}>projects page</.link>
+      and visible for everyone on the
+      <.link navigate={Routes.live_path(@conn, AdoptopossWeb.ExploreLive)}>
+        public explore page
+      </.link>.
     <% end %>
 
     <%= faq "Can I submit repos from other services than GitHub?" do %>
-      Currently we only support submitting GitHub repositories.<br>
-      If you want to submit repos from another service, please
-      <%= link "open an issue", to: "https://github.com/adoptoposs/adoptoposs/issues/new" %>
-      and let us know.
+      Currently we only support submitting GitHub repositories.<br />
+      If you want to submit repos from another service, please <%= link("open an issue",
+        to: "https://github.com/adoptoposs/adoptoposs/issues/new"
+      ) %> and let us know.
     <% end %>
 
     <%= faq "How can I become a maintainer for a project on Adoptoposs?" do %>
@@ -79,15 +92,19 @@
         <.link navigate={Routes.live_path(@conn, AdoptopossWeb.ExploreLive)}>explore page</.link>
         or your personal
         <%= if @current_user do %>
-          <.link navigate={Routes.live_path(@conn, AdoptopossWeb.LandingPageLive)}>dashboard</.link>
+          <.link navigate={Routes.live_path(@conn, AdoptopossWeb.LandingPageLive)}>
+            dashboard
+          </.link>
         <% else %>
           landing page
-        <% end %>.
-        <br>
-
+        <% end %>. <br />
         When logged in, you can write a message to the maintainer by clicking the
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" class="inline-flex w-4 fill-current mx-1 mb-1">
-          <path d="M18 2a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4c0-1.1.9-2 2-2h16zm-4.37 9.1L20 16v-2l-5.12-3.9L20 6V4l-10 8L0 4v2l5.12 4.1L0 14v2l6.37-4.9L10 14l3.63-2.9z"/>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 20 20"
+          class="inline-flex w-4 fill-current mx-1 mb-1"
+        >
+          <path d="M18 2a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4c0-1.1.9-2 2-2h16zm-4.37 9.1L20 16v-2l-5.12-3.9L20 6V4l-10 8L0 4v2l5.12 4.1L0 14v2l6.37-4.9L10 14l3.63-2.9z" />
         </svg>
         button of a project.
       </p>
@@ -106,7 +123,9 @@
       <p>
         If you added favorite programming languages you will see project recommendations on your personal
         <%= if @current_user do %>
-          <.link navigate={Routes.live_path(@conn, AdoptopossWeb.LandingPageLive)}>dashboard</.link>
+          <.link navigate={Routes.live_path(@conn, AdoptopossWeb.LandingPageLive)}>
+            dashboard
+          </.link>
         <% else %>
           landing page
         <% end %>.
@@ -128,16 +147,20 @@
       </p>
 
       <p>
-        <b><i>Project owners</i></b> can see your email if you wrote them a message by using the contact form of a project.
-        <br>
-        <b><i>People who contacted you</i></b> for a submitted project can see your email, if you replied to them.
+        <b><i>Project owners</i></b>
+        can see your email if you wrote them a message by using the contact form of a project.
+        <br />
+        <b><i>People who contacted you</i></b>
+        for a submitted project can see your email, if you replied to them.
       </p>
     <% end %>
 
     <%= faq "How can I subscribe to / unsubscribe from email notifications?" do %>
       <p>
         You can edit your email notification settings on your
-        <.link navigate={Routes.live_path(@conn, AdoptopossWeb.SettingsLive)}>settings page</.link>.
+        <.link navigate={Routes.live_path(@conn, AdoptopossWeb.SettingsLive)}>
+          settings page
+        </.link>.
       </p>
     <% end %>
   </div>

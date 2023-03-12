@@ -6,17 +6,42 @@
   <div class="mt-4 p-4 md:p-6 rounded bg-white border border-gray-300">
     <div class="md:grid md:grid-flow-col md:grid-cols-2 md:gap-8">
       <div class="flex flex-col flex-wrap">
-
         <p class="">
-          <svg xmlns="http://www.w3.org/2000/svg" class="inline fill-current w-5 h5" viewBox="0 0 512 512">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="inline fill-current w-5 h5"
+            viewBox="0 0 512 512"
+          >
             <title>Additional Information</title>
-            <path d="M248 64C146.39 64 64 146.39 64 248s82.39 184 184 184 184-82.39 184-184S349.61 64 248 64z" fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="32"/>
-            <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M220 220h32v116"/>
-            <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="32" d="M208 340h88"/>
-            <path d="M248 130a26 26 0 1026 26 26 26 0 00-26-26z"/>
+            <path
+              d="M248 64C146.39 64 64 146.39 64 248s82.39 184 184 184 184-82.39 184-184S349.61 64 248 64z"
+              fill="none"
+              stroke="currentColor"
+              stroke-miterlimit="10"
+              stroke-width="32"
+            />
+            <path
+              fill="none"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="32"
+              d="M220 220h32v116"
+            />
+            <path
+              fill="none"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-miterlimit="10"
+              stroke-width="32"
+              d="M208 340h88"
+            />
+            <path d="M248 130a26 26 0 1026 26 26 26 0 00-26-26z" />
           </svg>
           Programming languages you add here will appear as quick filters on the
-          <.link navigate={Routes.live_path(AdoptopossWeb.Endpoint, AdoptopossWeb.ExploreLive)}>explore projects page</.link>.
+          <.link navigate={Routes.live_path(AdoptopossWeb.Endpoint, AdoptopossWeb.ExploreLive)}>
+            explore projects page
+          </.link>.
           You can also receive email notifications for new projects in these languages.
         </p>
 
@@ -24,16 +49,32 @@
           <div id="tag-subscriptions" class="flex flex-row flex-wrap mt-2">
             <%= for tag_subscription <- @tag_subscriptions do %>
               <% tag = tag_subscription.tag %>
-              <div id={"tag-#{tag.id}"} class="flex flex-row items-center bg-white text-pink-900 border border-gray-400 font-semibold mr-2 mb-2 rounded hover:bg-red-500 hover:text-white hover:border-white">
-                <div class="w-3 h-3 rounded rounded-full ml-3" style={"background-color: #{tag.color};"}></div>
+              <div
+                id={"tag-#{tag.id}"}
+                class="flex flex-row items-center bg-white text-pink-900 border border-gray-400 font-semibold mr-2 mb-2 rounded hover:bg-red-500 hover:text-white hover:border-white"
+              >
+                <div
+                  class="w-3 h-3 rounded rounded-full ml-3"
+                  style={"background-color: #{tag.color};"}
+                >
+                </div>
                 <div class="pl-2" title={tag.name}>
                   <span class=""><%= tag.name %></span>
 
-                  <form phx-submit="remove_tag"
+                  <form
+                    phx-submit="remove_tag"
                     title={"Remove #{tag.name}"}
-                    class="inline-block cursor-pointer">
-                    <input type="hidden" name="tag_subscription_id" value={ tag_subscription.id} phx-value_tag_subscription_id={ tag_subscription.id}>
-                    <%= submit class: "plain p-1 pr-3" do %>&times;<% end %>
+                    class="inline-block cursor-pointer"
+                  >
+                    <input
+                      type="hidden"
+                      name="tag_subscription_id"
+                      value={tag_subscription.id}
+                      phx-value_tag_subscription_id={tag_subscription.id}
+                    />
+                    <%= submit class: "plain p-1 pr-3" do %>
+                      &times;
+                    <% end %>
                   </form>
                 </div>
               </div>
@@ -53,17 +94,19 @@
 
                 <div class="flex flex-row flex-wrap mb-2">
                   <%= for tag <- @suggested_tags do %>
-                    <%= render AdoptopossWeb.SharedView, "language_tag.html",
+                    <%= render(AdoptopossWeb.SharedView, "language_tag.html",
                       name: tag.name,
                       color: tag.color,
-                      class: "px-1 py-1 mr-2 text-base" %>
+                      class: "px-1 py-1 mr-2 text-base"
+                    ) %>
                   <% end %>
                 </div>
 
-                <%= submit "Add these languages",
+                <%= submit("Add these languages",
                   class: "button-link",
                   phx_click: "add_suggested_tags",
-                  phx_disable_with: "…" %>
+                  phx_disable_with: "…"
+                ) %>
               </div>
             <% end %>
           </div>
@@ -75,7 +118,8 @@
 
         <div class="flex items-center mt-4">
           <form class="inline-flex w-full" phx-submit="search_tags" phx-change="search_tags">
-            <input type="text"
+            <input
+              type="text"
               class="search flex-grow h-12 px-6"
               id="search"
               name="q"
@@ -83,7 +127,8 @@
               autocomplete="off"
               autofocus
               placeholder="Search for programming languages..."
-              phx-debounce="200" />
+              phx-debounce="200"
+            />
           </form>
 
           <%= unless @query in [nil, ""] do %>
@@ -101,27 +146,47 @@
           <% else %>
             <%= for result <- @tag_results do %>
               <%= if result in Enum.map(@tag_subscriptions, &(&1.tag)) do %>
-                <div id={"tag-result-#{result.id}"} class="flex flex-row flex-wrap items-center bg-gray-200 text-gray-500 border border-gray-400 font-semibold mr-2 mb-2 rounded cursor-default py-1"  title={result.name}>
+                <div
+                  id={"tag-result-#{result.id}"}
+                  class="flex flex-row flex-wrap items-center bg-gray-200 text-gray-500 border border-gray-400 font-semibold mr-2 mb-2 rounded cursor-default py-1"
+                  title={result.name}
+                >
                   <div class="w-3 h-3 rounded rounded-full ml-3 bg-gray-500"></div>
 
                   <div class="ml-2"><%= result.name %></div>
 
                   <div class="inline-block pl-2 pr-3">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" class="h-3 w-3 fill-current">
-                      <path d="M0 11l2-2 5 5L18 3l2 2L7 18z"/>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 20 20"
+                      class="h-3 w-3 fill-current"
+                    >
+                      <path d="M0 11l2-2 5 5L18 3l2 2L7 18z" />
                     </svg>
                   </div>
                 </div>
               <% else %>
-                <div class="flex flex-row items-center bg-white text-pink-900 border border-gray-400 font-semibold mr-2 mb-2 rounded hover:bg-red-500 hover:text-white hover:border-white cursor-pointer"
-                  title={"Add #{result.name}"}>
-                  <form phx-submit="add_tag"
+                <div
+                  class="flex flex-row items-center bg-white text-pink-900 border border-gray-400 font-semibold mr-2 mb-2 rounded hover:bg-red-500 hover:text-white hover:border-white cursor-pointer"
+                  title={"Add #{result.name}"}
+                >
+                  <form
+                    phx-submit="add_tag"
                     title={"Add #{result.name}"}
-                    class="flex flex-row flex-wrap items-center cursor-pointer">
-                    <input type="hidden" name="tag_id" value={result.id} phx-value_tag_id={result.id}>
+                    class="flex flex-row flex-wrap items-center cursor-pointer"
+                  >
+                    <input
+                      type="hidden"
+                      name="tag_id"
+                      value={result.id}
+                      phx-value_tag_id={result.id}
+                    />
 
                     <%= submit class: "plain flex flex-row items-center font-semibold text-md py-1 pl-0 pr-2 focus:bg-red-500 focus:text-white" do %>
-                      <div class="w-3 h-3 rounded rounded-full ml-3" style={"background-color: #{result.color};"}>
+                      <div
+                        class="w-3 h-3 rounded rounded-full ml-3"
+                        style={"background-color: #{result.color};"}
+                      >
                       </div>
 
                       <div class="ml-2"><%= result.name %></div>
@@ -140,16 +205,19 @@
   <div class="mt-6">
     <h2>Notifications</h2>
 
-    <%= render AdoptopossWeb.SettingsView, "settings_radio_panel.html",
+    <%= render(AdoptopossWeb.SettingsView, "settings_radio_panel.html",
       settings: @settings,
       key: :email_project_recommendations,
       title: "Project Recommendations",
-      description: "Send me a regular email with interesting projects in my favorite languages:" %>
+      description: "Send me a regular email with interesting projects in my favorite languages:"
+    ) %>
 
-    <%= render AdoptopossWeb.SettingsView, "settings_radio_panel.html",
+    <%= render(AdoptopossWeb.SettingsView, "settings_radio_panel.html",
       settings: @settings,
       key: :email_when_contacted,
       title: "Interests in My Project",
-      description: "Send me an email if a person is interested in one of my submitted projects and contacted me:" %>
+      description:
+        "Send me an email if a person is interested in one of my submitted projects and contacted me:"
+    ) %>
   </div>
 </section>

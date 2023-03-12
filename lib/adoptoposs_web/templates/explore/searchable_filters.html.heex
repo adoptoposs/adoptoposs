@@ -7,13 +7,16 @@
           class="plain p-0"
           phx-click={@remove_event}
           phx-value-tag_id={tag.id}
-          phx-target={"##{@phx_target}"}>
-          <%= render AdoptopossWeb.SharedView, "language_tag.html",
+          phx-target={"##{@phx_target}"}
+        >
+          <%= render(AdoptopossWeb.SharedView, "language_tag.html",
             name: tag.name,
             color: tag.color,
             removeable: true,
             title: AdoptopossWeb.SharedView.count("project", count: project_count),
-            class: "p-3 py-1 border rounded cursor-pointer text-white bg-red-500 border-white hover:text-white hover:bg-red-500 hover:border-white" %>
+            class:
+              "p-3 py-1 border rounded cursor-pointer text-white bg-red-500 border-white hover:text-white hover:bg-red-500 hover:border-white"
+          ) %>
         </button>
       </div>
     <% end %>
@@ -25,19 +28,26 @@
       class="inline-flex w-full"
       phx-submit={@search_event}
       phx-change={@search_event}
-      phx-target={"##{@phx_target}"}>
-      <input type="text"
+      phx-target={"##{@phx_target}"}
+    >
+      <input
+        type="text"
         class="search flex-grow border h-12 pl-6 pr-10"
         id={"#{@id}-tag_search"}
         name="q"
         value={@query}
         autocomplete="off"
         placeholder="Search for languages"
-        phx-debounce="200" />
+        phx-debounce="200"
+      />
     </form>
 
     <%= unless @query in [nil, ""] do %>
-      <button class="button-link inline indented-sm w-5 h-5" phx-click="clear_search" phx-target={"##{@phx_target}"}>
+      <button
+        class="button-link inline indented-sm w-5 h-5"
+        phx-click="clear_search"
+        phx-target={"##{@phx_target}"}
+      >
         <span class="text-xl">&times;</span>
       </button>
     <% end %>
@@ -57,19 +67,23 @@
               class="plain p-0"
               phx-click={@add_event}
               phx-value-tag_id={tag.id}
-              phx-target={"##{@phx_target}"}>
-              <%= render AdoptopossWeb.SharedView, "language_tag.html",
+              phx-target={"##{@phx_target}"}
+            >
+              <%= render(AdoptopossWeb.SharedView, "language_tag.html",
                 name: tag.name,
                 color: tag.color,
                 title: AdoptopossWeb.SharedView.count("project", count: project_count),
-                class: "p-3 py-1 border rounded cursor-pointer border-gray-400 hover:bg-gray-300" %>
+                class: "p-3 py-1 border rounded cursor-pointer border-gray-400 hover:bg-gray-300"
+              ) %>
             </button>
           <% else %>
-            <%= render AdoptopossWeb.SharedView, "language_tag.html",
+            <%= render(AdoptopossWeb.SharedView, "language_tag.html",
               name: tag.name,
               title: AdoptopossWeb.SharedView.count("project", count: project_count),
-              color: Adoptoposs.Tags.Tag.Utility.unknown.color,
-              class: "p-3 py-1 border rounded cursor-default bg-gray-200 text-gray-500 border-gray-400" %>
+              color: Adoptoposs.Tags.Tag.Utility.unknown().color,
+              class:
+                "p-3 py-1 border rounded cursor-default bg-gray-200 text-gray-500 border-gray-400"
+            ) %>
           <% end %>
         </div>
       <% end %>

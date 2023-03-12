@@ -5,9 +5,20 @@
 
   <div class="flex md:hidden flex-col pb-4 bg-gray-100 sticky top-0">
     <div class="flex items-center w-full font-semibold cursor-default pl-1 pt-3 pb-2 rounded bg-gray-100 text-red-600">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="inline fill-current h-5">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 512 512"
+        class="inline fill-current h-5"
+      >
         <title>Chevron Down</title>
-        <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="48" d="M112 184l144 144 144-144"/>
+        <path
+          fill="none"
+          stroke="currentColor"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="48"
+          d="M112 184l144 144 144-144"
+        />
       </svg>
       <div class="w-full ml-2">
         Interests in your Projects
@@ -16,7 +27,8 @@
 
     <.link
       navigate={Routes.live_path(AdoptopossWeb.Endpoint, AdoptopossWeb.MessagesLive.Contacted)}
-      class="flex items-center w-full font-semibold cursor-default pl-8 pt-1 pb-2 rounded cursor-pointer focus:bg-gray-300 text-gray-700 hover:text-gray-800 focus:text-gray-800">
+      class="flex items-center w-full font-semibold cursor-default pl-8 pt-1 pb-2 rounded cursor-pointer focus:bg-gray-300 text-gray-700 hover:text-gray-800 focus:text-gray-800"
+    >
       Contacted Maintainers
     </.link>
   </div>
@@ -30,16 +42,21 @@
           </p>
           <p>
             Hint: Share your
-            <.link navigate={Routes.live_path(@socket, AdoptopossWeb.ProjectLive)}>submitted projects</.link> to let more people know you’re looking for help.
+            <.link navigate={Routes.live_path(@socket, AdoptopossWeb.ProjectLive)}>
+              submitted projects
+            </.link>
+            to let more people know you’re looking for help.
           </p>
         </div>
       <% else %>
         <ul class="grid grid-flow-row gap-4">
           <%= for {project, interests} <- @interests do %>
-            <li id={"p-#{project.uuid}"} class="card-item flex flex-col bg-white rounded shadow hover:shadow-md border border-gray-400">
+            <li
+              id={"p-#{project.uuid}"}
+              class="card-item flex flex-col bg-white rounded shadow hover:shadow-md border border-gray-400"
+            >
               <div class="p-4 md:p-6">
-                <%= render AdoptopossWeb.SharedView, "project_repo.html",
-                    project: project %>
+                <%= render(AdoptopossWeb.SharedView, "project_repo.html", project: project) %>
               </div>
 
               <div class="bg-gray-200 p-4 md:p-6 rounded-b">
@@ -49,8 +66,9 @@
                       <%= link to: interest.creator.profile_url,
                         class: "h-8 w-8 md:h-12 md:w-12",
                         title: "@#{interest.creator.username}" do %>
-                        <%= img_tag interest.creator.avatar_url,
-                          class: "rounded rounded-full w-full h-full" %>
+                        <%= img_tag(interest.creator.avatar_url,
+                          class: "rounded rounded-full w-full h-full"
+                        ) %>
                       <% end %>
 
                       <div class="flex flex-row w-full justify-between items-start">
@@ -72,7 +90,9 @@
                     </div>
 
                     <div class="flex flex-col md:flex-row md:pl-16 pl-0 pt-4 w-full text-pink-900">
-                      <div class="whitespace-pre-wrap flex-1"><%= String.trim(interest.message) %></div>
+                      <div class="whitespace-pre-wrap flex-1">
+                        <%= String.trim(interest.message) %>
+                      </div>
 
                       <div class="flex flex-row justify-between md:justify-end items-center md:items-end">
                         <div class="text-gray-600 text-sm md:hidden">
@@ -85,15 +105,15 @@
                           class: "icon-button md:ml-2",
                           title: "Reply via email" do %>
                           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-                            <path d="M464 440l-28.12-32.11c-22.48-25.65-43.33-45.45-72.08-58.7-26.61-12.26-60-18.65-104.27-19.84V432L48 252 259.53 72v103.21c72.88 3 127.18 27.08 161.56 71.75C449.56 284 464 335.19 464 399.26z"/>
+                            <path d="M464 440l-28.12-32.11c-22.48-25.65-43.33-45.45-72.08-58.7-26.61-12.26-60-18.65-104.27-19.84V432L48 252 259.53 72v103.21c72.88 3 127.18 27.08 161.56 71.75C449.56 284 464 335.19 464 399.26z" />
                           </svg>
                         <% end %>
                       </div>
                     </div>
 
                     <%= if interest != List.last(interests) do %>
-                        <span class="my-4 md:my-6 md:ml-16 border-b border-gray-400"></span>
-                      <% end %>
+                      <span class="my-4 md:my-6 md:ml-16 border-b border-gray-400"></span>
+                    <% end %>
                   </div>
                 <% end %>
               </div>
@@ -105,9 +125,20 @@
 
     <div class="hidden md:flex md:flex-col w-1/4 ml-8 border rounded border-gray-400">
       <div class="flex items-center w-full font-semibold cursor-default px-4 p-3 rounded bg-white text-red-600">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="inline fill-current h-5">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 512 512"
+          class="inline fill-current h-5"
+        >
           <title>Chevron Back</title>
-          <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="48" d="M328 112L184 256l144 144"/>
+          <path
+            fill="none"
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="48"
+            d="M328 112L184 256l144 144"
+          />
         </svg>
         <div class="w-full ml-2">
           Interests in your Projects
@@ -116,7 +147,8 @@
 
       <.link
         navigate={Routes.live_path(AdoptopossWeb.Endpoint, AdoptopossWeb.MessagesLive.Contacted)}
-        class="flex items-center w-full pl-10 font-semibold cursor-default p-3 rounded cursor-pointer bg-white hover:bg-gray-200 focus:bg-gray-300 text-gray-700 hover:text-gray-800 focus:text-gray-800">
+        class="flex items-center w-full pl-10 font-semibold cursor-default p-3 rounded cursor-pointer bg-white hover:bg-gray-200 focus:bg-gray-300 text-gray-700 hover:text-gray-800 focus:text-gray-800"
+      >
         Contacted Maintainers
       </.link>
     </div>

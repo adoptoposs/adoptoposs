@@ -1,26 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="utf-8"/>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <%= render AdoptopossWeb.SharedView, "meta_tags.html", assigns %>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <%= render(AdoptopossWeb.SharedView, "meta_tags.html", assigns) %>
 
-    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
-    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    <link rel="icon" href="/favicon.ico" type="image/x-icon" />
 
-    <link rel="stylesheet" href={Routes.static_path(@conn, "/assets/app.css")}/>
-    <%= render AdoptopossWeb.SharedView, "google_analytics.html" %>
+    <link rel="stylesheet" href={Routes.static_path(@conn, "/assets/app.css")} />
+    <%= render(AdoptopossWeb.SharedView, "google_analytics.html") %>
 
     <%= csrf_meta_tag() %>
-    <script defer type="text/javascript" src={Routes.static_path(@conn, "/assets/app.js")}></script>
+    <script defer type="text/javascript" src={Routes.static_path(@conn, "/assets/app.js")}>
+    </script>
   </head>
 
   <body>
     <a name="top"></a>
 
     <header>
-      <%= render AdoptopossWeb.SharedView, "navigation.html", assigns %>
+      <%= render(AdoptopossWeb.SharedView, "navigation.html", assigns) %>
     </header>
 
     <main role="main" class="pb-8">
@@ -28,9 +29,9 @@
     </main>
 
     <footer class="bg-gray-900 text-red-400 py-6 md:py-10">
-      <%= render AdoptopossWeb.SharedView, "footer.html", assigns %>
+      <%= render(AdoptopossWeb.SharedView, "footer.html", assigns) %>
     </footer>
 
-      <%= render AdoptopossWeb.SharedView, "cookies-banner.html", assigns %>
+    <%= render(AdoptopossWeb.SharedView, "cookies-banner.html", assigns) %>
   </body>
 </html>

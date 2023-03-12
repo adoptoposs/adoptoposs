@@ -8,19 +8,24 @@
             class="plain p-0"
             phx-click={if to_string(tag.id) in @filters, do: @remove_event, else: @add_event}
             phx-value-tag_id={tag.id}
-            phx-target={"##{@phx_target}"}>
-            <%= render AdoptopossWeb.SharedView, "language_tag.html",
+            phx-target={"##{@phx_target}"}
+          >
+            <%= render(AdoptopossWeb.SharedView, "language_tag.html",
               name: tag.name,
               color: tag.color,
               title: AdoptopossWeb.SharedView.count("project", count: project_count),
-              class: "p-3 py-1 border rounded cursor-pointer #{if to_string(tag.id) in @filters, do: "text-white bg-red-500 border-white hover:text-white hover:bg-red-500 hover:border-white", else: "border-gray-400 hover:bg-gray-300"}" %>
+              class:
+                "p-3 py-1 border rounded cursor-pointer #{if to_string(tag.id) in @filters, do: "text-white bg-red-500 border-white hover:text-white hover:bg-red-500 hover:border-white", else: "border-gray-400 hover:bg-gray-300"}"
+            ) %>
           </button>
         <% else %>
-          <%= render AdoptopossWeb.SharedView, "language_tag.html",
+          <%= render(AdoptopossWeb.SharedView, "language_tag.html",
             name: tag.name,
-            color: Adoptoposs.Tags.Tag.Utility.unknown.color,
+            color: Adoptoposs.Tags.Tag.Utility.unknown().color,
             title: AdoptopossWeb.SharedView.count("project", count: project_count),
-            class: "p-3 py-1 border rounded cursor-default bg-gray-200 text-gray-500 border-gray-400" %>
+            class:
+              "p-3 py-1 border rounded cursor-default bg-gray-200 text-gray-500 border-gray-400"
+          ) %>
         <% end %>
       </div>
     <% end %>
@@ -33,28 +38,35 @@
 
         <div class="flex flex-row flex-wrap mb-2">
           <%= for tag <- @suggested_tags do %>
-            <%= render AdoptopossWeb.SharedView, "language_tag.html",
+            <%= render(AdoptopossWeb.SharedView, "language_tag.html",
               name: tag.name,
               color: tag.color,
-              class: "px-1 py-1 mr-2 text-base" %>
+              class: "px-1 py-1 mr-2 text-base"
+            ) %>
           <% end %>
         </div>
 
         <p class="mb-0">
-          <.link navigate={Routes.live_path(AdoptopossWeb.Endpoint, AdoptopossWeb.SettingsLive)}>Add your favorite languages</.link> in your settings.
+          <.link navigate={Routes.live_path(AdoptopossWeb.Endpoint, AdoptopossWeb.SettingsLive)}>
+            Add your favorite languages
+          </.link>
+          in your settings.
           They will appear here as quick filters.
         </p>
       <% else %>
         <p class="mb-0">
           ℹ You can follow your favorite languages in
-          <.link navigate={Routes.live_path(AdoptopossWeb.Endpoint, AdoptopossWeb.SettingsLive)}>your settings</.link>.
+          <.link navigate={Routes.live_path(AdoptopossWeb.Endpoint, AdoptopossWeb.SettingsLive)}>
+            your settings
+          </.link>.
           They will appear here as quick filters.
         </p>
       <% end %>
     <% else %>
       <.link
         navigate={Routes.auth_path(AdoptopossWeb.Endpoint, :request, "github")}
-        class="button-link text-center mb-2">
+        class="button-link text-center mb-2"
+      >
         Log in with GitHub
       </.link>
 
