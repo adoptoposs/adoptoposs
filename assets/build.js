@@ -1,11 +1,12 @@
 const esbuild = require('esbuild');
+const { watch } = require('chokidar');
 const { sassPlugin } = require('esbuild-sass-plugin');
 const postcss = require('postcss');
 const autoprefixer = require('autoprefixer');
 const tailwindcss = require('tailwindcss');
 
 const args = process.argv.slice(2);
-const watch = args.includes('--watch');
+const watchChanges = args.includes('--watch');
 const deploy = args.includes('--deploy');
 
 const loader = {
@@ -41,14 +42,6 @@ let opts = {
   plugins
 };
 
-if (watch) {
-  opts = {
-    ...opts,
-    watch,
-    sourcemap: 'inline'
-  };
-}
-
 if (deploy) {
   opts = {
     ...opts,
@@ -56,14 +49,14 @@ if (deploy) {
   };
 }
 
-const promise = esbuild.build(opts);
+let promise = esbuild.build(opts);
 
-if (watch) {
-  promise.then(_result => {
-    process.stdin.on('close', () => {
-      process.exit(0);
+if (watchChanges) {
+  const watcher = watch(['../lib/**/*.*ex*', 'js/**/*.js*', 'css/**/*.*css*']);
+
+  watcher.on('change', () => {
+    promise.then(() => {
+      promise = esbuild.build({ ...opts, sourcemap: 'inline' });
     });
-
-    process.stdin.resume();
   });
 }
