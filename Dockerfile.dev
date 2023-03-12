@@ -1,6 +1,6 @@
-ARG ELIXIR_VERSION=1.13.4
-ARG OTP_VERSION=25.0.3
-ARG DEBIAN_VERSION=bullseye-20210902-slim
+ARG ELIXIR_VERSION=1.14.3
+ARG OTP_VERSION=25.3
+ARG DEBIAN_VERSION=bullseye-20230227-slim
 
 ARG BUILDER_IMAGE="hexpm/elixir:${ELIXIR_VERSION}-erlang-${OTP_VERSION}-debian-${DEBIAN_VERSION}"
 FROM ${BUILDER_IMAGE} as dev-build
@@ -9,10 +9,14 @@ FROM ${BUILDER_IMAGE} as dev-build
 RUN apt-get update -y && apt-get install -y build-essential curl git inotify-tools \
   && apt-get clean && rm -f /var/lib/apt/lists/*_*
 
+# install nodejs
+ARG NODE_VERSION=18
+RUN curl -sL https://deb.nodesource.com/setup_${NODE_VERSION}.x -o /tmp/nodesource_setup.sh \
+  && bash ./tmp/nodesource_setup.sh \
+  && apt-get install nodejs -y
+
 # install yarn
-RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - \
-  && echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list \
-  && apt-get update -y && apt-get install yarn -y
+RUN npm install -g yarn
 
 # set host user if configured in .env, also see conpose.yaml
 ARG DOCKER_USER

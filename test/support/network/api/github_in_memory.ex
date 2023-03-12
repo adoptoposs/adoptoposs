@@ -6,9 +6,6 @@ defmodule Adoptoposs.Network.Api.GithubInMemory do
   @behaviour Api
 
   @impl Api
-  def provider, do: Api.Github.provider()
-
-  @impl Api
   def organizations(_token, limit, _after_cursor) do
     {:ok, {build(:page_info), build_list(limit, :organization)}}
   end

@@ -13,6 +13,7 @@
     "esbuild": "^0.17.11",
     "esbuild-sass-plugin": "^2.4.5",
     "autoprefixer": "^10.4.13",
+    "chokidar": "^3.5.3",
     "postcss": "^8.4.21",
     "tailwindcss": "^3.2.7",
     "topbar": "^2.0.1"

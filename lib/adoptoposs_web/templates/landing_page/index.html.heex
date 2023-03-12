@@ -4,21 +4,20 @@
       Adoptoposs
     </h1>
     <p class="text-white text-center text-2xl md:text-4xl leading-tight">
-      Find new (co-)maintainers for your
-      <br>
-      open source software project.
+      Find new (co-)maintainers for your <br /> open source software project.
     </p>
 
     <div class="flex flex-row items-center px-4 mt-16 md:px-0 md:mt-20">
-      <hr class="flex-grow border-gray-100">
+      <hr class="flex-grow border-gray-100" />
       <div class="self-center">
         <.link
           navigate={Routes.live_path(@socket, AdoptopossWeb.ExploreLive)}
-          class="button-link light mx-3">
+          class="button-link light mx-3"
+        >
           Explore Projects
         </.link>
       </div>
-      <hr class="flex-grow border-gray-100">
+      <hr class="flex-grow border-gray-100" />
     </div>
   </section>
 </div>
@@ -26,8 +25,13 @@
 <div class="bg-gray-900 px-4 md:px-0 pb-8 pt-6">
   <section>
     <p class="text-lg md:text-xl md:w-1/2 m-auto self-center text-center text-red-400">
-      <.link href="https://medium.com/p/74c1cd5df5d5?source=friends_link&sk=80b575161642c3ba17d6d4213de8578a"
-        class="text-red-400 underline hover:text-red-300">Read more</.link> about the benefits of working in a team of co-maintainers on your OSS project!
+      <.link
+        href="https://medium.com/p/74c1cd5df5d5?source=friends_link&sk=80b575161642c3ba17d6d4213de8578a"
+        class="text-red-400 underline hover:text-red-300"
+      >
+        Read more
+      </.link>
+      about the benefits of working in a team of co-maintainers on your OSS project!
     </p>
   </section>
 </div>
@@ -39,12 +43,16 @@
     </h1>
 
     <p class="text-center text-xl md:text-2xl mb-20">
-      On Adoptoposs we connect people to keep open source software projects maintained<br> – by multiple maintainers.
+      On Adoptoposs we connect people to keep open source software projects maintained<br />
+      – by multiple maintainers.
     </p>
 
     <div class="mt-4 grid grid-flow-row md:grid-cols-3 gap-6 md:gap-8">
       <div class="flex flex-col items-center">
-        <img src={Routes.static_path(@socket, "/images/adoptoposs-submit.png")} class="mb-4 md:mb-6 h-48 md:h-auto">
+        <img
+          src={Routes.static_path(@socket, "/images/adoptoposs-submit.png")}
+          class="mb-4 md:mb-6 h-48 md:h-auto"
+        />
         <h2 class="text-center mb-2">Submit Your Repo</h2>
         <p class="text-lg text-hyphen md:text-xl max-w-sm mx-auto">
           You are looking for a co-maintainer?
@@ -55,7 +63,10 @@
       </div>
 
       <div class="flex flex-col items-center">
-        <img src={Routes.static_path(@socket, "/images/adoptoposs-contact.png")} class="mb-4 md:mb-6 h-48 md:h-auto">
+        <img
+          src={Routes.static_path(@socket, "/images/adoptoposs-contact.png")}
+          class="mb-4 md:mb-6 h-48 md:h-auto"
+        />
         <h2 class="text-center text-gray-800 mb-2">Contact Maintainers</h2>
         <p class="text-lg text-hyphen md:text-xl max-w-sm mx-auto">
           You want to help with <acronym title="Open Source Software">OSS</acronym> maintenance?
@@ -65,7 +76,10 @@
       </div>
 
       <div class="flex flex-col items-center">
-        <img src={Routes.static_path(@socket, "/images/adoptoposs-message.png")} class="mb-4 md:mb-6 h-48 md:h-auto">
+        <img
+          src={Routes.static_path(@socket, "/images/adoptoposs-message.png")}
+          class="mb-4 md:mb-6 h-48 md:h-auto"
+        />
         <h2 class="text-center text-red-500 mb-2">Explore Projects</h2>
         <p class="text-lg text-hyphen md:text-xl max-w-sm mx-auto">
           Not sure where to help?
@@ -76,15 +90,16 @@
     </div>
 
     <div class="flex flex-row items-center px-4 mb-4 mt-12 md:px-0 md:mb-0 md:mt-20">
-      <hr class="flex-grow border-gray-600">
+      <hr class="flex-grow border-gray-600" />
       <div class="self-center">
         <.link
           navigate={Routes.live_path(@socket, AdoptopossWeb.ExploreLive)}
-          class="button-link dark mx-3 gray-600">
+          class="button-link dark mx-3 gray-600"
+        >
           Explore Projects
         </.link>
       </div>
-      <hr class="flex-grow border-gray-600">
+      <hr class="flex-grow border-gray-600" />
     </div>
   </section>
 </div>
@@ -107,14 +122,16 @@
           module={AdoptopossWeb.ProjectComponent}
           id={"project-#{project.id}"}
           project={project}
-          user_id={nil} />
+          user_id={nil}
+        />
       <% end %>
     </div>
 
     <div class="mt-12 text-center self-center">
       <.link
         navigate={Routes.live_path(@socket, AdoptopossWeb.ExploreLive)}
-        class="button-link medium mx-3">
+        class="button-link medium mx-3"
+      >
         Explore More…
       </.link>
     </div>
@@ -167,15 +184,13 @@
     </p>
 
     <div class="flex flex-row items-center mt-12">
-      <hr class="flex-grow border-red-300">
+      <hr class="flex-grow border-red-300" />
       <div class="self-center">
-        <.link
-          navigate={Routes.auth_path(@socket, :request, "github")}
-          class="button-link mx-3">
+        <.link navigate={Routes.auth_path(@socket, :request, "github")} class="button-link mx-3">
           Log in with GitHub
         </.link>
       </div>
-      <hr class="flex-grow border-red-300">
+      <hr class="flex-grow border-red-300" />
     </div>
   </section>
 </div>

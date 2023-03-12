@@ -6,7 +6,7 @@
     <%= inputs_for f, :settings, fn fs -> %>
       <%= for value <- apply(Adoptoposs.Accounts.Settings, :"#{@key}_values", []) do %>
         <div class={"flex items-center rounded pl-4 mb-1 #{if active?(@settings, @key, value), do: "bg-gray-200"}"}>
-          <%= radio_button fs, @key, value, id: "#{@key}-#{value}" %>
+          <%= radio_button(fs, @key, value, id: "#{@key}-#{value}") %>
           <label for={"#{@key}-#{value}"} class="text-md p-4 w-full">
             <%= Gettext.gettext(AdoptopossWeb.Gettext, value) %>
           </label>

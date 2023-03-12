@@ -9,17 +9,31 @@
     </mj-text>
 
     <%= for {language_name, projects} <- Enum.group_by(@projects, & &1.language.name) do %>
-      <mj-text font-size="28px" font-family="Oswald" color="#702459" font-weight="600" padding-top="32px" padding-bottom="24px">
+      <mj-text
+        font-size="28px"
+        font-family="Oswald"
+        color="#702459"
+        font-weight="600"
+        padding-top="32px"
+        padding-bottom="24px"
+      >
         <%= language_name %>
       </mj-text>
 
       <%= for project <- projects do %>
-        <mj-table table-layout="auto" padding="0px" css-class="border" cellpadding="0" cellspacing="0">
+        <mj-table
+          table-layout="auto"
+          padding="0px"
+          css-class="border"
+          cellpadding="0"
+          cellspacing="0"
+        >
           <tr style="text-align:top;">
             <td style="padding: 18px 18px 6px 18px">
-              <%= link AdoptopossWeb.SharedView.project_name(project),
-                  to: Routes.sharing_url(AdoptopossWeb.Endpoint, :index, project.uuid),
-                  class: "headline" %>
+              <%= link(AdoptopossWeb.SharedView.project_name(project),
+                to: Routes.sharing_url(AdoptopossWeb.Endpoint, :index, project.uuid),
+                class: "headline"
+              ) %>
             </td>
           </tr>
           <tr>
@@ -33,7 +47,7 @@
           <tr style="text-align:top;">
             <td style="padding: 18px 18px 6px 18px;font-weight:600;background-color:#edf2f7;">
               <div class="text medium-dark">
-                <%= link "@#{project.user.username}", to: project.user.profile_url %> is looking for:
+                <%= link("@#{project.user.username}", to: project.user.profile_url) %> is looking for:
               </div>
             </td>
           </tr>
@@ -50,8 +64,12 @@
       <% end %>
 
       <mj-text css-class="text" align="center">
-        <%= link "More #{language_name} projects…",
-          to: Routes.live_url(AdoptopossWeb.Endpoint, AdoptopossWeb.LandingPageLive, f: String.downcase(language_name)) %>
+        <%= link("More #{language_name} projects…",
+          to:
+            Routes.live_url(AdoptopossWeb.Endpoint, AdoptopossWeb.LandingPageLive,
+              f: String.downcase(language_name)
+            )
+        ) %>
       </mj-text>
     <% end %>
   </mj-column>

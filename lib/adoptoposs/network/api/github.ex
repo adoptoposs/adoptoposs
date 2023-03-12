@@ -4,11 +4,7 @@ defmodule Adoptoposs.Network.Api.Github do
 
   @behaviour Api
 
-  @provider "github"
   @api_uri "https://api.github.com/graphql"
-
-  @impl Api
-  def provider, do: @provider
 
   @impl Api
   def organizations(token, limit, after_cursor) do

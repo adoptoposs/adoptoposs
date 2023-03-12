@@ -13,34 +13,43 @@
 
       <div class="flex flex-row flex-wrap justify-center items-center mb-4">
         <%= for tag <- @suggested_tags do %>
-            <%= render AdoptopossWeb.SharedView, "language_tag.html",
-              name: tag.name,
-              color: tag.color,
-              class: "px-1 py-1 mr-2 mb-2 text-base" %>
+          <%= render(AdoptopossWeb.SharedView, "language_tag.html",
+            name: tag.name,
+            color: tag.color,
+            class: "px-1 py-1 mr-2 mb-2 text-base"
+          ) %>
         <% end %>
       </div>
     <% end %>
 
-    <%= submit "Add these languages",
+    <%= submit("Add these languages",
       class: "button-link mb-4",
       phx_click: "follow_suggested_tags",
-      phx_disable_with: "…" %>
+      phx_disable_with: "…"
+    ) %>
 
     <p>
-      <.link navigate={Routes.live_path(AdoptopossWeb.Endpoint, AdoptopossWeb.SettingsLive)}>Add your favorite languages</.link> in your settings.<br>
-      Related projects will appear here.
+      <.link navigate={Routes.live_path(AdoptopossWeb.Endpoint, AdoptopossWeb.SettingsLive)}>
+        Add your favorite languages
+      </.link>
+      in your settings.<br /> Related projects will appear here.
     </p>
   </div>
 <% else %>
   <div class="flex flex-row mt-4 md:mt-8 items-start">
     <div class="flex flex-row flex-wrap flex-grow items-center">
       <%= for tag_subscription <- @tag_subscriptions do %>
-        <div phx-click="filter_recommendations" phx-value-tag_subscription_id={ tag_subscription.id}>
-          <% tag = tag_subscription.tag%>
-          <%= render AdoptopossWeb.SharedView, "language_tag.html",
+        <div
+          phx-click="filter_recommendations"
+          phx-value-tag_subscription_id={tag_subscription.id}
+        >
+          <% tag = tag_subscription.tag %>
+          <%= render(AdoptopossWeb.SharedView, "language_tag.html",
             name: tag.name,
             color: tag.color,
-            class: "p-3 py-1 mr-2 mb-2 border rounded cursor-pointer hover:text-white hover:bg-red-500 hover:border-white #{if tag.id == @tag_filter, do: "text-white bg-red-500 border-white", else: "border-gray-400"}" %>
+            class:
+              "p-3 py-1 mr-2 mb-2 border rounded cursor-pointer hover:text-white hover:bg-red-500 hover:border-white #{if tag.id == @tag_filter, do: "text-white bg-red-500 border-white", else: "border-gray-400"}"
+          ) %>
         </div>
       <% end %>
     </div>
@@ -48,7 +57,8 @@
     <div class="ml-2 mt-1 text-center">
       <.link
         navigate={Routes.live_path(AdoptopossWeb.Endpoint, AdoptopossWeb.SettingsLive)}
-        class="md:whitespace-nowrap">
+        class="md:whitespace-nowrap"
+      >
         Edit Languages
       </.link>
     </div>
@@ -65,7 +75,10 @@
       </p>
       <p>
         Subscribe to
-        <.link navigate={Routes.live_path(@socket, AdoptopossWeb.SettingsLive)}>email notifications</.link> and we’ll let you know if new ones come in.
+        <.link navigate={Routes.live_path(@socket, AdoptopossWeb.SettingsLive)}>
+          email notifications
+        </.link>
+        and we’ll let you know if new ones come in.
       </p>
     </div>
   <% else %>
@@ -75,7 +88,8 @@
           module={AdoptopossWeb.ProjectComponent}
           id={"recommendation-#{project.id}"}
           project={project}
-          user_id={@user_id} />
+          user_id={@user_id}
+        />
       <% end %>
     </div>
 
