@@ -18,7 +18,7 @@ defmodule AdoptoppossWeb.Plugs.RequireLoginTest do
     conn = require_login(conn)
 
     assert redirected_to(conn) == Routes.live_path(conn, LandingPageLive)
-    assert get_flash(conn, :error) =~ "You need to log in"
+    assert Phoenix.Flash.get(conn.assigns.flash, :error) =~ "You need to log in"
     assert %{halted: true} = conn
   end
 
