@@ -112,6 +112,10 @@ defmodule AdoptopossWeb.ProjectFiltersComponent do
   end
 
   defp update_assigns(socket, assigns) do
+    assigns =
+      assigns
+      |> Map.take([:id, :user_id, :subscribed_tags, :suggested_tags, :filters, :tags])
+
     %{filters: filters, tags: tags, subscribed_tags: subscribed_tags} = assigns
 
     top_tags = Enum.take(tags, @top_tags_count)
@@ -128,7 +132,7 @@ defmodule AdoptopossWeb.ProjectFiltersComponent do
       filter_selection_open: false
     }
 
-    assign(socket, assigns |> Map.delete(:flash) |> Map.merge(new_assigns))
+    assign(socket, Map.merge(assigns, new_assigns))
   end
 
   defp apply_filters(filters, opts \\ []) do
