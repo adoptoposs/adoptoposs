@@ -1,13 +1,16 @@
 <nav role="navigation" class="flex flex-row flex-wrap justify-between items-center">
   <div class="flex items-center shrink-0 mr-2 sm:mr-6">
-    <.link
-      navigate={Routes.live_path(@conn, AdoptopossWeb.LandingPageLive)}
-      class="font-semibold text-xl tracking-tight"
-    >
+    <.link navigate={Routes.live_path(@conn, AdoptopossWeb.LandingPageLive)} class="h-10">
       <img
         src={Routes.static_path(@conn, "/images/adoptoposs-logo.png")}
         alt="Adoptoposs"
-        class="h-10"
+        class="h-10 hidden xs:inline-block"
+      />
+
+      <div
+        style={"background-image: url(#{Routes.static_path(@conn, "/images/adoptoposs-logo.png")})"}
+        alt="Adoptoposs"
+        class="h-10 w-10 bg-no-repeat bg-cover bg-right bg-origin-content xs:hidden inline-block"
       />
     </.link>
   </div>

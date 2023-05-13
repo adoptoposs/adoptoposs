@@ -109,7 +109,7 @@ header {
 }
 
 nav {
-  @apply flex max-w-6xl mx-auto items-center flex-wrap px-6 py-4;
+  @apply flex max-w-6xl mx-auto items-center flex-wrap pr-4 xs:px-6 py-4;
 }
 
 main {
