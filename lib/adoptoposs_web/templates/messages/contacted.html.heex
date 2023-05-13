@@ -6,30 +6,14 @@
   <div class="flex md:hidden flex-col pb-4 bg-gray-50 sticky top-0">
     <.link
       navigate={Routes.live_path(AdoptopossWeb.Endpoint, AdoptopossWeb.MessagesLive.Interests)}
-      class="flex items-center w-full font-semibold cursor-default pl-8 pt-3 pb-2 rounded cursor-pointer focus:bg-gray-200 text-gray-600 hover:text-gray-700 focus:text-gray-700"
+      class="flex items-center w-full font-semibold cursor-default pl-6 pt-3 pb-2 rounded cursor-pointer focus:bg-gray-200 text-gray-600 hover:text-gray-700 focus:text-gray-700"
     >
       Interests in your Projects
     </.link>
 
     <div class="flex items-center w-full font-semibold cursor-default pl-1 pt-1 pb-2 rounded bg-gray-50 text-red-600">
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 512 512"
-        class="inline fill-current h-5"
-      >
-        <title>Chevron Down</title>
-        <path
-          fill="none"
-          stroke="currentColor"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="48"
-          d="M112 184l144 144 144-144"
-        />
-      </svg>
-      <div class="w-full ml-2">
-        Contacted Maintainers
-      </div>
+      <i class="fa-solid fa-chevron-down mr-2 text-sm"></i>
+      <div class="w-full">Contacted Maintainers</div>
     </div>
   </div>
 
@@ -106,22 +90,8 @@
       </.link>
 
       <div class="flex items-center w-full font-semibold cursor-default px-4 p-3 rounded bg-white text-red-600">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 512 512"
-          class="inline fill-current h-5"
-        >
-          <title>Chevron Back</title>
-          <path
-            fill="none"
-            stroke="currentColor"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="48"
-            d="M328 112L184 256l144 144"
-          />
-        </svg>
-        <div class="w-full ml-2">
+        <i class="fa-solid fa-chevron-left mr-4 text-sm"></i>
+        <div class="w-full">
           Contacted Maintainers
         </div>
       </div>

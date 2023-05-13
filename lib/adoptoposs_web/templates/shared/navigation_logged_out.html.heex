@@ -3,19 +3,13 @@
     navigate={Routes.live_path(@conn, AdoptopossWeb.ExploreLive)}
     class="flex items-center p-2 mr-4"
   >
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 20 20"
-      class="inline h-4 w-4 fill-current sm:mr-2"
-    >
-      <path d="M12.9 14.32a8 8 0 1 1 1.41-1.41l5.35 5.33-1.42 1.42-5.33-5.34zM8 14A6 6 0 1 0 8 2a6 6 0 0 0 0 12z" />
-    </svg>
+    <i class="fa-solid fa-magnifying-glass mr-2"></i>
     <span class="hidden sm:inline font-semibold">Explore</span>
   </.link>
 
   <div class="inline-block">
     <.link navigate={Routes.auth_path(@conn, :request, "github")} class="button-link subtle">
-      Log in with GitHub
+      <i class="fa-brands fa-github mr-1"></i> Log in with GitHub
     </.link>
   </div>
 </div>

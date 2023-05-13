@@ -19,31 +19,20 @@
           </.link>
         </span>
         <span class="flex items-center justify-center h-12 w-12 md:h-16 md:w-16 my-4 md:mb-2 md:mt-0 rounded rounded-full border text-center text-green-700 bg-green-200">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            class="h-5 w-5 md:h-6 md:w-6 fill-current"
-            viewBox="0 0 512 512"
-          >
-            <path
-              fill="none"
-              stroke="currentColor"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="32"
-              d="M416 128L192 384l-96-96"
-            />
-          </svg>
+          <i class="fa-solid fa-check"></i>
         </span>
       <% else %>
         <%= if !@to_be_submitted do %>
-          <%= submit("+",
+          <%= submit(
             id: "btn-submit-#{@id}",
             phx_click: "attempt_submit",
             phx_target: "##{@id}",
             class:
-              "h-12 w-12 md:h-16 md:w-16 mb-4 mt-2 md:mb-2 md:mt-0 rounded rounded-full text-3xl font-light m-0 leading-none",
+              "h-12 w-12 md:h-16 md:w-16 mb-4 mt-2 md:mb-2 md:mt-0 rounded rounded-full font-light m-0 leading-none text-red-400",
             title: "Submit Repo"
-          ) %>
+          ) do %>
+            <i class="fa-solid fa-plus"></i>
+          <% end %>
         <% else %>
           <%= render(AdoptopossWeb.SharedView, "form.html",
             id: "form-#{@id}",

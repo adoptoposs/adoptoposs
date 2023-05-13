@@ -5,29 +5,13 @@
 
   <div class="flex md:hidden flex-col pb-4 bg-gray-50 sticky top-0">
     <div class="flex items-center w-full font-semibold cursor-default pl-1 pt-3 pb-2 rounded bg-gray-50 text-red-600">
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 512 512"
-        class="inline fill-current h-5"
-      >
-        <title>Chevron Down</title>
-        <path
-          fill="none"
-          stroke="currentColor"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="48"
-          d="M112 184l144 144 144-144"
-        />
-      </svg>
-      <div class="w-full ml-2">
-        Interests in your Projects
-      </div>
+      <i class="fa-solid fa-chevron-down mr-2 text-sm"></i>
+      <div class="w-full">Interests in your Projects</div>
     </div>
 
     <.link
       navigate={Routes.live_path(AdoptopossWeb.Endpoint, AdoptopossWeb.MessagesLive.Contacted)}
-      class="flex items-center w-full font-semibold cursor-default pl-8 pt-1 pb-2 rounded cursor-pointer focus:bg-gray-200 text-gray-600 hover:text-gray-700 focus:text-gray-700"
+      class="flex items-center w-full font-semibold cursor-default pl-6 pt-1 pb-2 rounded cursor-pointer focus:bg-gray-200 text-gray-600 hover:text-gray-700 focus:text-gray-700"
     >
       Contacted Maintainers
     </.link>
@@ -104,9 +88,7 @@
                           <> "&body=#{AdoptopossWeb.InterestView.email_body(interest)}",
                           class: "icon-button md:ml-2",
                           title: "Reply via email" do %>
-                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-                            <path d="M464 440l-28.12-32.11c-22.48-25.65-43.33-45.45-72.08-58.7-26.61-12.26-60-18.65-104.27-19.84V432L48 252 259.53 72v103.21c72.88 3 127.18 27.08 161.56 71.75C449.56 284 464 335.19 464 399.26z" />
-                          </svg>
+                          <i class="fa-solid fa-reply"></i>
                         <% end %>
                       </div>
                     </div>
@@ -125,24 +107,8 @@
 
     <div class="hidden md:flex md:flex-col w-1/4 ml-8 border rounded border-gray-300">
       <div class="flex items-center w-full font-semibold cursor-default px-4 p-3 rounded bg-white text-red-600">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 512 512"
-          class="inline fill-current h-5"
-        >
-          <title>Chevron Back</title>
-          <path
-            fill="none"
-            stroke="currentColor"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="48"
-            d="M328 112L184 256l144 144"
-          />
-        </svg>
-        <div class="w-full ml-2">
-          Interests in your Projects
-        </div>
+        <i class="fa-solid fa-chevron-left mr-4 text-sm"></i>
+        <div class="w-full">Interests in your Projects</div>
       </div>
 
       <.link

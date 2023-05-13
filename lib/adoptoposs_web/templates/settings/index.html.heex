@@ -7,37 +7,7 @@
     <div class="md:grid md:grid-flow-col md:grid-cols-2 md:gap-8">
       <div class="flex flex-col flex-wrap">
         <p class="">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            class="inline fill-current w-5 h5"
-            viewBox="0 0 512 512"
-          >
-            <title>Additional Information</title>
-            <path
-              d="M248 64C146.39 64 64 146.39 64 248s82.39 184 184 184 184-82.39 184-184S349.61 64 248 64z"
-              fill="none"
-              stroke="currentColor"
-              stroke-miterlimit="10"
-              stroke-width="32"
-            />
-            <path
-              fill="none"
-              stroke="currentColor"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="32"
-              d="M220 220h32v116"
-            />
-            <path
-              fill="none"
-              stroke="currentColor"
-              stroke-linecap="round"
-              stroke-miterlimit="10"
-              stroke-width="32"
-              d="M208 340h88"
-            />
-            <path d="M248 130a26 26 0 1026 26 26 26 0 00-26-26z" />
-          </svg>
+          <i class="fa-solid fa-circle-info mr-1.5"></i>
           Programming languages you add here will appear as quick filters on the <.link navigate={
             Routes.live_path(AdoptopossWeb.Endpoint, AdoptopossWeb.ExploreLive)
           }>
@@ -74,7 +44,7 @@
                       phx-value_tag_subscription_id={tag_subscription.id}
                     />
                     <%= submit class: "plain p-1 pr-3" do %>
-                      &times;
+                      <i class="fa-solid fa-xmark text-xs"></i>
                     <% end %>
                   </form>
                 </div>
@@ -137,7 +107,7 @@
               class="button-link button-link--inline indented-sm w-5 h-5"
               phx-click="clear_search"
             >
-              <span class="text-xl">&times;</span>
+              <i class="fa-solid fa-xmark"></i>
             </button>
           <% end %>
         </div>
@@ -160,13 +130,7 @@
                   <div class="ml-2"><%= result.name %></div>
 
                   <div class="inline-block pl-2 pr-3">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 20 20"
-                      class="h-3 w-3 fill-current"
-                    >
-                      <path d="M0 11l2-2 5 5L18 3l2 2L7 18z" />
-                    </svg>
+                    <i class="fa-solid fa-check text-xs"></i>
                   </div>
                 </div>
               <% else %>
@@ -194,7 +158,9 @@
                       </div>
 
                       <div class="ml-2"><%= result.name %></div>
-                      <div class="w-3 ml-2 mr-1">+</div>
+                      <div class="w-3 ml-1.5 mr-1">
+                        <i class="fa-solid fa-plus text-xs"></i>
+                      </div>
                     <% end %>
                   </form>
                 </div>

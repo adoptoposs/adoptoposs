@@ -47,7 +47,7 @@ defmodule AdoptopossWeb.RepoLiveTest do
 
     html =
       view
-      |> element("#btn-submit-#{element_id}", "+")
+      |> element("#btn-submit-#{element_id}")
       |> render_click()
 
     assert html =~ "I’m looking for"

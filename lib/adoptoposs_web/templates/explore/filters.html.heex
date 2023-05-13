@@ -4,13 +4,7 @@
       <summary class="pl-1 mt-2 text-left text-red-400 hover:text-red-400 border-gray-200 w-full">
         <div class="inline">
           <div class="inline-flex items-center">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              class="inline-flex fill-current h-4 w-4 mr-1"
-              viewBox="0 0 512 512"
-            >
-              <path d="M296 464a23.88 23.88 0 01-7.55-1.23L208.3 436.1a23.92 23.92 0 01-16.3-22.78V294.11a.44.44 0 00-.09-.13L23.26 97.54A30 30 0 0146.05 48H466a30 30 0 0122.79 49.54L320.09 294a.77.77 0 00-.09.13V440a23.93 23.93 0 01-24 24z" />
-            </svg>
+            <i class="fa-solid fa-filter mr-1 text-base"></i>
             Set language filters (<%= Enum.count(@filters) %>)
           </div>
 
@@ -20,7 +14,7 @@
                 class="button-link button-link--inline leading-none"
                 phx-click="clear_filters"
               >
-                clear all <span class="text-2xl ml-1">&times;</span>
+                clear all <i class="fa-solid fa-xmark ml-1.5"></i>
               </button>
             </div>
           <% end %>
@@ -98,14 +92,7 @@
   <% else %>
     <div class="block">
       <h3>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          class="inline-flex fill-current h-5 w-5 mr-1"
-          viewBox="0 0 512 512"
-        >
-          <path d="M296 464a23.88 23.88 0 01-7.55-1.23L208.3 436.1a23.92 23.92 0 01-16.3-22.78V294.11a.44.44 0 00-.09-.13L23.26 97.54A30 30 0 0146.05 48H466a30 30 0 0122.79 49.54L320.09 294a.77.77 0 00-.09.13V440a23.93 23.93 0 01-24 24z" />
-        </svg>
-        Project Filters
+        <i class="fa-solid fa-filter mr-1 text-base"></i> Project Filters
       </h3>
       <!-- Subscribed languages filters -->
       <p class="mt-6 px-4 py-2 bg-gray-200 font-bold rounded">

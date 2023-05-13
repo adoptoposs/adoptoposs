@@ -11,6 +11,6 @@ defmodule AdoptopossWeb.ErrorViewTest do
 
   test "renders 500.html" do
     page = render_to_string(AdoptopossWeb.ErrorView, "500.html", [])
-    assert page =~ "Looks like you found a bug"
+    assert page =~ "looks like you found a bug"
   end
 end

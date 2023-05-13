@@ -1,3 +1,10 @@
+$fa-font-path: "@fortawesome/fontawesome-free/webfonts/";
+@import "@fortawesome/fontawesome-free/scss/fontawesome";
+@import "@fortawesome/fontawesome-free/scss/regular";
+@import "@fortawesome/fontawesome-free/scss/solid";
+@import "@fortawesome/fontawesome-free/scss/brands";
+@import "@fortawesome/fontawesome-free/scss/v4-shims";
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -164,14 +171,14 @@ nav .nav-link {
   @apply block p-2 mb-1;
 
   &:hover, &:focus {
-    @apply bg-gray-100 rounded;
+    @apply bg-gray-100 rounded text-gray-900;
   }
 
   @screen md {
-    @apply flex items-center p-2 m-0 mr-4;
+    @apply block px-6 py-2 mb-0;
 
     &:hover, &:focus {
-      @apply bg-transparent;
+      @apply bg-transparent text-red-400;
     }
   }
 }

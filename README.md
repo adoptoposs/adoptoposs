@@ -2,7 +2,8 @@
 
 [![Build Status](https://github.com/adoptoposs/adoptoposs/workflows/CI/badge.svg)](https://github.com/adoptoposs/adoptoposs/workflows/Elixir%20CI/badge.svg)
 
-Finding co-maintainers for your open source software project. 
+Finding co-maintainers for your open source software project.
+Visit [https://adoptoposs.org](https://adoptoposs.org).
 
 <img src="https://github.com/adoptoposs/adoptoposs/blob/main/priv/static/images/adoptoposs-logo.png" width="204">
 
@@ -23,8 +24,8 @@ building Adoptoposs you can read the
 
 # Contributing
 
-We encourage you to contribute to Adoptoposs. 
-Please check our [CONTRIBUTING.md](https://github.com/adoptoposs/adoptoposs/blob/main/CONTRIBUTING.md) guides for more information. 
+We encourage you to contribute to Adoptoposs.
+Please check our [CONTRIBUTING.md](https://github.com/adoptoposs/adoptoposs/blob/main/CONTRIBUTING.md) guides for more information.
 
 This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to our [CODE_OF_CONDUCT.md](https://github.com/adoptoposs/adoptoposs/blob/main/CODE_OF_CONDUCT.md).
 
@@ -36,4 +37,4 @@ Copyright (c) 2020, Paul Götze
 
 Adoptoposs is licensed under the [MIT License](https://github.com/adoptoposs/adoptoposs/blob/main/LICENSE.md).
 
-Adoptoposs uses icon assets from the [Ionicons iconset](https://ionicons.com/) released under the MIT License.
+Adoptoposs uses icon assets from the [Fontawesome iconset](https://github.com/FortAwesome/Font-Awesome).
