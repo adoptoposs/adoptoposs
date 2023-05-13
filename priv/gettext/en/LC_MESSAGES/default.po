@@ -9,7 +9,7 @@
 msgid ""
 msgstr ""
 "Language: en\n"
-"Plural-Forms: nplurals=2\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);"
 
 ## This is a PO Template file.
 ##
