@@ -19,13 +19,16 @@
         </form>
 
         <%= unless @query in [nil, ""] do %>
-          <button class="button-link inline indented w-8 h-8" phx-click="clear_search">
+          <button
+            class="button-link button-link--inline indented w-8 h-8"
+            phx-click="clear_search"
+          >
             <span class="text-2xl">&times;</span>
           </button>
         <% end %>
       </div>
 
-      <div class="flex flex-col md:flex-row md:justify-between items-center mb-4 text-gray-700">
+      <div class="flex flex-col md:flex-row md:justify-between items-center mb-4 text-gray-600">
         <div class="w-full md:w-auto">
           <div class="hidden md:inline ml-6">
             <%= AdoptopossWeb.SharedView.count("filter", count: Enum.count(@filters)) %> applied
@@ -42,7 +45,7 @@
             <%= if Enum.count(@filters) > 0 do %>
               <div class="hidden md:inline-block justify-start mt-2 md:m-0">
                 <button
-                  class="button-link inline leading-none inline-flex items-center"
+                  class="button-link button-link--inline leading-none"
                   phx-click="clear_filters"
                 >
                   clear all <span class="text-2xl ml-1">&times;</span>
@@ -58,10 +61,10 @@
       </div>
 
       <%= if @query && @page == 1 && @total_count == 0 && Enum.empty?(@projects) do %>
-        <div class="flex items-center justify-center text-center p-4 h-32 md:h-48 min-h-full bg-white rounded border border-gray-300">
+        <div class="flex items-center justify-center text-center p-4 h-32 md:h-48 min-h-full bg-white rounded border border-gray-200">
           <span class="text-pink-900 md:text-lg font-medium">
             Sorry, no projects found for
-            <span class="text-red-500 break-all">"<%= @query %>"</span>
+            <span class="text-red-400 break-all">"<%= @query %>"</span>
             :(
           </span>
         </div>

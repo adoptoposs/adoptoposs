@@ -3,10 +3,10 @@
 
   <%= if Enum.empty?(@projects) do %>
     <div class="flex flex-col md:p-4 my-6 w-full justify-center items-center">
-      <p class="text-lg md:text-2xl text-gray-600 text-center">
+      <p class="text-lg md:text-2xl text-gray-500 text-center">
         Great.<br /> Looks like you’re happy with the maintenance of your Repos.
       </p>
-      <div class="flex flex-col w-full p-8 mt-6 justify-center items-center bg-white rounded border border-gray-300 text-gray-600 md:text-lg text-center">
+      <div class="flex flex-col w-full p-8 mt-6 justify-center items-center bg-white rounded border border-gray-200 text-gray-500 md:text-lg text-center">
         <p>
           Looking for a maintainer?
         </p>
@@ -25,7 +25,7 @@
     <%= for project <- @projects do %>
       <li
         id={"project-#{project.id}"}
-        class="card-item flex flex-wrap w-full shadow hover:shadow-md mb-4 border border-gray-400 rounded"
+        class="card-item flex flex-wrap w-full shadow hover:shadow-md mb-4 border border-gray-300 rounded"
       >
         <div class="flex flex-col md:flex-row md:justify-between w-full">
           <div class="flex flex-col flex-1 items-start justify-between px-4 md:px-6 pt-4 pb-2 md:pt-6 md:pb-4 bg-white rounded-tl rounded-tr md:rounded-bl md:rounded-tr-none">
@@ -33,7 +33,7 @@
 
             <div class="flex flex-row w-full mt-6 justify-end items-center">
               <%= if @remove_id == to_string(project.id) do %>
-                <span class="text-red-500 mr-4 font-semibold leading-tight">
+                <span class="text-red-400 mr-4 font-semibold leading-tight">
                   Are you sure?
                 </span>
                 <%= submit("Yes, remove",
@@ -52,7 +52,7 @@
                 <%= case project.status do %>
                   <% :published -> %>
                     <div class="flex flex-row w-full justify-between items-center">
-                      <span class="inline-flex items-center text-gray-600">
+                      <span class="inline-flex items-center text-gray-500">
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           class="inline w-5 h-5 fill-current mr-2"
@@ -72,7 +72,7 @@
                     </div>
                   <% :draft -> %>
                     <div class="flex flex-row w-full justify-between items-center">
-                      <span class="inline-flex items-center text-gray-600">
+                      <span class="inline-flex items-center text-gray-500">
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           class="w-5 h-5 fill-current mr-2"
@@ -117,7 +117,7 @@
             </div>
           </div>
 
-          <div class="flex flex-col justify-between flex-1 px-4 pt-4 pb-2 md:px-6 md:pt-6 md:pb-4 bg-gray-200 rounded-br rounded-bl md:rounded-bl-none md:rounded-tr">
+          <div class="flex flex-col justify-between flex-1 px-4 pt-4 pb-2 md:px-6 md:pt-6 md:pb-4 bg-gray-100 rounded-br rounded-bl md:rounded-bl-none md:rounded-tr">
             <%= if to_string(@edit_id) == to_string(project.id) do %>
               <%= render(AdoptopossWeb.SharedView, "form.html",
                 id: "form-#{project.id}",
@@ -131,11 +131,11 @@
                 phx_target: "#project-#{project.id}"
               ) %>
             <% else %>
-              <div class="text-gray-700">
+              <div class="text-gray-600">
                 <b>I’m looking for…</b>
               </div>
 
-              <div class="whitespace-pre-wrap text-gray-700 my-2 md:mb-4">
+              <div class="whitespace-pre-wrap text-gray-600 my-2 md:mb-4">
                 <%= project.description %>
               </div>
 
@@ -148,7 +148,7 @@
 
                     <%= if Enum.count(project.interests) == 0 do %>
                       <div
-                        class="flex flex-row items-center text-gray-500"
+                        class="flex flex-row items-center text-gray-400"
                         title="No messages yet"
                       >
                         <span>

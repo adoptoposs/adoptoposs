@@ -1,4 +1,4 @@
-<div class="py-4 md:pt-8 md:pb-12 mb-4 md:mb-12 bg-gray-200">
+<div class="py-4 md:pt-8 md:pb-12 mb-4 md:mb-12 bg-gray-100">
   <section class="flex flex-wrap flex-col md:flex-row justify-center items-center">
     <h1 class="m-0 md:my-2 md:mr-1">
       Submit Repo from
@@ -7,7 +7,7 @@
     <div class="flex flex-wrap flex-row justify-center items-center">
       <form phx-change="organization_selected">
         <div class="inline-block relative w-full">
-          <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+          <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-600">
             <svg
               class="fill-current h-6 w-6 md:h-8 md:w-8 text-pink-900"
               xmlns="http://www.w3.org/2000/svg"
@@ -19,7 +19,7 @@
 
           <select
             name="id"
-            class="h1 block appearance-none w-full bg-gray-200 py-2 pr-12 leading-tight focus:outline-none text-4xl font-semibold text-pink-900 cursor-pointer"
+            class="h1 block appearance-none w-full bg-gray-100 py-2 pr-12 leading-tight focus:outline-none text-4xl font-semibold text-pink-900 cursor-pointer"
           >
             <%= for organization <- @organizations do %>
               <option
@@ -34,7 +34,7 @@
         </div>
       </form>
       <div
-        class="h-8 w-8 md:h-12 md:w-12 bg-gray-200 bg-contain"
+        class="h-8 w-8 md:h-12 md:w-12 bg-gray-100 bg-contain"
         style={"background-image: url(#{@organization.avatar_url}); background-blend-mode: multiply;"}
       >
       </div>
@@ -52,10 +52,10 @@
       class="flex flex-col w-full"
     >
       <%= if Enum.empty?(@repositories) do %>
-        <div class="flex flex-col w-full p-8 justify-center items-center text-gray-600 md:text-lg text-center bg-white border border-gray-300 rounded">
-          <p class="text-lg md:text-2xl text-gray-600 text-center mb-4 md:mb-8">
+        <div class="flex flex-col w-full p-8 justify-center items-center text-gray-500 md:text-lg text-center bg-white border border-gray-200 rounded">
+          <p class="text-lg md:text-2xl text-gray-500 text-center mb-4 md:mb-8">
             We could not find any repos for
-            <span class="text-red-500"><%= @organization.name %></span>
+            <span class="text-red-400"><%= @organization.name %></span>
             yet.
           </p>
           <p>

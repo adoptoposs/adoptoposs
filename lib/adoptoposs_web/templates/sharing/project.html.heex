@@ -5,7 +5,7 @@
     </h1>
 
     <%= if @project do %>
-      <p class="text-gray-600 text-center text-2xl md:text-4xl leading-tight">
+      <p class="text-gray-500 text-center text-2xl md:text-4xl leading-tight">
         Contact <span class="">@<%= @project.user.username %></span> to join <br />
         <span class=""><%= AdoptopossWeb.SharedView.project_name(@project) %></span>!
       </p>
@@ -34,13 +34,13 @@
 
     <%= unless @user_id do %>
       <div class="flex flex-row items-center my-6 md:my-8 mt-12 md:mt-16">
-        <hr class="flex-grow border-red-300" />
+        <hr class="flex-grow border-red-200" />
         <div class="self-center">
           <.link navigate={Routes.auth_path(@socket, :request, "github")} class="button-link mx-3">
             Log in with GitHub
           </.link>
         </div>
-        <hr class="flex-grow border-red-300" />
+        <hr class="flex-grow border-red-200" />
       </div>
     <% end %>
   </section>

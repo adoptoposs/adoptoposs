@@ -15,7 +15,7 @@
               color: tag.color,
               title: AdoptopossWeb.SharedView.count("project", count: project_count),
               class:
-                "p-3 py-1 border rounded cursor-pointer #{if to_string(tag.id) in @filters, do: "text-white bg-red-500 border-white hover:text-white hover:bg-red-500 hover:border-white", else: "border-gray-400 hover:bg-gray-300"}"
+                "p-3 py-1 border rounded cursor-pointer #{if to_string(tag.id) in @filters, do: "text-white bg-red-400 border-white hover:text-white hover:bg-red-400 hover:border-white", else: "border-gray-300 hover:bg-gray-200"}"
             ) %>
           </button>
         <% else %>
@@ -24,7 +24,7 @@
             color: Adoptoposs.Tags.Tag.Utility.unknown().color,
             title: AdoptopossWeb.SharedView.count("project", count: project_count),
             class:
-              "p-3 py-1 border rounded cursor-default bg-gray-200 text-gray-500 border-gray-400"
+              "p-3 py-1 border rounded cursor-default bg-gray-100 text-gray-400 border-gray-300"
           ) %>
         <% end %>
       </div>

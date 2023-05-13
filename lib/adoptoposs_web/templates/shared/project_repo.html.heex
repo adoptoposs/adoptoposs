@@ -7,7 +7,7 @@
     ) %>
   </h2>
 
-  <div class="markdown text-gray-600">
+  <div class="markdown text-gray-500">
     <%= {:safe, Earmark.as_html!(project_description(@project))} %>
   </div>
 
@@ -15,7 +15,7 @@
     <%= render(AdoptopossWeb.SharedView, "language_tag.html",
       name: @project.language.name,
       color: @project.language.color,
-      class: "text-gray-700"
+      class: "text-gray-600"
     ) %>
   </div>
 </div>

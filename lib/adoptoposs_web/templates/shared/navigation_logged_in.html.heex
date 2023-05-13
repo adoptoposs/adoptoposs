@@ -9,14 +9,14 @@
 </div>
 
 <details class="toggle close-on-link-clicked block md:hidden self-end">
-  <summary class="toggle-trigger flex items-center px-3 py-2 text-red-400 border border-red-300 rounded hover:text-gray-200 hover:bg-red-400 focus:text-white focus:bg-red-500">
+  <summary class="toggle-trigger flex items-center px-3 py-2 text-red-400 border border-red-300 rounded hover:text-gray-100 hover:bg-red-400 focus:text-white focus:bg-red-400">
     <svg class="fill-current h-5 w-5" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
       <title>Menu</title>
       <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z" />
     </svg>
   </summary>
 
-  <div class="toggle-content absolute left-0 right-0 bg-gray-100 z-20 shadow-md p-6">
+  <div class="toggle-content absolute left-0 right-0 bg-gray-50 z-20 shadow-md p-6">
     <.link
       navigate={Routes.live_path(@conn, AdoptopossWeb.MessagesLive.Interests)}
       class="flex items-center p-2 mr-4"
@@ -104,7 +104,7 @@
       Settings
     </.link>
 
-    <hr class="border-red-200 mt-4 mb-3" />
+    <hr class="border-red-100 mt-4 mb-3" />
 
     <div class=" flex flex-row justify-between items-center">
       <.link navigate={Routes.auth_path(@conn, :delete)} class="nav-link flex-grow mr-2">
@@ -227,7 +227,7 @@
   <!-- User account menu -->
   <div class="flex justify-end md:inline-block hidden md:visible">
     <details class="toggle close-on-link-clicked">
-      <summary class="toggle-trigger focus:outline-none focus:border focus:border-red-400">
+      <summary class="toggle-trigger rounded-full focus:ring-2 ring-red-300">
         <img
           class="rounded-full h-10 w-10"
           src={@current_user.avatar_url}
@@ -236,7 +236,7 @@
       </summary>
 
       <div class="relative">
-        <div class="toggle-content absolute right-0 left-auto py-2 mt-2 rounded border border-red-300 bg-gray-100 shadow-md w-max-content font-semibold">
+        <div class="toggle-content absolute right-0 left-auto py-2 mt-2 rounded border border-red-200 bg-gray-50 shadow-md w-max-content font-semibold">
           <.link
             navigate={Routes.live_path(@conn, AdoptopossWeb.ProjectLive)}
             class="block px-8 py-2 text-right"
@@ -251,7 +251,7 @@
             Settings
           </.link>
 
-          <hr class="border-red-200 border mt-2 mb-1" />
+          <hr class="border-red-100 border mt-2 mb-1" />
 
           <.link navigate={Routes.auth_path(@conn, :delete)} class="block px-8 py-2 text-right">
             Log out

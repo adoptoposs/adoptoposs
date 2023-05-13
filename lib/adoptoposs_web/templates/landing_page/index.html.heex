@@ -1,4 +1,4 @@
-<div class="bg-red-500 pt-12 pb-16 md:pb-20">
+<div class="bg-red-400 pt-12 pb-16 md:pb-20">
   <section>
     <h1 class="text-center text-5xl sm:text-6xl font-semibold uppercase">
       Adoptoposs
@@ -8,7 +8,7 @@
     </p>
 
     <div class="flex flex-row items-center px-4 mt-16 md:px-0 md:mt-20">
-      <hr class="flex-grow border-gray-100" />
+      <hr class="flex-grow border-gray-50" />
       <div class="self-center">
         <.link
           navigate={Routes.live_path(@socket, AdoptopossWeb.ExploreLive)}
@@ -17,17 +17,17 @@
           Explore Projects
         </.link>
       </div>
-      <hr class="flex-grow border-gray-100" />
+      <hr class="flex-grow border-gray-50" />
     </div>
   </section>
 </div>
 
-<div class="bg-gray-900 px-4 md:px-0 pb-8 pt-6">
+<div class="bg-gray-800 px-4 md:px-0 pb-8 pt-6">
   <section>
-    <p class="text-lg md:text-xl md:w-1/2 m-auto self-center text-center text-red-400">
+    <p class="text-lg md:text-xl md:w-1/2 m-auto self-center text-center text-red-300">
       <.link
         href="https://medium.com/p/74c1cd5df5d5?source=friends_link&sk=80b575161642c3ba17d6d4213de8578a"
-        class="text-red-400 underline hover:text-red-300"
+        class="text-red-300 underline hover:text-red-200"
       >
         Read more
       </.link>
@@ -38,7 +38,7 @@
 
 <div class="py-12 md:pb-32 md:pt-24">
   <section>
-    <h1 class="text-center text-gray-800">
+    <h1 class="text-center text-gray-700">
       How It Works
     </h1>
 
@@ -67,7 +67,7 @@
           src={Routes.static_path(@socket, "/images/adoptoposs-contact.png")}
           class="mb-4 md:mb-6 h-48 md:h-auto"
         />
-        <h2 class="text-center text-gray-800 mb-2">Contact Maintainers</h2>
+        <h2 class="text-center text-gray-700 mb-2">Contact Maintainers</h2>
         <p class="text-lg text-hyphen md:text-xl max-w-sm mx-auto">
           You want to help with <acronym title="Open Source Software">OSS</acronym> maintenance?
           Contacting maintainers on Adoptoposs is just one click away.
@@ -80,7 +80,7 @@
           src={Routes.static_path(@socket, "/images/adoptoposs-message.png")}
           class="mb-4 md:mb-6 h-48 md:h-auto"
         />
-        <h2 class="text-center text-red-500 mb-2">Explore Projects</h2>
+        <h2 class="text-center text-red-400 mb-2">Explore Projects</h2>
         <p class="text-lg text-hyphen md:text-xl max-w-sm mx-auto">
           Not sure where to help?
           Get projects for your favorite programming languages directly into your inbox.
@@ -90,28 +90,28 @@
     </div>
 
     <div class="flex flex-row items-center px-4 mb-4 mt-12 md:px-0 md:mb-0 md:mt-20">
-      <hr class="flex-grow border-gray-600" />
+      <hr class="flex-grow border-gray-500" />
       <div class="self-center">
         <.link
           navigate={Routes.live_path(@socket, AdoptopossWeb.ExploreLive)}
-          class="button-link dark mx-3 gray-600"
+          class="button-link dark mx-3 gray-500"
         >
           Explore Projects
         </.link>
       </div>
-      <hr class="flex-grow border-gray-600" />
+      <hr class="flex-grow border-gray-500" />
     </div>
   </section>
 </div>
 
-<div class="bg-gray-900 pt-8 pb-16 md:pt-12 md:pb-20">
+<div class="bg-gray-800 pt-8 pb-16 md:pt-12 md:pb-20">
   <section>
-    <h1 class="text-red-400 text-center">
+    <h1 class="text-red-300 text-center">
       Latest Submitted Projects
     </h1>
 
     <div class="pb-2 md:pb-4 text-md md:text-lg text-center">
-      <.link href="#top" class="text-red-400">
+      <.link href="#top" class="text-red-300">
         Please log in to contact project maintainers.
       </.link>
     </div>
@@ -158,7 +158,7 @@
   </section>
 </div>
 
-<div class="py-8 md:py-12 bg-red-500">
+<div class="py-8 md:py-12 bg-red-400">
   <section class="text-lg md:text-xl text-white">
     <div class="flex flex-col items-center text-center">
       <p class="italic md:w-3/5">
@@ -184,13 +184,13 @@
     </p>
 
     <div class="flex flex-row items-center mt-12">
-      <hr class="flex-grow border-red-300" />
+      <hr class="flex-grow border-red-200" />
       <div class="self-center">
         <.link navigate={Routes.auth_path(@socket, :request, "github")} class="button-link mx-3">
           Log in with GitHub
         </.link>
       </div>
-      <hr class="flex-grow border-red-300" />
+      <hr class="flex-grow border-red-200" />
     </div>
   </section>
 </div>

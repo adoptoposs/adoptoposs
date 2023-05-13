@@ -60,11 +60,11 @@ $font-family-secondary: "Oswald";
   }
 
   button, [type="submit"] {
-    @apply bg-white border border-red-500 rounded-sm py-2 px-4 my-2;
-    @apply text-red-400 text-sm uppercase tracking-wider font-semibold;
+    @apply bg-white border border-red-400 rounded-sm py-2 px-4 my-2;
+    @apply text-red-300 text-sm uppercase tracking-wider font-semibold;
 
     &:focus, &:hover {
-      @apply bg-red-500 text-white border-white;
+      @apply bg-red-400 text-white border-white;
     }
   }
 
@@ -89,7 +89,7 @@ html, body {
 body {
   @apply antialiased;
   @apply flex flex-col min-h-screen;
-  @apply bg-gray-100 text-gray-800;
+  @apply bg-gray-50 text-gray-700;
 
   /* hide phoenix live reload iframe */
   iframe[hidden] {
@@ -143,17 +143,17 @@ button.plain {
 
 input[type="reset"] {
   @apply rounded-sm py-2 px-4 my-2;
-  @apply bg-white border border-gray-500 text-gray-500 text-sm uppercase tracking-wider font-semibold;
+  @apply bg-white border border-gray-400 text-gray-400 text-sm uppercase tracking-wider font-semibold;
   @apply cursor-pointer;
 
   &:focus, &:hover {
-    @apply bg-gray-400 text-white border-white;
+    @apply bg-gray-300 text-white border-white;
   }
 }
 
 input[type="text"].search,  {
   @apply outline-none;
-  @apply border border-red-500 rounded-full text-red-600;
+  @apply border border-red-400 rounded-full text-red-600;
 
   &:focus {
     box-shadow: 0 0 0 2px rgba(245, 101, 101, 0.25);
@@ -164,7 +164,7 @@ nav .nav-link {
   @apply block p-2 mb-1;
 
   &:hover, &:focus {
-    @apply bg-gray-200 rounded;
+    @apply bg-gray-100 rounded;
   }
 
   @screen md {
@@ -179,7 +179,7 @@ nav .nav-link {
 .icon-button {
   @apply inline-flex items-center justify-center;
   @apply cursor-pointer p-2 rounded rounded-full;
-  @apply text-white bg-red-400;
+  @apply text-white bg-red-300;
 
   &.hidden {
     display: none;
@@ -190,12 +190,12 @@ nav .nav-link {
   }
 
   &:focus, &:hover {
-    @apply bg-red-300;
+    @apply bg-red-400;
   }
 }
 
 .icon-button.disabled {
-  @apply text-gray-400 bg-transparent;
+  @apply text-gray-300 bg-transparent;
   @apply cursor-default py-2 px-0;
 }
 
@@ -203,26 +203,27 @@ a, button, input[type="button"] {
   &.button-link {
     @apply rounded px-4 py-2;
     @apply normal-case text-base font-semibold leading-tight tracking-normal;
-    @apply bg-white border-2 border-red-300 text-red-600;
+    @apply bg-white border-2 border-red-200 text-red-600;
 
     &:focus, &:hover {
-      @apply bg-red-500 text-white border-white;
+      @apply bg-red-400 text-white border-white;
     }
 
     &.subtle {
       @apply leading-none bg-transparent;
 
       &:focus, &:hover {
-        @apply bg-transparent text-red-500 border-red-300;
+        @apply bg-transparent text-red-400 border-red-200;
       }
     }
 
-    &.inline {
+    &--inline {
+      @apply inline-flex items-center justify-center;
       @apply border-none leading-none bg-transparent;
       @apply p-0 mx-2 my-0;
 
       &:focus, &:hover {
-        @apply bg-transparent text-red-500;
+        @apply bg-transparent text-red-400;
       }
     }
 
@@ -230,23 +231,23 @@ a, button, input[type="button"] {
       @apply bg-transparent border-2 border-white text-white;
 
       &:focus, &:hover {
-        @apply bg-white text-red-500 border-red-300;
+        @apply bg-white text-red-400 border-red-200;
       }
     }
 
     &.medium {
-      @apply bg-transparent border-2 border-red-400 text-red-400;
+      @apply bg-transparent border-2 border-red-300 text-red-300;
 
       &:focus, &:hover {
-        @apply bg-red-500 text-white border-red-400;
+        @apply bg-red-400 text-white border-red-300;
       }
     }
 
     &.dark {
-      @apply bg-transparent border-2 border-gray-600 text-gray-700;
+      @apply bg-transparent border-2 border-gray-500 text-gray-600;
 
       &:focus, &:hover {
-        @apply bg-gray-700 text-white border-white;
+        @apply bg-gray-600 text-white border-white;
       }
     }
 
@@ -263,15 +264,15 @@ a, button, input[type="button"] {
 .card-item {
   .icon-button {
     &:not(.disabled) {
-      @apply text-gray-200 bg-gray-600;
+      @apply text-gray-100 bg-gray-500;
     }
 
     &.subtle {
-      @apply text-gray-500 bg-transparent border-transparent;
+      @apply text-gray-400 bg-transparent border-transparent;
       @apply w-5 py-2 my-0 px-0;
 
       &:focus, &:hover {
-        @apply bg-gray-600 bg-transparent;
+        @apply bg-gray-500 bg-transparent;
       }
     }
   }
@@ -283,7 +284,7 @@ a, button, input[type="button"] {
   &:focus, &:hover {
     .icon-button {
       &:not(.disabled) {
-        @apply text-white bg-gray-700;
+        @apply text-white bg-gray-600;
 
         &:focus, &:hover {
           @apply text-white bg-red-400;
@@ -291,35 +292,35 @@ a, button, input[type="button"] {
       }
 
       &.subtle {
-        @apply text-gray-600 bg-transparent;
+        @apply text-gray-500 bg-transparent;
 
         &:focus, &:hover {
-          @apply text-red-400 bg-transparent;
+          @apply text-red-300 bg-transparent;
         }
       }
     }
 
     .emphasize {
-      @apply text-red-500;
+      @apply text-red-400;
 
       &:focus, &:hover {
-        @apply text-red-400;
+        @apply text-red-300;
       }
     }
 
     input[type="reset"] {
-      @apply border-gray-500 text-gray-600;
+      @apply border-gray-400 text-gray-500;
 
       &:focus, &:hover {
-        @apply bg-gray-500 text-white border-white;
+        @apply bg-gray-400 text-white border-white;
       }
     }
 
     button {
-      @apply text-red-500;
+      @apply text-red-400;
 
       &:focus, &:hover {
-        @apply bg-red-500 text-white border-white;
+        @apply bg-red-400 text-white border-white;
       }
     }
   }
@@ -407,11 +408,6 @@ details.toggle {
 
     &::-webkit-details-marker {
       display: none;
-    }
-
-    /* force set transparent bg to prevent focus bg color */
-    &.toggle-trigger {
-      background-color: transparent !important;
     }
   }
 

@@ -3,8 +3,8 @@
 
   <h2>Interests in your Projects</h2>
 
-  <div class="flex md:hidden flex-col pb-4 bg-gray-100 sticky top-0">
-    <div class="flex items-center w-full font-semibold cursor-default pl-1 pt-3 pb-2 rounded bg-gray-100 text-red-600">
+  <div class="flex md:hidden flex-col pb-4 bg-gray-50 sticky top-0">
+    <div class="flex items-center w-full font-semibold cursor-default pl-1 pt-3 pb-2 rounded bg-gray-50 text-red-600">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 512 512"
@@ -27,7 +27,7 @@
 
     <.link
       navigate={Routes.live_path(AdoptopossWeb.Endpoint, AdoptopossWeb.MessagesLive.Contacted)}
-      class="flex items-center w-full font-semibold cursor-default pl-8 pt-1 pb-2 rounded cursor-pointer focus:bg-gray-300 text-gray-700 hover:text-gray-800 focus:text-gray-800"
+      class="flex items-center w-full font-semibold cursor-default pl-8 pt-1 pb-2 rounded cursor-pointer focus:bg-gray-200 text-gray-600 hover:text-gray-700 focus:text-gray-700"
     >
       Contacted Maintainers
     </.link>
@@ -36,8 +36,8 @@
   <div class="flex flex-row items-start md:mt-6">
     <div class="w-full md:w-3/4">
       <%= if Enum.empty?(@interests) do %>
-        <div class="flex flex-col w-full p-8 md:p-16 justify-center items-center text-gray-600 md:text-lg text-center bg-white border border-gray-300 rounded">
-          <p class="text-lg md:text-2xl text-gray-600 text-center">
+        <div class="flex flex-col w-full p-8 md:p-16 justify-center items-center text-gray-500 md:text-lg text-center bg-white border border-gray-200 rounded">
+          <p class="text-lg md:text-2xl text-gray-500 text-center">
             You don’t have any messages here yet.
           </p>
           <p>
@@ -53,13 +53,13 @@
           <%= for {project, interests} <- @interests do %>
             <li
               id={"p-#{project.uuid}"}
-              class="card-item flex flex-col bg-white rounded shadow hover:shadow-md border border-gray-400"
+              class="card-item flex flex-col bg-white rounded shadow hover:shadow-md border border-gray-300"
             >
               <div class="p-4 md:p-6">
                 <%= render(AdoptopossWeb.SharedView, "project_repo.html", project: project) %>
               </div>
 
-              <div class="bg-gray-200 p-4 md:p-6 rounded-b">
+              <div class="bg-gray-100 p-4 md:p-6 rounded-b">
                 <%= for interest <- interests do %>
                   <div class="flex flex-col">
                     <div class="flex flex-row">
@@ -75,15 +75,15 @@
                         <div class="flex flex-col ml-4">
                           <div class="font-semibold">
                             <%= link to: interest.creator.profile_url,
-                              class: "text-gray-700",
+                              class: "text-gray-600",
                               title: "@#{interest.creator.username}" do %>
                               <%= interest.creator.name %>
                             <% end %>
                           </div>
-                          <div class="text-gray-600"><%= interest.creator.email %></div>
+                          <div class="text-gray-500"><%= interest.creator.email %></div>
                         </div>
 
-                        <div class="text-gray-600 text-sm hidden md:block">
+                        <div class="text-gray-500 text-sm hidden md:block">
                           <%= Timex.from_now(interest.inserted_at) %>
                         </div>
                       </div>
@@ -95,7 +95,7 @@
                       </div>
 
                       <div class="flex flex-row justify-between md:justify-end items-center md:items-end">
-                        <div class="text-gray-600 text-sm md:hidden">
+                        <div class="text-gray-500 text-sm md:hidden">
                           <%= Timex.from_now(interest.inserted_at) %>
                         </div>
 
@@ -112,7 +112,7 @@
                     </div>
 
                     <%= if interest != List.last(interests) do %>
-                      <span class="my-4 md:my-6 md:ml-16 border-b border-gray-400"></span>
+                      <span class="my-4 md:my-6 md:ml-16 border-b border-gray-300"></span>
                     <% end %>
                   </div>
                 <% end %>
@@ -123,7 +123,7 @@
       <% end %>
     </div>
 
-    <div class="hidden md:flex md:flex-col w-1/4 ml-8 border rounded border-gray-400">
+    <div class="hidden md:flex md:flex-col w-1/4 ml-8 border rounded border-gray-300">
       <div class="flex items-center w-full font-semibold cursor-default px-4 p-3 rounded bg-white text-red-600">
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -147,7 +147,7 @@
 
       <.link
         navigate={Routes.live_path(AdoptopossWeb.Endpoint, AdoptopossWeb.MessagesLive.Contacted)}
-        class="flex items-center w-full pl-10 font-semibold cursor-default p-3 rounded cursor-pointer bg-white hover:bg-gray-200 focus:bg-gray-300 text-gray-700 hover:text-gray-800 focus:text-gray-800"
+        class="flex items-center w-full pl-10 font-semibold cursor-default p-3 rounded cursor-pointer bg-white hover:bg-gray-100 focus:bg-gray-200 text-gray-600 hover:text-gray-700 focus:text-gray-700"
       >
         Contacted Maintainers
       </.link>

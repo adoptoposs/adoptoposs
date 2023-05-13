@@ -7,17 +7,17 @@
   class={"flex flex-col w-full #{assigns[:class]}"}
   phx_target={@phx_target}
 >
-  <label class="text-gray-700">
+  <label class="text-gray-600">
     <%= @headline %>
   </label>
   <%= textarea(f, assigns[:message_field] || :message,
-    class: "bg-white text-gray-700  w-full h64 p-2 md:p-4 my-2 md:my-4 rounded",
+    class: "bg-white text-gray-600  w-full h64 p-2 md:p-4 my-2 md:my-4 rounded",
     value: @message
   ) %>
 
   <div class="flex justify-between items-center">
     <div>
-      <%= error_tag(f, assigns[:message_field] || :message, class: "pl-2 text-red-500") %>
+      <%= error_tag(f, assigns[:message_field] || :message, class: "pl-2 text-red-400") %>
     </div>
 
     <div>

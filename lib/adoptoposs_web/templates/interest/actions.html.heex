@@ -1,8 +1,8 @@
 <div id={@id} class="flex flex-col justify-between h-full">
   <div>
-    <div class="text-gray-700 font-semibold">
+    <div class="text-gray-600 font-semibold">
       <%= if @project.user_id == @user_id  do %>
-        <span class="text-gray-700 text-md">You are looking for:</span>
+        <span class="text-gray-600 text-md">You are looking for:</span>
       <% else %>
         <.link
           href={@project.user.profile_url}
@@ -11,11 +11,11 @@
         >
           @<%= @project.user.username %>
         </.link>
-        <span class="text-gray-700 text-md">is looking for:</span>
+        <span class="text-gray-600 text-md">is looking for:</span>
       <% end %>
     </div>
 
-    <div class="whitespace-pre-wrap text-gray-700 my-2"><%= @project.description %></div>
+    <div class="whitespace-pre-wrap text-gray-600 my-2"><%= @project.description %></div>
   </div>
 
   <div class="flex flex-wrap flex-row justify-between items-center">
@@ -71,7 +71,7 @@
 
       <%= unless @user_id do %>
         <div class="icon-button disabled" title="Log in to contact">
-          <span class="text-gray-500 mr-3">Log in to contact</span>
+          <span class="text-gray-400 mr-3">Log in to contact</span>
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
             <path d="M464 80H48a16 16 0 00-16 16v320a16 16 0 0016 16h416a16 16 0 0016-16V96a16 16 0 00-16-16zM265.82 284.63a16 16 0 01-19.64 0L89.55 162.81l19.64-25.26L256 251.73l146.81-114.18 19.64 25.26z" />
           </svg>

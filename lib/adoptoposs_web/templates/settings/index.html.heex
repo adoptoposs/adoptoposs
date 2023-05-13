@@ -3,7 +3,7 @@
 
   <h2>Your Favorite Languages</h2>
 
-  <div class="mt-4 p-4 md:p-6 rounded bg-white border border-gray-300">
+  <div class="mt-4 p-4 md:p-6 rounded bg-white border border-gray-200">
     <div class="md:grid md:grid-flow-col md:grid-cols-2 md:gap-8">
       <div class="flex flex-col flex-wrap">
         <p class="">
@@ -52,7 +52,7 @@
               <% tag = tag_subscription.tag %>
               <div
                 id={"tag-#{tag.id}"}
-                class="flex flex-row items-center bg-white text-pink-900 border border-gray-400 font-semibold mr-2 mb-2 rounded hover:bg-red-500 hover:text-white hover:border-white"
+                class="flex flex-row items-center bg-white border border-gray-300 font-semibold mr-2 mb-2 rounded hover:bg-red-400 hover:text-white hover:border-white"
               >
                 <div
                   class="w-3 h-3 rounded rounded-full ml-3"
@@ -82,7 +82,7 @@
             <% end %>
           </div>
         <% else %>
-          <div class="rounded mt-2 p-4 bg-gray-200">
+          <div class="rounded mt-2 p-4 bg-gray-100">
             <p class="mb-0">
               You did not add any favorite languages yet.
             </p>
@@ -133,7 +133,10 @@
           </form>
 
           <%= unless @query in [nil, ""] do %>
-            <button class="button-link inline indented-sm w-5 h-5" phx-click="clear_search">
+            <button
+              class="button-link button-link--inline indented-sm w-5 h-5"
+              phx-click="clear_search"
+            >
               <span class="text-xl">&times;</span>
             </button>
           <% end %>
@@ -142,17 +145,17 @@
         <div id="tags-search" class="flex flex-row flex-wrap mt-4 md:mt-6">
           <%= if @query && Enum.empty?(@tag_results) do %>
             <p class="text-pink-900">
-              No language found for <span class="text-red-500 break-all">"<%= @query %>"</span> :(
+              No language found for <span class="text-red-400 break-all">"<%= @query %>"</span> :(
             </p>
           <% else %>
             <%= for result <- @tag_results do %>
               <%= if result in Enum.map(@tag_subscriptions, &(&1.tag)) do %>
                 <div
                   id={"tag-result-#{result.id}"}
-                  class="flex flex-row flex-wrap items-center bg-gray-200 text-gray-500 border border-gray-400 font-semibold mr-2 mb-2 rounded cursor-default py-1"
+                  class="flex flex-row flex-wrap items-center bg-gray-100 text-gray-400 border border-gray-300 font-semibold mr-2 mb-2 rounded cursor-default py-1"
                   title={result.name}
                 >
-                  <div class="w-3 h-3 rounded rounded-full ml-3 bg-gray-500"></div>
+                  <div class="w-3 h-3 rounded rounded-full ml-3 bg-gray-400"></div>
 
                   <div class="ml-2"><%= result.name %></div>
 
@@ -168,7 +171,7 @@
                 </div>
               <% else %>
                 <div
-                  class="flex flex-row items-center bg-white text-pink-900 border border-gray-400 font-semibold mr-2 mb-2 rounded hover:bg-red-500 hover:text-white hover:border-white cursor-pointer"
+                  class="flex flex-row items-center bg-white border border-gray-300 font-semibold mr-2 mb-2 rounded hover:bg-red-400 hover:text-white hover:border-white cursor-pointer"
                   title={"Add #{result.name}"}
                 >
                   <form
@@ -183,7 +186,7 @@
                       phx-value_tag_id={result.id}
                     />
 
-                    <%= submit class: "plain flex flex-row items-center font-semibold text-md py-1 pl-0 pr-2 focus:bg-red-500 focus:text-white" do %>
+                    <%= submit class: "plain flex flex-row items-center font-semibold text-md py-1 pl-0 pr-2 focus:bg-red-400 focus:text-white" do %>
                       <div
                         class="w-3 h-3 rounded rounded-full ml-3"
                         style={"background-color: #{result.color};"}
