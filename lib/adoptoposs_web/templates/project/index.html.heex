@@ -106,12 +106,12 @@
                 phx_target: "#project-#{project.id}"
               ) %>
             <% else %>
-              <div class="text-gray-600">
-                <b>I’m looking for…</b>
-              </div>
+              <div>
+                <div class="text-gray-600">
+                  <b>I’m looking for…</b>
+                </div>
 
-              <div class="whitespace-pre-wrap text-gray-600 my-2 md:mb-4">
-                <%= project.description %>
+                <div class="text-gray-600 my-2 md:mb-4 whitespace-pre-line" phx-no-format><%= project.description %></div>
               </div>
 
               <div class="mt-2">

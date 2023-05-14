@@ -94,7 +94,9 @@
     </div>
 
     <div class="text-center mt-6">
-      <.link navigate={Routes.live_path(@socket, AdoptopossWeb.ExploreLive, f: [@tag_filter])}>
+      <.link navigate={
+        Routes.live_path(@socket, AdoptopossWeb.ExploreLive.Index, f: [@tag_filter])
+      }>
         Explore More…
       </.link>
     </div>

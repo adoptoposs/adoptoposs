@@ -1,15 +1,10 @@
-defmodule AdoptopossWeb.ExploreLive do
+defmodule AdoptopossWeb.ExploreLive.Index do
   use AdoptopossWeb, :live_view
 
   alias Adoptoposs.{Search, Accounts, Tags}
   alias AdoptopossWeb.ExploreView
 
   @per_page 16
-
-  @impl true
-  def render(assigns) do
-    Phoenix.View.render(ExploreView, "index.html", assigns)
-  end
 
   @impl true
   def mount_logged_in(_params, %{"user_id" => user_id} = session, socket) do

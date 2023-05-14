@@ -74,9 +74,7 @@
                     </div>
 
                     <div class="flex flex-col md:flex-row md:pl-16 pl-0 pt-4 w-full text-pink-900">
-                      <div class="whitespace-pre-wrap flex-1">
-                        <%= String.trim(interest.message) %>
-                      </div>
+                      <div class="flex-1 whitespace-pre-line" phx-no-format><%= String.trim(interest.message) %></div>
 
                       <div class="flex flex-row justify-between md:justify-end items-center md:items-end">
                         <div class="text-gray-500 text-sm md:hidden">

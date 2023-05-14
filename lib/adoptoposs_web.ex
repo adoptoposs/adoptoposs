@@ -61,7 +61,6 @@ defmodule AdoptopossWeb do
   def component do
     quote do
       use Phoenix.Component
-      use AdoptopossWeb.LiveHelpers
 
       unquote(view_helpers())
     end

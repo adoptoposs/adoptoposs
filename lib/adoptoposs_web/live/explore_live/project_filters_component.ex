@@ -1,15 +1,48 @@
 defmodule AdoptopossWeb.ProjectFiltersComponent do
   use AdoptopossWeb, :live_component
 
+  import AdoptopossWeb.ExploreLive.Components
+
   alias Adoptoposs.Search
-  alias AdoptopossWeb.ExploreView
 
   @top_tags_count 10
   @tag_search_limit 12
 
   @impl true
   def render(assigns) do
-    ExploreView.render("filters.html", assigns)
+    ~H"""
+    <div id={@id} phx-target={@myself}>
+      <%= if @dropdown do %>
+        <.dropdown_filters
+          id={@id}
+          filter_selection_open={@filter_selection_open}
+          filters={@filters}
+          user_id={@user_id}
+          subscribed_tags={@subscribed_tags}
+          suggested_tags={@suggested_tags}
+          custom_tags={@selected_custom_tags}
+          selected_filters={@selected_filters}
+          tags={@tags}
+          tag_query={@tag_query}
+          tag_results={@tag_results}
+        />
+      <% else %>
+        <.sidebar_filters
+          id={@id}
+          filter_selection_open={@filter_selection_open}
+          filters={@filters}
+          user_id={@user_id}
+          subscribed_tags={@subscribed_tags}
+          suggested_tags={@suggested_tags}
+          custom_tags={@selected_custom_tags}
+          selected_filters={@selected_filters}
+          tags={@tags}
+          tag_query={@tag_query}
+          tag_results={@tag_results}
+        />
+      <% end %>
+    </div>
+    """
   end
 
   @impl true
@@ -114,7 +147,7 @@ defmodule AdoptopossWeb.ProjectFiltersComponent do
   defp update_assigns(socket, assigns) do
     assigns =
       assigns
-      |> Map.take([:id, :user_id, :subscribed_tags, :suggested_tags, :filters, :tags])
+      |> Map.take([:id, :dropdown, :user_id, :subscribed_tags, :suggested_tags, :filters, :tags])
 
     %{filters: filters, tags: tags, subscribed_tags: subscribed_tags} = assigns
 
