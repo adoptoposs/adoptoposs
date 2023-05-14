@@ -1,21 +1,26 @@
-<div class="flex w-full flex-col justify-between">
-  <h2 class="text-xl mt-0 leading-tight mb-2">
-    <%= link(project_name(@project),
-      to: project_url(@project),
-      class: "text-pink-900 break-all",
-      title: project_name(@project)
-    ) %>
-  </h2>
+<div class="flex w-full flex-row">
+  <div class="flex w-full flex-col justify-between">
+    <h2 class="text-xl mt-0 leading-tight mb-2">
+      <%= link(
+        to: project_url(@project),
+        class: "text-pink-900 break-all",
+        title: project_name(@project)
+      ) do %>
+        <img src={project_image_url(@project)} class=" inline-flex h-7 w-7 mr-2 rounded" />
+        <%= project_name(@project) %>
+      <% end %>
+    </h2>
 
-  <div class="markdown text-gray-500">
-    <%= {:safe, Earmark.as_html!(project_description(@project))} %>
-  </div>
+    <div class="flex-1 markdown text-gray-500">
+      <%= {:safe, Earmark.as_html!(project_description(@project))} %>
+    </div>
 
-  <div class="flex flex-row justify-between items-center mt-2 md:mt-4">
-    <%= render(AdoptopossWeb.SharedView, "language_tag.html",
-      name: @project.language.name,
-      color: @project.language.color,
-      class: "text-gray-600"
-    ) %>
+    <div class="flex flex-row justify-between items-top mt-2">
+      <%= render(AdoptopossWeb.SharedView, "language_tag.html",
+        name: @project.language.name,
+        color: @project.language.color,
+        class: "text-gray-600"
+      ) %>
+    </div>
   </div>
 </div>
