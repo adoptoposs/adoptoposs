@@ -17,20 +17,20 @@ $font-family-secondary: "Oswald";
     font-family: $font-family-primary;
     src: url(/fonts/SourceSansPro-Regular.ttf);
     font-weight: 400;
-    display: swap;
+    font-display: swap;
   }
 
   @font-face {
     font-family: $font-family-primary;
     src: url(/fonts/SourceSansPro-SemiBold.ttf);
     font-weight: 600;
-    display: swap;
+    font-display: swap;
   }
 
   @font-face {
     font-family: $font-family-secondary;
     src: url(/fonts/Oswald-Regular.ttf);
-    display: swap;
+    font-display: swap;
   }
 
   h1, h2, h3, h4, h5 {
