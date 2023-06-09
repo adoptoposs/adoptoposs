@@ -14,7 +14,7 @@ defmodule Adoptoposs.Factory do
       email: sequence(:email, &"user#{&1}@example.com"),
       name: sequence("User"),
       username: sequence("username"),
-      avatar_url: sequence(:avatar_url, &"https://example.com/avatar-#{&1}.png"),
+      avatar_url: sequence(:avatar_url, &"https://example.com/avatar-#{&1}.png?s=64"),
       profile_url: sequence(:avatar_url, &"https://example.com/profile/#{&1}"),
       settings: %Accounts.Settings{}
     }
@@ -52,7 +52,7 @@ defmodule Adoptoposs.Factory do
         first_name: nil,
         last_name: nil,
         urls: %{
-          avatar_url: sequence(:avatar_url, &"https://example.com/avatar-#{&1}.png"),
+          avatar_url: sequence(:avatar_url, &"https://example.com/avatar-#{&1}.png?s=80"),
           html_url: sequence(:avatar_url, &"https://example.com/profile/#{&1}")
         }
       }

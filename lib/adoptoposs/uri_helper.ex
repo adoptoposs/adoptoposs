@@ -13,6 +13,9 @@ defmodule Adoptoposs.UriHelper do
     iex> Adoptoposs.UriHelper.extend_path("https://example.com", %{q: "test"})
     "https://example.com?q=test"
 
+    iex> Adoptoposs.UriHelper.extend_path("https://example.com?q=test", q: "test")
+    "https://example.com?q=test"
+
     iex> Adoptoposs.UriHelper.extend_path("https://example.com", %{})
     "https://example.com?"
 
@@ -24,7 +27,7 @@ defmodule Adoptoposs.UriHelper do
       (uri.query || "")
       |> URI.query_decoder()
       |> Map.new()
-      |> Map.merge(Map.new(params))
+      |> Map.merge(Map.new(params, fn {x, y} -> {Atom.to_string(x), y} end))
       |> URI.encode_query()
 
     uri

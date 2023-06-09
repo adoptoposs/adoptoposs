@@ -2,6 +2,7 @@ defmodule Adoptoposs.Accounts.UserFromAuthTest do
   use Adoptoposs.DataCase
 
   import Adoptoposs.Factory
+  import Adoptoposs.UriHelper, only: [extend_path: 2]
 
   alias Adoptoposs.Accounts.UserFromAuth
 
@@ -14,7 +15,7 @@ defmodule Adoptoposs.Accounts.UserFromAuthTest do
              name: auth.info.name,
              username: auth.info.nickname,
              email: auth.info.email,
-             avatar_url: auth.info.urls.avatar_url,
+             avatar_url: extend_path(auth.info.urls.avatar_url, s: 80),
              profile_url: auth.info.urls.html_url,
              settings: %{}
            }
@@ -31,7 +32,7 @@ defmodule Adoptoposs.Accounts.UserFromAuthTest do
              name: "#{auth.info.first_name} #{auth.info.last_name}",
              username: auth.info.nickname,
              email: auth.info.email,
-             avatar_url: auth.info.urls.avatar_url,
+             avatar_url: extend_path(auth.info.urls.avatar_url, s: 80),
              profile_url: auth.info.urls.html_url,
              settings: %{}
            }
@@ -48,7 +49,7 @@ defmodule Adoptoposs.Accounts.UserFromAuthTest do
              name: auth.info.nickname,
              username: auth.info.nickname,
              email: auth.info.email,
-             avatar_url: auth.info.urls.avatar_url,
+             avatar_url: extend_path(auth.info.urls.avatar_url, s: 80),
              profile_url: auth.info.urls.html_url,
              settings: %{}
            }
