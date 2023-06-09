@@ -41,6 +41,10 @@ config :adoptoposs, :github_api, Adoptoposs.Network.Api.Github
 #     project_recommendations: [
 #       schedule: {:extended, "*/5 * * * * *"},
 #       task: {Adoptoposs.Jobs, :send_project_recommendations, []}
+#     ],
+#     languages_update: [
+#       schedule: {:extended, "*/30 * * * * *"},
+#       task: {Adoptoposs.Jobs, :fetch_languages, []}
 #     ]
 #   ]
 

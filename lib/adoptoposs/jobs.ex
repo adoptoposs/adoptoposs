@@ -44,6 +44,13 @@ defmodule Adoptoposs.Jobs do
     end
   end
 
+  @doc """
+  Fetches programming languages from GitHub's linguist repository
+  """
+  def fetch_languages do
+    Adoptoposs.Release.fetch_languages()
+  end
+
   defp email_weekday do
     System.get_env("EMAIL_WEEKDAY") || @default_email_weekday
   end

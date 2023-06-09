@@ -114,6 +114,11 @@ if config_env() == :prod do
         # default: every day, 4pm UTC
         schedule: System.get_env("CRONTAB_PROJECT_RECOMMENDATIONS") || "0 16 * * *",
         task: {Adoptoposs.Jobs, :send_project_recommendations, []}
+      ],
+      languages_update: [
+        # default: every Sunday, 2am UTC
+        schedule: System.get_env("CRONTAB_LANGUAGES_UPDATE") || "0 2 * * Sun",
+        task: {Adoptoposs.Jobs, :fetch_languages, []}
       ]
     ]
 
