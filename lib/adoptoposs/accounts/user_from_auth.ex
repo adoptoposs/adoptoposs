@@ -1,5 +1,6 @@
 defmodule Adoptoposs.Accounts.UserFromAuth do
   alias Ueberauth.Auth
+  alias Adoptoposs.UriHelper
 
   def build(%Auth{} = auth) do
     %{
@@ -29,7 +30,9 @@ defmodule Adoptoposs.Accounts.UserFromAuth do
   defp username_from_auth(%Auth{info: %{nickname: nickname}}), do: nickname
   defp username_from_auth(%Auth{}), do: ""
 
-  defp avatar_url_from_auth(%Auth{info: %{urls: %{avatar_url: url}}}), do: url
+  defp avatar_url_from_auth(%Auth{info: %{urls: %{avatar_url: url}}}),
+    do: UriHelper.extend_path(url, s: 80)
+
   defp avatar_url_from_auth(%Auth{}), do: ""
 
   defp email_from_auth(%Auth{info: %{email: email}}), do: email

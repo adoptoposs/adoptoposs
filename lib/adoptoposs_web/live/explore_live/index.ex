@@ -2,7 +2,6 @@ defmodule AdoptopossWeb.ExploreLive.Index do
   use AdoptopossWeb, :live_view
 
   alias Adoptoposs.{Search, Accounts, Tags}
-  alias AdoptopossWeb.ExploreView
 
   @per_page 16
 

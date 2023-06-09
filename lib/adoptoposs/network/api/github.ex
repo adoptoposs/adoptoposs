@@ -1,6 +1,7 @@
 defmodule Adoptoposs.Network.Api.Github do
   alias Adoptoposs.Network.{Api, Repository, PageInfo, Organization}
   alias Adoptoposs.Network.Repository.{User, Language}
+  alias Adoptoposs.UriHelper
 
   @behaviour Api
 
@@ -252,7 +253,7 @@ defmodule Adoptoposs.Network.Api.Github do
       id: data.login,
       name: data.name,
       description: data.description,
-      avatar_url: data.avatarUrl
+      avatar_url: UriHelper.extend_path(data.avatarUrl, s: 64)
     }
   end
 
@@ -274,7 +275,7 @@ defmodule Adoptoposs.Network.Api.Github do
   defp build_owner(%{owner: owner}) when not is_nil(owner) do
     %User{
       login: owner.login,
-      avatar_url: owner.avatarUrl,
+      avatar_url: UriHelper.extend_path(owner.avatarUrl, s: 64),
       profile_url: owner.url
     }
   end
