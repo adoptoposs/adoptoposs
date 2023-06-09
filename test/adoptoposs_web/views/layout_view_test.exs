@@ -4,11 +4,11 @@ defmodule AdoptopossWeb.LayoutViewTest do
   alias AdoptopossWeb.LayoutView
 
   test "email_header_image/1 returns messages image url for newsletter type" do
-    assert LayoutView.email_header_image(:newsletter) =~ "/images/adoptoposs-message.png"
+    assert LayoutView.email_header_image(:newsletter) =~ "/images/adoptoposs-message.webp"
   end
 
   test "email_header_image/1 returns notification image url for other types" do
-    assert LayoutView.email_header_image(:notification) =~ "/images/adoptoposs-contact.png"
+    assert LayoutView.email_header_image(:notification) =~ "/images/adoptoposs-contact.webp"
   end
 
   test "email_footer_background/1 returns different colors for different layout type" do

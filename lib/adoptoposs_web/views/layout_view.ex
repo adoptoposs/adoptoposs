@@ -2,11 +2,11 @@ defmodule AdoptopossWeb.LayoutView do
   use AdoptopossWeb, :view
 
   def email_header_image(:notification) do
-    image_url("adoptoposs-contact.png")
+    image_url("adoptoposs-contact.webp")
   end
 
   def email_header_image(_email_type) do
-    image_url("adoptoposs-message.png")
+    image_url("adoptoposs-message.webp")
   end
 
   def email_footer_background(:notification), do: "#2d3748"
