@@ -73,8 +73,8 @@ defmodule AdoptopossWeb.ProjectLive do
     project = Submissions.get_project!(id)
 
     with :ok <- Bodyguard.permit(Submissions, :delete_project, user, project),
-         {:ok, project} <- Submissions.delete_project(project) do
-      projects = socket.assigns.projects |> Enum.drop_while(&(&1.id == project.id))
+         {:ok, _project} <- Submissions.delete_project(project) do
+      projects = Submissions.list_projects(user)
       {:noreply, assign(socket, projects: projects)}
     else
       {:error, _} ->
