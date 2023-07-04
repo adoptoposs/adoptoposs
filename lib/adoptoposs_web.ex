@@ -16,6 +16,8 @@ defmodule AdoptopossWeb do
   and import those modules here.
   """
 
+  def static_paths, do: ~w(assets fonts images favicon.ico robots.txt)
+
   def controller do
     quote do
       use Phoenix.Controller, namespace: AdoptopossWeb
@@ -23,6 +25,8 @@ defmodule AdoptopossWeb do
       import Plug.Conn
       import AdoptopossWeb.Gettext
       alias AdoptopossWeb.Router.Helpers, as: Routes
+
+      unquote(verified_routes())
     end
   end
 
@@ -97,6 +101,17 @@ defmodule AdoptopossWeb do
       import AdoptopossWeb.ErrorHelpers
       import AdoptopossWeb.Gettext
       alias AdoptopossWeb.Router.Helpers, as: Routes
+
+      unquote(verified_routes())
+    end
+  end
+
+  def verified_routes do
+    quote do
+      use Phoenix.VerifiedRoutes,
+        endpoint: AdoptopossWeb.Endpoint,
+        router: AdoptopossWeb.Router,
+        statics: AdoptopossWeb.static_paths()
     end
   end
 

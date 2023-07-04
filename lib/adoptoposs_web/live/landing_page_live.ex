@@ -68,7 +68,7 @@ defmodule AdoptopossWeb.LandingPageLive do
     attrs = tags |> Enum.map(&%{user_id: user.id, tag_id: &1.id})
 
     Tags.create_tag_subscriptions(attrs)
-    {:noreply, push_redirect(socket, to: Routes.live_path(socket, __MODULE__))}
+    {:noreply, push_redirect(socket, to: ~p"/")}
   end
 
   defp apply_tag_filter(socket, _user, nil) do
@@ -84,8 +84,7 @@ defmodule AdoptopossWeb.LandingPageLive do
 
   defp push_tag_filter(socket, tag) do
     filter = String.downcase(tag.name)
-    path = Routes.live_path(socket, __MODULE__, f: filter)
-    push_patch(socket, to: path)
+    push_patch(socket, to: ~p"/?f=#{filter}")
   end
 
   defp put_assigns(socket, %User{} = user) do

@@ -3,30 +3,29 @@ defmodule AdoptopossWeb.ProjectLiveTest do
 
   import Adoptoposs.Factory
 
-  alias AdoptopossWeb.ProjectLive
   alias Adoptoposs.Submissions
   alias Adoptoposs.Submissions.Project
 
   test "disconnected mount requires authentication on project routes", %{conn: conn} do
-    conn = get(conn, Routes.live_path(conn, ProjectLive))
+    conn = get(conn, ~p"/settings/projects")
     assert html_response(conn, 302)
     assert conn.halted
   end
 
   test "connected mount requires authentication on all project routes", %{conn: conn} do
-    path = Routes.live_path(conn, ProjectLive)
+    path = ~p"/settings/projects"
     assert {:error, {:redirect, %{to: "/"}}} = live(conn, path)
   end
 
   @tag login_as: "user123"
   test "disconnected mount of /settings/projects shows the page when logged in", %{conn: conn} do
-    conn = get(conn, Routes.live_path(conn, ProjectLive))
+    conn = get(conn, ~p"/settings/projects")
     assert html_response(conn, 200) =~ "Your Submitted Projects"
   end
 
   @tag login_as: "user123"
   test "connected mount of /settings/projects shows the page when logged in", %{conn: conn} do
-    {:ok, _view, html} = live(conn, Routes.live_path(conn, ProjectLive))
+    {:ok, _view, html} = live(conn, ~p"/settings/projects")
     assert html =~ "Your Submitted Projects"
   end
 
@@ -34,7 +33,7 @@ defmodule AdoptopossWeb.ProjectLiveTest do
   test "editing a project", %{conn: conn, user: user} do
     project = insert(:project, user: user)
 
-    {:ok, view, html} = live(conn, Routes.live_path(conn, ProjectLive))
+    {:ok, view, html} = live(conn, ~p"/settings/projects")
     assert html =~ project.name
     assert html =~ ~r/edit/i
     refute html =~ ~r/save/i
@@ -61,7 +60,7 @@ defmodule AdoptopossWeb.ProjectLiveTest do
   test "unpublishing a project", %{conn: conn, user: user} do
     project = insert(:project, user: user, status: :published)
 
-    {:ok, view, html} = live(conn, Routes.live_path(conn, ProjectLive))
+    {:ok, view, html} = live(conn, ~p"/settings/projects")
     assert html =~ project.name
     assert html =~ ~r/unpublish/i
 
@@ -74,7 +73,7 @@ defmodule AdoptopossWeb.ProjectLiveTest do
   test "publishing a project", %{conn: conn, user: user} do
     project = insert(:project, user: user, status: :draft)
 
-    {:ok, view, html} = live(conn, Routes.live_path(conn, ProjectLive))
+    {:ok, view, html} = live(conn, ~p"/settings/projects")
     assert html =~ project.name
     assert html =~ ~r/publish/i
     refute html =~ ~r/unpublish/i
@@ -87,7 +86,7 @@ defmodule AdoptopossWeb.ProjectLiveTest do
   test "removing a project", %{conn: conn, user: user} do
     project = insert(:project, user: user)
 
-    {:ok, view, html} = live(conn, Routes.live_path(conn, ProjectLive))
+    {:ok, view, html} = live(conn, ~p"/settings/projects")
     assert html =~ project.description
     html = render_submit(view, :remove, %{id: project.id})
     refute html =~ project.description
@@ -98,7 +97,7 @@ defmodule AdoptopossWeb.ProjectLiveTest do
   test "removing another user’s project is not possible", %{conn: conn} do
     project = insert(:project)
 
-    {:ok, view, _html} = live(conn, Routes.live_path(conn, ProjectLive))
+    {:ok, view, _html} = live(conn, ~p"/settings/projects")
     render_submit(view, :remove, %{id: project.id})
     assert Submissions.get_project!(project.id).id == project.id
   end

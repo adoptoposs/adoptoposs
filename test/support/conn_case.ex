@@ -23,6 +23,8 @@ defmodule AdoptopossWeb.ConnCase do
       import AdoptopossWeb.ConnCase
       import Adoptoposs.Factory
 
+      use AdoptopossWeb, :verified_routes
+
       alias AdoptopossWeb.Router.Helpers, as: Routes
 
       # The default endpoint for testing

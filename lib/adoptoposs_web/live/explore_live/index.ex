@@ -72,13 +72,25 @@ defmodule AdoptopossWeb.ExploreLive.Index do
 
   @impl true
   def handle_info({:force_update}, %{assigns: assigns} = socket) do
-    opts = %{q: assigns.query, f: assigns.filters}
-    {:noreply, push_redirect(socket, to: Routes.live_path(socket, __MODULE__, opts))}
+    params = clean_up_params(%{q: assigns.query, f: assigns.filters})
+    {:noreply, push_redirect(socket, to: ~p"/explore?#{params}")}
+  end
+
+  defp set_params(socket, %{}) do
+    push_patch(socket, to: ~p"/explore")
   end
 
   defp set_params(socket, opts) do
-    push_patch(socket, to: Routes.live_path(socket, __MODULE__, opts))
+    params = clean_up_params(opts)
+    push_patch(socket, to: ~p"/explore?#{params}")
   end
+
+  defp clean_up_params(q: nil, f: []), do: %{}
+  defp clean_up_params(q: "", f: []), do: %{}
+  defp clean_up_params(q: nil, f: filter), do: %{f: filter}
+  defp clean_up_params(q: "", f: filter), do: %{f: filter}
+  defp clean_up_params(q: query, f: []), do: %{q: query}
+  defp clean_up_params(params), do: params
 
   defp assign_defaults(socket, session, opts \\ []) do
     socket

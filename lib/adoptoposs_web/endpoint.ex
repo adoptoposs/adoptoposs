@@ -22,7 +22,7 @@ defmodule AdoptopossWeb.Endpoint do
     from: :adoptoposs,
     gzip: true,
     brotli: true,
-    only: ~w(assets fonts images favicon.ico robots.txt)
+    only: AdoptopossWeb.static_paths()
 
   # Code reloading can be explicitly enabled under the
   # :code_reloader configuration of your endpoint.

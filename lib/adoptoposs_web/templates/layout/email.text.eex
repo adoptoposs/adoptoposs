@@ -5,5 +5,5 @@ Always keep maintaining!
 - The Adoptoposs Team
 
 
-Visit <%= Routes.live_url(AdoptopossWeb.Endpoint, AdoptopossWeb.LandingPageLive) %> to find co-maintainers for your open source software project.
-You can unsubscribe from these notifications in your account settings: <%= Routes.live_url(AdoptopossWeb.Endpoint, AdoptopossWeb.SettingsLive) %>.
+Visit <%= url(~p"/") %> to find co-maintainers for your open source software project.
+You can unsubscribe from these notifications in your account settings: <%= url(~p"/settings") %>.

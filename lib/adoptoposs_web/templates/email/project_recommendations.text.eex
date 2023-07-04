@@ -10,11 +10,11 @@ We’ve found some projects on Adoptoposs you might like to help maintain:
        @<%= project.user.username %> is looking for:
        <%= project.description %>
 
-    On Adoptoposs: <%= Routes.sharing_url(AdoptopossWeb.Endpoint, :index, project.uuid) %>
+    On Adoptoposs: <%= url(~p"/p/#{project.uuid}") %>
 
   <% end %>
 More <%= language_name %> projects on Adoptoposs:
-<%= Routes.live_url(AdoptopossWeb.Endpoint, AdoptopossWeb.LandingPageLive, f: String.downcase(language_name)) %>
+<%= url(~p"/?f=#{String.downcase(language_name)}") %>
 
 ---------------------------------------------
 

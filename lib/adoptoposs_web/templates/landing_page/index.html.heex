@@ -10,10 +10,7 @@
     <div class="flex flex-row items-center px-4 mt-16 md:px-0 md:mt-20">
       <hr class="flex-grow border-gray-50" />
       <div class="self-center">
-        <.link
-          navigate={Routes.live_path(@socket, AdoptopossWeb.ExploreLive.Index)}
-          class="button-link light mx-3"
-        >
+        <.link navigate={~p"/explore"} class="button-link light mx-3">
           Explore Projects
         </.link>
       </div>
@@ -49,10 +46,7 @@
 
     <div class="mt-4 grid grid-flow-row md:grid-cols-3 gap-6 md:gap-8">
       <div class="flex flex-col items-center">
-        <img
-          src={Routes.static_path(@socket, "/images/adoptoposs-submit.webp")}
-          class="mb-4 md:mb-6 h-48 md:h-auto"
-        />
+        <img src={~p"/images/adoptoposs-submit.webp"} class="mb-4 md:mb-6 h-48 md:h-auto" />
         <h2 class="text-center mb-2">Submit Your Repo</h2>
         <p class="text-lg text-hyphen md:text-xl max-w-sm mx-auto">
           You are looking for a co-maintainer?
@@ -63,10 +57,7 @@
       </div>
 
       <div class="flex flex-col items-center">
-        <img
-          src={Routes.static_path(@socket, "/images/adoptoposs-contact.webp")}
-          class="mb-4 md:mb-6 h-48 md:h-auto"
-        />
+        <img src={~p"/images/adoptoposs-contact.webp"} class="mb-4 md:mb-6 h-48 md:h-auto" />
         <h2 class="text-center text-gray-700 mb-2">Contact Maintainers</h2>
         <p class="text-lg text-hyphen md:text-xl max-w-sm mx-auto">
           You want to help with <acronym title="Open Source Software">OSS</acronym> maintenance?
@@ -76,10 +67,7 @@
       </div>
 
       <div class="flex flex-col items-center">
-        <img
-          src={Routes.static_path(@socket, "/images/adoptoposs-message.webp")}
-          class="mb-4 md:mb-6 h-48 md:h-auto"
-        />
+        <img src={~p"/images/adoptoposs-message.webp"} class="mb-4 md:mb-6 h-48 md:h-auto" />
         <h2 class="text-center text-red-400 mb-2">Explore Projects</h2>
         <p class="text-lg text-hyphen md:text-xl max-w-sm mx-auto">
           Not sure where to help?
@@ -92,10 +80,7 @@
     <div class="flex flex-row items-center px-4 mb-4 mt-12 md:px-0 md:mb-0 md:mt-20">
       <hr class="flex-grow border-gray-500" />
       <div class="self-center">
-        <.link
-          navigate={Routes.live_path(@socket, AdoptopossWeb.ExploreLive.Index)}
-          class="button-link dark mx-3 gray-500"
-        >
+        <.link navigate={~p"/explore"} class="button-link dark mx-3 gray-500">
           Explore Projects
         </.link>
       </div>
@@ -128,10 +113,7 @@
     </div>
 
     <div class="mt-12 text-center self-center">
-      <.link
-        navigate={Routes.live_path(@socket, AdoptopossWeb.ExploreLive.Index)}
-        class="button-link medium mx-3"
-      >
+      <.link navigate={~p"/explore"} class="button-link medium mx-3">
         Explore More…
       </.link>
     </div>
@@ -186,7 +168,7 @@
     <div class="flex flex-row items-center mt-12">
       <hr class="flex-grow border-red-200" />
       <div class="self-center">
-        <.link navigate={Routes.auth_path(@socket, :request, "github")} class="button-link mx-3">
+        <.link navigate={~p"/auth/github"} class="button-link mx-3">
           <i class="fa-brands fa-github mr-1"></i> Log in with GitHub
         </.link>
       </div>

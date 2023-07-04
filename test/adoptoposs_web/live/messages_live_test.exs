@@ -3,13 +3,11 @@ defmodule AdoptopossWeb.MessagesLiveTest do
 
   import Adoptoposs.Factory
 
-  alias AdoptopossWeb.MessagesLive
-
   test "disconnected mount requires authentication on all messages routes", %{conn: conn} do
     Enum.each(
       [
-        Routes.live_path(conn, MessagesLive.Contacted),
-        Routes.live_path(conn, MessagesLive.Interests)
+        ~p"/messages/contacted",
+        ~p"/messages/interests"
       ],
       fn path ->
         conn = get(conn, path)
@@ -22,8 +20,8 @@ defmodule AdoptopossWeb.MessagesLiveTest do
   test "connected mount requires authentication on all project routes", %{conn: conn} do
     Enum.each(
       [
-        Routes.live_path(conn, MessagesLive.Contacted),
-        Routes.live_path(conn, MessagesLive.Interests)
+        ~p"/messages/contacted",
+        ~p"/messages/interests"
       ],
       fn path ->
         {:error, {:redirect, %{to: "/"}}} = live(conn, path)
@@ -33,25 +31,25 @@ defmodule AdoptopossWeb.MessagesLiveTest do
 
   @tag login_as: "user123"
   test "disconnected mount of /messages/contacted shows the page when logged in", %{conn: conn} do
-    conn = get(conn, Routes.live_path(conn, MessagesLive.Contacted))
+    conn = get(conn, ~p"/messages/contacted")
     assert html_response(conn, 200) =~ "Contacted Maintainers"
   end
 
   @tag login_as: "user123"
   test "connected mount of /messages/contacted shows the page when logged in", %{conn: conn} do
-    {:ok, _view, html} = live(conn, Routes.live_path(conn, MessagesLive.Contacted))
+    {:ok, _view, html} = live(conn, ~p"/messages/contacted")
     assert html =~ "Contacted Maintainers"
   end
 
   @tag login_as: "user123"
   test "disconnected mount of /messages/interests shows the page when logged in", %{conn: conn} do
-    conn = get(conn, Routes.live_path(conn, MessagesLive.Interests))
+    conn = get(conn, ~p"/messages/interests")
     assert html_response(conn, 200) =~ "Interests in your Projects"
   end
 
   @tag login_as: "user123"
   test "connected mount of /messages/interests shows the page when logged in", %{conn: conn} do
-    {:ok, _view, html} = live(conn, Routes.live_path(conn, MessagesLive.Interests))
+    {:ok, _view, html} = live(conn, ~p"/messages/interests")
     assert html =~ "Interests in your Projects"
   end
 
@@ -62,13 +60,13 @@ defmodule AdoptopossWeb.MessagesLiveTest do
   } do
     message = "Dear maintainer, how can I help? :)"
     insert(:interest, creator: user, message: message)
-    {:ok, _view, html} = live(conn, Routes.live_path(conn, MessagesLive.Contacted))
+    {:ok, _view, html} = live(conn, ~p"/messages/contacted")
     assert html =~ message
   end
 
   @tag login_as: "user123"
   test "/messages/contacted shows an empty message if no interests where sent yet", %{conn: conn} do
-    {:ok, _view, html} = live(conn, Routes.live_path(conn, MessagesLive.Contacted))
+    {:ok, _view, html} = live(conn, ~p"/messages/contacted")
     assert html =~ "You did not contact any maintainer yet."
   end
 
@@ -81,7 +79,7 @@ defmodule AdoptopossWeb.MessagesLiveTest do
     message = "Dear maintainer, how can I help? :)"
     insert(:interest, project: project, message: message)
 
-    {:ok, _view, html} = live(conn, Routes.live_path(conn, MessagesLive.Interests))
+    {:ok, _view, html} = live(conn, ~p"/messages/interests")
     assert html =~ project.name
     assert html =~ message
   end
@@ -90,7 +88,7 @@ defmodule AdoptopossWeb.MessagesLiveTest do
   test "/messages/interests shows an empty message if no interests where received yet", %{
     conn: conn
   } do
-    {:ok, _view, html} = live(conn, Routes.live_path(conn, MessagesLive.Interests))
+    {:ok, _view, html} = live(conn, ~p"/messages/interests")
     assert html =~ "You don’t have any messages here yet."
   end
 end

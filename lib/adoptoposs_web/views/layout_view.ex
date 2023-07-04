@@ -13,6 +13,6 @@ defmodule AdoptopossWeb.LayoutView do
   def email_footer_background(_email_type), do: "#f56565"
 
   defp image_url(image_name) do
-    Routes.static_url(AdoptopossWeb.Endpoint, "/images/#{image_name}")
+    url(~p"/images/#{image_name}")
   end
 end
