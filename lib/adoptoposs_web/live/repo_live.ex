@@ -27,7 +27,7 @@ defmodule AdoptopossWeb.RepoLive do
 
   @impl true
   def handle_event("organization_selected", %{"id" => id}, socket) do
-    {:noreply, push_patch(socket, to: Routes.live_path(socket, __MODULE__, id))}
+    {:noreply, push_patch(socket, to: ~p"/settings/repos/#{id}")}
   end
 
   @impl true

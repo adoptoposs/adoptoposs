@@ -27,7 +27,7 @@
     <% end %>
 
     <div class="mt-6 text-center text-lg">
-      <.link navigate={Routes.live_path(@socket, AdoptopossWeb.ExploreLive.Index)}>
+      <.link navigate={~p"/explore"}>
         Explore more projects
       </.link>
     </div>
@@ -36,7 +36,7 @@
       <div class="flex flex-row items-center my-6 md:my-8 mt-12 md:mt-16">
         <hr class="flex-grow border-red-200" />
         <div class="self-center">
-          <.link navigate={Routes.auth_path(@socket, :request, "github")} class="button-link mx-3">
+          <.link navigate={~p"/auth/github"} class="button-link mx-3">
             <i class="fa-brands fa-github mr-1"></i> Log in with GitHub
           </.link>
         </div>

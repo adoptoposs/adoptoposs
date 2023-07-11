@@ -5,7 +5,8 @@ defmodule AdoptopossWeb.Plugs.RequireLogin do
 
   import Plug.Conn
   import Phoenix.Controller, only: [put_flash: 3, redirect: 2]
-  alias AdoptopossWeb.Router.Helpers, as: Routes
+
+  use AdoptopossWeb, :verified_routes
 
   alias Adoptoposs.Accounts.User
 
@@ -24,7 +25,7 @@ defmodule AdoptopossWeb.Plugs.RequireLogin do
   def call(conn, _opts) do
     conn
     |> put_flash(:error, "You need to log in to visit this page.")
-    |> redirect(to: Routes.live_path(conn, AdoptopossWeb.LandingPageLive))
+    |> redirect(to: ~p"/")
     |> halt()
   end
 end

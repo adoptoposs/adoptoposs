@@ -10,10 +10,7 @@
         <p>
           Looking for a maintainer?
         </p>
-        <%= link("Submit Repo",
-          to: Routes.repo_path(AdoptopossWeb.Endpoint, :index),
-          class: "button-link mb-4"
-        ) %>
+        <%= link("Submit Repo", to: ~p"/settings/repos", class: "button-link mb-4") %>
         <p>
           Submitted Repos will appear here.
         </p>
@@ -133,7 +130,7 @@
                       </div>
                     <% else %>
                       <.link
-                        navigate={Routes.live_path(@socket, AdoptopossWeb.MessagesLive.Interests) <> "/#p-#{project.uuid}"}
+                        navigate={~p"/messages/interests?p-#{project.uuid}"}
                         class="flex flex-row items-center emphasize"
                         title={"#{Enum.count(project.interests)} people contacted you"}
                       >

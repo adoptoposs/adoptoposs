@@ -9,11 +9,11 @@
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
     <link rel="icon" href="/favicon.ico" type="image/x-icon" />
 
-    <link rel="stylesheet" href={Routes.static_path(@conn, "/assets/app.css")} />
+    <link rel="stylesheet" href={~p"/assets/app.css"} />
     <%= render(AdoptopossWeb.SharedView, "google_analytics.html") %>
 
     <%= csrf_meta_tag() %>
-    <script defer type="text/javascript" src={Routes.static_path(@conn, "/assets/app.js")}>
+    <script defer type="text/javascript" src={~p"/assets/app.js"}>
     </script>
   </head>
 

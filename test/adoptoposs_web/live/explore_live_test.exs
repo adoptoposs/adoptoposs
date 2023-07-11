@@ -2,28 +2,27 @@ defmodule AdoptopossWeb.ExploreLiveTest do
   use AdoptopossWeb.LiveCase
   use Bamboo.Test, shared: true
 
-  alias AdoptopossWeb.ExploreLive
   alias Adoptoposs.{Communication.Interest, Tags.Tag}
 
   test "disconnected mount of /explore when logged out", %{conn: conn} do
-    conn = get(conn, Routes.live_path(conn, ExploreLive.Index))
+    conn = get(conn, ~p"/explore")
     assert html_response(conn, 200) =~ "Explore Projects"
   end
 
   test "connected mount of /explore when logged out", %{conn: conn} do
-    {:ok, _view, html} = live(conn, Routes.live_path(conn, ExploreLive.Index))
+    {:ok, _view, html} = live(conn, ~p"/explore")
     assert html =~ "Explore Projects"
   end
 
   @tag login_as: "user123"
   test "disconnected mount of /explore when logged in", %{conn: conn} do
-    conn = get(conn, Routes.live_path(conn, ExploreLive.Index))
+    conn = get(conn, ~p"/explore")
     assert html_response(conn, 200) =~ "Explore Projects"
   end
 
   @tag login_as: "user123"
   test "connected mount of /explore when logged in", %{conn: conn} do
-    {:ok, _view, html} = live(conn, Routes.live_path(conn, ExploreLive.Index))
+    {:ok, _view, html} = live(conn, ~p"/explore")
     assert html =~ "Explore Projects"
   end
 
@@ -32,7 +31,7 @@ defmodule AdoptopossWeb.ExploreLiveTest do
     project_1 = insert(:project, name: "Abcdefg", language: language)
     project_2 = insert(:project, name: "Hijklmn", language: language)
 
-    path = Routes.live_path(conn, ExploreLive.Index)
+    path = ~p"/explore"
 
     {:ok, view, _html} = live(conn, path)
     html = render_change(view, :search, %{q: project_1.name})
@@ -59,7 +58,7 @@ defmodule AdoptopossWeb.ExploreLiveTest do
     project_2 = insert(:project, name: "Hijklmn", language: language_2)
     project_3 = insert(:project, name: "Opqrstu", language: language_3)
 
-    path = Routes.live_path(conn, ExploreLive.Index)
+    path = ~p"/explore"
     {:ok, view, html} = live(conn, path)
 
     # all projects are shown by default
@@ -80,7 +79,7 @@ defmodule AdoptopossWeb.ExploreLiveTest do
     |> render_click()
 
     html = render(view)
-    assert_patched(view, Routes.live_path(conn, ExploreLive.Index, q: nil, f: [language_1.id]))
+    assert_patched(view, ~p"/explore?#{[f: [language_1.id]]}")
 
     assert html =~ project_1.name
     refute html =~ project_2.name
@@ -94,7 +93,7 @@ defmodule AdoptopossWeb.ExploreLiveTest do
     html = render(view)
 
     filters = [language_2.id, language_1.id]
-    assert_patched(view, Routes.live_path(conn, ExploreLive.Index, q: nil, f: filters))
+    assert_patched(view, ~p"/explore?#{[f: filters]}")
 
     assert html =~ project_1.name
     assert html =~ project_2.name
@@ -108,7 +107,7 @@ defmodule AdoptopossWeb.ExploreLiveTest do
     html = render(view)
 
     filters = [language_2.id]
-    assert_patched(view, Routes.live_path(conn, ExploreLive.Index, q: nil, f: filters))
+    assert_patched(view, ~p"/explore?#{[f: filters]}")
 
     refute html =~ project_1.name
     assert html =~ project_2.name
@@ -120,7 +119,7 @@ defmodule AdoptopossWeb.ExploreLiveTest do
     |> render_click()
 
     html = render(view)
-    assert_patched(view, Routes.live_path(conn, ExploreLive.Index, q: nil, f: []))
+    assert_patched(view, ~p"/explore")
 
     assert html =~ project_1.name
     assert html =~ project_2.name
@@ -138,7 +137,7 @@ defmodule AdoptopossWeb.ExploreLiveTest do
     language = insert(:tag, type: Tag.Language.type(), name: "Elixir")
     other_project = insert(:project, name: "Abcdefg", language: language)
 
-    path = Routes.live_path(conn, ExploreLive.Index)
+    path = ~p"/explore"
     {:ok, view, _html} = live(conn, path)
 
     # load more to see all created projects
@@ -165,7 +164,7 @@ defmodule AdoptopossWeb.ExploreLiveTest do
     |> render_click()
 
     html = render(view)
-    assert_patched(view, Routes.live_path(conn, ExploreLive.Index, q: nil, f: [language.id]))
+    assert_patched(view, ~p"/explore?#{[f: [language.id]]}")
 
     assert html =~ other_project.name
 
@@ -183,7 +182,7 @@ defmodule AdoptopossWeb.ExploreLiveTest do
     |> render_click()
 
     render(view)
-    assert_patched(view, Routes.live_path(conn, ExploreLive.Index, q: nil, f: []))
+    assert_patched(view, ~p"/explore")
 
     # load more to see all created projects
     html = render_hook(view, :load_more)
@@ -206,7 +205,7 @@ defmodule AdoptopossWeb.ExploreLiveTest do
 
     insert(:tag_subscription, tag: language_1, user: user)
 
-    path = Routes.live_path(conn, ExploreLive.Index)
+    path = ~p"/explore"
     {:ok, view, html} = live(conn, path)
 
     filter_section_id = "filters-sidebar-subscribed"
@@ -225,7 +224,7 @@ defmodule AdoptopossWeb.ExploreLiveTest do
     |> render_click()
 
     html = render(view)
-    assert_patched(view, Routes.live_path(conn, ExploreLive.Index, q: nil, f: [language_1.id]))
+    assert_patched(view, ~p"/explore?#{[f: [language_1.id]]}")
 
     assert html =~ project_1.name
     refute html =~ project_2.name
@@ -236,7 +235,7 @@ defmodule AdoptopossWeb.ExploreLiveTest do
     |> render_click()
 
     html = render(view)
-    assert_patched(view, Routes.live_path(conn, ExploreLive.Index, q: nil, f: []))
+    assert_patched(view, ~p"/explore")
 
     assert html =~ project_1.name
     assert html =~ project_2.name
@@ -244,7 +243,7 @@ defmodule AdoptopossWeb.ExploreLiveTest do
 
   test "contacting a project when logged out", %{conn: conn} do
     project = insert(:project)
-    {:ok, view, _html} = live(conn, Routes.live_path(conn, ExploreLive.Index))
+    {:ok, view, _html} = live(conn, ~p"/explore")
 
     html = render_change(view, :search, %{q: project.name})
     assert html =~ project.name
@@ -255,7 +254,7 @@ defmodule AdoptopossWeb.ExploreLiveTest do
   test "contacting a project when logged in", %{conn: conn, user: user} do
     project = insert(:project, user: build(:user, username: "other-user-than-logged-in"))
 
-    {:ok, view, _html} = live(conn, Routes.live_path(conn, ExploreLive.Index))
+    {:ok, view, _html} = live(conn, ~p"/explore")
 
     html = render_change(view, :search, %{q: project.name})
     assert html =~ project.name
@@ -288,7 +287,7 @@ defmodule AdoptopossWeb.ExploreLiveTest do
   test "contacting your own project when logged in is not possible", %{conn: conn, user: user} do
     project = insert(:project, user: user)
 
-    {:ok, view, _html} = live(conn, Routes.live_path(conn, ExploreLive.Index))
+    {:ok, view, _html} = live(conn, ~p"/explore")
 
     html = render_change(view, :search, %{q: project.name})
     assert html =~ project.name

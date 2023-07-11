@@ -39,7 +39,7 @@ defmodule AdoptopossWeb.ExploreLive.Components do
           Your favorite languages
           <%= if @user_id do %>
             <span class="float-right">
-              <.link navigate={Routes.live_path(AdoptopossWeb.Endpoint, AdoptopossWeb.SettingsLive)}>
+              <.link navigate={~p"/settings"}>
                 Edit
               </.link>
             </span>
@@ -125,7 +125,7 @@ defmodule AdoptopossWeb.ExploreLive.Components do
         Your favorite languages
         <%= if @user_id do %>
           <span class="float-right">
-            <.link navigate={Routes.live_path(AdoptopossWeb.Endpoint, AdoptopossWeb.SettingsLive)}>
+            <.link navigate={~p"/settings"}>
               Edit
             </.link>
           </span>
@@ -235,7 +235,7 @@ defmodule AdoptopossWeb.ExploreLive.Components do
             </div>
 
             <p class="mb-0">
-              <.link navigate={Routes.live_path(AdoptopossWeb.Endpoint, AdoptopossWeb.SettingsLive)}>
+              <.link navigate={~p"/settings"}>
                 Add your favorite languages
               </.link>
               in your settings.
@@ -243,19 +243,13 @@ defmodule AdoptopossWeb.ExploreLive.Components do
             </p>
           <% else %>
             <p class="mb-0">
-              ℹ You can follow your favorite languages in <.link navigate={
-                Routes.live_path(AdoptopossWeb.Endpoint, AdoptopossWeb.SettingsLive)
-              }>
-                your settings
-              </.link>.
+              <i class="fa-solid fa-circle-info mr-1.5"></i>
+              You can follow your favorite languages in <.link navigate={~p"/settings"}> your settings</.link>.
               They will appear here as quick filters.
             </p>
           <% end %>
         <% else %>
-          <.link
-            navigate={Routes.auth_path(AdoptopossWeb.Endpoint, :request, "github")}
-            class="button-link text-center mb-2"
-          >
+          <.link navigate={~p"/auth/github"} class="button-link text-center mb-2">
             <i class="fa-brands fa-github mr-1"></i> Log in with GitHub
           </.link>
 

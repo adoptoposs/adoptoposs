@@ -75,10 +75,7 @@
           - The Adoptoposs Team
         </mj-text>
 
-        <mj-image
-          width="101px"
-          src={Routes.static_url(AdoptopossWeb.Endpoint, "/images/adoptoposs-logo.webp")}
-        />
+        <mj-image width="101px" src={url(~p"/images/adoptoposs-logo.webp")} />
       </mj-column>
     </mj-section>
     <!-- footer -->
@@ -86,7 +83,7 @@
       <mj-column>
         <mj-text color="white" font-size="12px" font-family="Source Sans Pro" align="center">
           Visit <%= link(AdoptopossWeb.Endpoint.host(),
-            to: Routes.live_url(AdoptopossWeb.Endpoint, AdoptopossWeb.LandingPageLive),
+            to: url(~p"/"),
             class: "inline"
           ) %> to find co-maintainers for your open source software project.
         </mj-text>
@@ -98,10 +95,7 @@
           align="center"
           padding-top="0"
         >
-          You can <%= link("unsubscribe",
-            to: Routes.live_url(AdoptopossWeb.Endpoint, AdoptopossWeb.SettingsLive),
-            class: "inline"
-          ) %> from these notifications in your account settings.
+          You can <%= link("unsubscribe", to: url(~p"/settings"), class: "inline") %> from these notifications in your account settings.
         </mj-text>
       </mj-column>
     </mj-section>

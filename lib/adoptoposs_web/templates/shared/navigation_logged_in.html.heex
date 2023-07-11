@@ -1,7 +1,7 @@
 <!-- hidden on mobile -->
 <div class="md:hidden inline-block">
   <.link
-    navigate={Routes.live_path(@conn, AdoptopossWeb.RepoLive, @current_user.username)}
+    navigate={~p"/settings/repos/#{@current_user.username}"}
     class="self-center text-md px-4 py-2 leading-none border border-red-300 rounded font-semibold"
   >
     <i class="fa-solid fa-plus mr-1.5"></i> Submit Repo
@@ -14,10 +14,7 @@
   </summary>
 
   <div class="toggle-content absolute left-0 right-0 bg-gray-50 z-20 shadow-md p-6">
-    <.link
-      navigate={Routes.live_path(@conn, AdoptopossWeb.MessagesLive.Interests)}
-      class="nav-link"
-    >
+    <.link navigate={~p"/messages/interests"} class="nav-link">
       <%= if @notification_count > 0 do %>
         <i class="fa-solid fa-envelope-open-text mr-2"></i>
       <% else %>
@@ -26,23 +23,23 @@
       Messages
     </.link>
 
-    <.link navigate={Routes.live_path(@conn, AdoptopossWeb.ExploreLive.Index)} class="nav-link">
+    <.link navigate={~p"/explore"} class="nav-link">
       <i class="fa-solid fa-magnifying-glass mr-2"></i>
       <span class="inline">Explore</span>
     </.link>
 
-    <.link navigate={Routes.live_path(@conn, AdoptopossWeb.ProjectLive)} class="nav-link">
+    <.link navigate={~p"/settings/projects"} class="nav-link">
       <i class="fa-solid fa-list mr-2"></i> Your Projects
     </.link>
 
-    <.link navigate={Routes.live_path(@conn, AdoptopossWeb.SettingsLive)} class="nav-link">
+    <.link navigate={~p"/settings"} class="nav-link">
       <i class="fa-solid fa-gear mr-2"></i> Settings
     </.link>
 
     <hr class="border-red-100 mt-4 mb-3" />
 
     <div class=" flex flex-row justify-between items-center">
-      <.link navigate={Routes.auth_path(@conn, :delete)} class="nav-link flex-grow mr-2">
+      <.link navigate={~p"/logout"} class="nav-link flex-grow mr-2">
         <i class="fa-solid fa-arrow-right-from-bracket mr-2"></i> Log out
       </.link>
 
@@ -56,10 +53,7 @@
   class="hidden w-full text-md md:flex-grow justify-end md:flex md:flex-row md:items-end md:w-auto md:items-center mt-4 md:mt-0"
 >
   <div class="hidden md:inline-flex">
-    <.link
-      navigate={Routes.live_path(@conn, AdoptopossWeb.MessagesLive.Interests)}
-      class="flex items-center p-2 mr-4 font-semibold"
-    >
+    <.link navigate={~p"/messages/interests"} class="flex items-center p-2 mr-4 font-semibold">
       <span class="flex relative items-center">
         <%= if @notification_count > 0 do %>
           <i class="fa-solid fa-envelope-open-text mr-2"></i>
@@ -72,16 +66,13 @@
       </span>
     </.link>
 
-    <.link
-      navigate={Routes.live_path(@conn, AdoptopossWeb.ExploreLive.Index)}
-      class="flex items-center p-2 mr-4"
-    >
+    <.link navigate={~p"/explore"} class="flex items-center p-2 mr-4">
       <i class="fa-solid fa-magnifying-glass mr-2"></i>
       <span class="inline font-semibold">Explore</span>
     </.link>
 
     <.link
-      navigate={Routes.live_path(@conn, AdoptopossWeb.RepoLive, @current_user.username)}
+      navigate={~p"/settings/repos/#{@current_user.username}"}
       class="flex self-center button-link subtle mr-4"
     >
       <i class="fa-solid fa-plus mr-1.5"></i> Submit Repo
@@ -100,23 +91,17 @@
 
       <div class="relative">
         <div class="toggle-content absolute right-0 left-auto py-2 mt-2 rounded border border-red-200 bg-gray-50 shadow-md w-max-content font-semibold">
-          <.link
-            navigate={Routes.live_path(@conn, AdoptopossWeb.ProjectLive)}
-            class="group nav-link"
-          >
+          <.link navigate={~p"/settings/projects"} class="group nav-link">
             <i class="fa-solid fa-list mr-2"></i> Your Projects
           </.link>
 
-          <.link
-            navigate={Routes.live_path(@conn, AdoptopossWeb.SettingsLive)}
-            class="group nav-link"
-          >
+          <.link navigate={~p"/settings"} class="group nav-link">
             <i class="fa-solid fa-gear mr-2"></i> Settings
           </.link>
 
           <hr class="border-red-100 border mt-2 mb-1" />
 
-          <.link navigate={Routes.auth_path(@conn, :delete)} class="group nav-link">
+          <.link navigate={~p"/logout"} class="group nav-link">
             <i class="fa-solid fa-arrow-right-from-bracket mr-2"></i> Log out
           </.link>
         </div>

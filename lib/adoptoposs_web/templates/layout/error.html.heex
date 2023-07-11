@@ -6,11 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <%= render(AdoptopossWeb.SharedView, "meta_tags.html", assigns) %>
 
-    <link rel="stylesheet" href={Routes.static_path(@conn, "/assets/app.css")} />
+    <link rel="stylesheet" href={~p"/assets/app.css"} />
     <%= render(AdoptopossWeb.SharedView, "google_analytics.html") %>
 
     <%= csrf_meta_tag() %>
-    <script defer type="text/javascript" src={Routes.static_path(@conn, "/assets/app.js")}>
+    <script defer type="text/javascript" src={~p"/assets/app.js"}>
     </script>
   </head>
 
@@ -21,11 +21,7 @@
       <nav role="navigation">
         <div class="flex items-center shrink-0 mr-6">
           <a href="/" class="font-semibold text-xl tracking-tight">
-            <img
-              src={Routes.static_path(@conn, "/images/adoptoposs-logo.webp")}
-              alt="Adoptoposs"
-              class="h-10"
-            />
+            <img src={~p"/images/adoptoposs-logo.webp"} alt="Adoptoposs" class="h-10" />
           </a>
         </div>
 

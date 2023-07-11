@@ -29,7 +29,7 @@
     ) %>
 
     <p>
-      <.link navigate={Routes.live_path(AdoptopossWeb.Endpoint, AdoptopossWeb.SettingsLive)}>
+      <.link navigate={~p"/settings"}>
         Add your favorite languages
       </.link>
       in your settings.<br /> Related projects will appear here.
@@ -55,10 +55,7 @@
     </div>
 
     <div class="ml-2 mt-1 text-center">
-      <.link
-        navigate={Routes.live_path(AdoptopossWeb.Endpoint, AdoptopossWeb.SettingsLive)}
-        class="md:whitespace-nowrap"
-      >
+      <.link navigate={~p"/settings"} class="md:whitespace-nowrap">
         Edit Languages
       </.link>
     </div>
@@ -75,7 +72,7 @@
       </p>
       <p>
         Subscribe to
-        <.link navigate={Routes.live_path(@socket, AdoptopossWeb.SettingsLive)}>
+        <.link navigate={~p"/settings"}>
           email notifications
         </.link>
         and we’ll let you know if new ones come in.
@@ -94,9 +91,7 @@
     </div>
 
     <div class="text-center mt-6">
-      <.link navigate={
-        Routes.live_path(@socket, AdoptopossWeb.ExploreLive.Index, f: [@tag_filter])
-      }>
+      <.link navigate={~p"/explore/?#{[f: [@tag_filter]]}"}>
         Explore More…
       </.link>
     </div>

@@ -24,10 +24,6 @@ defmodule AdoptopossWeb.SharingView do
     project.data["owner"]["avatar_url"]
   end
 
-  def image(assigns) do
-    Routes.static_url(assigns.conn, "/images/adoptoposs-social.jpg")
-  end
-
   def url(assigns) do
     Plug.Conn.request_url(assigns.conn)
   end

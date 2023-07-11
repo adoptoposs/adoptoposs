@@ -1,14 +1,11 @@
 <div class="flex flex-row items-center">
-  <.link
-    navigate={Routes.live_path(@conn, AdoptopossWeb.ExploreLive.Index)}
-    class="flex items-center p-2 mr-4"
-  >
+  <.link navigate={~p"/explore"} class="flex items-center p-2 mr-4">
     <i class="fa-solid fa-magnifying-glass mr-2"></i>
     <span class="hidden sm:inline font-semibold">Explore</span>
   </.link>
 
   <div class="inline-block">
-    <.link navigate={Routes.auth_path(@conn, :request, "github")} class="button-link subtle">
+    <.link navigate={~p"/auth/github"} class="button-link subtle">
       <i class="fa-brands fa-github mr-1"></i> Log in with GitHub
     </.link>
   </div>

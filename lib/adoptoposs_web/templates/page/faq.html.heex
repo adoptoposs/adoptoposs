@@ -50,7 +50,7 @@
     <%= faq "How can I submit my repo?"  do %>
       <ul class="list-disc list-inner pl-4">
         <li>
-          You can submit a repo on your <.link navigate={Routes.repo_path(@conn, :index)}>repo page</.link>.
+          You can submit a repo on your <.link navigate={~p"/settings/repos"}>repo page</.link>.
         </li>
         <li>
           Select the GitHub organization of your repo at the top of the page.
@@ -67,10 +67,8 @@
 
     <%= faq "Where can I see my submitted repos?" do %>
       Your submitted repositories are listed on your
-      <.link navigate={Routes.live_path(@conn, AdoptopossWeb.ProjectLive)}>projects page</.link>
-      and visible for everyone on the <.link navigate={
-        Routes.live_path(@conn, AdoptopossWeb.ExploreLive.Index)
-      }>
+      <.link navigate={~p"/settings/projects"}>projects page</.link>
+      and visible for everyone on the <.link navigate={~p"/explore"}>
         public explore page
       </.link>.
     <% end %>
@@ -85,12 +83,12 @@
     <%= faq "How can I become a maintainer for a project on Adoptoposs?" do %>
       <p>
         Projects that are looking for maintainers are visible on the
-        <.link navigate={Routes.live_path(@conn, AdoptopossWeb.ExploreLive.Index)}>
+        <.link navigate={~p"/explore"}>
           explore page
         </.link>
         or your personal
         <%= if @current_user do %>
-          <.link navigate={Routes.live_path(@conn, AdoptopossWeb.LandingPageLive)}>
+          <.link navigate={~p"/"}>
             dashboard
           </.link>
         <% else %>
@@ -107,16 +105,14 @@
 
     <%= faq "How can I find interesting projects?" do %>
       <p>
-        You will find projects on our <.link navigate={
-          Routes.live_path(@conn, AdoptopossWeb.ExploreLive.Index)
-        }>explore page</.link>.
+        You will find projects on our <.link navigate={~p"/explore"}>explore page</.link>.
         You can search for project names, organizations, and parts of the maintainer’s description. You can filter all projects by selecting the languages you are interested in.
       </p>
 
       <p>
         If you added favorite programming languages you will see project recommendations on your personal
         <%= if @current_user do %>
-          <.link navigate={Routes.live_path(@conn, AdoptopossWeb.LandingPageLive)}>
+          <.link navigate={~p"/"}>
             dashboard
           </.link>
         <% else %>
@@ -124,8 +120,7 @@
         <% end %>.
       </p>
       <p>
-        You can also
-        <.link navigate={Routes.live_path(@conn, AdoptopossWeb.SettingsLive)}>subscribe</.link>
+        You can also <.link navigate={~p"/settings"}>subscribe</.link>
         to email notifications to receive project recommendations for your favourite languages.
       </p>
     <% end %>
@@ -150,9 +145,7 @@
 
     <%= faq "How can I subscribe to / unsubscribe from email notifications?" do %>
       <p>
-        You can edit your email notification settings on your <.link navigate={
-          Routes.live_path(@conn, AdoptopossWeb.SettingsLive)
-        }>
+        You can edit your email notification settings on your <.link navigate={~p"/settings"}>
           settings page
         </.link>.
       </p>
