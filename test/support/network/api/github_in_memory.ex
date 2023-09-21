@@ -32,7 +32,11 @@ defmodule Adoptoposs.Network.Api.GithubInMemory do
       name = Enum.at(languages, rem(10, Enum.count(languages)))
       language = build(:language, name: name)
 
-      build(:repository, id: to_string(id), name: "#{organization}-repo-#{id}", language: language)
+      build(:repository,
+        id: to_string(id),
+        name: "#{organization}-repo-#{id}",
+        language: language
+      )
     end)
   end
 end
