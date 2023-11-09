@@ -24,7 +24,7 @@ RUN apt-get update -y && apt-get install -y build-essential curl git inotify-too
   && apt-get clean && rm -f /var/lib/apt/lists/*_*
 
 # install nodejs
-ARG NODE_VERSION=18
+ARG NODE_VERSION=20
 RUN curl -sL https://deb.nodesource.com/setup_${NODE_VERSION}.x -o /tmp/nodesource_setup.sh \
   && bash ./tmp/nodesource_setup.sh \
   && apt-get install nodejs -y
