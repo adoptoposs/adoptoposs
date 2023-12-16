@@ -42,7 +42,22 @@ defmodule AdoptopossWeb.Email do
 
   def render_mjml(email, template, assigns \\ []) do
     result = render(email, template, assigns)
-    {:ok, html_body} = Mjml.to_html(Map.get(result, :html_body))
+
+    {:ok, html_body} =
+      result
+      |> Map.get(:html_body)
+      |> Mjml.to_html(mjml_options())
+
     Map.put(result, :html_body, html_body)
+  end
+
+  defp mjml_options do
+    [
+      keep_comments: false,
+      fonts: %{
+        "Source Sans Pro": "https://fonts.googleapis.com/css?family=Source+Sans+Pro",
+        Oswald: "https://fonts.googleapis.com/css?family=Oswald"
+      }
+    ]
   end
 end
