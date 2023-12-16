@@ -21,7 +21,7 @@ config :adoptoposs, AdoptopossWeb.Endpoint,
   server: false
 
 # Print only warnings and errors during test
-config :logger, level: :warn
+config :logger, level: :warning
 
 # External APIs
 config :adoptoposs, :github_api, Adoptoposs.Network.Api.GithubInMemory
