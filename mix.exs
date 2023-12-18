@@ -52,7 +52,7 @@ defmodule Adoptoposs.MixProject do
       # ---------------------------
       # additional packages:
       # ---------------------------
-      {:ueberauth, "0.10.3"},
+      {:ueberauth, "0.10.6"},
       {:ueberauth_github, "~> 0.8"},
       {:bodyguard, "~> 2.4"},
       {:httpoison, "~> 2.0"},
