@@ -46,18 +46,8 @@ defmodule AdoptopossWeb.Email do
     {:ok, html_body} =
       result
       |> Map.get(:html_body)
-      |> Mjml.to_html(mjml_options())
+      |> Mjml.to_html(keep_comments: false)
 
     Map.put(result, :html_body, html_body)
-  end
-
-  defp mjml_options do
-    [
-      keep_comments: false,
-      fonts: %{
-        "Source Sans Pro": "https://fonts.googleapis.com/css?family=Source+Sans+Pro",
-        Oswald: "https://fonts.googleapis.com/css?family=Oswald"
-      }
-    ]
   end
 end
