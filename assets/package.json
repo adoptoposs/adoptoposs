@@ -17,6 +17,6 @@
     "@fortawesome/fontawesome-free": "^6.5.1",
     "postcss": "^8.4.32",
     "tailwindcss": "^3.4.0",
-    "topbar": "^2.0.1"
+    "topbar": "^2.0.2"
   }
 }
