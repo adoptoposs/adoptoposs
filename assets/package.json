@@ -13,7 +13,7 @@
     "esbuild": "^0.20.0",
     "esbuild-sass-plugin": "^3.0.0",
     "autoprefixer": "^10.4.17",
-    "chokidar": "^3.5.3",
+    "chokidar": "^3.6.0",
     "@fortawesome/fontawesome-free": "^6.5.1",
     "postcss": "^8.4.33",
     "tailwindcss": "^3.4.1",
