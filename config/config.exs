@@ -46,6 +46,11 @@ config :ueberauth, Ueberauth,
     github: {Ueberauth.Strategy.Github, [default_scope: github_api_scopes]}
   ]
 
+# In order to be able to use OTP >=25,
+# else there's an issue with :pubkey_os_cacerts.get/0 when no
+# root certs are installed on the OS in production (by default :httpc is used).
+config :oauth2, adapter: Tesla.Adapter.Hackney
+
 # Error Monitoring
 config :honeybadger,
   filter: Honeybadger.Filter.Default,
