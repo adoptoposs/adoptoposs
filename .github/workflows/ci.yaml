@@ -22,7 +22,7 @@ jobs:
           deps
           _build
           !_build/*/lib/adoptoposs
-        key: ${{ runner.os }}-mix-${{ hashFiles(format('{0}{1}', github.workspace, '/mix.lock')) }}
+        key: ${{ runner.os }}-mix-${{ hashFiles(format('{0}{1}', github.workspace, '/mix.lock')) }}-${{ hashFiles(format('{0}{1}', github.workspace, '/Dockerfile.dev')) }}
 
     - name: Cache yarn
       id: yarn-cache
