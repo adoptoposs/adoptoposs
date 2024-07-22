@@ -16,7 +16,7 @@
     "chokidar": "^3.6.0",
     "@fortawesome/fontawesome-free": "^6.5.2",
     "postcss": "^8.4.39",
-    "tailwindcss": "^3.4.4",
+    "tailwindcss": "^3.4.6",
     "topbar": "^3.0.0"
   }
 }
