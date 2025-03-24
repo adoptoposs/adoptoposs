@@ -61,7 +61,7 @@ defmodule Adoptoposs.MixProject do
       {:yaml_elixir, "~> 2.6"},
       {:bamboo, "~> 2.2"},
       {:bamboo_phoenix, "~> 1.0"},
-      {:mjml, "~> 4.0"},
+      {:mjml, "~> 5.0"},
       {:navigation_history, "~> 0.4"},
       {:quantum, "~> 3.5.0"},
       {:honeybadger, "~> 0.19"},
