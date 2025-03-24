@@ -2,14 +2,14 @@
 <div class="md:hidden inline-block">
   <.link
     navigate={~p"/settings/repos/#{@current_user.username}"}
-    class="self-center text-md px-4 py-2 leading-none border border-red-300 rounded font-semibold"
+    class="self-center text-md px-4 py-2 leading-none border border-red-300 rounded-sm font-semibold"
   >
     <i class="fa-solid fa-plus mr-1.5"></i> Submit Repo
   </.link>
 </div>
 
 <details class="toggle close-on-link-clicked block md:hidden self-end">
-  <summary class="toggle-trigger flex items-center px-3 py-1 text-red-400 border border-red-300 rounded hover:text-gray-100 hover:bg-red-400 focus:text-white focus:bg-red-400">
+  <summary class="toggle-trigger flex items-center px-3 py-2 text-red-400 border border-red-300 rounded-sm hover:text-gray-100 hover:bg-red-400 focus:text-white focus:bg-red-400">
     <i class="fa-solid fa-bars text-lg"></i>
   </summary>
 
@@ -39,7 +39,7 @@
     <hr class="border-red-100 mt-4 mb-3" />
 
     <div class=" flex flex-row justify-between items-center">
-      <.link navigate={~p"/logout"} class="nav-link flex-grow mr-2">
+      <.link navigate={~p"/logout"} class="nav-link grow mr-2">
         <i class="fa-solid fa-arrow-right-from-bracket mr-2"></i> Log out
       </.link>
 
@@ -50,7 +50,7 @@
 
 <div
   id="menu"
-  class="hidden w-full text-md md:flex-grow justify-end md:flex md:flex-row md:items-end md:w-auto md:items-center mt-4 md:mt-0"
+  class="hidden w-full text-md md:grow justify-end md:flex md:flex-row md:items-end md:w-auto md:items-center mt-4 md:mt-0"
 >
   <div class="hidden md:inline-flex">
     <.link navigate={~p"/messages/interests"} class="flex items-center p-2 mr-4 font-semibold">
@@ -90,7 +90,7 @@
       </summary>
 
       <div class="relative">
-        <div class="toggle-content absolute right-0 left-auto py-2 mt-2 rounded border border-red-200 bg-gray-50 shadow-md w-max-content font-semibold">
+        <div class="toggle-content absolute right-0 left-auto py-2 mt-2 rounded-sm border border-red-200 bg-gray-50 shadow-md w-max-content font-semibold">
           <.link navigate={~p"/settings/projects"} class="group nav-link">
             <i class="fa-solid fa-list mr-2"></i> Your Projects
           </.link>
