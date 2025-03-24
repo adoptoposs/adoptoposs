@@ -3,7 +3,7 @@ const { watch } = require('chokidar');
 const { sassPlugin } = require('esbuild-sass-plugin');
 const postcss = require('postcss');
 const autoprefixer = require('autoprefixer');
-const tailwindcss = require('tailwindcss');
+const tailwindcss = require('@tailwindcss/postcss');
 
 const args = process.argv.slice(2);
 const watchChanges = args.includes('--watch');

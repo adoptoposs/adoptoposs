@@ -3,7 +3,7 @@
 
   <h2>Your Favorite Languages</h2>
 
-  <div class="mt-4 p-4 md:p-6 rounded bg-white border border-gray-200">
+  <div class="mt-4 p-4 md:p-6 rounded-sm bg-white border border-gray-200">
     <div class="md:grid md:grid-flow-col md:grid-cols-2 md:gap-8">
       <div class="flex flex-col flex-wrap">
         <p class="">
@@ -22,12 +22,9 @@
               <% tag = tag_subscription.tag %>
               <div
                 id={"tag-#{tag.id}"}
-                class="flex flex-row items-center bg-white border border-gray-300 font-semibold mr-2 mb-2 rounded hover:bg-red-400 hover:text-white hover:border-white"
+                class="flex flex-row items-center bg-white border border-gray-300 font-semibold mr-2 mb-2 rounded-sm hover:bg-red-400 hover:text-white hover:border-white"
               >
-                <div
-                  class="w-3 h-3 rounded rounded-full ml-3"
-                  style={"background-color: #{tag.color};"}
-                >
+                <div class="w-3 h-3 rounded-full ml-3" style={"background-color: #{tag.color};"}>
                 </div>
                 <div class="pl-2" title={tag.name}>
                   <span class=""><%= tag.name %></span>
@@ -52,7 +49,7 @@
             <% end %>
           </div>
         <% else %>
-          <div class="rounded mt-2 p-4 bg-gray-100">
+          <div class="rounded-sm mt-2 p-4 bg-gray-100">
             <p class="mb-0">
               You did not add any favorite languages yet.
             </p>
@@ -91,7 +88,7 @@
           <form class="inline-flex w-full" phx-submit="search_tags" phx-change="search_tags">
             <input
               type="text"
-              class="search flex-grow h-12 px-6"
+              class="search grow h-12 px-6"
               id="search"
               name="q"
               value={@query}
@@ -122,10 +119,10 @@
               <%= if result in Enum.map(@tag_subscriptions, &(&1.tag)) do %>
                 <div
                   id={"tag-result-#{result.id}"}
-                  class="flex flex-row flex-wrap items-center bg-gray-100 text-gray-400 border border-gray-300 font-semibold mr-2 mb-2 rounded cursor-default py-1"
+                  class="flex flex-row flex-wrap items-center bg-gray-100 text-gray-400 border border-gray-300 font-semibold mr-2 mb-2 rounded-sm cursor-default py-1"
                   title={result.name}
                 >
-                  <div class="w-3 h-3 rounded rounded-full ml-3 bg-gray-400"></div>
+                  <div class="w-3 h-3 rounded-full ml-3 bg-gray-400"></div>
 
                   <div class="ml-2"><%= result.name %></div>
 
@@ -135,7 +132,7 @@
                 </div>
               <% else %>
                 <div
-                  class="flex flex-row items-center bg-white border border-gray-300 font-semibold mr-2 mb-2 rounded hover:bg-red-400 hover:text-white hover:border-white cursor-pointer"
+                  class="flex flex-row items-center bg-white border border-gray-300 font-semibold mr-2 mb-2 rounded-sm hover:bg-red-400 hover:text-white hover:border-white cursor-pointer"
                   title={"Add #{result.name}"}
                 >
                   <form
@@ -152,7 +149,7 @@
 
                     <%= submit class: "plain flex flex-row items-center font-semibold text-md py-1 pl-0 pr-2 focus:bg-red-400 focus:text-white" do %>
                       <div
-                        class="w-3 h-3 rounded rounded-full ml-3"
+                        class="w-3 h-3 rounded-full ml-3"
                         style={"background-color: #{result.color};"}
                       >
                       </div>

@@ -8,7 +8,7 @@
     <i class="fa-solid fa-share-nodes text-lg"></i>
   </summary>
 
-  <div class="toggle-content absolute p-4 rounded border border-gray-300 bg-gray-50 shadow shadow-md">
+  <div class="toggle-content absolute p-4 rounded-sm border border-gray-300 bg-gray-50 shadow-md">
     <div class="font-semibold mb-2 text-red-400 leading-none">
       Share this project
     </div>
@@ -18,7 +18,7 @@
         type="text"
         readonly
         value={url(~p"/p/#{@project.uuid}")}
-        class="flex-grow px-2 py-1 rounded border border-gray-200"
+        class="grow px-2 py-1 rounded-sm border border-gray-200"
         data-copy-target
       />
 

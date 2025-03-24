@@ -1,7 +1,7 @@
 <section>
   <%= if live_flash(@flash, :error) do %>
     <p
-      class="text-red-400 text-center font-font-semibold p-4 rounded border border-red-300"
+      class="text-red-400 text-center font-font-semibold p-4 rounded-sm border border-red-300"
       role="alert"
     >
       <%= live_flash(@flash, :error) %>
@@ -10,7 +10,7 @@
 
   <%= if live_flash(@flash, :notice) do %>
     <p
-      class="text-gray-800 text-center font-font-semibold p-4 rounded border border-gray-600"
+      class="text-gray-800 text-center font-font-semibold p-4 rounded-sm border border-gray-600"
       role="alert"
     >
       <%= live_flash(@flash, :notice) %>

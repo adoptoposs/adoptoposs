@@ -34,13 +34,13 @@
 
     <%= unless @user_id do %>
       <div class="flex flex-row items-center my-6 md:my-8 mt-12 md:mt-16">
-        <hr class="flex-grow border-red-200" />
+        <hr class="grow border-red-200" />
         <div class="self-center">
           <.link navigate={~p"/auth/github"} class="button-link mx-3">
             <i class="fa-brands fa-github mr-1"></i> Log in with GitHub
           </.link>
         </div>
-        <hr class="flex-grow border-red-200" />
+        <hr class="grow border-red-200" />
       </div>
     <% end %>
   </section>

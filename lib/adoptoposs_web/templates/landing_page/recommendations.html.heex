@@ -37,7 +37,7 @@
   </div>
 <% else %>
   <div class="flex flex-row mt-4 md:mt-8 items-start">
-    <div class="flex flex-row flex-wrap flex-grow items-center">
+    <div class="flex flex-row flex-wrap grow items-center">
       <%= for tag_subscription <- @tag_subscriptions do %>
         <div
           phx-click="filter_recommendations"
@@ -48,7 +48,7 @@
             name: tag.name,
             color: tag.color,
             class:
-              "p-3 py-1 mr-2 mb-2 border rounded cursor-pointer hover:text-white hover:bg-red-400 hover:border-white #{if tag.id == @tag_filter, do: "text-white bg-red-400 border-white", else: "border-gray-300"}"
+              "p-3 py-1 mr-2 mb-2 border rounded-sm cursor-pointer hover:text-white hover:bg-red-400 hover:border-white #{if tag.id == @tag_filter, do: "text-white bg-red-400 border-white", else: "border-gray-300"}"
           ) %>
         </div>
       <% end %>

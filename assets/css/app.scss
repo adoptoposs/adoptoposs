@@ -5,9 +5,8 @@ $fa-font-path: "@fortawesome/fontawesome-free/webfonts/";
 @import "@fortawesome/fontawesome-free/scss/brands";
 @import "@fortawesome/fontawesome-free/scss/v4-shims";
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+@config "../tailwind.config.js";
 
 $font-family-primary: "Source Sans Pro";
 $font-family-secondary: "Oswald";
@@ -67,7 +66,7 @@ $font-family-secondary: "Oswald";
   }
 
   button, [type="submit"] {
-    @apply bg-white border border-red-400 rounded-sm py-2 px-4 my-2;
+    @apply bg-white border border-red-400 rounded-xs py-2 px-4 my-2;
     @apply text-red-300 text-sm uppercase tracking-wider font-semibold;
 
     &:focus, &:hover {
@@ -109,11 +108,15 @@ header {
 }
 
 nav {
-  @apply flex max-w-screen-xl mx-auto items-center flex-wrap pr-4 xs:px-6 py-4;
+  @apply flex max-w-screen-xl mx-auto items-center flex-wrap pr-4 py-4;
+
+  @screen sm {
+    @apply px-6;
+  }
 }
 
 main {
-  @apply flex-grow;
+  @apply grow;
 }
 
 section {
@@ -149,7 +152,7 @@ button.plain {
 }
 
 input[type="reset"] {
-  @apply rounded-sm py-2 px-4 my-2;
+  @apply rounded-xs py-2 px-4 my-2;
   @apply bg-white border border-gray-400 text-gray-400 text-sm uppercase tracking-wider font-semibold;
   @apply cursor-pointer;
 
@@ -158,8 +161,8 @@ input[type="reset"] {
   }
 }
 
-input[type="text"].search,  {
-  @apply outline-none;
+input[type="text"].search {
+  @apply outline-hidden;
   @apply border border-red-400 rounded-full text-red-600;
 
   &:focus {
@@ -171,7 +174,7 @@ nav .nav-link {
   @apply block p-2 mb-1;
 
   &:hover, &:focus {
-    @apply bg-gray-100 rounded text-gray-900;
+    @apply bg-gray-100 rounded-sm text-gray-900;
   }
 
   @screen md {
@@ -183,32 +186,9 @@ nav .nav-link {
   }
 }
 
-.icon-button {
-  @apply inline-flex items-center justify-center;
-  @apply cursor-pointer p-2 rounded rounded-full;
-  @apply text-white bg-red-300;
-
-  &.hidden {
-    display: none;
-  }
-
-  svg {
-    @apply h-6 w-6 fill-current;
-  }
-
-  &:focus, &:hover {
-    @apply bg-red-400;
-  }
-}
-
-.icon-button.disabled {
-  @apply text-gray-300 bg-transparent;
-  @apply cursor-default py-2 px-0;
-}
-
 a, button, input[type="button"] {
   &.button-link {
-    @apply rounded px-4 py-2;
+    @apply rounded-sm px-4 py-2;
     @apply normal-case text-base font-semibold leading-tight tracking-normal;
     @apply bg-white border-2 border-red-200 text-red-600;
 
@@ -266,6 +246,29 @@ a, button, input[type="button"] {
       margin: 0 0 0 -2.25em;
     }
   }
+}
+
+.icon-button {
+  @apply inline-flex items-center justify-center;
+  @apply cursor-pointer p-2 rounded-full;
+  @apply text-white bg-red-300;
+
+  &.hidden {
+    display: none;
+  }
+
+  svg {
+    @apply h-6 w-6 fill-current;
+  }
+
+  &:focus, &:hover {
+    @apply bg-red-400;
+  }
+}
+
+.icon-button.disabled {
+  @apply text-gray-300 bg-transparent;
+  @apply cursor-default py-2 px-0;
 }
 
 .card-item {

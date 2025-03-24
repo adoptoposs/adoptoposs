@@ -35,7 +35,7 @@ defmodule AdoptopossWeb.ExploreLive.Components do
 
       <div class="relative">
         <!-- Subscribed languages filters -->
-        <div class="bg-gray-200 rounded px-4 py-2 mt-4 font-bold">
+        <div class="bg-gray-200 rounded-sm px-4 py-2 mt-4 font-bold">
           Your favorite languages
           <%= if @user_id do %>
             <span class="float-right">
@@ -59,7 +59,7 @@ defmodule AdoptopossWeb.ExploreLive.Components do
           />
         </div>
 
-        <div class="bg-gray-200 rounded px-4 py-2 font-bold">
+        <div class="bg-gray-200 rounded-sm px-4 py-2 font-bold">
           Top 10 languages
         </div>
 
@@ -74,7 +74,7 @@ defmodule AdoptopossWeb.ExploreLive.Components do
           />
         </div>
 
-        <div class="bg-gray-200 rounded px-4 py-2 font-bold">
+        <div class="bg-gray-200 rounded-sm px-4 py-2 font-bold">
           Search to add language
         </div>
 
@@ -121,7 +121,7 @@ defmodule AdoptopossWeb.ExploreLive.Components do
         <i class="fa-solid fa-filter mr-1 text-base"></i> Project Filters
       </h3>
       <!-- Subscribed languages filters -->
-      <p class="mt-6 px-4 py-2 bg-gray-200 font-bold rounded">
+      <p class="mt-6 px-4 py-2 bg-gray-200 font-bold rounded-sm">
         Your favorite languages
         <%= if @user_id do %>
           <span class="float-right">
@@ -143,7 +143,7 @@ defmodule AdoptopossWeb.ExploreLive.Components do
         phx_target={@id}
       />
       <!-- Top 10 language filters -->
-      <p class="mt-6 px-4 py-2 bg-gray-200 font-bold rounded">
+      <p class="mt-6 px-4 py-2 bg-gray-200 font-bold rounded-sm">
         Top 10 languages
       </p>
 
@@ -156,7 +156,7 @@ defmodule AdoptopossWeb.ExploreLive.Components do
         phx_target={@id}
       />
       <!-- Searchable filters -->
-      <p class="mt-6 px-4 py-2 bg-gray-200 font-bold rounded">
+      <p class="mt-6 px-4 py-2 bg-gray-200 font-bold rounded-sm">
         Search to add language
       </p>
 
@@ -203,7 +203,7 @@ defmodule AdoptopossWeb.ExploreLive.Components do
                   color: tag.color,
                   title: AdoptopossWeb.SharedView.count("project", count: project_count),
                   class:
-                    "p-3 py-1 border rounded cursor-pointer #{if to_string(tag.id) in @filters, do: "text-white bg-red-400 border-white hover:text-white hover:bg-red-400 hover:border-white", else: "border-gray-300 hover:bg-gray-200"}"
+                    "p-3 py-1 border rounded-sm cursor-pointer #{if to_string(tag.id) in @filters, do: "text-white bg-red-400 border-white hover:text-white hover:bg-red-400 hover:border-white", else: "border-gray-300 hover:bg-gray-200"}"
                 ) %>
               </button>
             <% else %>
@@ -212,7 +212,7 @@ defmodule AdoptopossWeb.ExploreLive.Components do
                 color: Adoptoposs.Tags.Tag.Utility.unknown().color,
                 title: AdoptopossWeb.SharedView.count("project", count: project_count),
                 class:
-                  "p-3 py-1 border rounded cursor-default bg-gray-100 text-gray-400 border-gray-300"
+                  "p-3 py-1 border rounded-sm cursor-default bg-gray-100 text-gray-400 border-gray-300"
               ) %>
             <% end %>
           </div>
@@ -286,7 +286,7 @@ defmodule AdoptopossWeb.ExploreLive.Components do
             color: tag.color,
             title: AdoptopossWeb.SharedView.count("project", count: project_count),
             class:
-              "p-3 py-1 border rounded cursor-pointer #{if to_string(tag.id) in @filters, do: "text-white bg-red-400 border-white hover:text-white hover:bg-red-400 hover:border-white", else: "border-gray-300 hover:bg-gray-200"}"
+              "p-3 py-1 border rounded-sm cursor-pointer #{if to_string(tag.id) in @filters, do: "text-white bg-red-400 border-white hover:text-white hover:bg-red-400 hover:border-white", else: "border-gray-300 hover:bg-gray-200"}"
           ) %>
         </button>
       </div>
@@ -323,7 +323,7 @@ defmodule AdoptopossWeb.ExploreLive.Components do
                 removeable: true,
                 title: AdoptopossWeb.SharedView.count("project", count: project_count),
                 class:
-                  "p-3 py-1 border rounded cursor-pointer text-white bg-red-400 border-white hover:text-white hover:bg-red-400 hover:border-white"
+                  "p-3 py-1 border rounded-sm cursor-pointer text-white bg-red-400 border-white hover:text-white hover:bg-red-400 hover:border-white"
               ) %>
             </button>
           </div>
@@ -340,7 +340,7 @@ defmodule AdoptopossWeb.ExploreLive.Components do
         >
           <input
             type="text"
-            class="search flex-grow border h-12 pl-6 pr-10"
+            class="search grow border h-12 pl-6 pr-10"
             id={"#{@id}-tag_search"}
             name="q"
             value={@query}
@@ -381,7 +381,8 @@ defmodule AdoptopossWeb.ExploreLive.Components do
                     name: tag.name,
                     color: tag.color,
                     title: AdoptopossWeb.SharedView.count("project", count: project_count),
-                    class: "p-3 py-1 border rounded cursor-pointer border-gray-300 hover:bg-gray-200"
+                    class:
+                      "p-3 py-1 border rounded-sm cursor-pointer border-gray-300 hover:bg-gray-200"
                   ) %>
                 </button>
               <% else %>
@@ -390,7 +391,7 @@ defmodule AdoptopossWeb.ExploreLive.Components do
                   title: AdoptopossWeb.SharedView.count("project", count: project_count),
                   color: Adoptoposs.Tags.Tag.Utility.unknown().color,
                   class:
-                    "p-3 py-1 border rounded cursor-default bg-gray-100 text-gray-400 border-gray-300"
+                    "p-3 py-1 border rounded-sm cursor-default bg-gray-100 text-gray-400 border-gray-300"
                 ) %>
               <% end %>
             </div>

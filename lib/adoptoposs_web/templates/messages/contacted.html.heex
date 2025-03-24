@@ -6,12 +6,12 @@
   <div class="flex md:hidden flex-col pb-4 bg-gray-50 sticky top-0">
     <.link
       navigate={~p"/messages/interests"}
-      class="flex items-center w-full font-semibold cursor-default pl-6 pt-3 pb-2 rounded cursor-pointer focus:bg-gray-200 text-gray-600 hover:text-gray-700 focus:text-gray-700"
+      class="flex items-center w-full font-semibold cursor-default pl-6 pt-3 pb-2 rounded-sm cursor-pointer focus:bg-gray-200 text-gray-600 hover:text-gray-700 focus:text-gray-700"
     >
       Interests in your Projects
     </.link>
 
-    <div class="flex items-center w-full font-semibold cursor-default pl-1 pt-1 pb-2 rounded bg-gray-50 text-red-600">
+    <div class="flex items-center w-full font-semibold cursor-default pl-1 pt-1 pb-2 rounded-sm bg-gray-50 text-red-600">
       <i class="fa-solid fa-chevron-down mr-2 text-sm"></i>
       <div class="w-full">Contacted Maintainers</div>
     </div>
@@ -36,7 +36,7 @@
           <%= for interest <- @interests do %>
             <li
               id={"interest-#{interest.id}"}
-              class="card-item shadow hover:shadow-md rounded border border-gray-300"
+              class="card-item shadow-sm hover:shadow-md rounded-sm border border-gray-300"
             >
               <div class="flex md:flex-row flex-col justify-between w-full">
                 <div class="flex flex-col flex-1 items-start p-4 md:p-6 bg-white overflow-auto rounded-tl rounded-tr md:rounded-bl md:rounded-tr-none">
@@ -45,7 +45,7 @@
                   ) %>
                 </div>
 
-                <div class="flex flex-col flex-1 flex-grow px-4 md:px-6 pt-4 md:pt-6 md:pb-2 bg-gray-100 rounded-br rounded-bl md:rounded-tr md:rounded-bl-none">
+                <div class="flex flex-col flex-1 grow px-4 md:px-6 pt-4 md:pt-6 md:pb-2 bg-gray-100 rounded-br rounded-bl md:rounded-tr md:rounded-bl-none">
                   <div class="flex flex-row justify-between flex-wrap">
                     <div class="text-gray-600 font-semibold">
                       <span>You contacted</span>
@@ -63,7 +63,7 @@
 
                   <div class="flex flex-row items-center mt-3 md:mt-4">
                     <%= img_tag(interest.creator.avatar_url,
-                      class: "self-start h-8 w-8 rounded rounded-full"
+                      class: "self-start h-8 w-8 rounded-full"
                     ) %>
 
                     <div
@@ -79,15 +79,15 @@
       <% end %>
     </div>
 
-    <div class="hidden md:flex md:flex-col w-1/4 ml-8 border rounded border-gray-300">
+    <div class="hidden md:flex md:flex-col w-1/4 ml-8 border rounded-sm border-gray-300">
       <.link
         navigate={~p"/messages/interests"}
-        class="flex items-center w-full pl-10 font-semibold cursor-default p-3 rounded cursor-pointer bg-white hover:bg-gray-100 focus:bg-gray-200 text-gray-600 hover:text-gray-700 focus:text-gray-700"
+        class="flex items-center w-full pl-10 font-semibold cursor-default p-3 rounded-sm cursor-pointer bg-white hover:bg-gray-100 focus:bg-gray-200 text-gray-600 hover:text-gray-700 focus:text-gray-700"
       >
         Interests in your Projects
       </.link>
 
-      <div class="flex items-center w-full font-semibold cursor-default px-4 p-3 rounded bg-white text-red-600">
+      <div class="flex items-center w-full font-semibold cursor-default px-4 p-3 rounded-sm bg-white text-red-600">
         <i class="fa-solid fa-chevron-left mr-4 text-sm"></i>
         <div class="w-full">
           Contacted Maintainers

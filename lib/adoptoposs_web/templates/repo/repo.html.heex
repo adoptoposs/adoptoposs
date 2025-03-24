@@ -1,6 +1,6 @@
 <div
   id={@id}
-  class={"flex flex-wrap w-full mb-4 border border-gray-300 #{if @submitted, do: "border-gray-300", else: "shadow hover:shadow-md"} rounded"}
+  class={"flex flex-wrap w-full mb-4 border border-gray-300 #{if @submitted, do: "border-gray-300", else: "shadow-sm hover:shadow-md"} rounded"}
 >
   <div class="flex flex-col md:flex-row justify-between w-full">
     <div class={"flex flex-col md:flex-1 items-start p-4 md:p-6 rounded-tl rounded-tr md:rounded-bl md:rounded-tr-none overflow-auto #{if @submitted, do: "bg-gray-50", else: "bg-white"}"}>
@@ -18,7 +18,7 @@
             Your Projects
           </.link>
         </span>
-        <span class="flex items-center justify-center h-12 w-12 md:h-16 md:w-16 my-4 md:mb-2 md:mt-0 rounded rounded-full border text-center text-green-700 bg-green-200">
+        <span class="flex items-center justify-center h-12 w-12 md:h-16 md:w-16 my-4 md:mb-2 md:mt-0 rounded-full text-center text-green-700 bg-green-200">
           <i class="fa-solid fa-check"></i>
         </span>
       <% else %>
@@ -28,7 +28,7 @@
             phx_click: "attempt_submit",
             phx_target: "##{@id}",
             class:
-              "h-12 w-12 md:h-16 md:w-16 mb-4 mt-2 md:mb-2 md:mt-0 rounded rounded-full font-light m-0 leading-none text-red-400",
+              "h-12 w-12 md:h-16 md:w-16 mb-4 mt-2 md:mb-2 md:mt-0 rounded-full font-light m-0 leading-none text-red-400 hover:text-white focus:text-white",
             title: "Submit Repo"
           ) do %>
             <i class="fa-solid fa-plus"></i>

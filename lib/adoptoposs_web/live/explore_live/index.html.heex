@@ -2,12 +2,12 @@
   <h1>Explore Projects</h1>
 
   <div class="flex flex-row items-start">
-    <div class="w-full md:w-2/3">
+    <div class="w-full sm:w-2/3">
       <div class="flex items-center">
         <form class="inline-flex w-full" phx-submit="search" phx-change="search">
           <input
             type="text"
-            class="search flex-grow h-16 pl-8 pr-12 my-2 max-w-full"
+            class="search grow h-16 pl-8 pr-12 my-2 max-w-full"
             id="search"
             name="q"
             value={@query}
@@ -34,7 +34,7 @@
             <%= AdoptopossWeb.SharedView.count("filter", count: Enum.count(@filters)) %> applied
           </div>
 
-          <div class="border-b-2 mb-2 pb-4 md:pb-0 md:mb-0 md:border-none md:inline-block">
+          <div class="border-b-2 border-gray-200 mb-2 pb-4 md:pb-0 md:mb-0 md:border-none md:inline-block">
             <div class="block w-full md:hidden">
               <.live_component
                 module={AdoptopossWeb.ProjectFiltersComponent}
@@ -63,7 +63,7 @@
       </div>
 
       <%= if @query && @page == 1 && @total_count == 0 && Enum.empty?(@projects) do %>
-        <div class="flex items-center justify-center text-center p-4 h-32 md:h-48 min-h-full bg-white rounded border border-gray-200">
+        <div class="flex items-center justify-center text-center p-4 h-32 md:h-48 min-h-full bg-white rounded-sm border border-gray-200">
           <span class="text-pink-900 md:text-lg font-medium">
             Sorry, no projects found for
             <span class="text-red-400 break-all">"<%= @query %>"</span>

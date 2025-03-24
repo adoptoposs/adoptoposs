@@ -6,7 +6,7 @@
       <p class="text-lg md:text-2xl text-gray-500 text-center">
         Great.<br /> Looks like you’re happy with the maintenance of your Repos.
       </p>
-      <div class="flex flex-col w-full p-8 mt-6 justify-center items-center bg-white rounded border border-gray-200 text-gray-500 md:text-lg text-center">
+      <div class="flex flex-col w-full p-8 mt-6 justify-center items-center bg-white rounded-sm border border-gray-200 text-gray-500 md:text-lg text-center">
         <p>
           Looking for a maintainer?
         </p>
@@ -22,7 +22,7 @@
     <%= for project <- @projects do %>
       <li
         id={"project-#{project.id}"}
-        class="card-item flex flex-wrap w-full shadow hover:shadow-md mb-4 border border-gray-300 rounded"
+        class="card-item flex flex-wrap w-full shadow-sm hover:shadow-md mb-4 border border-gray-300 rounded"
       >
         <div class="flex flex-col md:flex-row md:justify-between w-full">
           <div class="flex flex-col flex-1 items-start justify-between px-4 md:px-6 pt-4 pb-2 md:pt-6 md:pb-4 bg-white rounded-tl rounded-tr md:rounded-bl md:rounded-tr-none">
