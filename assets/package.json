@@ -14,7 +14,7 @@
     "@tailwindcss/postcss": "^4.1.4",
     "autoprefixer": "^10.4.21",
     "chokidar": "^4.0.3",
-    "esbuild": "^0.25.2",
+    "esbuild": "^0.25.3",
     "esbuild-sass-plugin": "^3.0.0",
     "postcss": "^8.5.3",
     "tailwindcss": "^4.1.4",
