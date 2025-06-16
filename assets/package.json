@@ -16,7 +16,7 @@
     "chokidar": "^4.0.3",
     "esbuild": "^0.25.4",
     "esbuild-sass-plugin": "^3.0.0",
-    "postcss": "^8.5.3",
+    "postcss": "^8.5.5",
     "tailwindcss": "^4.1.7",
     "topbar": "^3.0.0"
   }
