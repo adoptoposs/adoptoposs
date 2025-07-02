@@ -20,5 +20,5 @@ defmodule AdoptopossWeb.Gettext do
 
   See the [Gettext Docs](https://hexdocs.pm/gettext) for detailed usage.
   """
-  use Gettext, otp_app: :adoptoposs
+  use Gettext.Backend, otp_app: :adoptoposs
 end
