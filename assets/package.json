@@ -17,7 +17,7 @@
     "esbuild": "^0.25.8",
     "esbuild-sass-plugin": "^3.0.0",
     "postcss": "^8.5.6",
-    "tailwindcss": "^4.1.7",
+    "tailwindcss": "^4.1.14",
     "topbar": "^3.0.0"
   }
 }
