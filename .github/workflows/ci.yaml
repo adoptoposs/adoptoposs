@@ -50,14 +50,6 @@ jobs:
     - name: Run tests
       run: make test
 
-  staging:
-    needs: test
-    if: (github.ref == 'refs/heads/develop') || (github.ref == 'refs/heads/testing')
-    uses: ./.github/workflows/cd-staging.yaml
-    secrets:
-      FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
-      HONEYBADGER_API_KEY: ${{ secrets.HONEYBADGER_API_KEY }}
-
   production:
     needs: test
     if: github.ref == 'refs/heads/main'
