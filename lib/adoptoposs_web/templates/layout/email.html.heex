@@ -52,6 +52,10 @@
       border-radius: 0.25rem !important;
       box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
       }
+
+      .notice {
+      background-color: #ffd6a7 !important;
+      }
     </mj-style>
   </mj-head>
   <mj-body>
@@ -60,6 +64,18 @@
       <!-- logo -->
       <mj-column>
         <mj-image width="384px" src={email_header_image(assigns[:layout_type])} />
+      </mj-column>
+    </mj-section>
+    <mj-section>
+      <mj-column>
+        <mj-text css-class="notice" color="#702459">
+          <b>Adoptoposs is going to be discontinued and will be closed down on February 1, 2026</b>.
+          <br />
+          All your data on this platform will be deleted and will not be accessible anymore after that date.
+          <br /> Thank you for being part of the journey by using this platform and
+          for your efforts to make the maintenance of open source software more
+          resilient. ❤
+        </mj-text>
       </mj-column>
     </mj-section>
     <!-- content -->
