@@ -2,6 +2,8 @@
 
 [![Build Status](https://github.com/adoptoposs/adoptoposs/workflows/CI/badge.svg)](https://github.com/adoptoposs/adoptoposs/workflows/Elixir%20CI/badge.svg)
 
+> ⚠ As of February 1, 2026 this repository is archived and development of the Adoptoposs platform is discontinued. (See [#580](https://github.com/adoptoposs/adoptoposs/issues/580) for more details.)
+
 Finding co-maintainers for your open source software project.
 Visit [https://adoptoposs.org](https://adoptoposs.org).
 
